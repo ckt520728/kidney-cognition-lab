@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="朱國大 醫師 — 腎臟科暨認知神經科學專科醫師，服務於陽明醫院腎臟及腦神經科學研究室">
+<title>朱國大 醫師 | 腎臟科 · 認知神經科學</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ===== CSS CUSTOM PROPERTIES ===== */
+:root {
+  --bg-primary:    #0a0f1e;
+  --bg-secondary:  #0d1533;
+  --bg-card:       #111d3c;
+  --bg-card2:      #162248;
+  --bg-glass:      rgba(17,29,60,0.85);
+  --teal:          #4dd9cf;
+  --teal-dim:      #2a9d8f;
+  --teal-light:    #7ee8e2;
+  --purple:        #8b5cf6;
+  --purple-light:  #a78bfa;
+  --gold:          #f4a261;
+  --gold-dim:      #e07b3a;
+  --text:          #e8f4f8;
+  --text-sec:      #8ba8c4;
+  --text-dim:      #4a6580;
+  --border:        rgba(77,217,207,0.15);
+  --shadow:        0 8px 32px rgba(0,0,0,0.45);
+  --radius:        12px;
+  --radius-sm:     6px;
+  --tr:            0.3s cubic-bezier(0.4,0,0.2,1);
+  --g1: #22c55e; --g2: #a3e635; --g3a: #facc15;
+  --g3b: #f97316; --g4: #ef4444; --g5: #991b1b;
+}
+
+/* ===== RESET & BASE ===== */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Noto Sans TC','Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text);
+  line-height:1.75;
+  overflow-x:hidden;
+}
+a { color:inherit; text-decoration:none; }
+img,svg { max-width:100%; display:block; }
+button { cursor:pointer; border:none; background:none; font:inherit; }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:var(--bg-primary); }
+::-webkit-scrollbar-thumb { background:var(--teal-dim); border-radius:3px; }
+
+/* ===== LAYOUT UTILITIES ===== */
+.container { max-width:1140px; margin:0 auto; padding:0 24px; }
+.section-pad { padding:100px 0; }
+.section-title {
+  font-size:clamp(1.8rem,3.5vw,2.6rem);
+  font-weight:700;
+  text-align:center;
+  margin-bottom:16px;
+  letter-spacing:-0.5px;
+}
+.section-title span { color:var(--teal); }
+.section-sub {
+  text-align:center;
+  color:var(--text-sec);
+  font-size:1rem;
+  max-width:640px;
+  margin:0 auto 60px;
+}
+.section-line {
+  width:60px; height:3px;
+  background:linear-gradient(90deg,var(--teal),var(--teal-dim));
+  border-radius:2px;
+  margin:12px auto 20px;
+}
+.card {
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:28px;
+  box-shadow:var(--shadow);
+}
+.btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 28px;
+  border-radius:var(--radius-sm);
+  font-weight:600; font-size:0.95rem;
+  transition:var(--tr);
+}
+.btn-primary {
+  background:var(--teal); color:var(--bg-primary);
+}
+.btn-primary:hover { background:var(--teal-light); transform:translateY(-2px); }
+.btn-outline {
+  border:2px solid var(--teal); color:var(--teal);
+}
+.btn-outline:hover { background:rgba(77,217,207,0.1); transform:translateY(-2px); }
+.btn-gold {
+  background:var(--gold); color:var(--bg-primary);
+}
+.btn-gold:hover { background:#e07b3a; transform:translateY(-2px); }
+.tag {
+  display:inline-block;
+  padding:4px 12px;
+  border-radius:20px;
+  font-size:0.8rem;
+  font-weight:500;
+  background:rgba(77,217,207,0.12);
+  color:var(--teal);
+  border:1px solid rgba(77,217,207,0.25);
+  margin:3px;
+}
+
+/* ===== NAVIGATION ===== */
+#navbar {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  padding:16px 0;
+  transition:background 0.4s, backdrop-filter 0.4s, box-shadow 0.4s;
+}
+#navbar.scrolled {
+  background:rgba(10,15,30,0.92);
+  backdrop-filter:blur(14px);
+  box-shadow:0 2px 20px rgba(0,0,0,0.4);
+  padding:10px 0;
+}
+.nav-inner {
+  display:flex; align-items:center; justify-content:space-between;
+  max-width:1140px; margin:0 auto; padding:0 24px;
+}
+.nav-logo {
+  font-family:'JetBrains Mono',monospace;
+  font-size:1.1rem; font-weight:500; color:var(--teal);
+  letter-spacing:1px;
+}
+.nav-links {
+  display:flex; align-items:center; gap:8px; list-style:none;
+}
+.nav-links a {
+  padding:7px 14px; border-radius:var(--radius-sm);
+  font-size:0.9rem; font-weight:500; color:var(--text-sec);
+  transition:var(--tr);
+}
+.nav-links a:hover,
+.nav-links a.active { color:var(--teal); background:rgba(77,217,207,0.08); }
+.hamburger {
+  display:none; flex-direction:column; gap:5px;
+  padding:6px; background:none; border:none;
+}
+.hamburger span {
+  display:block; width:24px; height:2px;
+  background:var(--text); border-radius:2px;
+  transition:var(--tr);
+}
+.hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity:0; }
+.hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+.mobile-menu {
+  display:none; position:fixed; top:0; left:0; right:0; bottom:0;
+  background:rgba(10,15,30,0.97); z-index:999;
+  flex-direction:column; align-items:center; justify-content:center; gap:28px;
+}
+.mobile-menu.open { display:flex; }
+.mobile-menu a { font-size:1.4rem; color:var(--text); transition:var(--tr); }
+.mobile-menu a:hover { color:var(--teal); }
+
+/* ===== HERO ===== */
+#hero {
+  min-height:100vh; position:relative;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+  background:linear-gradient(135deg,var(--bg-primary) 0%,#0d1b38 50%,#091428 100%);
+}
+.hero-bg {
+  position:absolute; inset:0; overflow:hidden; z-index:0;
+}
+.hero-bg::before {
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 30%, rgba(77,217,207,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 70%, rgba(139,92,246,0.07) 0%, transparent 70%);
+  animation:bgShift 12s ease-in-out infinite alternate;
+}
+.float-shape {
+  position:absolute; border-radius:50%;
+  border:1px solid rgba(77,217,207,0.12);
+  animation:floatShape linear infinite;
+}
+.hero-content {
+  position:relative; z-index:1;
+  text-align:center; padding:40px 24px;
+  max-width:860px;
+}
+.hero-pretitle {
+  font-size:0.9rem; letter-spacing:4px; text-transform:uppercase;
+  color:var(--teal); font-weight:500; margin-bottom:16px;
+}
+.hero-name {
+  font-size:clamp(2.8rem,7vw,5.5rem);
+  font-weight:700; line-height:1.1;
+  margin-bottom:20px;
+  background:linear-gradient(135deg,var(--text) 0%,var(--teal-light) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-typewriter {
+  font-size:clamp(1rem,2.5vw,1.4rem);
+  color:var(--text-sec); margin-bottom:16px;
+  min-height:2.2em;
+  font-family:'Inter',sans-serif;
+}
+.cursor { color:var(--teal); animation:blink 0.8s step-end infinite; }
+.hero-tagline {
+  font-size:1.05rem; color:var(--text-dim);
+  margin-bottom:40px; font-style:italic;
+}
+.hero-cta { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+.scroll-indicator {
+  position:absolute; bottom:32px; left:50%; transform:translateX(-50%);
+  color:var(--teal); opacity:0.6; font-size:1.4rem;
+  animation:bounce 2s ease-in-out infinite;
+  z-index:1;
+}
+
+/* ===== ABOUT ===== */
+#about { background:var(--bg-secondary); }
+.about-grid {
+  display:grid; grid-template-columns:1fr 1.4fr; gap:48px;
+  align-items:start; margin-bottom:60px;
+}
+.photo-wrap {
+  width:220px; height:220px; margin:0 auto 28px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--teal-dim),var(--purple));
+  padding:4px;
+}
+.photo-inner {
+  width:100%; height:100%; border-radius:50%;
+  background:var(--bg-card);
+  display:flex; align-items:center; justify-content:center;
+  font-size:5rem; color:var(--teal);
+}
+.about-bio { color:var(--text-sec); line-height:1.9; }
+.cred-card {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:20px 24px; margin-bottom:16px;
+}
+.cred-card h4 {
+  font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;
+  color:var(--teal); margin-bottom:12px;
+}
+.cred-item {
+  display:flex; align-items:flex-start; gap:10px;
+  font-size:0.92rem; color:var(--text-sec); margin-bottom:8px;
+}
+.cred-item i { color:var(--teal); width:16px; flex-shrink:0; margin-top:3px; }
+.tags-wrap { display:flex; flex-wrap:wrap; gap:4px; }
+.stats-row {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
+}
+.stat-card {
+  text-align:center; padding:24px 16px;
+  background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius);
+}
+.stat-number {
+  font-family:'JetBrains Mono',monospace;
+  font-size:2.4rem; font-weight:700; color:var(--teal);
+  line-height:1;
+}
+.stat-label { font-size:0.8rem; color:var(--text-dim); margin-top:6px; }
+
+/* ===== SHARED SECTION ACCENT ===== */
+.nephro-accent { --accent:var(--teal); --accent-dim:var(--teal-dim); }
+.neuro-accent  { --accent:var(--purple); --accent-dim:var(--purple-light); }
+.kidney-brain-accent { --accent:var(--gold); --accent-dim:var(--gold-dim); }
+
+/* ===== NEPHROLOGY ===== */
+#nephrology { background:var(--bg-primary); }
+.gfr-card {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:32px; margin-bottom:28px;
+}
+.sex-toggle {
+  display:flex; gap:0; border-radius:var(--radius-sm);
+  overflow:hidden; width:fit-content; margin-bottom:24px;
+  border:1px solid var(--border);
+}
+.sex-btn {
+  padding:9px 28px; font-size:0.9rem; font-weight:500;
+  background:transparent; color:var(--text-sec);
+  transition:var(--tr); border:none; cursor:pointer;
+}
+.sex-btn.active { background:var(--teal); color:var(--bg-primary); }
+.slider-group { margin-bottom:20px; }
+.slider-label {
+  display:flex; justify-content:space-between;
+  font-size:0.88rem; color:var(--text-sec); margin-bottom:8px;
+}
+.slider-label strong { color:var(--teal); font-family:'JetBrains Mono',monospace; }
+input[type=range] {
+  -webkit-appearance:none; appearance:none;
+  width:100%; height:6px; border-radius:3px;
+  background:var(--bg-secondary); outline:none; cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance:none; appearance:none;
+  width:18px; height:18px; border-radius:50%;
+  background:var(--teal); box-shadow:0 0 8px rgba(77,217,207,0.5);
+  transition:transform 0.2s;
+}
+input[type=range]::-webkit-slider-thumb:hover { transform:scale(1.2); }
+.gfr-output {
+  display:flex; align-items:center; gap:24px;
+  margin-top:28px; padding:20px 24px;
+  background:var(--bg-secondary); border-radius:var(--radius);
+  border:1px solid var(--border);
+}
+.gfr-number {
+  font-family:'JetBrains Mono',monospace;
+  font-size:3rem; font-weight:700; color:var(--teal);
+  line-height:1; min-width:100px;
+}
+.gfr-unit { font-size:0.75rem; color:var(--text-dim); }
+.stage-badge {
+  padding:8px 18px; border-radius:20px; font-weight:700;
+  font-size:0.9rem; transition:background 0.5s,color 0.5s;
+}
+.stage-desc { font-size:0.88rem; color:var(--text-sec); }
+.chart-card {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:28px; margin-bottom:28px;
+}
+.chart-card h3 {
+  font-size:1.1rem; margin-bottom:6px; color:var(--text);
+}
+.chart-card p { font-size:0.85rem; color:var(--text-sec); margin-bottom:20px; }
+.nephro-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:28px; align-items:start; }
+.kidney-svg-wrap {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:28px;
+}
+.kidney-svg-wrap h3 { font-size:1.1rem; margin-bottom:6px; }
+.kidney-svg-wrap p  { font-size:0.85rem; color:var(--text-sec); margin-bottom:16px; }
+.kidney-speed-label { font-size:0.78rem; color:var(--text-dim); margin-top:10px; text-align:center; }
+
+/* ===== KIDNEY SVG ANIMATION ===== */
+.kidney-outline { fill:none; stroke:var(--teal); stroke-width:2; }
+.k-cortex  { fill:rgba(77,217,207,0.08); stroke:var(--teal); stroke-width:1; }
+.k-medulla { fill:rgba(77,217,207,0.05); stroke:rgba(77,217,207,0.4); stroke-width:1; }
+.k-pelvis  { fill:rgba(139,92,246,0.12); stroke:rgba(139,92,246,0.5); stroke-width:1; }
+.k-ureter  { fill:none; stroke:rgba(139,92,246,0.5); stroke-width:3; }
+.k-glom    { fill:var(--gold); animation:glomPulse 2s ease-in-out infinite; }
+.filtrate-dot { fill:var(--teal-light); r:4; }
+.dot1 { animation:moveDot1 3s linear infinite; }
+.dot2 { animation:moveDot1 3s linear infinite 0.5s; }
+.dot3 { animation:moveDot1 3s linear infinite 1s; }
+.dot4 { animation:moveDot1 3s linear infinite 1.5s; }
+.dot5 { animation:moveDot1 3s linear infinite 2s; }
+.dot6 { animation:moveDot1 3s linear infinite 2.5s; }
+.k-label { font-size:10px; fill:var(--text-sec); font-family:'Inter',sans-serif; }
+
+/* ===== KIDNEY-BRAIN AXIS ===== */
+#kidney-brain { background:var(--bg-secondary); }
+.kb-intro { max-width:700px; margin:0 auto 48px; text-align:center; color:var(--text-sec); }
+.kb-flow {
+  display:flex; align-items:center; justify-content:center;
+  gap:0; flex-wrap:wrap; margin-bottom:48px;
+}
+.kb-node {
+  text-align:center; padding:20px 16px;
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); width:170px;
+  transition:var(--tr);
+}
+.kb-node:hover { border-color:var(--gold); transform:translateY(-4px); }
+.kb-node-icon { font-size:2rem; margin-bottom:8px; }
+.kb-node-title { font-size:0.85rem; font-weight:600; margin-bottom:4px; }
+.kb-node-sub { font-size:0.75rem; color:var(--text-dim); }
+.kb-arrow {
+  font-size:1.5rem; color:var(--gold); padding:0 8px;
+  flex-shrink:0;
+}
+.kb-charts { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+
+/* ===== NEUROSCIENCE ===== */
+#neuroscience { background:var(--bg-primary); }
+.brain-section {
+  display:grid; grid-template-columns:1.2fr 1fr; gap:32px;
+  align-items:start; margin-bottom:40px;
+}
+.brain-svg-wrap {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:28px;
+}
+.brain-svg-wrap h3 { font-size:1.1rem; margin-bottom:6px; }
+.brain-svg-wrap > p { font-size:0.85rem; color:var(--text-sec); margin-bottom:16px; }
+.brain-region {
+  fill:rgba(26,39,80,0.6); stroke:rgba(139,92,246,0.4); stroke-width:1.5;
+  cursor:pointer; transition:fill 0.3s, stroke 0.3s;
+}
+.brain-region:hover { fill:rgba(139,92,246,0.25); stroke:var(--purple); }
+.brain-region.active { fill:rgba(139,92,246,0.45); stroke:var(--purple-light); stroke-width:2.5; }
+.brain-outline { fill:none; stroke:rgba(139,92,246,0.3); stroke-width:1.5; }
+.brain-label { font-size:9px; fill:var(--text-dim); font-family:'Inter',sans-serif; pointer-events:none; }
+.brain-info {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:28px; min-height:200px;
+}
+.brain-info h4 { font-size:1.1rem; color:var(--purple-light); margin-bottom:4px; }
+.brain-info .brain-en { font-size:0.82rem; color:var(--text-dim); margin-bottom:16px; }
+.brain-func-list { list-style:none; padding:0; }
+.brain-func-list li {
+  display:flex; align-items:flex-start; gap:10px;
+  font-size:0.88rem; color:var(--text-sec); margin-bottom:8px;
+}
+.brain-func-list li i { color:var(--purple); width:14px; flex-shrink:0; margin-top:3px; }
+.brain-clinical {
+  margin-top:16px; padding:12px 16px;
+  background:rgba(139,92,246,0.08); border-radius:var(--radius-sm);
+  border-left:3px solid var(--purple);
+  font-size:0.82rem; color:var(--text-dim); line-height:1.6;
+}
+.brain-placeholder {
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  height:200px; color:var(--text-dim); text-align:center; gap:12px;
+}
+.brain-placeholder i { font-size:2.5rem; color:rgba(139,92,246,0.3); }
+.radar-toggles { display:flex; gap:10px; margin-bottom:16px; }
+.radar-btn {
+  padding:6px 16px; border-radius:20px; font-size:0.82rem; font-weight:500;
+  border:1px solid; transition:var(--tr); cursor:pointer;
+}
+.radar-btn.teal  { border-color:var(--teal);   color:var(--teal);   background:transparent; }
+.radar-btn.gold  { border-color:var(--gold);   color:var(--gold);   background:transparent; }
+.radar-btn.teal.on  { background:rgba(77,217,207,0.15); }
+.radar-btn.gold.on  { background:rgba(244,162,97,0.15); }
+
+/* ===== QUIZ ===== */
+.quiz-progress-bar {
+  height:4px; background:var(--bg-secondary); border-radius:2px;
+  margin-bottom:28px; overflow:hidden;
+}
+.quiz-fill { height:100%; background:var(--purple); border-radius:2px; transition:width 0.5s; }
+.quiz-question { font-size:1rem; font-weight:500; margin-bottom:20px; line-height:1.7; }
+.quiz-options { display:grid; gap:10px; }
+.quiz-opt {
+  padding:12px 18px; border-radius:var(--radius-sm); text-align:left;
+  border:1px solid var(--border); background:var(--bg-secondary);
+  color:var(--text-sec); font-size:0.9rem; transition:var(--tr); cursor:pointer;
+}
+.quiz-opt:hover:not(.disabled) { border-color:var(--purple); color:var(--text); background:rgba(139,92,246,0.1); }
+.quiz-opt.correct { border-color:var(--g1); background:rgba(34,197,94,0.15); color:var(--g1); }
+.quiz-opt.incorrect { border-color:var(--g4); background:rgba(239,68,68,0.1); color:var(--g4); }
+.quiz-opt.disabled { opacity:0.4; cursor:not-allowed; }
+.quiz-explanation {
+  margin-top:16px; padding:14px 18px;
+  background:rgba(139,92,246,0.08); border-radius:var(--radius-sm);
+  border-left:3px solid var(--purple);
+  font-size:0.85rem; color:var(--text-sec); line-height:1.7;
+  display:none;
+}
+.quiz-next {
+  margin-top:16px; padding:10px 24px;
+  background:var(--purple); color:#fff;
+  border-radius:var(--radius-sm); font-size:0.9rem; font-weight:500;
+  display:none; transition:var(--tr);
+}
+.quiz-next:hover { background:var(--purple-light); }
+.quiz-result { text-align:center; padding:32px 0; }
+.quiz-score-num {
+  font-family:'JetBrains Mono',monospace;
+  font-size:4rem; font-weight:700; color:var(--purple);
+}
+.quiz-score-label { color:var(--text-sec); font-size:1rem; margin-bottom:16px; }
+.quiz-msg { color:var(--text-dim); font-size:0.9rem; }
+
+/* ===== RESEARCH TIMELINE ===== */
+#research { background:var(--bg-secondary); }
+.timeline { position:relative; max-width:800px; margin:0 auto; }
+.timeline::before {
+  content:''; position:absolute; left:50%; transform:translateX(-50%);
+  top:0; bottom:0; width:2px;
+  background:linear-gradient(to bottom,transparent,var(--teal-dim),transparent);
+}
+.tl-item {
+  display:flex; gap:40px; margin-bottom:48px;
+  align-items:flex-start;
+}
+.tl-item:nth-child(even) { flex-direction:row-reverse; }
+.tl-year-col { flex:1; text-align:right; padding-top:12px; }
+.tl-item:nth-child(even) .tl-year-col { text-align:left; }
+.tl-year {
+  font-family:'JetBrains Mono',monospace;
+  font-size:1.5rem; font-weight:700; color:var(--teal);
+}
+.tl-dot {
+  width:14px; height:14px; border-radius:50%;
+  background:var(--teal); flex-shrink:0;
+  margin-top:18px; position:relative; z-index:1;
+  box-shadow:0 0 12px rgba(77,217,207,0.5);
+}
+.tl-card {
+  flex:1; background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:20px 24px;
+}
+.tl-badge {
+  display:inline-block; padding:3px 10px; border-radius:20px;
+  font-size:0.72rem; font-weight:600; letter-spacing:0.5px;
+  margin-bottom:8px;
+  background:rgba(77,217,207,0.12); color:var(--teal); border:1px solid rgba(77,217,207,0.25);
+}
+.tl-card h4 { font-size:0.95rem; margin-bottom:4px; }
+.tl-card .tl-journal { font-size:0.82rem; color:var(--teal-dim); font-style:italic; margin-bottom:6px; }
+.tl-card .tl-abstract { font-size:0.82rem; color:var(--text-dim); }
+
+/* ===== CONTACT ===== */
+#contact { background:var(--bg-primary); }
+.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+.contact-item {
+  display:flex; align-items:flex-start; gap:14px; margin-bottom:20px;
+}
+.contact-icon {
+  width:44px; height:44px; border-radius:10px;
+  background:rgba(77,217,207,0.1); border:1px solid rgba(77,217,207,0.2);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--teal); font-size:1rem; flex-shrink:0;
+}
+.contact-label { font-size:0.75rem; color:var(--text-dim); margin-bottom:2px; }
+.contact-value { font-size:0.95rem; color:var(--text); }
+.contact-cta-card {
+  background:linear-gradient(135deg,rgba(77,217,207,0.07),rgba(139,92,246,0.07));
+  border:1px solid var(--border); border-radius:var(--radius); padding:36px;
+  display:flex; flex-direction:column; justify-content:center; gap:16px;
+  text-align:center;
+}
+.contact-cta-card h3 { font-size:1.3rem; margin-bottom:8px; }
+.contact-cta-card p { color:var(--text-sec); font-size:0.92rem; line-height:1.8; }
+
+/* ===== FOOTER ===== */
+footer {
+  background:var(--bg-card); border-top:1px solid var(--border);
+  padding:32px 0; text-align:center;
+}
+.footer-inner { display:flex; flex-direction:column; align-items:center; gap:16px; }
+.footer-socials { display:flex; gap:16px; }
+.footer-socials a {
+  width:38px; height:38px; border-radius:50%;
+  background:rgba(255,255,255,0.04); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--text-sec); font-size:0.9rem; transition:var(--tr);
+}
+.footer-socials a:hover { color:var(--teal); border-color:var(--teal); }
+.footer-copy { font-size:0.8rem; color:var(--text-dim); }
+
+/* ===== KEYFRAMES ===== */
+@keyframes bgShift {
+  0%   { opacity:0.5; }
+  100% { opacity:1; }
+}
+@keyframes floatShape {
+  0%   { transform:translateY(0)    rotate(0deg); }
+  50%  { transform:translateY(-30px) rotate(180deg); }
+  100% { transform:translateY(0)    rotate(360deg); }
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+@keyframes bounce {
+  0%,100% { transform:translateX(-50%) translateY(0); }
+  50%      { transform:translateX(-50%) translateY(10px); }
+}
+@keyframes glomPulse {
+  0%,100% { fill:var(--gold); r:6; }
+  50%      { fill:var(--teal-light); r:8; }
+}
+@keyframes moveDot1 {
+  0%   { cx:155; cy:95; opacity:0; }
+  5%   { opacity:1; }
+  20%  { cx:140; cy:110; }
+  40%  { cx:120; cy:150; }
+  60%  { cx:130; cy:190; }
+  80%  { cx:160; cy:210; }
+  95%  { opacity:1; }
+  100% { cx:155; cy:95; opacity:0; }
+}
+
+/* ===== LOGO ===== */
+.logo-img {
+  display:inline-block;
+  background:#fff;
+  border-radius:10px;
+  padding:4px;
+  vertical-align:middle;
+  box-shadow:0 2px 12px rgba(0,0,0,0.25);
+}
+.nav-logo-wrap {
+  display:flex; align-items:center; gap:10px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:1rem; font-weight:500; color:var(--teal);
+  letter-spacing:0.5px;
+}
+.hero-logo-wrap {
+  margin:0 auto 28px;
+  width:fit-content;
+  background:rgba(255,255,255,0.95);
+  border-radius:20px;
+  padding:14px 20px;
+  box-shadow:0 8px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(77,217,207,0.2);
+  display:block;
+}
+.hero-logo-wrap img { display:block; }
+.footer-logo-wrap {
+  background:#fff; border-radius:8px;
+  padding:4px 8px; display:inline-flex; align-items:center;
+}
+
+/* ===== CAREER TIMELINE ===== */
+.career-section { margin-top:52px; }
+.career-section h3 {
+  text-align:center; font-size:1.15rem; margin-bottom:28px;
+  color:var(--text);
+}
+.career-row {
+  display:flex; gap:0; overflow-x:auto;
+  padding-bottom:8px; position:relative;
+}
+.career-row::before {
+  content:''; position:absolute;
+  top:28px; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--teal-dim),transparent);
+}
+.career-item {
+  flex:1; min-width:160px; padding:0 12px;
+  text-align:center; position:relative;
+}
+.career-dot {
+  width:12px; height:12px; border-radius:50%;
+  background:var(--teal); margin:22px auto 10px;
+  box-shadow:0 0 8px rgba(77,217,207,0.6);
+  position:relative; z-index:1;
+}
+.career-dot.gold { background:var(--gold); box-shadow:0 0 8px rgba(244,162,97,0.6); }
+.career-year {
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.75rem; color:var(--teal); font-weight:600;
+  margin-bottom:6px;
+}
+.career-pos {
+  font-size:0.78rem; font-weight:600; color:var(--text); line-height:1.4;
+  margin-bottom:4px;
+}
+.career-org {
+  font-size:0.72rem; color:var(--text-dim); line-height:1.4;
+}
+
+/* ===== EXPERTISE GRID ===== */
+.expertise-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:48px;
+}
+.expertise-card {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:22px; transition:var(--tr);
+  position:relative; overflow:hidden;
+}
+.expertise-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+}
+.expertise-card.c-teal::before   { background:var(--teal); }
+.expertise-card.c-purple::before { background:var(--purple); }
+.expertise-card.c-gold::before   { background:var(--gold); }
+.expertise-card:hover { transform:translateY(-4px); border-color:rgba(77,217,207,0.3); box-shadow:var(--shadow); }
+.expertise-icon { font-size:1.8rem; margin-bottom:10px; }
+.expertise-title { font-size:0.95rem; font-weight:600; margin-bottom:8px; }
+.expertise-tag {
+  display:inline-block; font-size:0.72rem; padding:2px 9px; border-radius:12px;
+  background:rgba(77,217,207,0.08); color:var(--text-dim);
+  border:1px solid rgba(77,217,207,0.15); margin:2px;
+}
+.expertise-card.c-purple .expertise-tag { background:rgba(139,92,246,0.08); border-color:rgba(139,92,246,0.2); }
+.expertise-card.c-gold   .expertise-tag { background:rgba(244,162,97,0.08);  border-color:rgba(244,162,97,0.2); }
+
+/* ===== TEACHING SECTION ===== */
+#teaching { background:var(--bg-primary); }
+.teach-tabs {
+  display:flex; gap:0; margin-bottom:32px;
+  border-bottom:1px solid var(--border);
+}
+.teach-tab {
+  padding:10px 28px; font-size:0.9rem; font-weight:500;
+  color:var(--text-dim); background:none; border:none;
+  border-bottom:2px solid transparent; cursor:pointer; transition:var(--tr);
+  margin-bottom:-1px;
+}
+.teach-tab.active { color:var(--teal); border-bottom-color:var(--teal); }
+.teach-tab:hover:not(.active) { color:var(--text-sec); }
+.teach-panel { display:none; }
+.teach-panel.active { display:block; }
+.teach-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+.teach-card {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:20px 24px; transition:var(--tr);
+}
+.teach-card:hover { border-color:rgba(77,217,207,0.3); transform:translateY(-2px); }
+.teach-date {
+  font-size:0.78rem; color:var(--teal);
+  font-family:'JetBrains Mono',monospace; margin-bottom:8px;
+}
+.teach-badge {
+  display:inline-block; font-size:0.72rem; padding:2px 10px; border-radius:20px;
+  background:rgba(77,217,207,0.1); color:var(--teal); border:1px solid rgba(77,217,207,0.2);
+  margin-bottom:8px;
+}
+.teach-badge.purple { background:rgba(139,92,246,0.1); color:var(--purple-light); border-color:rgba(139,92,246,0.2); }
+.teach-title { font-size:0.93rem; font-weight:600; margin-bottom:6px; line-height:1.5; }
+.teach-venue {
+  font-size:0.82rem; color:var(--text-sec);
+  display:flex; align-items:center; gap:6px;
+}
+.teach-empty {
+  text-align:center; padding:40px 24px; color:var(--text-dim); font-size:0.88rem;
+  border:1px dashed rgba(77,217,207,0.18); border-radius:var(--radius); line-height:2;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px) {
+  .about-grid { grid-template-columns:1fr; }
+  .expertise-grid { grid-template-columns:repeat(2,1fr); }
+  .nephro-grid { grid-template-columns:1fr; }
+  .brain-section { grid-template-columns:1fr; }
+  .kb-charts { grid-template-columns:1fr; }
+  .contact-grid { grid-template-columns:1fr; }
+  .teach-grid { grid-template-columns:1fr; }
+  .timeline::before { left:20px; }
+  .tl-item,
+  .tl-item:nth-child(even) { flex-direction:row; }
+  .tl-year-col,
+  .tl-item:nth-child(even) .tl-year-col { display:none; }
+  .tl-dot { margin-left:13px; }
+}
+@media(max-width:768px) {
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+  .expertise-grid { grid-template-columns:1fr 1fr; }
+  .kb-flow   { flex-direction:column; align-items:center; }
+  .kb-arrow  { transform:rotate(90deg); }
+  .section-pad { padding:70px 0; }
+}
+@media(max-width:480px) {
+  .expertise-grid { grid-template-columns:1fr; }
+  .hero-cta  { flex-direction:column; align-items:center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo-wrap">
+      <img src="logo.png" alt="Kidney+Cognition Logo" height="34"
+           class="logo-img"
+           onerror="this.style.display='none'">
+      <span>朱國大．MD・PhD</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about">關於我</a></li>
+      <li><a href="#nephrology">腎臟科學</a></li>
+      <li><a href="#kidney-brain">腎腦軸</a></li>
+      <li><a href="#neuroscience">認知神經科學</a></li>
+      <li><a href="#research">研究著作</a></li>
+      <li><a href="#teaching">演講教學</a></li>
+      <li><a href="#contact">聯絡</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="選單">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about"       onclick="closeMenu()">關於我</a>
+  <a href="#nephrology"  onclick="closeMenu()">腎臟科學</a>
+  <a href="#kidney-brain" onclick="closeMenu()">腎腦軸</a>
+  <a href="#neuroscience" onclick="closeMenu()">認知神經科學</a>
+  <a href="#research"    onclick="closeMenu()">研究著作</a>
+  <a href="#teaching"    onclick="closeMenu()">演講教學</a>
+  <a href="#contact"     onclick="closeMenu()">聯絡</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="float-shape" style="width:300px;height:300px;top:-80px;left:-80px;animation-duration:18s;"></div>
+    <div class="float-shape" style="width:200px;height:200px;top:30%;right:-60px;animation-duration:14s;animation-delay:-5s;"></div>
+    <div class="float-shape" style="width:150px;height:150px;bottom:10%;left:10%;animation-duration:20s;animation-delay:-9s;"></div>
+    <div class="float-shape" style="width:80px;height:80px;top:20%;left:30%;animation-duration:11s;animation-delay:-3s;border-color:rgba(139,92,246,0.15);"></div>
+    <div class="float-shape" style="width:120px;height:120px;bottom:20%;right:15%;animation-duration:16s;animation-delay:-7s;border-color:rgba(244,162,97,0.12);"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-logo-wrap" data-aos="zoom-in">
+      <img src="logo.png" alt="Kidney + Cognition" height="110"
+           onerror="this.parentElement.style.display='none'">
+    </div>
+    <p class="hero-pretitle"><i class="fas fa-dna"></i> &nbsp; Nephrologist · Cognitive Neuroscientist</p>
+    <h1 class="hero-name">朱國大 醫師</h1>
+    <div class="hero-typewriter">
+      <span id="typewriter-text"></span><span class="cursor">|</span>
+    </div>
+    <p class="hero-tagline">以科學解讀腎臟，以神經探索認知</p>
+    <div class="hero-cta">
+      <a href="#about" class="btn btn-primary"><i class="fas fa-user"></i> 關於我</a>
+      <a href="#research" class="btn btn-outline"><i class="fas fa-book-open"></i> 研究著作</a>
+    </div>
+  </div>
+  <div class="scroll-indicator"><i class="fas fa-chevron-down"></i></div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about" class="section-pad">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">關於<span>我</span></h2>
+    <div class="section-line" data-aos="fade-up" data-aos-delay="100"></div>
+    <p class="section-sub" data-aos="fade-up" data-aos-delay="150">整合臨床腎臟醫學與認知神經科學，以科學實證守護腎臟健康與腦功能</p>
+
+    <div class="about-grid">
+      <div data-aos="fade-right">
+        <div class="photo-wrap" style="position:relative;">
+          <div class="photo-inner" id="photoFallback"><i class="fas fa-user-doctor"></i></div>
+          <img src="photo.png" alt="朱國大 醫師" id="profilePhoto"
+               style="position:absolute;inset:4px;width:calc(100% - 8px);height:calc(100% - 8px);border-radius:50%;object-fit:cover;object-position:center 20%;"
+               onerror="this.src='photo.jpg'; this.onerror=function(){this.style.display='none'}">
+        </div>
+        <p class="about-bio">
+          朱國大醫師畢業於國防醫學院醫學系，歷任台北榮民總醫院內科住院醫師及腎臟科主治醫師，自民國86年（1997年）起擔任桃園市平鎮區 <strong style="color:var(--teal)">陽明醫院院長</strong> 迄今，深耕腎臟科臨床服務逾三十年。
+        </p>
+        <br>
+        <p class="about-bio">
+          在長期診療腦血管疾病與神經退化性疾病患者的過程中，觀察到認知障礙與腎臟病、糖尿病之間的密切關聯。醫院自1997年建立糖尿病登錄系統，逾 <strong style="color:var(--teal)">千例長期追蹤患者</strong> 中，發現多例進行性認知退化甚至失智症，促使朱醫師以臨床醫師的視角投入神經科學研究。
+        </p>
+        <br>
+        <p class="about-bio">
+          取得 <strong style="color:var(--teal-light)">國立中央大學健康科學學院認知神經科學研究所博士學位</strong>，結合全頻譜腦電圖（Holo-Spectral EEG）等尖端電生理技術，致力於輕度認知障礙（MCI）的早期生物標記研究，期望在失智症前期提供有效偵測與干預。
+        </p>
+        <br>
+        <div class="tags-wrap" style="margin-top:12px;">
+          <span class="tag">慢性腎臟病</span><span class="tag">血液透析</span>
+          <span class="tag">MCI 早期偵測</span><span class="tag">EEG 生物標記</span>
+          <span class="tag">糖尿病認知退化</span><span class="tag">神經可塑性</span>
+          <span class="tag">身體活動與腦功能</span><span class="tag">失智症預防</span>
+        </div>
+      </div>
+      <div data-aos="fade-left">
+        <!-- 學歷 -->
+        <div class="cred-card">
+          <h4><i class="fas fa-graduation-cap"></i> &nbsp;學歷</h4>
+          <div class="cred-item">
+            <i class="fas fa-circle-dot"></i>
+            <span><strong>國防醫學院</strong> 醫學系（MD）<span style="color:var(--text-dim);font-size:0.8rem;"> 1981–1988</span></span>
+          </div>
+          <div class="cred-item">
+            <i class="fas fa-circle-dot"></i>
+            <span><strong>長庚大學</strong> 醫學生物技術研究所 分子診斷學程<span style="color:var(--text-dim);font-size:0.8rem;"> 2005</span></span>
+          </div>
+          <div class="cred-item">
+            <i class="fas fa-circle-dot"></i>
+            <span><strong>長庚大學</strong> 臨床醫學研究所 分子生物及細胞生物學<span style="color:var(--text-dim);font-size:0.8rem;"> 2007</span></span>
+          </div>
+          <div class="cred-item">
+            <i class="fas fa-circle-dot"></i>
+            <span><strong>中原大學</strong> 管理研究所 研究方法及企業與法律學分班</span>
+          </div>
+          <div class="cred-item">
+            <i class="fas fa-circle-dot" style="color:var(--teal);"></i>
+            <span><strong style="color:var(--teal);">國立中央大學</strong> 健康科學學院 認知神經科學研究所 <span style="background:rgba(77,217,207,0.15);color:var(--teal);padding:1px 7px;border-radius:10px;font-size:0.75rem;">博士（PhD）</span></span>
+          </div>
+        </div>
+        <!-- 專科認證 -->
+        <div class="cred-card">
+          <h4><i class="fas fa-id-badge"></i> &nbsp;專科認證</h4>
+          <div class="cred-item">
+            <i class="fas fa-check" style="color:var(--g1);"></i>
+            <span>台灣內科醫學會 <strong>內科專科醫師</strong><span style="color:var(--text-dim);font-size:0.78rem;"> 內專醫字第3208號</span></span>
+          </div>
+          <div class="cred-item">
+            <i class="fas fa-check" style="color:var(--g1);"></i>
+            <span>台灣腎臟醫學會 <strong>腎臟科專科醫師</strong><span style="color:var(--text-dim);font-size:0.78rem;"> 台腎專醫字第S0263號</span></span>
+          </div>
+          <div class="cred-item">
+            <i class="fas fa-check" style="color:var(--g1);"></i>
+            <span>中華民國糖尿病衛教學會 <strong>糖尿病衛教人員</strong><span style="color:var(--text-dim);font-size:0.78rem;"> 糖衛證字號2989號</span></span>
+          </div>
+          <div class="cred-item">
+            <i class="fas fa-check" style="color:var(--g1);"></i>
+            <span>台灣醫務管理學會 <strong>醫務管理師</strong></span>
+          </div>
+          <div class="cred-item">
+            <i class="fas fa-check" style="color:var(--g1);"></i>
+            <span>中央健保局 <strong>全民健保醫院總額審查醫師</strong><span style="color:var(--text-dim);font-size:0.78rem;"> 2006–2007</span></span>
+          </div>
+        </div>
+        <!-- 研究方向 -->
+        <div class="cred-card">
+          <h4><i class="fas fa-microscope"></i> &nbsp;研究方向</h4>
+          <div class="cred-item"><i class="fas fa-arrow-right"></i><span>MCI 早期偵測與 EEG 電生理生物標記</span></div>
+          <div class="cred-item"><i class="fas fa-arrow-right"></i><span>糖尿病相關認知退化機轉（AGEs、胰島素抵抗）</span></div>
+          <div class="cred-item"><i class="fas fa-arrow-right"></i><span>身體活動對神經認知老化的保護作用</span></div>
+          <div class="cred-item"><i class="fas fa-arrow-right"></i><span>腦刺激技術促進神經可塑性與認知恢復</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Career History -->
+    <div class="career-section" data-aos="fade-up">
+      <h3><i class="fas fa-briefcase" style="color:var(--teal);margin-right:8px;"></i>職涯歷程</h3>
+      <div class="career-row">
+        <div class="career-item">
+          <div class="career-year">1988–1992</div>
+          <div class="career-dot"></div>
+          <div class="career-pos">內科住院醫師</div>
+          <div class="career-org">台北榮民總醫院</div>
+        </div>
+        <div class="career-item">
+          <div class="career-year">1993–1994</div>
+          <div class="career-dot"></div>
+          <div class="career-pos">腎臟科主治醫師</div>
+          <div class="career-org">台北榮民總醫院</div>
+        </div>
+        <div class="career-item">
+          <div class="career-year">1994–1995</div>
+          <div class="career-dot"></div>
+          <div class="career-pos">內科主治醫師</div>
+          <div class="career-org">金門花崗石醫院</div>
+        </div>
+        <div class="career-item">
+          <div class="career-year">1995–1996</div>
+          <div class="career-dot"></div>
+          <div class="career-pos">內科部主任</div>
+          <div class="career-org">花蓮玉里榮民醫院</div>
+        </div>
+        <div class="career-item">
+          <div class="career-year">1996–1997</div>
+          <div class="career-dot"></div>
+          <div class="career-pos">血液透析中心主任</div>
+          <div class="career-org">台北縣樹林安泰診所</div>
+        </div>
+        <div class="career-item">
+          <div class="career-year">1997 – 迄今</div>
+          <div class="career-dot gold"></div>
+          <div class="career-pos" style="color:var(--gold);">院長</div>
+          <div class="career-org">桃園市平鎮區陽明醫院</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Expertise Grid (replaces numeric stats) -->
+    <div class="expertise-grid">
+      <div class="expertise-card c-teal" data-aos="fade-up" data-aos-delay="0">
+        <div class="expertise-icon">🧠</div>
+        <div class="expertise-title">認知神經科學</div>
+        <div>
+          <span class="expertise-tag">EEG / ERP</span>
+          <span class="expertise-tag">rs-fMRI</span>
+          <span class="expertise-tag">神經心理評估</span>
+          <span class="expertise-tag">功能連結分析</span>
+        </div>
+      </div>
+      <div class="expertise-card c-teal" data-aos="fade-up" data-aos-delay="80">
+        <div class="expertise-icon">🫘</div>
+        <div class="expertise-title">腎臟醫學</div>
+        <div>
+          <span class="expertise-tag">慢性腎臟病</span>
+          <span class="expertise-tag">透析醫學</span>
+          <span class="expertise-tag">eGFR 評估</span>
+          <span class="expertise-tag">腎元保護</span>
+        </div>
+      </div>
+      <div class="expertise-card c-purple" data-aos="fade-up" data-aos-delay="160">
+        <div class="expertise-icon">⚡</div>
+        <div class="expertise-title">腦電生理學</div>
+        <div>
+          <span class="expertise-tag">Holo-Spectral EEG</span>
+          <span class="expertise-tag">頻譜分析</span>
+          <span class="expertise-tag">認知生物標記</span>
+        </div>
+      </div>
+      <div class="expertise-card c-purple" data-aos="fade-up" data-aos-delay="0">
+        <div class="expertise-icon">🧓</div>
+        <div class="expertise-title">認知老化研究</div>
+        <div>
+          <span class="expertise-tag">MCI 早期偵測</span>
+          <span class="expertise-tag">阿茲海默症</span>
+          <span class="expertise-tag">縱向追蹤</span>
+        </div>
+      </div>
+      <div class="expertise-card c-gold" data-aos="fade-up" data-aos-delay="80">
+        <div class="expertise-icon">🏃</div>
+        <div class="expertise-title">運動認知神經科學</div>
+        <div>
+          <span class="expertise-tag">身體活動</span>
+          <span class="expertise-tag">神經認知老化</span>
+          <span class="expertise-tag">電生理生物標記</span>
+        </div>
+      </div>
+      <div class="expertise-card c-gold" data-aos="fade-up" data-aos-delay="160">
+        <div class="expertise-icon">🔬</div>
+        <div class="expertise-title">醫學工程應用</div>
+        <div>
+          <span class="expertise-tag">超音波量測</span>
+          <span class="expertise-tag">燒傷瘢痕評估</span>
+          <span class="expertise-tag">臨床工具開發</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEPHROLOGY ===== -->
+<section id="nephrology" class="section-pad nephro-accent">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">腎臟<span>科學</span></h2>
+    <div class="section-line" data-aos="fade-up" data-aos-delay="100"></div>
+    <p class="section-sub" data-aos="fade-up" data-aos-delay="150">
+      腎臟是維持體液、電解質與代謝廢物平衡的核心器官。透過 eGFR 評估腎功能，早期發現慢性腎臟病（CKD）分期，是保護腎臟的第一步。
+    </p>
+
+    <!-- GFR Calculator -->
+    <div class="gfr-card" data-aos="fade-up">
+      <h3 style="font-size:1.2rem;margin-bottom:4px;">
+        <i class="fas fa-calculator" style="color:var(--teal);margin-right:8px;"></i>eGFR 計算器
+        <span style="font-size:0.75rem;color:var(--text-dim);font-weight:400;margin-left:10px;">CKD-EPI 2021（無種族因子）</span>
+      </h3>
+      <p style="font-size:0.85rem;color:var(--text-sec);margin-bottom:24px;">調整下方數值，即時計算腎絲球過濾率</p>
+
+      <div class="sex-toggle">
+        <button class="sex-btn active" data-sex="female">&#9792; 女性</button>
+        <button class="sex-btn" data-sex="male">&#9794; 男性</button>
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-label">
+          <span><i class="fas fa-vial" style="color:var(--teal);margin-right:6px;"></i>血清肌酐（Scr）</span>
+          <strong><span id="scrVal">1.00</span> mg/dL</strong>
+        </div>
+        <input type="range" id="scrSlider" min="0.4" max="10" step="0.05" value="1.0">
+      </div>
+      <div class="slider-group">
+        <div class="slider-label">
+          <span><i class="fas fa-calendar" style="color:var(--teal);margin-right:6px;"></i>年齡</span>
+          <strong><span id="ageVal">50</span> 歲</strong>
+        </div>
+        <input type="range" id="ageSlider" min="18" max="90" step="1" value="50">
+      </div>
+
+      <div class="gfr-output">
+        <div>
+          <div class="gfr-unit">eGFR</div>
+          <div class="gfr-number" id="gfrNumber">--</div>
+          <div class="gfr-unit">mL/min/1.73m²</div>
+        </div>
+        <div style="flex:1;">
+          <div class="stage-badge" id="stageBadge">計算中…</div>
+          <div class="stage-desc" id="stageDesc" style="margin-top:8px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nephrology grid: chart + kidney svg -->
+    <div class="nephro-grid">
+      <div class="chart-card" data-aos="fade-right">
+        <h3><i class="fas fa-chart-bar" style="color:var(--teal);margin-right:8px;"></i>CKD 分期圖表</h3>
+        <p>各分期 eGFR 閾值，橘色虛線為您目前的數值</p>
+        <canvas id="ckdChart" height="220"></canvas>
+      </div>
+      <div class="kidney-svg-wrap" data-aos="fade-left">
+        <h3><i class="fas fa-circle-nodes" style="color:var(--teal);margin-right:8px;"></i>腎元過濾動畫</h3>
+        <p>原尿在腎元中流動的示意，速率與 eGFR 連動</p>
+        <svg id="kidneySvg" viewBox="0 0 300 240" width="100%">
+          <!-- Kidney outer shape -->
+          <ellipse cx="150" cy="120" rx="120" ry="100" class="kidney-outline" opacity="0.4"/>
+          <!-- Cortex (outer ring) -->
+          <ellipse cx="150" cy="120" rx="120" ry="100" class="k-cortex"/>
+          <!-- Medulla -->
+          <ellipse cx="150" cy="120" rx="88" ry="72" class="k-medulla"/>
+          <!-- Renal pelvis -->
+          <ellipse cx="170" cy="120" rx="40" ry="35" class="k-pelvis"/>
+          <!-- Ureter -->
+          <path d="M 200 130 Q 240 140 240 200" class="k-ureter"/>
+          <!-- Pyramid shapes (medullary pyramids) -->
+          <polygon points="110,75 150,120 70,120" fill="rgba(77,217,207,0.06)" stroke="rgba(77,217,207,0.2)" stroke-width="0.8"/>
+          <polygon points="150,60 150,120 110,120" fill="rgba(77,217,207,0.06)" stroke="rgba(77,217,207,0.2)" stroke-width="0.8"/>
+          <polygon points="190,75 150,120 230,120" fill="rgba(77,217,207,0.06)" stroke="rgba(77,217,207,0.2)" stroke-width="0.8"/>
+          <polygon points="110,165 150,120 70,120" fill="rgba(77,217,207,0.06)" stroke="rgba(77,217,207,0.2)" stroke-width="0.8"/>
+          <polygon points="190,165 150,120 230,120" fill="rgba(77,217,207,0.06)" stroke="rgba(77,217,207,0.2)" stroke-width="0.8"/>
+          <!-- Glomerulus marker -->
+          <circle cx="95" cy="88" r="6" class="k-glom"/>
+          <circle cx="80" cy="130" r="5" class="k-glom" style="animation-delay:-1s"/>
+          <circle cx="100" cy="158" r="5" class="k-glom" style="animation-delay:-0.5s"/>
+          <!-- Filtrate dots -->
+          <circle class="filtrate-dot dot1" cx="95" cy="88" r="4"/>
+          <circle class="filtrate-dot dot2" cx="95" cy="88" r="4"/>
+          <circle class="filtrate-dot dot3" cx="80" cy="130" r="3.5"/>
+          <circle class="filtrate-dot dot4" cx="80" cy="130" r="3.5"/>
+          <circle class="filtrate-dot dot5" cx="100" cy="158" r="3.5"/>
+          <circle class="filtrate-dot dot6" cx="100" cy="158" r="3.5"/>
+          <!-- Labels -->
+          <text x="60" y="42" class="k-label">皮質 Cortex</text>
+          <text x="90" y="115" class="k-label" text-anchor="middle">髓質</text>
+          <text x="165" y="118" class="k-label" text-anchor="middle">腎盂</text>
+          <text x="82" y="86" class="k-label" text-anchor="end" style="font-size:8px;">腎絲球</text>
+          <text x="245" y="175" class="k-label">輸尿管</text>
+        </svg>
+        <div class="kidney-speed-label" id="kidneySpeedLabel">動畫速率：正常</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KIDNEY-BRAIN AXIS ===== -->
+<section id="kidney-brain" class="section-pad kidney-brain-accent">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">腎腦軸<span style="color:var(--gold);">連結</span></h2>
+    <div class="section-line" style="background:linear-gradient(90deg,var(--gold),var(--gold-dim));" data-aos="fade-up" data-aos-delay="100"></div>
+    <p class="section-sub" data-aos="fade-up" data-aos-delay="150">
+      腎臟與大腦透過尿毒素蓄積、神經炎症、血腦屏障破壞等機轉雙向影響。這也是本研究的核心主軸：以跨領域視角理解 CKD 對腦功能的衝擊。
+    </p>
+
+    <!-- Flow diagram -->
+    <div class="kb-flow" data-aos="fade-up">
+      <div class="kb-node">
+        <div class="kb-node-icon" style="color:var(--teal);">🫘</div>
+        <div class="kb-node-title">腎功能下降</div>
+        <div class="kb-node-sub">eGFR ↓ · CKD 分期進展</div>
+      </div>
+      <div class="kb-arrow"><i class="fas fa-arrow-right"></i></div>
+      <div class="kb-node">
+        <div class="kb-node-icon" style="color:var(--gold);">⚗️</div>
+        <div class="kb-node-title">尿毒素蓄積</div>
+        <div class="kb-node-sub">indoxyl sulfate · p-cresol sulfate</div>
+      </div>
+      <div class="kb-arrow"><i class="fas fa-arrow-right"></i></div>
+      <div class="kb-node">
+        <div class="kb-node-icon" style="color:var(--gold);">🛡️</div>
+        <div class="kb-node-title">血腦屏障破壞</div>
+        <div class="kb-node-sub">神經炎症 · 氧化壓力</div>
+      </div>
+      <div class="kb-arrow"><i class="fas fa-arrow-right"></i></div>
+      <div class="kb-node">
+        <div class="kb-node-icon" style="color:var(--purple);">🧠</div>
+        <div class="kb-node-title">認知功能損傷</div>
+        <div class="kb-node-sub">執行功能 · 注意力 ↓</div>
+      </div>
+    </div>
+
+    <div class="kb-charts">
+      <div class="chart-card" data-aos="fade-right">
+        <h3><i class="fas fa-chart-bar" style="color:var(--gold);margin-right:8px;"></i>CKD 患者認知障礙盛行率</h3>
+        <p>各腎臟病分期認知障礙比例（%），資料來源：系統性文獻回顧</p>
+        <canvas id="kbPrevalenceChart" height="220"></canvas>
+      </div>
+      <div class="chart-card" data-aos="fade-left">
+        <h3><i class="fas fa-chart-line" style="color:var(--gold);margin-right:8px;"></i>腎功能 × 認知下降速率</h3>
+        <p>年化認知評分（MoCA）下降量（分/年）與 eGFR 分期關係</p>
+        <canvas id="kbDeclineChart" height="220"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEUROSCIENCE ===== -->
+<section id="neuroscience" class="section-pad neuro-accent">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">認知<span style="color:var(--purple-light);">神經科學</span></h2>
+    <div class="section-line" style="background:linear-gradient(90deg,var(--purple),var(--purple-light));" data-aos="fade-up" data-aos-delay="100"></div>
+    <p class="section-sub" data-aos="fade-up" data-aos-delay="150">
+      認知神經科學探索大腦如何支撐記憶、語言、注意力等高階功能。點擊腦區可了解各部位的認知角色與臨床意義。
+    </p>
+
+    <!-- Brain map -->
+    <div class="brain-section" data-aos="fade-up">
+      <div class="brain-svg-wrap">
+        <h3><i class="fas fa-brain" style="color:var(--purple);margin-right:8px;"></i>大腦互動地圖</h3>
+        <p>點擊各腦區查看認知功能說明</p>
+        <svg id="brainSvg" viewBox="0 0 520 340" width="100%" style="cursor:default;">
+          <!-- Brain outline -->
+          <path class="brain-outline" d="M 75 185 Q 55 135 68 90 Q 85 48 140 30 Q 198 12 275 22 Q 348 28 400 60 Q 440 90 445 145 Q 448 195 428 228 Q 408 260 375 272 Q 345 282 310 280 Q 280 285 255 278 Q 220 280 185 270 Q 145 255 112 232 Q 85 212 75 185 Z"/>
+          <!-- Frontal Lobe -->
+          <path class="brain-region" id="r-frontal" data-region="frontal"
+            d="M 75 185 Q 60 145 68 100 Q 84 55 138 34 Q 180 20 228 24 Q 256 46 248 92 Q 230 145 208 188 Q 185 215 158 218 Q 118 216 88 202 Z"/>
+          <!-- Parietal Lobe -->
+          <path class="brain-region" id="r-parietal" data-region="parietal"
+            d="M 256 46 Q 295 20 348 22 Q 402 38 438 90 Q 448 135 438 175 Q 425 208 395 225 Q 365 238 335 238 Q 305 238 278 222 Q 258 205 242 172 Q 238 142 248 92 Z"/>
+          <!-- Temporal Lobe -->
+          <path class="brain-region" id="r-temporal" data-region="temporal"
+            d="M 75 185 Q 88 202 118 216 Q 158 218 208 188 Q 230 145 242 172 Q 258 205 278 222 Q 300 238 318 245 Q 312 268 285 278 Q 255 278 220 275 Q 185 268 150 255 Q 118 238 96 218 Z"/>
+          <!-- Occipital Lobe -->
+          <path class="brain-region" id="r-occipital" data-region="occipital"
+            d="M 395 225 Q 425 208 438 175 Q 445 195 442 215 Q 435 238 415 252 Q 395 262 372 262 Q 352 260 338 252 Q 328 246 318 245 Q 335 238 365 238 Z"/>
+          <!-- Cerebellum -->
+          <path class="brain-region" id="r-cerebellum" data-region="cerebellum"
+            d="M 318 245 Q 328 246 338 252 Q 352 260 372 262 Q 395 262 415 252 Q 425 268 418 285 Q 405 302 380 308 Q 355 315 330 308 Q 310 300 305 285 Q 308 268 318 245 Z"
+            style="stroke:rgba(139,92,246,0.35);"/>
+          <!-- Brainstem -->
+          <path class="brain-region" id="r-brainstem" data-region="brainstem"
+            d="M 275 278 Q 285 278 305 285 Q 308 298 302 312 Q 292 322 278 325 Q 262 325 255 312 Q 250 298 255 278 Z"
+            style="stroke:rgba(139,92,246,0.35);"/>
+          <!-- Region labels -->
+          <text class="brain-label" x="130" y="115" text-anchor="middle">額葉</text>
+          <text class="brain-label" x="348" y="120" text-anchor="middle">頂葉</text>
+          <text class="brain-label" x="195" y="250" text-anchor="middle">顳葉</text>
+          <text class="brain-label" x="388" y="245" text-anchor="middle">枕葉</text>
+          <text class="brain-label" x="365" y="285" text-anchor="middle">小腦</text>
+          <text class="brain-label" x="278" y="308" text-anchor="middle">腦幹</text>
+          <!-- Central sulcus line (landmark) -->
+          <path d="M 252 48 Q 238 140 208 188" stroke="rgba(77,217,207,0.2)" stroke-width="1" fill="none" stroke-dasharray="4,3"/>
+          <!-- Sylvian fissure -->
+          <path d="M 88 202 Q 165 210 242 172" stroke="rgba(77,217,207,0.15)" stroke-width="1" fill="none" stroke-dasharray="4,3"/>
+        </svg>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;">
+          <span style="font-size:0.72rem;color:var(--text-dim);"><span style="border:1px dashed rgba(77,217,207,0.3);padding:1px 6px;border-radius:3px;">---</span> 中央溝 / 外側裂</span>
+          <span style="font-size:0.72rem;color:var(--text-dim);">點擊腦區查看說明</span>
+        </div>
+      </div>
+
+      <div class="brain-info" id="brainInfoPanel">
+        <div class="brain-placeholder" id="brainPlaceholder">
+          <i class="fas fa-hand-pointer"></i>
+          <span style="color:var(--text-dim);font-size:0.9rem;">點擊左側腦區<br>查看認知功能說明</span>
+        </div>
+        <div id="brainInfoContent" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- Cognitive Radar -->
+    <div class="chart-card" data-aos="fade-up" style="margin-bottom:28px;">
+      <h3><i class="fas fa-chart-radar" style="color:var(--purple);margin-right:8px;"></i>認知功能雷達圖</h3>
+      <p>典型老化 vs. 輕度認知障礙（MCI）的認知域剖面比較</p>
+      <div class="radar-toggles">
+        <button class="radar-btn teal on" id="btnNormal">典型老化</button>
+        <button class="radar-btn gold on" id="btnMCI">輕度認知障礙 (MCI)</button>
+      </div>
+      <canvas id="cogRadar" height="320"></canvas>
+    </div>
+
+    <!-- Quiz -->
+    <div class="chart-card" data-aos="fade-up">
+      <h3><i class="fas fa-circle-question" style="color:var(--purple);margin-right:8px;"></i>認知神經科學小測驗</h3>
+      <p>三道題目，測試您對腦科學與腎臟的認識</p>
+      <div class="quiz-progress-bar">
+        <div class="quiz-fill" id="quizFill" style="width:0%;"></div>
+      </div>
+      <div id="quizContainer"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESEARCH ===== -->
+<section id="research" class="section-pad">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">研究與<span>著作</span></h2>
+    <div class="section-line" data-aos="fade-up" data-aos-delay="100"></div>
+    <p class="section-sub" data-aos="fade-up" data-aos-delay="150">朱國大醫師的學術著作，橫跨認知神經科學、電生理腦科學與臨床醫學工程領域</p>
+    <div style="text-align:center;margin-bottom:48px;" data-aos="fade-up" data-aos-delay="200">
+      <a href="https://scholar.google.com/citations?user=PLACEHOLDER" target="_blank" rel="noopener"
+         class="btn btn-outline" style="font-size:0.9rem;">
+        <i class="fab fa-google"></i>&nbsp;Google Scholar 個人頁面
+      </a>
+    </div>
+
+    <div class="timeline">
+
+      <!-- 2025 -->
+      <div class="tl-item" data-aos="fade-right">
+        <div class="tl-year-col"><div class="tl-year">2025</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-badge">期刊論文</span>
+          <h4>The Role of Physical Activity in Mitigating Neurocognitive Aging: Insights From Electrophysiological Biomarkers</h4>
+          <div class="tl-journal"><em>大專體育學刊</em>，27(3)，i–xxvi</div>
+          <div class="tl-authors" style="font-size:0.8rem;color:var(--text-dim);margin:6px 0 8px;">
+            <strong style="color:var(--teal);">Chu, K. T.</strong>, Chang, W. S., &amp; Juan, C. H.
+          </div>
+          <div class="tl-abstract">探討身體活動在減緩神經認知老化中的角色，以事件相關電位（ERP）與腦電圖（EEG）等電生理生物標記提供客觀量化依據，揭示規律運動保護大腦認知功能的神經機制。</div>
+        </div>
+      </div>
+
+      <!-- 2023 -->
+      <div class="tl-item" data-aos="fade-left">
+        <div class="tl-year-col"><div class="tl-year">2023</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-badge">期刊論文</span>
+          <h4>A Holo-Spectral EEG Analysis Provides an Early Detection of Cognitive Decline and Predicts the Progression to Alzheimer's Disease</h4>
+          <div class="tl-journal"><em>Frontiers in Aging Neuroscience</em>，15，1195424</div>
+          <div class="tl-authors" style="font-size:0.8rem;color:var(--text-dim);margin:6px 0 8px;">
+            <strong style="color:var(--teal);">Chu, K. T.</strong>, Lei, W. C., Wu, M. H., Fuh, J. L., Wang, S. J., French, I. T., … &amp; Juan, C. H.
+          </div>
+          <div class="tl-abstract">提出全頻譜腦電圖（Holo-Spectral EEG）分析方法，同步整合多頻帶腦波特徵，實現輕度認知障礙的早期偵測，並預測阿茲海默症的疾病進展軌跡，具臨床篩檢潛力。</div>
+          <div style="margin-top:10px;padding:9px 14px;background:rgba(77,217,207,0.07);border-radius:6px;border-left:2px solid rgba(77,217,207,0.35);font-size:0.78rem;color:var(--text-dim);">
+            <i class="fas fa-paperclip" style="color:var(--teal);margin-right:5px;"></i>附有完整 Supplementary Materials（方法細節與補充分析）
+          </div>
+        </div>
+      </div>
+
+      <!-- 2021 -->
+      <div class="tl-item" data-aos="fade-right">
+        <div class="tl-year-col"><div class="tl-year">2021</div></div>
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="tl-badge">期刊論文</span>
+          <h4>Assessing Thickness of Burn Scars Through Ultrasound Measurement for Patients with Arm Burns</h4>
+          <div class="tl-journal"><em>Journal of Medical and Biological Engineering</em>，41(1)，84–91</div>
+          <div class="tl-authors" style="font-size:0.8rem;color:var(--text-dim);margin:6px 0 8px;">
+            Huang, P. W., Lu, C. W., <strong style="color:var(--teal);">Chu, K. T.</strong>, &amp; Ho, M. T.
+          </div>
+          <div class="tl-abstract">以超音波量測技術客觀評估燒燙傷患者手臂瘢痕厚度，建立非侵入性、可重複量測的評估指標，提供臨床復健追蹤與介入決策的重要依據。</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== TEACHING ===== -->
+<section id="teaching" class="section-pad">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">演講與<span>教學</span></h2>
+    <div class="section-line" data-aos="fade-up" data-aos-delay="100"></div>
+    <p class="section-sub" data-aos="fade-up" data-aos-delay="150">受邀演講、研討會報告及教學課程紀錄</p>
+
+    <div class="teach-tabs" data-aos="fade-up">
+      <button class="teach-tab active" onclick="switchTeachTab(this,'panel-lecture')">演講記錄</button>
+      <button class="teach-tab" onclick="switchTeachTab(this,'panel-course')">教學課程</button>
+    </div>
+
+    <div class="teach-panel active" id="panel-lecture">
+      <div class="teach-grid">
+        <div class="teach-card" data-aos="fade-right">
+          <div class="teach-date">[YYYY / MM / DD]</div>
+          <span class="teach-badge">受邀演講</span>
+          <div class="teach-title">[演講題目]</div>
+          <div class="teach-venue"><i class="fas fa-map-pin" style="color:var(--teal);margin-right:5px;"></i>[主辦單位 / 會議名稱]</div>
+        </div>
+        <div class="teach-card" data-aos="fade-left">
+          <div class="teach-date">[YYYY / MM / DD]</div>
+          <span class="teach-badge">研討會報告</span>
+          <div class="teach-title">[演講題目]</div>
+          <div class="teach-venue"><i class="fas fa-map-pin" style="color:var(--teal);margin-right:5px;"></i>[主辦單位 / 會議名稱]</div>
+        </div>
+        <div class="teach-card" data-aos="fade-right">
+          <div class="teach-date">[YYYY / MM / DD]</div>
+          <span class="teach-badge purple">科普推廣</span>
+          <div class="teach-title">[演講題目]</div>
+          <div class="teach-venue"><i class="fas fa-map-pin" style="color:var(--purple-light);margin-right:5px;"></i>[主辦單位]</div>
+        </div>
+        <div class="teach-card" data-aos="fade-left">
+          <div class="teach-date">[YYYY / MM / DD]</div>
+          <span class="teach-badge">受邀演講</span>
+          <div class="teach-title">[演講題目]</div>
+          <div class="teach-venue"><i class="fas fa-map-pin" style="color:var(--teal);margin-right:5px;"></i>[主辦單位 / 會議名稱]</div>
+        </div>
+      </div>
+      <div class="teach-empty" style="margin-top:20px;">
+        <i class="fas fa-circle-info" style="color:var(--teal);margin-right:6px;"></i>
+        以上為格式範例。將 <code style="color:var(--teal);">[YYYY/MM/DD]</code>、<code style="color:var(--teal);">[演講題目]</code>、<code style="color:var(--teal);">[主辦單位]</code> 替換為實際內容，並可新增或刪減卡片數量。
+      </div>
+    </div>
+
+    <div class="teach-panel" id="panel-course">
+      <div class="teach-grid">
+        <div class="teach-card" data-aos="fade-right">
+          <div class="teach-date">[學年度]</div>
+          <span class="teach-badge purple">授課</span>
+          <div class="teach-title">[課程名稱]</div>
+          <div class="teach-venue"><i class="fas fa-school" style="color:var(--purple-light);margin-right:5px;"></i>[學校 / 系所]</div>
+        </div>
+        <div class="teach-card" data-aos="fade-left">
+          <div class="teach-date">[學年度]</div>
+          <span class="teach-badge purple">授課</span>
+          <div class="teach-title">[課程名稱]</div>
+          <div class="teach-venue"><i class="fas fa-school" style="color:var(--purple-light);margin-right:5px;"></i>[學校 / 系所]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="section-pad" style="background:var(--bg-secondary);">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">聯絡<span>我</span></h2>
+    <div class="section-line" data-aos="fade-up" data-aos-delay="100"></div>
+    <p class="section-sub" data-aos="fade-up" data-aos-delay="150">歡迎學術交流、演講邀約或跨領域研究合作洽詢</p>
+
+    <div class="contact-grid">
+      <div data-aos="fade-right">
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+            <div class="contact-label">電子郵件</div>
+            <div class="contact-value"><a href="mailto:kwotachu@gmail.com" style="color:var(--teal);">kwotachu@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-hospital"></i></div>
+          <div>
+            <div class="contact-label">服務醫院</div>
+            <div class="contact-value">陽明醫院（桃園市平鎮區）</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-flask"></i></div>
+          <div>
+            <div class="contact-label">研究室</div>
+            <div class="contact-value">腎臟及腦神經科學研究室</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-university"></i></div>
+          <div>
+            <div class="contact-label">合作學術單位</div>
+            <div class="contact-value" style="font-size:0.9rem;line-height:1.9;">
+              國立中央大學（National Central University, NCU）<br>
+              國防醫學院（National Defense Medical University, NDMU）
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:28px;">
+          <div class="contact-label" style="margin-bottom:12px;">學術頁面</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <a href="#" class="btn btn-outline" style="font-size:0.85rem;padding:9px 18px;">
+              <i class="fas fa-book"></i> PubMed
+            </a>
+            <a href="#" class="btn btn-outline" style="font-size:0.85rem;padding:9px 18px;">
+              <i class="fab fa-google"></i> Google Scholar
+            </a>
+            <a href="#" class="btn btn-outline" style="font-size:0.85rem;padding:9px 18px;">
+              <i class="fab fa-researchgate"></i> ResearchGate
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-cta-card" data-aos="fade-left">
+        <div style="font-size:3rem;">🤝</div>
+        <h3>期待與您合作</h3>
+        <p>
+          無論是腎臟科臨床問題的討論、認知神經科學研究的合作，或是針對醫療專業人員的演講邀約，歡迎隨時與我聯繫。
+        </p>
+        <a href="mailto:kwotachu@gmail.com" class="btn btn-gold">
+          <i class="fas fa-paper-plane"></i> 寄送電子郵件
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-socials">
+        <a href="#" title="PubMed"><i class="fas fa-book-medical"></i></a>
+        <a href="#" title="Google Scholar"><i class="fab fa-google"></i></a>
+        <a href="#" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
+        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" title="ORCID"><i class="fab fa-orcid"></i></a>
+      </div>
+      <div class="footer-logo-wrap">
+        <img src="logo.png" alt="Logo" height="28"
+             onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="footer-copy">
+        &copy; <span id="footerYear"></span> 朱國大．MD&#8231;PhD &nbsp;·&nbsp; 腎臟科 · 認知神經科學 &nbsp;·&nbsp; Designed with science &amp; care
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+/* ===== AOS ===== */
+AOS.init({ duration:700, easing:'ease-out-cubic', once:true, offset:80 });
+
+/* ===== NAVIGATION ===== */
+const navbar   = document.getElementById('navbar');
+const hamburger= document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobileMenu');
+function closeMenu() {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+// Active nav highlight
+const sections = document.querySelectorAll('section[id]');
+const navAs    = document.querySelectorAll('.nav-links a');
+const navObs   = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navAs.forEach(a => a.classList.remove('active'));
+      const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin:'-40% 0px -55% 0px' });
+sections.forEach(s => navObs.observe(s));
+
+/* ===== TYPEWRITER ===== */
+const phrases = [
+  '腎臟科暨內科專科醫師 · 陽明醫院院長',
+  '國立中央大學 認知神經科學研究所 博士',
+  'Nephrologist · Cognitive Neuroscientist',
+  'MCI 早期偵測 · EEG 電生理研究者'
+];
+let pIdx=0, cIdx=0, deleting=false;
+const tw = document.getElementById('typewriter-text');
+function typewrite() {
+  const current = phrases[pIdx];
+  if (!deleting) {
+    tw.textContent = current.slice(0, ++cIdx);
+    if (cIdx === current.length) { deleting=true; setTimeout(typewrite, 2000); return; }
+    setTimeout(typewrite, 75);
+  } else {
+    tw.textContent = current.slice(0, --cIdx);
+    if (cIdx === 0) { deleting=false; pIdx=(pIdx+1)%phrases.length; setTimeout(typewrite, 400); return; }
+    setTimeout(typewrite, 40);
+  }
+}
+setTimeout(typewrite, 800);
+
+/* ===== STAT COUNTERS ===== */
+function animateCount(el, target, duration) {
+  let start=0, startTime=null;
+  function step(ts) {
+    if (!startTime) startTime=ts;
+    const prog = Math.min((ts-startTime)/duration, 1);
+    el.textContent = Math.floor(prog * target);
+    if (prog < 1) requestAnimationFrame(step);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(step);
+}
+const statObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target.querySelector('.stat-number');
+      if (el && !el.dataset.animated) {
+        el.dataset.animated = '1';
+        animateCount(el, +el.dataset.count, 1500);
+      }
+    }
+  });
+}, { threshold:0.5 });
+document.querySelectorAll('.stat-card').forEach(c => statObs.observe(c));
+
+/* ===== GFR CALCULATOR ===== */
+Chart.defaults.color        = '#8ba8c4';
+Chart.defaults.borderColor  = 'rgba(77,217,207,0.1)';
+Chart.defaults.font.family  = "'Noto Sans TC','Inter',sans-serif";
+
+let currentSex = 'female';
+let currentEGFR = 0;
+let displayEGFR = 0;
+let animFrame   = null;
+
+function calcGFR(scr, age, sex) {
+  const kappa  = sex==='female' ? 0.7  : 0.9;
+  const alpha  = sex==='female' ? -0.241 : -0.302;
+  const sexF   = sex==='female' ? 1.012 : 1.0;
+  const ratio  = scr / kappa;
+  return 142 * Math.min(ratio,1)**alpha * Math.max(ratio,1)**(-1.200)
+             * (0.9938**age) * sexF;
+}
+
+const ckdStages = [
+  { stage:'G1', min:90,  max:Infinity, label:'腎功能正常或偏高', color:'#22c55e' },
+  { stage:'G2', min:60,  max:89,       label:'輕度下降',          color:'#a3e635' },
+  { stage:'G3a',min:45,  max:59,       label:'輕至中度下降',      color:'#facc15' },
+  { stage:'G3b',min:30,  max:44,       label:'中至重度下降',      color:'#f97316' },
+  { stage:'G4', min:15,  max:29,       label:'重度下降',          color:'#ef4444' },
+  { stage:'G5', min:0,   max:14,       label:'腎衰竭',            color:'#991b1b' },
+];
+
+function getStage(egfr) {
+  return ckdStages.find(s => egfr >= s.min && egfr <= s.max) || ckdStages[5];
+}
+
+function animateGFR(target) {
+  if (animFrame) cancelAnimationFrame(animFrame);
+  const start = displayEGFR, startTime = performance.now();
+  function step(ts) {
+    const prog = Math.min((ts - startTime) / 350, 1);
+    displayEGFR = start + (target - start) * prog;
+    document.getElementById('gfrNumber').textContent = displayEGFR.toFixed(1);
+    if (prog < 1) animFrame = requestAnimationFrame(step);
+  }
+  animFrame = requestAnimationFrame(step);
+}
+
+function updateGFR() {
+  const scr = parseFloat(document.getElementById('scrSlider').value);
+  const age = parseFloat(document.getElementById('ageSlider').value);
+  document.getElementById('scrVal').textContent = scr.toFixed(2);
+  document.getElementById('ageVal').textContent = age;
+  const egfr = calcGFR(scr, age, currentSex);
+  currentEGFR = Math.min(egfr, 120);
+  const s = getStage(egfr);
+  animateGFR(currentEGFR);
+  const badge = document.getElementById('stageBadge');
+  badge.textContent = `CKD 分期 ${s.stage}`;
+  badge.style.background = s.color + '22';
+  badge.style.color       = s.color;
+  badge.style.border      = `1px solid ${s.color}55`;
+  document.getElementById('stageDesc').textContent = s.label;
+  updateSliderFill('scrSlider', (scr-0.4)/(10-0.4)*100);
+  updateSliderFill('ageSlider', (age-18)/(90-18)*100);
+  updateCKDChart();
+  updateKidneySpeed(egfr);
+}
+
+function updateSliderFill(id, pct) {
+  const el = document.getElementById(id);
+  el.style.background = `linear-gradient(to right, #4dd9cf 0%, #4dd9cf ${pct}%, #0d1533 ${pct}%, #0d1533 100%)`;
+}
+
+document.querySelectorAll('.sex-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.sex-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentSex = btn.dataset.sex;
+    updateGFR();
+  });
+});
+document.getElementById('scrSlider').addEventListener('input', updateGFR);
+document.getElementById('ageSlider').addEventListener('input', updateGFR);
+
+/* ===== CKD CHART ===== */
+const ckdCtx = document.getElementById('ckdChart').getContext('2d');
+const eGFRMarkerPlugin = {
+  id:'egfrMarker',
+  afterDraw(chart) {
+    const { ctx, chartArea, scales } = chart;
+    if (!scales.x) return;
+    const xPos = scales.x.getPixelForValue(currentEGFR);
+    if (xPos < chartArea.left || xPos > chartArea.right) return;
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(xPos, chartArea.top);
+    ctx.lineTo(xPos, chartArea.bottom);
+    ctx.strokeStyle = '#f4a261';
+    ctx.lineWidth   = 2.5;
+    ctx.setLineDash([5,4]);
+    ctx.stroke();
+    ctx.fillStyle = '#f4a261';
+    ctx.font = "bold 11px 'Inter'";
+    ctx.fillText(`${currentEGFR.toFixed(0)}`, xPos+4, chartArea.top+14);
+    ctx.restore();
+  }
+};
+
+const ckdChart = new Chart(ckdCtx, {
+  type:'bar',
+  plugins:[eGFRMarkerPlugin],
+  data:{
+    labels:['G5 腎衰竭','G4 重度↓','G3b 中重度↓','G3a 輕中度↓','G2 輕度↓','G1 正常'],
+    datasets:[{
+      data:[14,14,14,14,29,30],
+      backgroundColor:['#991b1b88','#ef444488','#f9731688','#facc1588','#a3e63588','#22c55e88'],
+      borderColor:    ['#991b1b','#ef4444','#f97316','#facc15','#a3e635','#22c55e'],
+      borderWidth:1, borderRadius:4,
+    }]
+  },
+  options:{
+    indexAxis:'y',
+    responsive:true,
+    plugins:{ legend:{display:false}, tooltip:{
+      callbacks:{ label(c){ return ` eGFR 閾值：${c.raw} mL/min/1.73m²`; } }
+    }},
+    scales:{
+      x:{ min:0, max:30, ticks:{ font:{size:10} },
+          title:{display:true,text:'eGFR 區間 (mL/min/1.73m²)',font:{size:10}} },
+      y:{ ticks:{ font:{size:10} } }
+    }
+  }
+});
+
+function updateCKDChart() { ckdChart.update('none'); }
+
+/* ===== KIDNEY ANIMATION SPEED ===== */
+function updateKidneySpeed(egfr) {
+  const speed = egfr >= 90 ? '正常' : egfr >= 60 ? '輕度減慢' : egfr >= 30 ? '明顯減慢' : '嚴重減慢';
+  const dur   = egfr >= 90 ? 3 : egfr >= 60 ? 5 : egfr >= 30 ? 8 : 14;
+  document.getElementById('kidneySpeedLabel').textContent = `動畫速率：${speed}（${egfr.toFixed(0)} mL/min）`;
+  document.querySelectorAll('.filtrate-dot').forEach((d,i) => {
+    d.style.animationDuration = `${dur}s`;
+  });
+}
+
+/* ===== KB PREVALENCE CHART ===== */
+const kbPrevCtx = document.getElementById('kbPrevalenceChart').getContext('2d');
+new Chart(kbPrevCtx, {
+  type:'bar',
+  data:{
+    labels:['G1–G2','G3a','G3b','G4','G5\n透析前','血液\n透析'],
+    datasets:[{
+      label:'認知障礙盛行率 (%)',
+      data:[18,22,32,45,58,70],
+      backgroundColor:'rgba(244,162,97,0.25)',
+      borderColor:'#f4a261', borderWidth:2, borderRadius:6,
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{ legend:{display:false}, tooltip:{
+      callbacks:{ label(c){ return ` ${c.raw}%`; } }
+    }},
+    scales:{
+      y:{ min:0, max:80, ticks:{ callback:v=>v+'%' },
+          title:{display:true,text:'盛行率 (%)',font:{size:10}} },
+      x:{ ticks:{ font:{size:10} } }
+    }
+  }
+});
+
+/* ===== KB DECLINE CHART ===== */
+const kbDeclCtx = document.getElementById('kbDeclineChart').getContext('2d');
+new Chart(kbDeclCtx, {
+  type:'line',
+  data:{
+    labels:['G1','G2','G3a','G3b','G4','G5'],
+    datasets:[{
+      label:'年化 MoCA 下降量（分/年）',
+      data:[0.4,0.8,1.4,2.1,3.0,4.2],
+      borderColor:'#f4a261', backgroundColor:'rgba(244,162,97,0.1)',
+      borderWidth:2.5, pointBackgroundColor:'#f4a261',
+      pointRadius:5, fill:true, tension:0.4,
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{ legend:{display:false} },
+    scales:{
+      y:{ min:0, max:5, ticks:{ callback:v=>v+'分' },
+          title:{display:true,text:'MoCA 下降量（分/年）',font:{size:10}} },
+      x:{ title:{display:true,text:'CKD 分期',font:{size:10}} }
+    }
+  }
+});
+
+/* ===== BRAIN MAP ===== */
+const brainData = {
+  frontal: {
+    zh:'額葉', en:'Frontal Lobe',
+    funcs:['執行功能：計畫、決策、衝動控制','工作記憶（Prefrontal Cortex）','語言產出（Broca 語言區，左半球）','自主運動控制（運動皮質）'],
+    clinical:'額葉損傷常見於額顳葉失智症（FTD）及創傷性腦傷（TBI），表現為個性改變與執行功能下降。'
+  },
+  parietal:{
+    zh:'頂葉', en:'Parietal Lobe',
+    funcs:['空間認知與方位感','感覺整合（觸覺、本體感覺）','計算能力（角迴）','注意力導向（頂上小葉）'],
+    clinical:'頂葉損傷可引起半側空間忽視（neglect）、失計算症（acalculia）及體感失認。'
+  },
+  temporal:{
+    zh:'顳葉', en:'Temporal Lobe',
+    funcs:['聽覺處理（初級聽覺皮質）','語言理解（Wernicke 語言區，左半球）','長期記憶編碼（海馬迴）','面孔識別（梭狀迴）'],
+    clinical:'顳葉內側受損（尤其海馬迴）是阿茲海默症最早期病變部位，導致情節記憶障礙。'
+  },
+  occipital:{
+    zh:'枕葉', en:'Occipital Lobe',
+    funcs:['初級視覺處理（V1皮質）','顏色感知（V4）','物體識別（腹側視覺流）','運動視覺（V5/MT區）'],
+    clinical:'枕葉損傷可引起皮質性盲、視覺失認（無法辨認熟悉物體）及幻視現象。'
+  },
+  cerebellum:{
+    zh:'小腦', en:'Cerebellum',
+    funcs:['精細動作協調與平衡','程序記憶（運動技能學習）','時序學習與節律控制','語言韻律調節（認知小腦）'],
+    clinical:'小腦萎縮（小腦共濟失調）見於多系統萎縮症（MSA）；認知小腦症候群影響語言與執行功能。'
+  },
+  brainstem:{
+    zh:'腦幹', en:'Brainstem',
+    funcs:['生命維持功能（呼吸、心跳、血壓）','睡眠—清醒週期調控（網狀活化系統）','顱神經核（眼動、面部、吞嚥）','感覺/運動訊號中繼'],
+    clinical:'腦幹損傷（如中風、腫瘤）可導致閉鎖症候群；帕金森症的 Lewy 體病變最早出現於腦幹。'
+  }
+};
+
+document.querySelectorAll('.brain-region').forEach(r => {
+  r.addEventListener('click', e => {
+    document.querySelectorAll('.brain-region').forEach(x => x.classList.remove('active'));
+    e.currentTarget.classList.add('active');
+    const d = brainData[e.currentTarget.dataset.region];
+    document.getElementById('brainPlaceholder').style.display  = 'none';
+    document.getElementById('brainInfoContent').style.display  = 'block';
+    document.getElementById('brainInfoContent').innerHTML = `
+      <h4>${d.zh}</h4>
+      <div class="brain-en">${d.en}</div>
+      <ul class="brain-func-list">
+        ${d.funcs.map(f=>`<li><i class="fas fa-circle-dot"></i><span>${f}</span></li>`).join('')}
+      </ul>
+      <div class="brain-clinical"><i class="fas fa-notes-medical" style="color:var(--purple);margin-right:6px;"></i>${d.clinical}</div>
+    `;
+  });
+});
+
+/* ===== COGNITIVE RADAR ===== */
+const radarCtx = document.getElementById('cogRadar').getContext('2d');
+const radarChart = new Chart(radarCtx, {
+  type:'radar',
+  data:{
+    labels:['執行功能','記憶力','語言','注意力','視空間','處理速度'],
+    datasets:[
+      { label:'典型老化', data:[7,6,8,7,7,6],
+        borderColor:'#4dd9cf', backgroundColor:'rgba(77,217,207,0.12)',
+        borderWidth:2, pointBackgroundColor:'#4dd9cf', pointRadius:4 },
+      { label:'輕度認知障礙 (MCI)', data:[4,3,6,4,5,3],
+        borderColor:'#f4a261', backgroundColor:'rgba(244,162,97,0.12)',
+        borderWidth:2, pointBackgroundColor:'#f4a261', pointRadius:4 },
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:true,
+    plugins:{ legend:{
+      position:'bottom', labels:{ padding:20, font:{size:12} }
+    }},
+    scales:{ r:{
+      min:0, max:10,
+      ticks:{ stepSize:2, backdropColor:'transparent', font:{size:10} },
+      grid:{ color:'rgba(77,217,207,0.1)' },
+      pointLabels:{ font:{size:12}, color:'#8ba8c4' }
+    }}
+  }
+});
+
+document.getElementById('btnNormal').addEventListener('click', function() {
+  this.classList.toggle('on');
+  radarChart.data.datasets[0].hidden = !this.classList.contains('on');
+  radarChart.update();
+});
+document.getElementById('btnMCI').addEventListener('click', function() {
+  this.classList.toggle('on');
+  radarChart.data.datasets[1].hidden = !this.classList.contains('on');
+  radarChart.update();
+});
+
+/* ===== QUIZ ===== */
+const quizData = [
+  {
+    q:'下列哪一腦區與情節記憶（Episodic Memory）的編碼最為相關？',
+    opts:['杏仁核（Amygdala）','海馬迴（Hippocampus）','基底核（Basal Ganglia）','小腦（Cerebellum）'],
+    ans:1,
+    exp:'海馬迴是情節記憶編碼的核心結構，受損後常見順行性失憶症（anterograde amnesia）。阿茲海默症的病理變化最早累及海馬迴內嗅皮質。'
+  },
+  {
+    q:'CKD 患者中最常見的認知障礙類型為？',
+    opts:['語言障礙（失語症）','視空間障礙','執行功能與注意力障礙','面孔識別障礙'],
+    ans:2,
+    exp:'腎功能下降導致尿毒素蓄積，影響前額葉白質與皮質下路徑，最先表現為執行功能及注意力障礙，與阿茲海默症以記憶障礙為主不同。'
+  },
+  {
+    q:'下列哪種神經影像技術最適合研究腦部功能連結（Functional Connectivity）？',
+    opts:['電腦斷層（CT）','結構性 MRI（sMRI）','靜息態功能性 MRI（rs-fMRI）','正子掃描（PET）'],
+    ans:2,
+    exp:'rs-fMRI 透過偵測 BOLD（血氧濃度依賴）訊號的自發性波動，反映腦區間的時間相關性，廣泛用於功能連結研究。'
+  }
+];
+let qIdx=0, score=0;
+
+function renderQuiz(idx) {
+  const fill = ((idx)/quizData.length*100);
+  document.getElementById('quizFill').style.width = fill+'%';
+  if (idx >= quizData.length) {
+    document.getElementById('quizContainer').innerHTML = `
+      <div class="quiz-result">
+        <div class="quiz-score-num" id="quizScoreNum">0</div>
+        <div class="quiz-score-label">/ ${quizData.length} 題正確</div>
+        <div class="quiz-msg">${score===3?'🎉 全對！您對腎臟與腦科學有深厚的認識！':score===2?'👍 答對兩題，再複習一下試試看！':'💡 繼續學習，探索腎腦科學的奧秘！'}</div>
+        <br>
+        <button class="btn btn-outline" onclick="restartQuiz()" style="margin-top:8px;">
+          <i class="fas fa-rotate-left"></i> 重新作答
+        </button>
+      </div>
+    `;
+    document.getElementById('quizFill').style.width = '100%';
+    animateCount(document.getElementById('quizScoreNum'), score, 800);
+    return;
+  }
+  const q = quizData[idx];
+  document.getElementById('quizContainer').innerHTML = `
+    <div class="quiz-question">Q${idx+1}. ${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((o,i)=>`<button class="quiz-opt" data-i="${i}">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}
+    </div>
+    <div class="quiz-explanation" id="quizExp"><i class="fas fa-lightbulb" style="color:var(--purple);margin-right:6px;"></i>${q.exp}</div>
+    <button class="quiz-next" id="quizNext" onclick="renderQuiz(${idx+1})">下一題 <i class="fas fa-arrow-right"></i></button>
+  `;
+  document.querySelectorAll('.quiz-opt').forEach(btn => {
+    btn.addEventListener('click', function() {
+      if (this.classList.contains('disabled')) return;
+      const chosen = +this.dataset.i;
+      const correct = q.ans;
+      document.querySelectorAll('.quiz-opt').forEach(b => b.classList.add('disabled'));
+      this.classList.add(chosen===correct?'correct':'incorrect');
+      if (chosen!==correct) document.querySelectorAll('.quiz-opt')[correct].classList.add('correct');
+      if (chosen===correct) score++;
+      document.getElementById('quizExp').style.display = 'block';
+      document.getElementById('quizNext').style.display = 'inline-flex';
+    });
+  });
+}
+
+function restartQuiz() { qIdx=0; score=0; renderQuiz(0); }
+renderQuiz(0);
+
+/* ===== INIT GFR ===== */
+updateGFR();
+
+/* ===== FOOTER YEAR ===== */
+document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+/* ===== TEACHING TABS ===== */
+function switchTeachTab(btn, panelId) {
+  document.querySelectorAll('.teach-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.teach-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(panelId).classList.add('active');
+  AOS.refresh();
+}
+</script>
+</body>
+</html>
