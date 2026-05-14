@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="糖尿病與失智症之間的關聯及相關研究 — 朱國大 醫師 2022 年 7 月 25 日演講整理。從腦部胰島素阻抗、第三型糖尿病假說，到 GLP-1 RA 與多元預防介入。">
+<title>糖尿病與失智症：一個被低估的連結 | 朱國大 醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg-primary:    #0a0f1e;
+  --bg-secondary:  #0d1533;
+  --bg-card:       #111d3c;
+  --bg-card2:      #162248;
+  --teal:          #4dd9cf;
+  --teal-dim:      #2a9d8f;
+  --teal-light:    #7ee8e2;
+  --purple:        #8b5cf6;
+  --purple-light:  #a78bfa;
+  --gold:          #f4a261;
+  --text:          #e8f4f8;
+  --text-sec:      #8ba8c4;
+  --text-dim:      #4a6580;
+  --border:        rgba(77,217,207,0.15);
+  --shadow:        0 8px 32px rgba(0,0,0,0.45);
+  --radius:        12px;
+  --tr:            0.3s cubic-bezier(0.4,0,0.2,1);
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Noto Sans TC','Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text);
+  line-height:1.85;
+  overflow-x:hidden;
+}
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:var(--bg-primary); }
+::-webkit-scrollbar-thumb { background:var(--teal-dim); border-radius:3px; }
+a { color:var(--teal); text-decoration:none; transition:var(--tr); }
+a:hover { color:var(--teal-light); }
+
+/* Top bar */
+.top-bar {
+  position:sticky; top:0; z-index:100;
+  background:rgba(10,15,30,0.92); backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;
+}
+.top-bar-inner {
+  max-width:900px; margin:0 auto; padding:0 24px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.back-link {
+  color:var(--text-sec); font-size:0.9rem; font-weight:500;
+  display:inline-flex; align-items:center; gap:8px;
+}
+.back-link:hover { color:var(--teal); }
+.top-bar-title {
+  font-size:0.85rem; color:var(--text-dim);
+  font-family:'JetBrains Mono', monospace;
+}
+@media(max-width:600px) { .top-bar-title { display:none; } }
+
+/* Article container */
+.article {
+  max-width:780px; margin:0 auto;
+  padding:60px 24px 80px;
+}
+
+/* Header */
+.article-header {
+  margin-bottom:50px; padding-bottom:36px;
+  border-bottom:1px solid var(--border);
+}
+.article-meta {
+  font-size:0.85rem; color:var(--teal);
+  font-family:'JetBrains Mono', monospace;
+  margin-bottom:14px; letter-spacing:0.5px;
+}
+.article-title {
+  font-size:2.3rem; font-weight:700; line-height:1.35;
+  background:linear-gradient(135deg,var(--text) 0%,var(--teal-light) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text; color:transparent;
+  margin-bottom:18px;
+}
+@media(max-width:600px) { .article-title { font-size:1.7rem; } }
+.article-subtitle {
+  color:var(--text-sec); font-size:1.05rem; line-height:1.8;
+}
+.article-author {
+  margin-top:24px; padding-top:20px;
+  border-top:1px solid var(--border);
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap;
+}
+.author-avatar {
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,var(--teal-dim),var(--purple));
+  display:flex; align-items:center; justify-content:center;
+  color:var(--text); font-weight:700; font-size:1.1rem; flex-shrink:0;
+}
+.author-info { font-size:0.88rem; color:var(--text-sec); line-height:1.6; }
+.author-info strong { color:var(--text); font-weight:600; }
+
+/* Tags */
+.article-tags {
+  margin-top:18px; display:flex; flex-wrap:wrap; gap:8px;
+}
+.tag {
+  font-size:0.72rem; padding:3px 12px; border-radius:20px;
+  background:rgba(77,217,207,0.08); color:var(--teal);
+  border:1px solid rgba(77,217,207,0.2);
+}
+
+/* Article body */
+.article h2 {
+  font-size:1.65rem; font-weight:700; color:var(--text);
+  margin:60px 0 22px; padding-bottom:12px;
+  border-bottom:2px solid var(--teal);
+  display:inline-block;
+}
+.article h3 {
+  font-size:1.25rem; font-weight:600; color:var(--teal-light);
+  margin:40px 0 16px;
+}
+.article h4 {
+  font-size:1.05rem; font-weight:600; color:var(--text);
+  margin:28px 0 12px;
+}
+.article p {
+  margin:0 0 20px; color:var(--text-sec);
+  font-size:1rem; line-height:1.95;
+}
+.article p strong { color:var(--text); font-weight:600; }
+.article p em { color:var(--teal-light); font-style:italic; }
+
+.article ul, .article ol {
+  margin:0 0 24px; padding-left:24px; color:var(--text-sec);
+}
+.article li { margin-bottom:10px; line-height:1.85; }
+.article li strong { color:var(--text); }
+.article li::marker { color:var(--teal); }
+
+/* Highlights */
+.callout {
+  background:var(--bg-card); border-left:4px solid var(--teal);
+  border-radius:6px; padding:20px 24px; margin:28px 0;
+  color:var(--text-sec); font-size:0.96rem; line-height:1.85;
+}
+.callout strong { color:var(--text); }
+.callout-purple { border-left-color:var(--purple); }
+.callout-gold { border-left-color:var(--gold); }
+
+/* Tables */
+.tbl-wrap { overflow-x:auto; margin:24px 0; }
+.article table {
+  width:100%; border-collapse:collapse; font-size:0.9rem;
+  background:var(--bg-card); border-radius:var(--radius); overflow:hidden;
+}
+.article th {
+  background:rgba(77,217,207,0.1); color:var(--teal);
+  font-weight:600; padding:12px 14px; text-align:left;
+  border-bottom:1px solid var(--border); font-size:0.85rem;
+}
+.article td {
+  padding:11px 14px; color:var(--text-sec);
+  border-bottom:1px solid rgba(77,217,207,0.08);
+  vertical-align:top;
+}
+.article tr:last-child td { border-bottom:none; }
+.article td strong { color:var(--text); }
+
+/* Code/inline */
+.article code {
+  font-family:'JetBrains Mono', monospace;
+  background:rgba(77,217,207,0.1);
+  color:var(--teal-light);
+  padding:2px 7px; border-radius:4px;
+  font-size:0.88em;
+}
+.article pre {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:8px; padding:20px; margin:24px 0;
+  overflow-x:auto; font-family:'JetBrains Mono', monospace;
+  font-size:0.85rem; line-height:1.7; color:var(--text-sec);
+}
+
+/* Blockquote */
+.article blockquote {
+  margin:32px 0; padding:24px 28px;
+  background:linear-gradient(135deg,rgba(77,217,207,0.05),rgba(139,92,246,0.05));
+  border-left:4px solid var(--teal);
+  border-radius:8px;
+  font-size:1.05rem; line-height:1.9; color:var(--text);
+  font-style:italic;
+}
+.article blockquote p { color:var(--text); margin-bottom:8px; }
+
+/* Section divider */
+.divider {
+  margin:60px 0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--teal-dim),transparent);
+}
+
+/* References */
+.references {
+  margin-top:60px; padding-top:36px;
+  border-top:2px solid var(--teal);
+}
+.references h2 { border:none; padding:0; margin:0 0 24px; }
+.references ol { padding-left:0; counter-reset:ref; list-style:none; }
+.references li {
+  counter-increment:ref;
+  position:relative; padding-left:42px;
+  margin-bottom:14px; font-size:0.88rem;
+  color:var(--text-sec); line-height:1.7;
+}
+.references li::before {
+  content:counter(ref);
+  position:absolute; left:0; top:0;
+  background:rgba(77,217,207,0.1); color:var(--teal);
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.78rem; font-weight:600;
+  width:30px; padding:2px 0; border-radius:4px;
+  text-align:center;
+  border:1px solid rgba(77,217,207,0.2);
+}
+.references li strong { color:var(--text); font-weight:600; }
+.references li em { color:var(--teal-light); font-style:italic; }
+
+/* Footer */
+.article-footer {
+  margin-top:60px; padding-top:32px;
+  border-top:1px solid var(--border);
+  text-align:center; color:var(--text-dim); font-size:0.85rem;
+  line-height:1.9;
+}
+.article-footer a { color:var(--teal); }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="../index.html#teaching" class="back-link">
+      <i class="fas fa-arrow-left"></i> 返回演講與教學
+    </a>
+    <div class="top-bar-title">朱國大．MD・PhD &nbsp;·&nbsp; Blog</div>
+  </div>
+</div>
+
+<article class="article">
+
+<header class="article-header">
+  <div class="article-meta">2022 / 07 / 25 &nbsp;·&nbsp; 受邀演講．桃園市政府衛生局</div>
+  <h1 class="article-title">糖尿病與失智症：一個被低估的連結</h1>
+  <p class="article-subtitle">
+    從第三型糖尿病、腦部胰島素阻抗，到 GLP-1 受體促效劑與 40 Hz 伽馬波刺激
+    —— 為什麼長期糖尿病的病人會在生命晚期走向失智？我們在臨床、生活與新藥三個層面能做些什麼？
+  </p>
+  <div class="article-author">
+    <div class="author-avatar">朱</div>
+    <div class="author-info">
+      <strong>朱國大 醫師</strong>（陽明醫院院長．桃園市平鎮區）<br>
+      腎臟科暨內科專科醫師 · 中央大學認知神經科學博士
+    </div>
+  </div>
+  <div class="article-tags">
+    <span class="tag">糖尿病</span>
+    <span class="tag">失智症</span>
+    <span class="tag">阿茲海默症</span>
+    <span class="tag">胰島素阻抗</span>
+    <span class="tag">神經科學</span>
+    <span class="tag">老人醫學</span>
+  </div>
+</header>
+
+<h2>從三個診間故事說起</h2>
+
+<p>每個禮拜在糖尿病門診，我都會遇到三種典型的病人。</p>
+
+<p><strong>第一位</strong>是 80 歲的老先生，糖尿病 10 年、控制得很好（HbA1c 6%），獨自生活、生活自理完整、MoCA 27/30。他唯一令人擔心的，是還在使用 sulfonylurea（Glyburide）—— 一個容易造成低血糖的長效降血糖藥。</p>
+
+<p><strong>第二位</strong>是 75 歲的太太，糖尿病 30 年、有高血壓、冠心病、慢性腎臟病、糖尿病神經病變、黃斑部退化。最近一個月跑了兩次急診—— 都是因為低血糖。她常常忘記回診、忘記帶血糖記錄、重複問同一件事。MoCA 18/30，HbA1c 卻已飆到 9.2%。她的胰島素還是自己在打。</p>
+
+<p><strong>第三位</strong>是 88 歲的阿嬤，住進長照機構，重度失智、所有日常生活都需要協助。HbA1c 7.4%、eGFR 28 ml/min、還在吃 Metformin 500 mg bid 加 Donepezil 5 mg。</p>
+
+<div class="callout">
+這三個人代表了臨床上「糖尿病合併認知功能障礙」三個截然不同的階段—— 同時也勾勒出我們今天要回答的問題：<strong>為什麼長期糖尿病的病人，會走向失智？我們能不能、又該如何，阻斷這條路？</strong>
+</div>
+
+<h2>一、糖尿病與失智之間的「分子橋樑」</h2>
+
+<h3>1.1 胰島素並不只是血糖的事</h3>
+
+<p>過去我們把胰島素當成「降血糖的荷爾蒙」，但近十年的研究告訴我們：胰島素在大腦裡，是<strong>神經元代謝、突觸可塑性、神經炎症調控</strong>的關鍵分子。</p>
+
+<p>Arnold 等學者在 2018 年的 <em>Nature Reviews Neurology</em> 經典回顧中指出，腦內幾乎所有細胞—— 神經元、神經膠細胞（astrocytes）、微膠細胞（microglia）、甚至血腦障壁的內皮細胞—— 都表現胰島素受體（IR）以及下游 IRS-1、IRS-2 訊號分子 <a href="#ref-1">[1]</a>。胰島素在腦中的作用包括：</p>
+
+<ul>
+<li><strong>神經元層級</strong>：透過 IRS-AKT-mTOR 與 IRS-AKT-GSK3β 訊號，調控突觸長期增強（LTP）、長期抑制（LTD），影響 AMPA、NMDA、GABA 受體的表達與定位。</li>
+<li><strong>能量代謝</strong>：神經元的 GLUT3、星狀膠細胞的 GLUT1、神經元的 GLUT4 都受胰島素影響；星狀膠細胞透過糖解產生乳酸供應神經元（astrocyte-neuron lactate shuttle）。</li>
+<li><strong>血管效應</strong>：透過 NO 依賴性的血管擴張，提升 regional cerebral blood flow（rCBF）。</li>
+<li><strong>抗凋亡與抗發炎</strong>：IRS-AKT 路徑抑制細胞凋亡，並調節微膠細胞的細胞激素釋放。</li>
+</ul>
+
+<p>當這套系統失靈，就是所謂的「<strong>腦部胰島素阻抗</strong>」（brain insulin resistance）—— 腦細胞對胰島素訊號的反應變鈍。這不只發生在糖尿病人身上，<strong>阿茲海默症患者的腦組織也有同樣的特徵</strong>。Talbot 等人 2012 年在 <em>Journal of Clinical Investigation</em> 的研究發現，AD 病人的大腦皮質與海馬迴有明顯的 IR/IRS-1 訊號中斷，且與認知衰退、tau 病理變化相關 <a href="#ref-2">[2]</a>。</p>
+
+<h3>1.2 「第三型糖尿病」假說</h3>
+
+<p>正因為 AD 病人腦內出現如此明顯的胰島素阻抗，de la Monte 與 Wands 在 2006 年大膽地提出「<strong>第三型糖尿病</strong>」（Type 3 Diabetes）假說 <a href="#ref-3">[3]</a>：阿茲海默症本質上是一種「<strong>腦部特異性的糖尿病</strong>」—— 胰島素／IGF-1／IGF-2 多胜肽基因表現下降、受體基因表現下降、p53 促凋亡基因上升、APP 基因上升、tau 過度磷酸化。</p>
+
+<p>他們在大鼠腦室內注射 streptozotocin（ic-STZ）造出動物模型，結果這些大鼠出現：</p>
+
+<ul>
+<li>胰島素／IGF 基因表現下降、受體結合受損</li>
+<li>APP 基因上調、活性氧物質（ROS）與氧化壓力增加</li>
+<li>葡萄糖與肝糖代謝下降、氧化代謝下降</li>
+<li>漸進性的學習、記憶與認知行為缺損</li>
+</ul>
+
+<p>—— 完全是一個「腦內糖尿病」的縮影。</p>
+
+<div class="callout callout-purple">
+不過要注意：「第三型糖尿病」目前仍是<strong>機制假說</strong>，並非臨床診斷分類。Kandimalla 等人 2016 年在 <em>Biochim Biophys Acta</em> 的批判性回顧指出，這個概念有助於理解共同機制，但 AD 的病因仍是多因性的 <a href="#ref-4">[4]</a>。
+</div>
+
+<h3>1.3 從系統性胰島素阻抗到「失智終點」</h3>
+
+<p>Kellar 與 Craft 2020 年在 <em>Lancet Neurology</em> 整理了從胰島素阻抗到失智的完整路徑 <a href="#ref-5">[5]</a>：</p>
+
+<pre>驅動因子              →   血管效應           →   病理結果           →   疾病
+基因/表觀遺傳           內皮功能異常           Aβ 清除減少          AD
+不運動                 BBB 功能異常           Aβ 沉積              混合型 AD/VaD
+不健康飲食              動脈僵硬度增加         tau 過磷酸化          VaD
+肥胖                   高血壓                 神經纖維纏結
+睡眠紊亂/壓力           代謝效應               微血管/白質損傷
+                      高胰島素、高血糖
+                      血脂異常
+                      能量代謝失調、發炎</pre>
+
+<p>換句話說，<strong>胰島素阻抗是「上游風險」，AD 與 VaD 是「下游終點」</strong>。這也解釋了為什麼第二型糖尿病的病人會同時面臨血管型失智（小血管病變、腦中風後失智）與神經退化性失智（AD）兩條路徑。</p>
+
+<div class="divider"></div>
+
+<h2>二、認知功能障礙與失智的臨床診斷</h2>
+
+<h3>2.1 正常老化、輕度認知障礙、失智的光譜</h3>
+
+<p>Salthouse 2004 年的經典研究顯示，<strong>流體智力</strong>（fluid intelligence，處理速度、工作記憶、推理）在 20–30 歲後就持續下降，而<strong>結晶智力</strong>（crystallized intelligence，知識、語意記憶）可以維持到 60 歲以後 <a href="#ref-6">[6]</a>。所以「年紀大記性差」不一定是病態，重點是：</p>
+
+<ul>
+<li><strong>輕度認知障礙（MCI）</strong>：客觀認知測驗低於同年齡 1.5 個標準差，但 ADL 仍大致完整。每年約有 10–15% 會進展到失智 <a href="#ref-7">[7]</a>。</li>
+<li><strong>失智症</strong>：多個認知領域受損，且影響日常生活功能。</li>
+</ul>
+
+<h3>2.2 三個臨床上最常用的篩檢工具</h3>
+
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>工具</th><th>滿分</th><th>臨界值</th><th>評估內容</th><th>特點</th></tr></thead>
+<tbody>
+<tr><td><strong>MMSE</strong>（Folstein, 1975）</td><td>30</td><td>&lt;24 異常</td><td>定向、記憶、計算、語言、視覺空間</td><td>簡單普及，對輕度 MCI 較不敏感</td></tr>
+<tr><td><strong>MoCA</strong>（Nasreddine, 1996）</td><td>30</td><td>&lt;26 異常</td><td>多了執行功能、抽象、視覺構造</td><td>對 MCI 敏感度高，案例 2 用 MoCA 才抓得到 18/30</td></tr>
+<tr><td><strong>Mini-Cog</strong>（Borson, 2003）</td><td>–</td><td>3 字回憶 + 畫鐘</td><td>1–2 分鐘可做完</td><td><strong>適合糖尿病門診篩檢</strong> <a href="#ref-8">[8]</a></td></tr>
+<tr><td><strong>CDR</strong>（Hughes, 1982）</td><td>0–3</td><td>≥0.5 異常</td><td>6 個面向綜合評分</td><td>含日常功能評估</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+<strong>臨床建議</strong>：根據 2022 ADA 糖尿病照護準則，<strong>65 歲以上糖尿病患在初診、之後每年都應該篩檢 MCI 或失智</strong>。Mini-Cog 是最簡單實用的選擇 <a href="#ref-9">[9]</a>。
+</div>
+
+<h3>2.3 兩大主流失智：AD 與血管型失智</h3>
+
+<p><strong>阿茲海默症（約佔 70%）</strong>—— 典型病理為 β-amyloid 斑塊（plaques）與神經纖維纏結（neurofibrillary tangles, NFT）。Thal 等人 2008 年描述了 Aβ 沉積的五個階段（從 isocortex → allocortex/limbic → 基底節 → 中腦 → 橋腦/小腦）<a href="#ref-10">[10]</a>。2018 年 NIA-AA 研究架構（Jack et al.）正式以生物標記 A/T/(N) 三個維度定義 AD 連續譜，從臨床前期 → MCI → 顯性失智 <a href="#ref-11">[11]</a>。</p>
+
+<p><strong>血管型失智（約佔 20%）</strong>—— NINDS-AIREN 診斷準則要求：失智 + 腦血管疾病證據（焦點神經學徵候 + 影像）+ 兩者之間有時間關聯（中風後 3 個月內、急性惡化或階段性退化）<a href="#ref-12">[12]</a>。Hachinski 缺血評分 ≥7 分支持血管性病因，0–4 分傾向原發退化性失智 <a href="#ref-13">[13]</a>。</p>
+
+<p>近年 VICCCS 共識（Skrobot, 2018）整理出四種主要血管型失智亞型 <a href="#ref-14">[14]</a>：</p>
+
+<ol>
+<li>中風後失智（post-stroke dementia）</li>
+<li>多發梗塞型失智</li>
+<li>皮質下缺血性血管型失智（<strong>SIVD</strong>，主因是小血管病變）</li>
+<li>混合型失智（mixed AD/VaD）</li>
+</ol>
+
+<p>其中 <strong>SIVD</strong> 對於 T2DM 病人尤其重要—— 大部分糖尿病合併失智的影像表現都落在這個分類。</p>
+
+<div class="divider"></div>
+
+<h2>三、T2DM 病人腦袋裡到底發生了什麼？</h2>
+
+<h3>3.1 腦影像研究：明顯的腦萎縮與小血管病變</h3>
+
+<p>Moran 等人 2013 年在 <em>Diabetes Care</em> 的研究比較 350 位 T2DM 患者與 363 位對照組，發現 T2DM 病人 <a href="#ref-15">[15]</a>：</p>
+
+<ul>
+<li><strong>腦梗塞</strong>更多</li>
+<li><strong>總灰質、白質、海馬迴體積</strong>較低</li>
+<li>灰質流失集中在 <strong>medial temporal lobe、anterior cingulate、medial frontal lobe</strong></li>
+<li>白質流失集中在 <strong>額葉與顳葉</strong></li>
+<li>在 Rey complex figure test（視覺空間記憶）、Hopkins immediate recall（語言學習）、Stroop dot time（處理速度）的表現都較差</li>
+</ul>
+
+<p>Biessels 與 Despa 2018 年的回顧 <a href="#ref-16">[16]</a> 進一步指出：T2DM 病人的 MRI 特徵幾乎涵蓋了「血管型 + 神經退化型」雙重特徵—— 全腦萎縮、海馬迴萎縮、白質高訊號、腔隙性梗塞、微出血、皮質微梗塞。</p>
+
+<h3>3.2 但是…… AD 病理在 T2DM 病人腦內不太找得到</h3>
+
+<div class="callout callout-gold">
+這是一個常被忽略、卻極為重要的觀察：<strong>兩個大型屍檢研究都告訴我們，DM 並不真的增加 AD 病理</strong>。
+</div>
+
+<ul>
+<li><strong>巴西 Dos Santos Matioli et al., 2017</strong>（n=1037）<a href="#ref-17">[17]</a>：T2DM 並未增加 Braak NFT stage 或 CERAD neuritic plaque 分級，<strong>但若合併 APOE ε4，則 NFT 量明顯較高</strong>。</li>
+<li><strong>美國 Abner et al., 2016（SMART autopsy）</strong>（n=2365）<a href="#ref-18">[18]</a>：T2DM <strong>與任何 AD 病理測量都沒有顯著關聯</strong>，但與<strong>腦梗塞</strong>—— 尤其是<strong>腔隙性梗塞</strong>—— 顯著相關。DM + infarcts 的組合會明顯降低 MMSE 與 animal naming 分數。</li>
+</ul>
+
+<p><strong>這帶來一個重要的臨床啟示</strong>：T2DM 病人合併的失智，<strong>更可能是血管型或混合型</strong>，而非純粹 AD。這也解釋了為什麼 amyloid-PET 和 CSF amyloid 在 T2DM 失智病人的研究中常出現「陰性」結果 <a href="#ref-19">[19]</a>。</p>
+
+<h3>3.3 哪些是「會被 T2DM 影響」的腦影像標記？</h3>
+
+<p>Biessels 等人 2020 年在 <em>Nature Reviews Endocrinology</em> 整理了 T2DM 相關失智的生物標記表 <a href="#ref-19">[19]</a>：</p>
+
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>影像標記</th><th>受 T2DM 影響？</th><th>與 T2DM 認知衰退相關？</th><th>與失智相關？</th></tr></thead>
+<tbody>
+<tr><td>全腦萎縮</td><td>✓</td><td>✓</td><td>✓</td></tr>
+<tr><td>中顳葉萎縮</td><td>✓</td><td>✓</td><td>✓</td></tr>
+<tr><td>白質高訊號（WMH）</td><td>✓（中度）</td><td>✓</td><td>✓</td></tr>
+<tr><td>腔隙性梗塞</td><td>✓</td><td>若存在則為貢獻者</td><td>✓</td></tr>
+<tr><td>微出血、微梗塞</td><td>證據有限或矛盾</td><td>證據有限或矛盾</td><td>✓</td></tr>
+<tr><td><strong>澱粉樣斑塊（Aβ）</strong></td><td>✗</td><td>–</td><td>✓</td></tr>
+<tr><td><strong>CSF amyloid</strong></td><td>✗</td><td>–</td><td>✓</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+<strong>結論</strong>：T2DM 對腦的傷害<strong>主要走血管路徑</strong>，而不是 AD 的澱粉樣蛋白路徑。
+</div>
+
+<div class="divider"></div>
+
+<h2>四、照顧老年糖尿病合併失智病人的實用框架</h2>
+
+<p>Munshi 教授 2017 年在 <em>Diabetes Care</em> 提出一個極為實用的臨床框架 <a href="#ref-20">[20]</a>，幫助我們釐清「認知功能障礙會如何破壞糖尿病自我照顧」，以及對應的策略。</p>
+
+<h3>4.1 不同認知缺損會造成什麼問題？</h3>
+
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>受影響認知功能</th><th>對糖尿病照護的衝擊</th><th>對應策略</th></tr></thead>
+<tbody>
+<tr><td><strong>記憶減退（海馬迴）</strong></td><td>忘了驗血糖、吃藥、打胰島素、定時吃飯，忘記回診</td><td>減少自驗次數、使用藥盒/鬧鐘、改用長效藥減少頻次、照顧者提醒、選擇有人監督的運動</td></tr>
+<tr><td><strong>問題解決困難（前額葉）</strong></td><td>能記住衛教指示但無法執行；無法辨識/處理低血糖</td><td>每次回診重複衛教、不要太常更動醫囑、治療單純化</td></tr>
+<tr><td><strong>行為固執（前額葉）</strong></td><td>抗拒改變新治療、新醫囑出錯</td><td>改變醫囑時尋求照顧者協助、胰島素劑量改變要特別小心</td></tr>
+<tr><td><strong>心智彈性差（前額葉）</strong></td><td>對未達標感到焦慮、過度執著於治療</td><td>避免複雜胰島素調整、簡化治療、減少血糖監測</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>4.2 簡化治療的具體技巧</h3>
+
+<ul>
+<li><strong>忘了打飯前胰島素</strong> → 改用基礎胰島素控制空腹血糖 + 長效口服藥取代飯前胰島素</li>
+<li><strong>常打錯胰島素劑量</strong> → 減少自行調整次數，必要時用簡單指令教導</li>
+<li><strong>空腹低血糖、平常高血糖</strong> → 基礎胰島素改成早上打，依空腹血糖調整</li>
+<li><strong>需要照顧者協助打針</strong> → 改用基礎胰島素 + 長效口服藥或混合型胰島素，協調照顧者時間</li>
+<li><strong>多次服藥困難</strong> → 用藥盒、盡量選一天一次的長效藥</li>
+</ul>
+
+<h3>4.3 個別化 HbA1c 目標：避免低血糖比追求達標重要</h3>
+
+<p>根據 KDIGO 2020 慢性腎臟病合併糖尿病的照護準則，<strong>HbA1c 目標不應該是「每個人都 &lt;7%」</strong>，而是要根據預期壽命、低血糖風險、合併症與認知功能個別化 <a href="#ref-21">[21]</a>：</p>
+
+<ul>
+<li><strong>健康獨立的老人</strong>：HbA1c 7.0–7.5%</li>
+<li><strong>複雜合併症、認知障礙</strong>：HbA1c 7.5–8.0%</li>
+<li><strong>末期、嚴重失智、預期壽命短</strong>：HbA1c 8.0–8.5% 或更寬鬆</li>
+</ul>
+
+<h3>4.4 八個照護原則（Munshi 2017）</h3>
+
+<ol>
+<li>年長糖尿病病人無法自我照料時，要想到認知功能衰退的可能。</li>
+<li>病患可能無法辨識、通報或處理低血糖事件—— 血糖控制目標應<strong>以避免低血糖為原則</strong>。</li>
+<li>盡量選擇<strong>不會造成低血糖</strong>的藥物：Metformin、DPP4 抑制劑、SGLT2 抑制劑。</li>
+<li>定期評估、根據健康狀態調整血糖目標。</li>
+<li>不能單靠 HbA1c—— <strong>單次血糖測試常常更能反映真實控制狀態</strong>。</li>
+<li>簡化處方常能兼顧達標與安全。</li>
+<li>反覆衛教低血糖風險與處置非常重要。</li>
+<li><strong>照顧者的參與是治療成功的基石</strong>。</li>
+</ol>
+
+<div class="divider"></div>
+
+<h2>五、預防：早期介入，比晚期治療更有用</h2>
+
+<h3>5.1 Lancet 失智症委員會：35% 的失智是可預防的</h3>
+
+<p>2017 年 Livingston 等人在 <em>The Lancet</em> 發表的失智症預防委員會報告 <a href="#ref-22">[22]</a> 指出：<strong>約 35% 的失智症風險來自 9 個可改變的因子</strong>，其中包括：</p>
+
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>階段</th><th>可改變因子</th><th>人口可歸因風險</th></tr></thead>
+<tbody>
+<tr><td>早年</td><td>低教育</td><td>8%</td></tr>
+<tr><td>中年</td><td>聽損</td><td>9%</td></tr>
+<tr><td>中年</td><td>高血壓</td><td>2%</td></tr>
+<tr><td>中年</td><td>肥胖</td><td>1%</td></tr>
+<tr><td>晚年</td><td>吸菸</td><td>5%</td></tr>
+<tr><td>晚年</td><td>憂鬱</td><td>4%</td></tr>
+<tr><td>晚年</td><td>不運動</td><td>3%</td></tr>
+<tr><td>晚年</td><td>社交孤立</td><td>2%</td></tr>
+<tr><td>晚年</td><td><strong>糖尿病</strong></td><td>1%</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>糖尿病本身只佔 1%，但若加上它推升的血管病變、高血壓、肥胖、不運動，<strong>整體貢獻遠超過這個數字</strong>。</p>
+
+<h3>5.2 風險因子隨年齡演變（Biessels 2014 的時間軸）</h3>
+
+<p>Biessels 等人 2014 年在 <em>Lancet Diabetes &amp; Endocrinology</em> 提出一個時間軸的觀念 <a href="#ref-23">[23]</a>：</p>
+
+<ul>
+<li><strong>30–50 歲（中年）</strong>：高血壓、血脂異常、肥胖、抽菸是主要可控因子。在這個階段控制好，可以顯著減少晚年認知衰退。</li>
+<li><strong>50 歲以後（糖尿病前期 / T2DM）</strong>：除了上述因子，還要加上糖尿病病程、高血糖、嚴重低血糖、大小血管病變的控制。</li>
+<li><strong>任何年齡</strong>：認知活動、健康飲食（地中海飲食）、規律運動，是貫穿一生的保護因子。</li>
+</ul>
+
+<h3>5.3 FINGER 試驗：多元介入可以維持認知</h3>
+
+<p>Ngandu 等人 2015 年在 <em>The Lancet</em> 發表的 <strong>FINGER 試驗</strong>（Finnish Geriatric Intervention Study to Prevent Cognitive Impairment and Disability）<a href="#ref-24">[24]</a>，是迄今最具影響力的多元介入研究：</p>
+
+<ul>
+<li><strong>對象</strong>：1260 位 60–77 歲、CAIDE 失智風險評分 ≥6 的高風險長者</li>
+<li><strong>介入</strong>：飲食（北歐飲食 / 地中海風格）+ 運動（肌力 + 有氧）+ 認知訓練 + 血管危險因子監控</li>
+<li><strong>追蹤</strong>：2 年</li>
+<li><strong>結果</strong>：多元介入組的整體認知表現顯著優於對照組（NTB Z 分數差異 0.022/年），執行功能與處理速度尤其明顯。</li>
+</ul>
+
+<div class="callout callout-purple">
+這是第一個有力證據—— 多元化生活型態介入可以改善或維持高風險長者的認知功能。
+</div>
+
+<h3>5.4 運動為什麼有用？分子層面的好處</h3>
+
+<p>Febbraio 2017 年在 <em>Nature Reviews Endocrinology</em> 整理了運動的「myokine」效應 <a href="#ref-25">[25]</a>：肌肉收縮會分泌一系列因子—— BDNF、cathepsin B、osteocalcin、NK 細胞活化—— 直接保護神經元、促進神經新生、調節免疫。</p>
+
+<p>換句話說，<strong>運動不只是「燒卡路里」，而是一個內分泌器官在跟大腦對話</strong>。</p>
+
+<div class="divider"></div>
+
+<h2>六、新療法：胰島素阻抗調節劑（IRMAs）與 GLP-1 RA</h2>
+
+<p>如果腦部胰島素阻抗是 AD 與 DM 失智的共同上游，那「<strong>糾正腦部胰島素阻抗</strong>」就是最直接的治療標的。Wu 等人 2022 年系統性回顧了這類「胰島素阻抗調節劑」（Insulin Resistance Modulating Agents, <strong>IRMAs</strong>）的證據 <a href="#ref-26">[26]</a>。</p>
+
+<h3>6.1 鼻內胰島素：直接「送藥到腦」</h3>
+
+<p>Craft 等人 2020 年在 <em>JAMA Neurology</em> 發表的試驗 <a href="#ref-27">[27]</a>：289 位 MCI 或輕度 AD 患者使用鼻內胰島素 40 IU/day 共 12 個月（雙盲安慰劑對照），接著 6 個月開放標籤延伸。</p>
+
+<ul>
+<li>18 個月後 ADAS-Cog12 分數差異 6 分</li>
+<li>CSF Aβ42/tau 與 Aβ42/Aβ40 比值改善</li>
+</ul>
+
+<p>鼻內胰島素透過嗅神經與三叉神經周圍血管通道<strong>繞過血腦障壁</strong>，直接抵達腦組織，是一個概念上極為優雅的策略。</p>
+
+<h3>6.2 Metformin</h3>
+
+<p>正在進行的 <strong>MAP 試驗</strong>（Metformin in AD Prevention）招募 370 位 MCI 病人，使用 Metformin 2000 mg/day 12 個月，預計 2026 年完成。前期小型試驗（80 位 aMCI、非糖尿病、過重）已顯示 FCSRT（自由與線索選擇性提醒測驗）改善，但 ADAS-Cog12、CSF Aβ、FDG-PET 未變 <a href="#ref-27">[27]</a>。</p>
+
+<h3>6.3 Pioglitazone：台灣本土研究的亮點</h3>
+
+<p>Chou 等人 2017 年利用<strong>台灣全民健保資料庫</strong>進行的世代研究 <a href="#ref-28">[28]</a>，發現有使用 pioglitazone 的 T2DM 病人，<strong>失智風險下降 23%</strong>（HR 0.77）。</p>
+
+<p>但 2021 年國際 <strong>TOMMORROW 試驗</strong>（Burns et al.）<a href="#ref-29">[29]</a> 在 3500 位帶有 APOE 與 TOMM40 高風險基因型的健康人，使用低劑量 pioglitazone 預防 MCI 發生—— <strong>因效果不足而提前終止</strong>。</p>
+
+<div class="callout callout-gold">
+<strong>這個矛盾的結論</strong>告訴我們：pioglitazone 對「<strong>已有 T2DM 的人</strong>」可能有保護效果，但對「<strong>只是基因高風險的健康人</strong>」效果有限。可能機制差異在於：T2DM 病人本身有腦部胰島素阻抗，pioglitazone 透過 PPAR-γ 改善；但無糖尿病者沒有這個前提。
+</div>
+
+<h3>6.4 GLP-1 受體促效劑（GLP-1 RA）：最有希望的一類藥</h3>
+
+<p>GLP-1 RA 原本用於控制血糖與心血管預後，但越來越多研究顯示它對腦部有保護作用。</p>
+
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>研究</th><th>藥物</th><th>設計</th><th>結果</th></tr></thead>
+<tbody>
+<tr><td><strong>Vadini et al., 2020</strong></td><td>Liraglutide</td><td>RCT 子研究</td><td>在 metformin 治療的 T2DM/糖尿病前期肥胖患者，liraglutide 組的記憶下降較慢 <a href="#ref-30">[30]</a></td></tr>
+<tr><td><strong>Cukierman-Yaffe et al., 2020</strong>（REWIND 子研究）</td><td>Dulaglutide</td><td>大型 RCT 安慰劑對照</td><td>Dulaglutide 顯著減緩整體認知下降（MoCA 或 DSST ≤ -1.5 sd）<a href="#ref-31">[31]</a></td></tr>
+<tr><td><strong>Li et al., 2021</strong></td><td>Liraglutide</td><td>觀察性</td><td>12 週後整體認知下降較慢</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>REWIND 試驗的子研究尤其重要</strong>—— 這是第一個大型 RCT 證實 GLP-1 RA 可以<strong>慢化糖尿病人的認知下降</strong>。基於這些結果，<strong>Liraglutide 在 AD 病人的 12 個月 RCT</strong> 也正在進行中。</p>
+
+<h3>6.5 非侵入性腦刺激：40 Hz 伽馬波夾帶（GENUS）</h3>
+
+<p>Adaikkan 等人 2019 年在 <em>Neuron</em> 的研究 <a href="#ref-32">[32]</a>：在 Tau P301S 與 CK-p25 小鼠模型（早期神經退化），用 40 Hz 視覺/聽覺刺激（<strong>GENUS, Gamma ENtrainment Using sensory Stimulation</strong>）每天 1 小時、連續 22 天。</p>
+
+<p>結果：<strong>視覺皮質、海馬迴、前額葉的神經元與突觸密度都得到保存</strong>—— 而且不需要任何藥物或侵入性操作。</p>
+
+<p>這是一個極具想像力的策略：透過外部感覺刺激同步腦內伽馬波，活化微膠細胞清除 Aβ，並穩定突觸功能。目前已進入人體臨床試驗（Cognito Therapeutics 的 OVERTURE 試驗）。</p>
+
+<div class="divider"></div>
+
+<h2>七、回到那三位病人</h2>
+
+<p>讓我們回到開頭那三位糖尿病病人。</p>
+
+<div class="callout">
+<strong>第一位 80 歲老先生</strong>（HbA1c 6%、MoCA 27、Glyburide）：他的問題是<strong>控太緊</strong>。建議停掉 sulfonylurea，改用 Metformin 或 DPP-4 抑制劑—— 保住認知最重要的一件事是<strong>避免低血糖</strong>。
+</div>
+
+<div class="callout callout-purple">
+<strong>第二位 75 歲太太</strong>（HbA1c 9.2%、MoCA 18、兩次低血糖急診）：她已經到了 CDR 1 的階段。建議簡化處方—— 停掉飯前 RI，保留基礎 insulin glargine 並改成早上打，加 DPP-4 抑制劑控制飯後血糖。重新評估視力、加強照顧者衛教、安排運動課程、考慮抗血小板與血脂控制。
+</div>
+
+<div class="callout callout-gold">
+<strong>第三位 88 歲阿嬤</strong>（重度失智、eGFR 28、Metformin + Donepezil）：eGFR &lt;30 時 Metformin 有乳酸中毒風險，應停用，改用對腎臟安全的選擇（如低劑量 DPP-4 抑制劑或低劑量基礎胰島素）。HbA1c 目標放寬到 8–8.5%。Donepezil 的效果應重新評估，若已無功能改善可考慮停藥。
+</div>
+
+<div class="divider"></div>
+
+<h2>八、Take-home Messages</h2>
+
+<ol>
+<li><strong>第二型糖尿病顯著增加腦血管疾病、血管型失智、以及晚發性 AD 的風險。</strong>但屍檢研究告訴我們，T2DM 失智的腦內<strong>真正主導的是血管病變，而非典型 AD 病理</strong>。</li>
+<li><strong>65 歲以上 T2DM 病人都應該定期篩檢認知障礙</strong>—— Mini-Cog 是門診最實用的選擇。</li>
+<li>照顧老年糖尿病合併認知障礙時，<strong>避免低血糖比追求 HbA1c 達標更重要</strong>。把處方簡化、選用低低血糖風險的藥物、強化照顧者參與。</li>
+<li><strong>預防勝於治療</strong>：中年期控制高血壓、肥胖、血脂、戒菸；任何年齡保持規律運動、健康飲食、社交與認知活動。FINGER 試驗證實多元介入可以保護認知。</li>
+<li><strong>新療法的曙光</strong>：以糾正腦部胰島素阻抗為核心，包括鼻內胰島素、Metformin、Pioglitazone（在 T2DM 族群）、<strong>GLP-1 RA</strong>（最強證據在 REWIND/Dulaglutide），以及非侵入性的 40 Hz 伽馬波刺激。</li>
+</ol>
+
+<blockquote>
+<p>「科技始終來自於人性，學習動機往往源自於對人的關懷。」</p>
+<p>在糖尿病門診看到的不只是 HbA1c—— 是一個會老、會忘、會跌倒、會擔心自己連藥都吃錯的家人。把這件事放在心上，醫療的方向就不會走偏。</p>
+</blockquote>
+
+<section class="references">
+<h2>參考文獻</h2>
+<ol>
+<li id="ref-1"><strong>Arnold SE, Arvanitakis Z, Macauley-Rambach SL, et al.</strong> Brain insulin resistance in type 2 diabetes and Alzheimer disease: concepts and conundrums. <em>Nat Rev Neurol</em>. 2018;14(3):168-181.</li>
+<li id="ref-2"><strong>Talbot K, Wang HY, Kazi H, et al.</strong> Demonstrated brain insulin resistance in Alzheimer's disease patients is associated with IGF-1 resistance, IRS-1 dysregulation, and cognitive decline. <em>J Clin Invest</em>. 2012;122(4):1316-1338.</li>
+<li id="ref-3"><strong>de la Monte SM, Wands JR.</strong> Review of insulin and insulin-like growth factor expression, signaling, and malfunction in the central nervous system: relevance to type 3 diabetes. <em>J Alzheimers Dis</em>. 2006;10(1):89-109.</li>
+<li id="ref-4"><strong>Kandimalla R, Thirumala V, Reddy PH.</strong> Is Alzheimer's disease a type 3 diabetes? A critical appraisal. <em>Biochim Biophys Acta Mol Basis Dis</em>. 2017;1863(5):1078-1089.</li>
+<li id="ref-5"><strong>Kellar D, Craft S.</strong> Brain insulin resistance in Alzheimer's disease and related disorders: mechanisms and therapeutic approaches. <em>Lancet Neurol</em>. 2020;19(9):758-766.</li>
+<li id="ref-6"><strong>Salthouse TA.</strong> What and when of cognitive aging. <em>Curr Dir Psychol Sci</em>. 2004;13(4):140-144.</li>
+<li id="ref-7"><strong>Petersen RC.</strong> Mild cognitive impairment as a diagnostic entity. <em>J Intern Med</em>. 2004;256(3):183-194.</li>
+<li id="ref-8"><strong>Borson S, Scanlan JM, Chen P, Ganguli M.</strong> The Mini-Cog as a screen for dementia: validation in a population-based sample. <em>J Am Geriatr Soc</em>. 2003;51(10):1451-1454.</li>
+<li id="ref-9"><strong>American Diabetes Association.</strong> Older Adults: Standards of Medical Care in Diabetes—2022. <em>Diabetes Care</em>. 2022;45(Suppl 1):S195-S207.</li>
+<li id="ref-10"><strong>Thal DR, Capetillo-Zarate E, Del Tredici K, Braak H.</strong> The development of amyloid β protein deposits in the aged brain. <em>Sci Aging Knowledge Environ</em>. 2006;2006(6):re1.</li>
+<li id="ref-11"><strong>Jack CR Jr, Bennett DA, Blennow K, et al.</strong> NIA-AA Research Framework: Toward a biological definition of Alzheimer's disease. <em>Alzheimers Dement</em>. 2018;14(4):535-562.</li>
+<li id="ref-12"><strong>Román GC, Tatemichi TK, Erkinjuntti T, et al.</strong> Vascular dementia: diagnostic criteria for research studies. Report of the NINDS-AIREN International Workshop. <em>Neurology</em>. 1993;43(2):250-260.</li>
+<li id="ref-13"><strong>Hachinski VC, Iliff LD, Zilhka E, et al.</strong> Cerebral blood flow in dementia. <em>Arch Neurol</em>. 1975;32(9):632-637.</li>
+<li id="ref-14"><strong>Skrobot OA, Black SE, Chen C, et al.</strong> Progress toward standardized diagnosis of vascular cognitive impairment: Guidelines from the Vascular Impairment of Cognition Classification Consensus Study. <em>Alzheimers Dement</em>. 2018;14(3):280-292.</li>
+<li id="ref-15"><strong>Moran C, Phan TG, Chen J, et al.</strong> Brain atrophy in type 2 diabetes: regional distribution and influence on cognition. <em>Diabetes Care</em>. 2013;36(12):4036-4042.</li>
+<li id="ref-16"><strong>Biessels GJ, Despa F.</strong> Cognitive decline and dementia in diabetes mellitus: mechanisms and clinical implications. <em>Nat Rev Endocrinol</em>. 2018;14(10):591-604.</li>
+<li id="ref-17"><strong>Dos Santos Matioli MNP, Suemoto CK, Rodriguez RD, et al.</strong> Diabetes is not associated with Alzheimer's disease neuropathology. <em>J Alzheimers Dis</em>. 2017;60(3):1035-1043.</li>
+<li id="ref-18"><strong>Abner EL, Nelson PT, Kryscio RJ, et al.</strong> Diabetes is associated with cerebrovascular but not Alzheimer's disease neuropathology. <em>Alzheimers Dement</em>. 2016;12(8):882-889.</li>
+<li id="ref-19"><strong>Biessels GJ, Nobili F, Teunissen CE, Simó R, Scheltens P.</strong> Understanding multifactorial brain changes in type 2 diabetes: a biomarker perspective. <em>Lancet Neurol</em>. 2020;19(8):699-710.</li>
+<li id="ref-20"><strong>Munshi MN.</strong> Cognitive dysfunction in older adults with diabetes: what a clinician needs to know. <em>Diabetes Care</em>. 2017;40(4):461-467.</li>
+<li id="ref-21"><strong>KDIGO Diabetes Work Group.</strong> KDIGO 2020 Clinical Practice Guideline for Diabetes Management in Chronic Kidney Disease. <em>Kidney Int</em>. 2020;98(4S):S1-S115.</li>
+<li id="ref-22"><strong>Livingston G, Sommerlad A, Orgeta V, et al.</strong> Dementia prevention, intervention, and care. <em>Lancet</em>. 2017;390(10113):2673-2734.</li>
+<li id="ref-23"><strong>Biessels GJ, Strachan MWJ, Visseren FLJ, Kappelle LJ, Whitmer RA.</strong> Dementia and cognitive decline in type 2 diabetes and prediabetic stages: towards targeted interventions. <em>Lancet Diabetes Endocrinol</em>. 2014;2(3):246-255.</li>
+<li id="ref-24"><strong>Ngandu T, Lehtisalo J, Solomon A, et al.</strong> A 2 year multidomain intervention of diet, exercise, cognitive training, and vascular risk monitoring versus control to prevent cognitive decline in at-risk elderly people (FINGER): a randomised controlled trial. <em>Lancet</em>. 2015;385(9984):2255-2263.</li>
+<li id="ref-25"><strong>Febbraio MA.</strong> Exercise metabolism in 2016: Health benefits of exercise — more than meets the eye! <em>Nat Rev Endocrinol</em>. 2017;13(2):72-74.</li>
+<li id="ref-26"><strong>Wu CY, Iskander C, Wang C, et al.</strong> Association of brain insulin resistance modulators with cognitive performance: a systematic review and meta-analysis. <em>JAMA Netw Open</em>. 2022.</li>
+<li id="ref-27"><strong>Craft S, Raman R, Chow TW, et al.</strong> Safety, efficacy, and feasibility of intranasal insulin for the treatment of mild cognitive impairment and Alzheimer disease dementia: a randomized clinical trial. <em>JAMA Neurol</em>. 2020;77(9):1099-1109.</li>
+<li id="ref-28"><strong>Chou PS, Ho BL, Yang YH.</strong> Effects of pioglitazone on the incidence of dementia in patients with diabetes. <em>J Diabetes Complications</em>. 2017;31(6):1053-1057.</li>
+<li id="ref-29"><strong>Burns DK, Alexander RC, Welsh-Bohmer KA, et al.</strong> Safety and efficacy of pioglitazone for the delay of cognitive impairment in people at risk of Alzheimer's disease (TOMMORROW): a prognostic biomarker study and a phase 3, randomised, double-blind, placebo-controlled trial. <em>Lancet Neurol</em>. 2021;20(7):537-547.</li>
+<li id="ref-30"><strong>Vadini F, Simeone PG, Boccatonda A, et al.</strong> Liraglutide improves memory in obese patients with prediabetes or early type 2 diabetes: a randomized, controlled study. <em>Int J Obes</em>. 2020;44(6):1254-1263.</li>
+<li id="ref-31"><strong>Cukierman-Yaffe T, Gerstein HC, Colhoun HM, et al.</strong> Effect of dulaglutide on cognitive impairment in type 2 diabetes: an exploratory analysis of the REWIND trial. <em>Lancet Neurol</em>. 2020;19(7):582-590.</li>
+<li id="ref-32"><strong>Adaikkan C, Middleton SJ, Marco A, et al.</strong> Gamma entrainment binds higher-order brain regions and offers neuroprotection. <em>Neuron</em>. 2019;102(5):929-943.</li>
+</ol>
+</section>
+
+<footer class="article-footer">
+本文整理自 2022 年 7 月 25 日「桃園市慢性病防治醫事人員繼續教育課程」演講，並結合近期文獻更新。<br>
+歡迎轉載分享，引用請註明出處。<br>
+<a href="../index.html">← 返回 朱國大醫師個人網頁</a>
+</footer>
+
+</article>
+
+</body>
+</html>
