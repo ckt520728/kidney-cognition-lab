@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="一個業餘天文愛好者學習天文知識的歷程 — 朱國大 醫師。從 Carl Sagan、克卜勒三大定律，到中央大學宇宙學課程與彭志傑教授的微中子講義，談非科班成年人如何把好奇養成可累積的知識。">
+<title>從克卜勒到微中子：一個業餘天文愛好者的學習歷程 | 朱國大 醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg-primary:    #0a0f1e;
+  --bg-secondary:  #0d1533;
+  --bg-card:       #111d3c;
+  --bg-card2:      #162248;
+  --teal:          #4dd9cf;
+  --teal-dim:      #2a9d8f;
+  --teal-light:    #7ee8e2;
+  --purple:        #8b5cf6;
+  --purple-light:  #a78bfa;
+  --gold:          #f4a261;
+  --text:          #e8f4f8;
+  --text-sec:      #8ba8c4;
+  --text-dim:      #4a6580;
+  --border:        rgba(77,217,207,0.15);
+  --shadow:        0 8px 32px rgba(0,0,0,0.45);
+  --radius:        12px;
+  --tr:            0.3s cubic-bezier(0.4,0,0.2,1);
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Noto Sans TC','Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text);
+  line-height:1.85;
+  overflow-x:hidden;
+}
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:var(--bg-primary); }
+::-webkit-scrollbar-thumb { background:var(--teal-dim); border-radius:3px; }
+a { color:var(--teal); text-decoration:none; transition:var(--tr); }
+a:hover { color:var(--teal-light); }
+
+/* Top bar */
+.top-bar {
+  position:sticky; top:0; z-index:100;
+  background:rgba(10,15,30,0.92); backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;
+}
+.top-bar-inner {
+  max-width:900px; margin:0 auto; padding:0 24px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.back-link {
+  color:var(--text-sec); font-size:0.9rem; font-weight:500;
+  display:inline-flex; align-items:center; gap:8px;
+}
+.back-link:hover { color:var(--teal); }
+.top-bar-title {
+  font-size:0.85rem; color:var(--text-dim);
+  font-family:'JetBrains Mono', monospace;
+}
+@media(max-width:600px) { .top-bar-title { display:none; } }
+
+/* Article container */
+.article {
+  max-width:780px; margin:0 auto;
+  padding:60px 24px 80px;
+}
+
+/* Header */
+.article-header {
+  margin-bottom:50px; padding-bottom:36px;
+  border-bottom:1px solid var(--border);
+}
+.article-meta {
+  font-size:0.85rem; color:var(--teal);
+  font-family:'JetBrains Mono', monospace;
+  margin-bottom:14px; letter-spacing:0.5px;
+}
+.article-title {
+  font-size:2.3rem; font-weight:700; line-height:1.35;
+  background:linear-gradient(135deg,var(--text) 0%,var(--teal-light) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text; color:transparent;
+  margin-bottom:18px;
+}
+@media(max-width:600px) { .article-title { font-size:1.7rem; } }
+.article-subtitle {
+  color:var(--text-sec); font-size:1.05rem; line-height:1.8;
+}
+.article-author {
+  margin-top:24px; padding-top:20px;
+  border-top:1px solid var(--border);
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap;
+}
+.author-avatar {
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,var(--teal-dim),var(--purple));
+  display:flex; align-items:center; justify-content:center;
+  color:var(--text); font-weight:700; font-size:1.1rem; flex-shrink:0;
+}
+.author-info { font-size:0.88rem; color:var(--text-sec); line-height:1.6; }
+.author-info strong { color:var(--text); font-weight:600; }
+
+/* Tags */
+.article-tags {
+  margin-top:18px; display:flex; flex-wrap:wrap; gap:8px;
+}
+.tag {
+  font-size:0.72rem; padding:3px 12px; border-radius:20px;
+  background:rgba(77,217,207,0.08); color:var(--teal);
+  border:1px solid rgba(77,217,207,0.2);
+}
+
+/* Article body */
+.article h2 {
+  font-size:1.65rem; font-weight:700; color:var(--text);
+  margin:60px 0 22px; padding-bottom:12px;
+  border-bottom:2px solid var(--teal);
+  display:inline-block;
+}
+.article h3 {
+  font-size:1.25rem; font-weight:600; color:var(--teal-light);
+  margin:40px 0 16px;
+}
+.article h4 {
+  font-size:1.05rem; font-weight:600; color:var(--text);
+  margin:28px 0 12px;
+}
+.article p {
+  margin:0 0 20px; color:var(--text-sec);
+  font-size:1rem; line-height:1.95;
+}
+.article p strong { color:var(--text); font-weight:600; }
+.article p em { color:var(--teal-light); font-style:italic; }
+
+.article ul, .article ol {
+  margin:0 0 24px; padding-left:24px; color:var(--text-sec);
+}
+.article li { margin-bottom:10px; line-height:1.85; }
+.article li strong { color:var(--text); }
+.article li::marker { color:var(--teal); }
+
+/* Highlights */
+.callout {
+  background:var(--bg-card); border-left:4px solid var(--teal);
+  border-radius:6px; padding:20px 24px; margin:28px 0;
+  color:var(--text-sec); font-size:0.96rem; line-height:1.85;
+}
+.callout strong { color:var(--text); }
+.callout-purple { border-left-color:var(--purple); }
+.callout-gold { border-left-color:var(--gold); }
+
+/* Tables */
+.tbl-wrap { overflow-x:auto; margin:24px 0; }
+.article table {
+  width:100%; border-collapse:collapse; font-size:0.9rem;
+  background:var(--bg-card); border-radius:var(--radius); overflow:hidden;
+}
+.article th {
+  background:rgba(77,217,207,0.1); color:var(--teal);
+  font-weight:600; padding:12px 14px; text-align:left;
+  border-bottom:1px solid var(--border); font-size:0.85rem;
+}
+.article td {
+  padding:11px 14px; color:var(--text-sec);
+  border-bottom:1px solid rgba(77,217,207,0.08);
+  vertical-align:top;
+}
+.article tr:last-child td { border-bottom:none; }
+.article td strong { color:var(--text); }
+
+/* Code/inline */
+.article code {
+  font-family:'JetBrains Mono', monospace;
+  background:rgba(77,217,207,0.1);
+  color:var(--teal-light);
+  padding:2px 7px; border-radius:4px;
+  font-size:0.88em;
+}
+.article pre {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:8px; padding:20px; margin:24px 0;
+  overflow-x:auto; font-family:'JetBrains Mono', monospace;
+  font-size:0.85rem; line-height:1.7; color:var(--text-sec);
+}
+
+/* Blockquote */
+.article blockquote {
+  margin:32px 0; padding:24px 28px;
+  background:linear-gradient(135deg,rgba(77,217,207,0.05),rgba(139,92,246,0.05));
+  border-left:4px solid var(--teal);
+  border-radius:8px;
+  font-size:1.05rem; line-height:1.9; color:var(--text);
+  font-style:italic;
+}
+.article blockquote p { color:var(--text); margin-bottom:8px; }
+
+/* Section divider */
+.divider {
+  margin:60px 0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--teal-dim),transparent);
+}
+
+/* References */
+.references {
+  margin-top:60px; padding-top:36px;
+  border-top:2px solid var(--teal);
+}
+.references h2 { border:none; padding:0; margin:0 0 24px; }
+.references ol { padding-left:0; counter-reset:ref; list-style:none; }
+.references li {
+  counter-increment:ref;
+  position:relative; padding-left:42px;
+  margin-bottom:14px; font-size:0.88rem;
+  color:var(--text-sec); line-height:1.7;
+}
+.references li::before {
+  content:counter(ref);
+  position:absolute; left:0; top:0;
+  background:rgba(77,217,207,0.1); color:var(--teal);
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.78rem; font-weight:600;
+  width:30px; padding:2px 0; border-radius:4px;
+  text-align:center;
+  border:1px solid rgba(77,217,207,0.2);
+}
+.references li strong { color:var(--text); font-weight:600; }
+.references li em { color:var(--teal-light); font-style:italic; }
+
+/* Footer */
+.article-footer {
+  margin-top:60px; padding-top:32px;
+  border-top:1px solid var(--border);
+  text-align:center; color:var(--text-dim); font-size:0.85rem;
+  line-height:1.9;
+}
+.article-footer a { color:var(--teal); }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="../index.html" class="back-link">
+      <i class="fas fa-arrow-left"></i> 返回個人網頁
+    </a>
+    <div class="top-bar-title">朱國大．MD・PhD &nbsp;·&nbsp; Blog</div>
+  </div>
+</div>
+
+<article class="article">
+
+<header class="article-header">
+  <div class="article-meta">2026 / 05 / 14 &nbsp;·&nbsp; 學習隨筆．記中央大學宇宙學課程</div>
+  <h1 class="article-title">從克卜勒到微中子：一個業餘天文愛好者的學習歷程</h1>
+  <p class="article-subtitle">
+    我是醫師，天文是百分之百的業餘愛好。從 Carl Sagan 的電視節目、孩子的科學課本，
+    到向一位粒子物理學家索取一份微中子講義 —— 這條路靠的不是天分，是方法。
+  </p>
+  <div class="article-author">
+    <div class="author-avatar">朱</div>
+    <div class="author-info">
+      <strong>朱國大 醫師</strong>（陽明醫院院長．桃園市平鎮區）<br>
+      腎臟科暨內科專科醫師 · 中央大學認知神經科學博士
+    </div>
+  </div>
+  <div class="article-tags">
+    <span class="tag">天文學</span>
+    <span class="tag">宇宙學</span>
+    <span class="tag">微中子</span>
+    <span class="tag">克卜勒</span>
+    <span class="tag">自學方法</span>
+    <span class="tag">科普</span>
+  </div>
+</header>
+
+<h2>從一封寄到 UIUC 的信說起</h2>
+
+<p>2025 年 4 月，我寄了一封英文信給彭志傑（Jen-Chieh Peng）教授 —— 伊利諾大學香檳分校（UIUC）的物理榮譽教授。信的目的很單純：跟他要一份上課投影片。</p>
+
+<p>但我做的第一件事，不是開口要檔案。我先把我從他課堂上學到的東西，從頭到尾複述了一遍：微中子可能的來源（核分裂、迴旋加速器、宇宙、大霹靂）、它在標準模型裡的角色、來自超新星的微中子、哈伯圖、以及宇宙微波背景與宇宙微中子背景的對照。寫完那段，我才提出請求。</p>
+
+<p>我是醫師，念的是腦科學，天文對我是純粹的業餘愛好。一個非科班的成年人，能走到「跟一位粒子物理學家來回通信」這一步，我想分享的其實不是天文知識本身 —— 而是<strong>方法</strong>：怎麼把零散、容易蒸發的好奇心，養成一套可以累積、甚至可以拿去跟專家對話的知識。</p>
+
+<div class="callout">
+這篇文章有三條線交織在一起：<strong>一些天文學的知識</strong>、<strong>一個業餘者的學習方法</strong>、以及<strong>彭教授那份宇宙學講義的簡單導讀</strong>。如果你也想認真入門天文、卻苦於不知從何下手，這篇是寫給你的。
+</div>
+
+<h2>一、起點不是數學，是敬畏</h2>
+
+<p>我的天文不是從課本、更不是從方程式開始的。是 Carl Sagan 的電視節目，是《科學人》中文版裡一篇又一篇的文章 —— 而且，是在<strong>教孩子科學</strong>的時候被一起點燃的。陪孩子問「星星為什麼會動」，問著問著，自己掉了進去。</p>
+
+<h3>一個藏在「退休生活」演講裡的線索</h3>
+
+<p>2018 年 6 月，我在中央大學志工隊做過一場演講，題目是〈如何經營精彩充實的退休生活 —— 從自我身心的保健談起〉。表面上，那是一場談健康老化的衛教演講。但翻開檔案會看到：我的開場投影片，是<strong>克卜勒三大定律</strong>。</p>
+
+<p>接著幾頁，是「行星與太陽的距離」、從水星到冥王星的軌道半徑與週期對照表、還有一張我自己用<strong>水管做的天文望遠鏡</strong>。我把那場演講的「個人經驗分享」濃縮成四個詞：拜山、天文、攝影、築夢。對我來說，天文從來不是一個獨立、切割開來的嗜好 —— 它是我看待生活，甚至看待「如何老去」的一種角度。</p>
+
+<p>為什麼要從這裡講起？因為這說明了一件入門時最容易做反的事：<strong>大多數人以為學天文要先學數學，於是從公式啃起，然後在第三章放棄。</strong>順序其實該倒過來 —— 科普建立的不是知識點，是「為什麼這值得我花時間」。先讓自己<em>想</em>懂，數學自然會在你需要它的時候，變得可以忍受。</p>
+
+<p>克卜勒本人就是最好的例子。他的三大定律 —— 行星走橢圓軌道（第一定律）、相同時間掃過相同面積（第二定律）、軌道半徑立方與週期平方的比值固定 <code>R³/T² = 定值</code>（第三定律）—— 全是<strong>從觀測資料裡「看」出來的規律</strong>。克卜勒沒有微積分、不知道萬有引力，他手上只有第谷（Tycho Brahe）留下的、長達二十年的行星位置紀錄 <a href="#ref-1">[1]</a>。</p>
+
+<div class="callout callout-gold">
+<strong>給入門者的提醒（一）：</strong>天文學的偉大發現，常常是「先看見規律，再理解原因」。所以不要急著要求自己「先懂物理才有資格抬頭看」。先看，先驚奇，先記下你看到的規律 —— 理解會跟上來。
+</div>
+
+<h2>二、好奇心需要一張地圖</h2>
+
+<p>科普會點火，但火會散。看了二十本科普書，你會有二十團模糊而美麗的印象 —— 黑洞、暗能量、大霹靂、量子泡沫 —— 卻沒有一張能把它們各自擺回正確位置的地圖。這是業餘學習最大的陷阱：<strong>知識量在增加，知識的結構卻沒有長出來。</strong></p>
+
+<p>2025 年春天，中央大學天文研究所開了一門「宇宙論及粒子天文物理學系列課程」，十二堂課，橫跨整個現代宇宙學的骨幹 <a href="#ref-2">[2]</a>。我去上了。對我而言，這門課最大的價值不是「教會了我多少」，而是它給了我一張地圖 —— 一張我可以把過去所有零碎印象，一塊一塊掛上去的骨架。</p>
+
+<p>那張地圖，大致長這樣：</p>
+
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>主題</th><th>它回答的問題</th></tr></thead>
+<tbody>
+<tr><td><strong>基本粒子</strong>（Elementary particles）</td><td>宇宙最小的積木是什麼？</td></tr>
+<tr><td><strong>可觀測宇宙</strong>（Observable universe）</td><td>我們能看到多遠、看到什麼？</td></tr>
+<tr><td><strong>加速膨脹的宇宙</strong></td><td>哈伯圖、Ia 型超新星、暗能量 —— 宇宙為何愈漲愈快？</td></tr>
+<tr><td><strong>宇宙微波背景</strong>（CMB）</td><td>宇宙三十八萬歲時的「嬰兒照」告訴我們什麼？</td></tr>
+<tr><td><strong>暴脹宇宙</strong>（Inflationary universe）</td><td>大霹靂後第一個瞬間發生了什麼？</td></tr>
+<tr><td><strong>重力波</strong>（Gravitational waves）</td><td>時空本身的漣漪能讓我們聽見什麼？</td></tr>
+<tr><td><strong>微中子與天文物理</strong></td><td>怎麼用「另一種光」看宇宙？</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+<strong>給入門者的提醒（二）：</strong>找一門「有骨架」的系列課程，或一本「有骨架」的教科書，先把架子立起來。架子立起來之後，你之後讀到的每一篇報導、每一條新聞，都知道該掛在哪一根樑上 —— 知識才開始<em>累積</em>，而不只是<em>累積然後流失</em>。
+</div>
+
+<h2>三、把知識變成「找得回來」的東西</h2>
+
+<p>知識最常見的流失方式，不是「忘記」，是「找不回來」。三年前讀懂的東西，需要的時候卻想不起它在哪本書、哪一頁、哪一篇 —— 那它等於沒讀過。</p>
+
+<p>我的做法很笨，但它有效：<strong>照著課程的骨架，建立主題資料夾。</strong>基本粒子、可觀測宇宙、加速膨脹、宇宙微波背景、微中子、暴脹宇宙、重力波 —— 每一個主題是一個資料夾。讀到相關的科普文章、講義、論文，就歸進對應的格子。久了，那張「地圖」就從課程講義裡，長進了我自己的硬碟。</p>
+
+<p>而每個資料夾裡，我刻意維持三層深度：</p>
+
+<ul>
+<li><strong>第一層 —— 科普書</strong>：建立直覺與動機。Sagan 的《宇宙》、霍金、Brian Greene、Roger Penrose、加來道雄……這層負責讓你「想懂」。</li>
+<li><strong>第二層 —— 系統課程與教科書</strong>：建立骨架。中央大學那門課、一本正規的宇宙學教科書。這層負責讓零碎的直覺「對齊」。</li>
+<li><strong>第三層 —— 原始文獻與講義</strong>：補上深度。諾貝爾獎得主的講稿、彭教授的講義、關鍵的原始論文。這層負責讓你「踩到底」。</li>
+</ul>
+
+<div class="callout callout-purple">
+<strong>給入門者的提醒（三）：</strong>學會分辨「需要現在懂」和「先存著」。第一次讀到微中子的混合角 <code>θ₁₃</code>，你不會懂 —— 沒關係，把它丟進「微中子」資料夾，等骨架再長一點，回頭再看。<strong>看不懂不是失敗，是進度。</strong>
+</div>
+
+<div class="divider"></div>
+
+<h2>四、那份微中子講義在講什麼</h2>
+
+<p>彭教授分享給我的那份講義，題目是《Neutrinos and Astrophysics》，七十三頁，是他在中央大學那門課裡負責的一講 <a href="#ref-3">[3]</a>。它剛好可以當作「一份好的宇宙學講義長什麼樣」的範例，我簡單導讀一下 —— 順便，這也是一段很好看的天文物理。</p>
+
+<p>講義從一個 1920 年代的謎題開始：某些原子核的 β 衰變，能量好像憑空「不見了」一部分。1930 年，物理學家包立（Wolfgang Pauli）提出一個連他自己都形容為「狗急跳牆」的解法 —— 假設有一種電中性、幾乎不跟物質作用的粒子，悄悄帶走了那些能量。這種粒子，後來被叫做<strong>微中子</strong> <a href="#ref-4">[4]</a>。</p>
+
+<h3>一種「幾乎抓不到」的粒子</h3>
+
+<p>包立自己都說：「我做了一件很糟的事 —— 我提出了一種偵測不到的粒子。」結果他等了二十六年。1956 年，萊因斯（Frederick Reines）與柯文（Clyde Cowan）用核反應爐（每秒產生約 10²⁰ 個微中子）真的抓到了它。他們發電報通知包立，包立回電只有一句：<em>「凡事終會等到懂得等待的人。」</em>這項實驗在 1995 年拿下諾貝爾物理獎 <a href="#ref-5">[5]</a>。</p>
+
+<h3>太陽是一座微中子工廠</h3>
+
+<p>我們的太陽，核心的核融合反應每秒鐘送出海量微中子 —— 此刻，大約有 <strong>10¹⁴ 個太陽微中子正穿過你的身體</strong>，而你毫無感覺。但從 1960 年代起，科學家發現一件怪事：偵測到的太陽微中子，只有理論預測的三分之一 <a href="#ref-6">[6]</a>。</p>
+
+<p>「不見的微中子」去哪了？答案是：它們在路上<strong>變身</strong>了。微中子有三種「味」（電子、緲子、濤子微中子），會在飛行途中互相轉換 —— 這叫<em>微中子振盪</em>。2002 年，加拿大的 SNO 實驗確認了這件事 <a href="#ref-7">[7]</a>。它的意義不只是「解了一個謎」：振盪能發生，代表微中子<strong>有質量</strong> —— 而標準模型原本假設它沒有。這個發現，拿下 2015 年的諾貝爾物理獎 <a href="#ref-8">[8]</a>。</p>
+
+<h3>用微中子「看」一顆超新星</h3>
+
+<p>1987 年 2 月，大麥哲倫雲裡一顆恆星爆炸成超新星，編號 SN1987A。地球上的偵測器在短短幾秒鐘內，捕捉到約十二個微中子事件 <a href="#ref-9">[9]</a>。這是人類第一次，用微中子「看見」一顆恆星的死亡。而就這幾秒鐘的資料，後來被拿來反推微中子的質量上限、壽命下限，甚至它的電荷 —— 一場幾秒的星光，養活了之後幾十年的研究。</p>
+
+<h3>兩種「宇宙的回聲」</h3>
+
+<p>講義裡我最喜歡的一段，是<strong>宇宙微中子背景（CνB）</strong>與<strong>宇宙微波背景（CMB）</strong>的對照。CMB 是宇宙約三十八萬歲時留下的光，我們很早就「看見」了它；CνB 更老 —— 它是大霹靂後<strong>約一秒</strong>就脫離、留存至今的微中子。此刻，你的身體裡大約有兩千萬個來自大霹靂的微中子。但 CνB 至今<strong>還沒有人能直接偵測到它</strong> —— 它是宇宙學裡少數「我們確信它在、卻還沒摸到」的東西之一。</p>
+
+<p>從包立 1930 年的「狗急跳牆」，到 2025 年 KM3NeT 深海望遠鏡偵測到一個能量高達 <code>2×10¹⁷ eV</code> 的微中子 <a href="#ref-10">[10]</a>，這份講義用<strong>一種粒子</strong>，串起了將近一百年的天文物理：</p>
+
+<pre>1930  包立提出微中子假說（自稱「狗急跳牆」）
+1933  費米寫下 β 衰變理論
+1956  萊因斯與柯文用核反應爐首次捕獲微中子
+1962  發現緲子微中子
+1987  SN1987A —— 第一次「看見」超新星的微中子
+2000  發現濤子微中子
+2002  太陽微中子之謎由 SNO 解開（微中子會變身）
+2012  大亞灣實驗測得混合角 θ₁₃
+2025  KM3NeT 偵測到 2×10¹⁷ eV 的超高能微中子</pre>
+
+<div class="callout">
+對一個業餘者，這份講義教我的不只是微中子。它示範了一件更重要的事 —— <strong>好的科學敘事，是把「謎題 → 大膽假設 → 漫長等待 → 證實 → 新謎題」這個循環講清楚。</strong>當你能看出一個領域的這個循環，你就不再是被知識追著跑，而是看得懂它要往哪裡去。
+</div>
+
+<div class="divider"></div>
+
+<h2>五、不要怕寫信給專家</h2>
+
+<p>回到開頭那封信。很多業餘愛好者卡在同一個念頭上：「我又不是這一行的，憑什麼去打擾人家？」</p>
+
+<p>我的經驗剛好相反。回頭看我寫給彭教授的那封信，它做對了三件事：<strong>謙遜</strong>（坦白說明我是醫師、是天文的門外漢）、<strong>具體</strong>（明確說出我想要哪一份投影片）、而且<strong>證明我真的學進去了</strong>（我複述了標準模型、超新星、哈伯圖、CMB 與 CνB 的對照）。</p>
+
+<p>彭教授的回信裡有一句話，我一直記得。他說，我那封「充滿熱情的訊息，是對這門課所有授課老師的鼓勵」。一位榮譽教授，願意把整份講義寄給一個素未謀面的業餘愛好者 —— 因為他看得出來，信的另一端是一個<em>真的有在學</em>的人。</p>
+
+<div class="callout callout-purple">
+<strong>給入門者的提醒（四）：</strong>寫信給專家之前，先問自己一個問題 —— 「我能不能用三句話，講出我從你那裡學到了什麼？」如果可以，你就不是在打擾他，你是在跟他<strong>對話</strong>。學者通常很樂意回應一個認真的人。
+</div>
+
+<h2>結語：amateur 的意思是「因為愛」</h2>
+
+<p>amateur（業餘者）這個字，字源是拉丁文的 <em>amare</em> —— 愛。「業餘」從來不代表「程度比較低」，它代表的是「動機比較純」：你做這件事，純粹因為你愛它。</p>
+
+<p>我的天文，是從「教孩子科學」開始的。所以，如果要我給任何一個想入門的人一個 —— 只有一個 —— 建議，那會是：<strong>找一個人，把你今天剛搞懂的東西，講給他聽。</strong></p>
+
+<p>你會在那個當下發現兩件事：第一，你以為自己懂了的地方，其實還有洞；第二，當對方的眼睛亮起來的時候，你會想繼續學下去。教，是最誠實的學。</p>
+
+<p>2018 年那場演講，我用克卜勒三大定律開場，談的卻是如何好好地老去。七年後，我在跟一位粒子物理學家來回討論宇宙微中子背景。中間沒有任何捷徑 —— 只有一張地圖、一些主題資料夾、幾本一層一層讀下去的書，和幾封寫得夠誠懇的信。</p>
+
+<blockquote>
+<p>「我們是宇宙認識它自己的一種方式。」 —— Carl Sagan</p>
+<p>一個業餘天文愛好者做的，不過是把這句話，認真地、用一輩子的時間，活一遍。</p>
+</blockquote>
+
+<section class="references">
+<h2>參考文獻與延伸資料</h2>
+<ol>
+<li id="ref-1"><strong>Kepler J.</strong> <em>Astronomia Nova</em> (1609，提出第一、第二定律)；<em>Harmonices Mundi</em> (1619，提出第三定律)。克卜勒以第谷·布拉赫（Tycho Brahe）的行星觀測資料推導出行星運動三大定律。</li>
+<li id="ref-2"><strong>國立中央大學天文研究所.</strong> 「宇宙論及粒子天文物理學系列課程」。2025 年 3 月 4 日至 5 月 27 日，共 12 堂。</li>
+<li id="ref-3"><strong>Peng JC（彭志傑）.</strong> <em>Neutrinos and Astrophysics</em>（講義，73 頁）。中央大學「宇宙論及粒子天文物理學系列課程」，2025 年 4 月 15 日。作者為伊利諾大學香檳分校物理榮譽教授。</li>
+<li id="ref-4"><strong>Pauli W.</strong> Letter to the "Radioactive Ladies and Gentlemen"（致放射性研究群的公開信）。Tübingen, 1930 年 12 月 4 日 —— 微中子假說的首次提出。</li>
+<li id="ref-5"><strong>Reines F, Cowan CL Jr.</strong> Detection of the free neutrino: a confirmation. <em>Science</em>. 1956;124(3212):103-104.（1995 年諾貝爾物理獎）</li>
+<li id="ref-6"><strong>Davis R Jr, Harmer DS, Hoffman KC.</strong> Search for neutrinos from the sun. <em>Phys Rev Lett</em>. 1968;20(21):1205-1209.（Homestake 實驗，「太陽微中子問題」的起點；Davis 獲 2002 年諾貝爾物理獎）</li>
+<li id="ref-7"><strong>Ahmad QR, et al.（SNO Collaboration）.</strong> Direct evidence for neutrino flavor transformation from neutral-current interactions in the Sudbury Neutrino Observatory. <em>Phys Rev Lett</em>. 2002;89(1):011301.</li>
+<li id="ref-8"><strong>The Nobel Prize in Physics 2015.</strong> Takaaki Kajita &amp; Arthur B. McDonald，表彰發現微中子振盪、證實微中子具有質量。</li>
+<li id="ref-9"><strong>Hirata K, et al.（Kamiokande-II Collaboration）.</strong> Observation of a neutrino burst from the supernova SN1987A. <em>Phys Rev Lett</em>. 1987;58(14):1490-1493.</li>
+<li id="ref-10"><strong>KM3NeT Collaboration.</strong> Observation of an ultra-high-energy cosmic neutrino with KM3NeT. <em>Nature</em>. 2025;638:376-382.（KM3-230213A 事件，能量約 2×10¹⁷ eV）</li>
+<li id="ref-11"><strong>Qian X, Peng JC.</strong> Physics with reactor neutrinos. <em>Rep Prog Phys</em>. 2019;82(3):036201.（含大亞灣實驗測定混合角 θ₁₃ 的回顧）</li>
+<li id="ref-12"><strong>Sagan C.</strong> <em>Cosmos</em>. Random House, 1980.（同名電視影集，引發世代讀者對天文的興趣 —— 也包括本文作者）</li>
+</ol>
+</section>
+
+<footer class="article-footer">
+本文為個人學習隨筆，整理自 2025 年中央大學「宇宙論及粒子天文物理學系列課程」的學習經驗，<br>
+並結合 2018 年於中央大學志工隊演講〈如何經營精彩充實的退休生活〉的內容。<br>
+歡迎轉載分享，引用請註明出處。<br>
+<a href="../index.html">← 返回 朱國大醫師個人網頁</a>
+</footer>
+
+</article>
+
+</body>
+</html>
