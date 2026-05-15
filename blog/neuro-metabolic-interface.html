@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="海馬迴尖波漣漪如何從記憶鞏固訊號，延伸為調控周邊葡萄糖恆定的神經代謝節律。">
+<title>The Neuro-Metabolic Interface | 朱國大醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg-primary:#0a0f1e;
+  --bg-card:#111d3c;
+  --bg-card2:#162248;
+  --teal:#4dd9cf;
+  --teal-light:#7ee8e2;
+  --purple:#8b5cf6;
+  --purple-light:#a78bfa;
+  --gold:#f4a261;
+  --text:#e8f4f8;
+  --text-sec:#8ba8c4;
+  --text-dim:#4a6580;
+  --border:rgba(77,217,207,0.15);
+  --shadow:0 8px 32px rgba(0,0,0,0.45);
+  --radius:12px;
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family:'Noto Sans TC','Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text);
+  line-height:1.9;
+}
+a { color:var(--teal); text-decoration:none; }
+a:hover { color:var(--teal-light); }
+.top-bar {
+  position:sticky; top:0; z-index:100;
+  background:rgba(10,15,30,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;
+}
+.top-bar-inner {
+  max-width:980px; margin:0 auto; padding:0 24px;
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+}
+.back-link { color:var(--text-sec); font-size:0.9rem; display:inline-flex; gap:8px; align-items:center; }
+.top-bar-title { font-size:0.82rem; color:var(--text-dim); font-family:'JetBrains Mono',monospace; }
+.article { max-width:860px; margin:0 auto; padding:58px 24px 82px; }
+.article-header {
+  margin-bottom:44px; padding-bottom:34px;
+  border-bottom:1px solid var(--border);
+}
+.article-meta {
+  color:var(--teal); font-size:0.85rem;
+  font-family:'JetBrains Mono',monospace; margin-bottom:14px;
+}
+.article-title {
+  font-size:2.25rem; line-height:1.35; margin-bottom:18px;
+  background:linear-gradient(135deg,var(--text),var(--teal-light));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.article-subtitle { color:var(--text-sec); font-size:1.04rem; }
+.article-author {
+  margin-top:24px; padding-top:20px; border-top:1px solid var(--border);
+  display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+}
+.author-avatar {
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,#2a9d8f,var(--purple));
+  display:flex; align-items:center; justify-content:center; font-weight:700;
+}
+.author-info { color:var(--text-sec); font-size:0.88rem; line-height:1.65; }
+.author-info strong { color:var(--text); }
+.article-tags { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; }
+.tag {
+  font-size:0.72rem; padding:3px 12px; border-radius:20px;
+  background:rgba(77,217,207,0.08); color:var(--teal);
+  border:1px solid rgba(77,217,207,0.2);
+}
+.hero-figure {
+  margin:34px 0 42px; border:1px solid var(--border); border-radius:var(--radius);
+  background:var(--bg-card); overflow:hidden; box-shadow:var(--shadow);
+}
+.hero-figure img { display:block; width:100%; height:auto; }
+.hero-figure figcaption { color:var(--text-dim); font-size:0.82rem; padding:12px 16px; }
+h2 {
+  font-size:1.55rem; margin:54px 0 20px; padding-bottom:10px;
+  border-bottom:2px solid var(--teal); display:inline-block;
+}
+h3 { font-size:1.18rem; color:var(--teal-light); margin:34px 0 14px; }
+p { color:var(--text-sec); margin:0 0 20px; }
+p strong, li strong { color:var(--text); }
+em { color:var(--teal-light); }
+ul,ol { color:var(--text-sec); padding-left:24px; margin:0 0 24px; }
+li { margin-bottom:10px; }
+li::marker { color:var(--teal); }
+.callout {
+  margin:28px 0; padding:20px 24px; background:var(--bg-card);
+  border-left:4px solid var(--teal); border-radius:8px; color:var(--text-sec);
+}
+.callout.purple { border-left-color:var(--purple); }
+.callout.gold { border-left-color:var(--gold); }
+.tbl-wrap { overflow-x:auto; margin:24px 0; }
+table {
+  width:100%; border-collapse:collapse; background:var(--bg-card);
+  border-radius:var(--radius); overflow:hidden; font-size:0.92rem;
+}
+th {
+  text-align:left; color:var(--teal); background:rgba(77,217,207,0.1);
+  padding:12px 14px; border-bottom:1px solid var(--border);
+}
+td { padding:12px 14px; color:var(--text-sec); border-bottom:1px solid rgba(77,217,207,0.08); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+blockquote {
+  margin:34px 0; padding:24px 28px;
+  background:linear-gradient(135deg,rgba(77,217,207,0.06),rgba(139,92,246,0.06));
+  border-left:4px solid var(--teal); border-radius:8px;
+  color:var(--text); font-size:1.05rem;
+}
+.references { margin-top:60px; padding-top:34px; border-top:2px solid var(--teal); }
+.references h2 { border:none; margin-top:0; padding:0; }
+.references ol { list-style:none; counter-reset:ref; padding-left:0; }
+.references li {
+  counter-increment:ref; position:relative; padding-left:42px;
+  font-size:0.88rem; color:var(--text-sec);
+}
+.references li::before {
+  content:counter(ref); position:absolute; left:0; top:2px;
+  width:26px; height:26px; border-radius:50%;
+  background:rgba(77,217,207,0.12); color:var(--teal);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:0.75rem;
+}
+.article-footer {
+  margin-top:54px; padding-top:28px; border-top:1px solid var(--border);
+  color:var(--text-dim); font-size:0.88rem; text-align:center;
+}
+@media(max-width:640px) {
+  .article { padding:42px 18px 64px; }
+  .article-title { font-size:1.65rem; }
+  .top-bar-title { display:none; }
+  table { font-size:0.84rem; }
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="../index.html#teaching" class="back-link"><i class="fas fa-arrow-left"></i> 返回首頁</a>
+    <div class="top-bar-title">NEURO-METABOLIC INTERFACE</div>
+  </div>
+</div>
+
+<article class="article">
+<header class="article-header">
+  <div class="article-meta">2026 / 05 / 15 · 認知神經科學筆記</div>
+  <h1 class="article-title">The Neuro-Metabolic Interface: Hippocampal Sharp Wave Ripples as Orchestrators of Systemic Glycemic Homeostasis</h1>
+  <p class="article-subtitle">海馬迴尖波漣漪不只是「記憶重播」的電生理標記。越來越多證據顯示，它也可能是一種腦身節律訊號，將睡眠中的認知計算、側隔核與下視丘路徑、周邊葡萄糖動態串成同一條神經代謝軸。</p>
+  <div class="article-author">
+    <div class="author-avatar">朱</div>
+    <div class="author-info">
+      <strong>朱國大 醫師</strong><br>
+      腎臟科暨認知神經科學研究 · 依據本資料夾簡報與相關文獻整理
+    </div>
+  </div>
+  <div class="article-tags">
+    <span class="tag">Sharp Wave Ripples</span>
+    <span class="tag">Hippocampus</span>
+    <span class="tag">Glucose Homeostasis</span>
+    <span class="tag">Sleep</span>
+    <span class="tag">GLP-1R</span>
+  </div>
+</header>
+
+<figure class="hero-figure">
+  <img src="neuro-metabolic-interface.png" alt="Neural circuit linking hippocampal sharp wave ripples, lateral septum, autonomic and endocrine pathways, and decreased glucose levels">
+  <figcaption>簡報核心模型：SWRs 作為觸發訊號，經側隔核轉換後進入自主神經與內分泌路徑，約 10 分鐘後反映為周邊葡萄糖下降。</figcaption>
+</figure>
+
+<p>傳統上，海馬迴被描述為記憶與空間導航的核心結構；在這個框架下，尖波漣漪（sharp wave ripples, SWRs 或 SPW-Rs）是睡眠與靜止狀態中進行記憶鞏固的「離線模式」。然而，這個觀點正在被擴張。若我們把大腦視為身體的一部分，而不是漂浮在身體之上的計算器，SWR 就不只是記憶檔案的壓縮播放，也可能是調度能量、預測需求、調整代謝的節律訊號。</p>
+
+<p>本篇文章整理資料夾中不同版本簡報的主軸：從海馬功能理論的演進、時間細胞與序列生成模型，到 Buzsáki 與 Tingley 所提出的 body-brain partnership，再聚焦於 Tingley 等人 2021 年的關鍵發現：海馬 CA1 的 SWR rate 能預測接下來約 10 分鐘的周邊葡萄糖變化，人工誘發 ripple-like events 會產生相似的葡萄糖下降，而阻斷側隔核相關路徑則會破壞這種耦合。</p>
+
+<div class="callout">
+  <strong>核心命題：</strong>SWR 可能是一種「神經代謝語法」：在睡眠與安靜狀態中，海馬迴把記憶、預測與能量調度包在同一種高同步輸出事件裡，經由側隔核與下視丘相關路徑影響周邊葡萄糖恆定。
+</div>
+
+<h2>一、從認知地圖到內在序列生成器</h2>
+
+<p>海馬迴理論的歷史，可以看成一條從「外界表徵」走向「內在生成」的路徑。早期的 cognitive map theory 強調海馬迴表徵外在空間；place cells 與 grid cells 的發現，使空間導航成為海馬研究的主軸。但 Pastalkova 與 Buzsáki 的 wheel-running 實驗、MacDonald 的 time cell 研究，以及 Howard 等人的數學框架，把問題推向另一個方向：海馬序列不必永遠由外界座標驅動，它可以在缺乏外部線索時，自行產生有序的神經軌跡。</p>
+
+<p>這正是簡報中「Outside-In Representation to Inside-Out Computation」的重點。時間細胞不是單純用來讀取鐘錶時間，place cells 也不只是地圖座標的被動投影。更精確地說，海馬迴可能是一個能生成 ordinal structure 的系統：它產生序列，下游腦區再依任務需求把序列解讀為時間、空間、記憶、路徑或身體狀態。</p>
+
+<h3>SWR 是高同步的離線輸出事件</h3>
+
+<p>Buzsáki 2015 年的綜述把 SWR 定位為第一個相當清楚的認知運作生物標記。它通常出現在 NREM 睡眠、清醒靜止、進食或行為暫停時；由 CA3 遞歸網絡觸發，在 CA1 錐體細胞層形成約 110-200 Hz 的高頻 ripple。它的特點不是單一神經元放電，而是大量神經元在 50-150 毫秒尺度內的同步壓縮序列。</p>
+
+<p>這種壓縮使清醒經驗中的數秒行為序列，在極短時間窗內重播，符合誘發突觸可塑性的時間條件。因此，SWR 一方面支援記憶鞏固，另一方面也能在尚未發生的路徑上進行 preplay 或 forward replay，支援未來規劃。若把這個邏輯延伸到身體，問題就變成：當海馬迴在睡眠中大量輸出這些高同步訊號時，身體是否也在「聽」？</p>
+
+<h2>二、記憶訊號如何變成葡萄糖訊號</h2>
+
+<p>Tingley、McClain 與 Buzsáki 等人在 2021 年發表的研究，是整個 neuro-metabolic interface 最關鍵的實驗基礎。他們同步記錄大鼠海馬 CA1 的 SWR 與周邊間質葡萄糖動態，發現 SWR rate 與之後約 10 分鐘的葡萄糖變化呈現負相關。換言之，當海馬迴 ripple 活動增加，接下來周邊葡萄糖 flux 會下降。</p>
+
+<p>這裡重要的不是「睡眠會影響血糖」這個寬泛說法，而是時間解析度與因果鏈被推進了。傳統內分泌研究常用低頻率採血，很難對準 50-150 毫秒的神經事件。這類研究結合連續葡萄糖監測與導數分析，把焦點放在 glucose trend 或 flux，而非單一血糖值，使秒級神經事件與分鐘級代謝變化可以被放在同一條時間軸上。</p>
+
+<div class="tbl-wrap">
+<table>
+<thead>
+<tr><th>實驗問題</th><th>關鍵證據</th><th>解讀</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>SWR 是否預測葡萄糖變化？</strong></td><td>自然發生的 CA1 SWR rate 與約 10 分鐘後 glucose flux 下降相關。</td><td>SWR 不是只在腦內循環，也可能預告周邊代謝調整。</td></tr>
+<tr><td><strong>SWR 是否足以影響葡萄糖？</strong></td><td>以光遺傳方式誘發 ripple-like events，產生劑量依賴的葡萄糖下降。</td><td>從相關性推進到 sufficient test。</td></tr>
+<tr><td><strong>路徑是否需要側隔核？</strong></td><td>藥物遺傳抑制 septal GABAergic population 後，SWR-glucose coupling 被破壞。</td><td>側隔核不是旁觀者，而是重要轉換站。</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>簡報將這條路徑概念化為 <strong>CA1 → lateral septum → hypothalamic/autonomic/endocrine pathways → peripheral glucose decrease</strong>。側隔核在此不是簡單的中繼站，而更像強度檢測器或閾值濾波器：它判讀海馬迴高同步事件的集群率，將原本屬於記憶系統的節律訊號，轉換為可影響下視丘與周邊效應器的身體調控指令。</p>
+
+<h2>三、睡眠、進食與雙向回饋</h2>
+
+<p>如果 SWR 能影響葡萄糖，反過來，葡萄糖與進食狀態是否也會改變 SWR？近年的研究開始把這個迴路補齊。</p>
+
+<h3>進食後，SWR 會被增強</h3>
+
+<p>Kaya 等人在 2025 年發表的研究顯示，小鼠進食後的睡眠中，海馬 SWR 顯著增強，而且增強幅度與餐食熱量相關。這代表 SWR 並非只由「需要鞏固多少記憶」決定，也受身體能量狀態調節。食物攝入後，身體進入吸收、儲存與代謝重配置狀態；海馬迴的離線活動也隨之改變，可能把近期覓食、獎賞、能量可用性與未來行為策略整合在一起。</p>
+
+<h3>周邊葡萄糖也會影響睡眠腦振盪</h3>
+
+<p>Lun、Hallschmid、Born 與 Niethard 2025 年的研究則檢驗周邊葡萄糖對睡眠腦振盪的反向影響。研究指出，海馬 ripples 與睡眠 spindles 伴隨短暫周邊葡萄糖下降，而系統性葡萄糖給予或禁食狀態，會影響睡眠與記憶相關振盪。這使整個模型不再是單向的「腦控制血糖」，而是腦與身體之間的閉環調節：SWR 改變周邊葡萄糖，周邊代謝狀態也回頭調節睡眠中的腦節律。</p>
+
+<div class="callout purple">
+  <strong>雙向性是重點：</strong>在這個模型裡，睡眠不是單純讓大腦休息，也不是只有記憶整理。睡眠更像一個低干擾的系統維護時段，腦內序列重播、下視丘代謝控制、周邊葡萄糖供需在此重新同步。
+</div>
+
+<h2>四、GLP-1R、側隔核與下視丘：藥物介入的可能入口</h2>
+
+<p>GLP-1 受體促效劑近年因糖尿病、肥胖與神經退化疾病的交會而受到關注。資料夾中的 GLP-1RA 簡報與文獻把焦點放在側隔核與下視丘路徑：Lu 等人 2024 年指出，背外側隔核 GLP-1R 神經元投射到 lateral hypothalamic area，且此 GABAergic pathway 可調節進食；Chen 等人也從 lateral septum GLP-1R-positive neurons 的角度，說明 liraglutide 的厭食與減重效果可能經由側隔核路徑實現。</p>
+
+<p>這與 SWR-glucose 模型形成有趣交會。Tingley/Buzsáki 的研究把側隔核放在「海馬輸出如何影響葡萄糖」的必要路徑上；GLP-1R 研究則把側隔核放在「周邊與中樞代謝訊號如何調食」的路徑上。兩者尚不能直接等同，但它們共同指向同一個解剖與功能樞紐：側隔核可能是記憶系統、覓食行為、下視丘能量控制與藥物效應之間的轉換節點。</p>
+
+<h2>五、臨床意義：糖尿病、睡眠與認知退化的共同語言</h2>
+
+<p>對臨床醫師而言，這個模型最有價值之處，不是立刻把 SWR 當成可用的治療靶點，而是提供一套更好的問題語言。糖尿病與認知退化常被分開處理：一邊看 HbA1c、胰島素阻抗與低血糖風險；另一邊看 MCI、記憶量表、EEG 或影像生物標記。但 neuro-metabolic interface 提醒我們，睡眠腦節律可能正位於兩者中間。</p>
+
+<p>如果睡眠中的 SWR、spindles、slow oscillations 與周邊葡萄糖波動具有可測量的耦合，那麼慢性睡眠中斷、糖尿病夜間血糖波動、認知退化與記憶鞏固失敗，就可能不是四個彼此獨立的現象，而是同一個腦身閉環在不同層級上的失調。</p>
+
+<div class="callout gold">
+  <strong>臨床推論仍需保守：</strong>目前高品質 SWR 訊號多來自動物或侵入性人類記錄；周邊葡萄糖常用間質液測量，也存在時間延遲。臨床轉譯需要更好的非侵入式腦節律監測、同步 CGM、睡眠分期，以及對藥物、飲食、運動與睡眠干預的整合研究。
+</div>
+
+<h2>六、我如何理解這條神經代謝軸</h2>
+
+<p>這個主題最迷人的地方，在於它迫使我們重寫「記憶」的邊界。若從演化角度看，記憶不是為了在腦內收藏過去，而是為了讓身體更好地預測未來。動物記住路徑、食物、危險與時間，不只是為了形成內在表徵，而是為了在下一次行動前調好身體狀態。</p>
+
+<p>因此，SWR 的功能可以被理解為一種壓縮後的「預測封包」。它把近期經驗與可能未來序列快速播放，送往新皮質以鞏固記憶，也送往側隔核、下視丘與自主神經系統，以準備或重設能量配置。記憶與代謝在這裡不是兩個模組，而是同一個 allostatic computation 的兩個出口。</p>
+
+<blockquote>
+  海馬迴不是只問「剛剛發生了什麼？」也可能在睡眠中問：「如果明天要活下去，身體現在該怎麼分配能量？」
+</blockquote>
+
+<h2>Take-home Messages</h2>
+
+<ol>
+<li><strong>SWR 是海馬迴離線運算的高同步輸出。</strong>它支援記憶鞏固與未來規劃，也可能同時攜帶身體調控訊號。</li>
+<li><strong>SWR 與周邊葡萄糖存在時間耦合。</strong>關鍵研究顯示，CA1 SWR rate 可預測約 10 分鐘後的葡萄糖下降，人工誘發 ripple-like events 也可產生相似效應。</li>
+<li><strong>側隔核是重要轉換站。</strong>它可能把海馬的高同步事件轉譯為下視丘、自主神經與內分泌路徑可使用的代謝指令。</li>
+<li><strong>代謝狀態會反過來調節睡眠腦節律。</strong>進食可增強睡眠 SWR，葡萄糖給予或禁食會影響睡眠振盪，支持雙向閉環模型。</li>
+<li><strong>GLP-1R 路徑提供了藥物與神經迴路的交會點。</strong>側隔核 GLP-1R 神經元與下視丘投射可能連接進食、體重、葡萄糖與海馬節律研究。</li>
+</ol>
+
+<section class="references">
+<h2>參考資料</h2>
+<ol>
+<li><strong>Buzsáki G.</strong> Hippocampal sharp wave-ripple: A cognitive biomarker for episodic memory and planning. <em>Hippocampus</em>. 2015;25(10):1073-1188.</li>
+<li><strong>Pastalkova E, Itskov V, Amarasingham A, Buzsáki G.</strong> Internally generated cell assembly sequences in the rat hippocampus. <em>Science</em>. 2008;321(5894):1322-1327.</li>
+<li><strong>MacDonald CJ, Lepage KQ, Eden UT, Eichenbaum H.</strong> Hippocampal time cells bridge the gap in memory for discontiguous events. <em>Neuron</em>. 2011;71(4):737-749.</li>
+<li><strong>Howard MW, MacDonald CJ, Tiganj Z, et al.</strong> A unified mathematical framework for coding time, space, and sequences in the hippocampal region. <em>Journal of Neuroscience</em>. 2014;34(13):4692-4707.</li>
+<li><strong>Buzsáki G, Tingley D.</strong> Space and time: The hippocampus as a sequence generator. <em>Trends in Cognitive Sciences</em>. 2018;22(10):853-869.</li>
+<li><strong>Tingley D, McClain K, Kaya E, Carpenter J, Buzsáki G.</strong> A metabolic function of the hippocampal sharp wave-ripple. <em>Nature</em>. 2021;597:82-86.</li>
+<li><strong>Hallschmid M.</strong> A brain signal that coordinates thought with metabolism. <em>Nature</em>. 2021;597:39-40.</li>
+<li><strong>Buzsáki G, Tingley D.</strong> Cognition from the body-brain partnership: Exaptation of memory. <em>Annual Review of Neuroscience</em>. 2023;46:191-210.</li>
+<li><strong>Lun Y, Hallschmid M, Born J, Niethard N.</strong> The influence of peripheral glucose on sleep brain oscillations. <em>Sleep</em>. 2025.</li>
+<li><strong>Kaya E, Wegienka E, Akhtarzandi-Das A, Do H, Eban-Rothschild A, Rothschild G.</strong> Food intake enhances hippocampal sharp wave ripples. <em>eLife</em>. 2025;14:RP105059.</li>
+<li><strong>Buhler CM, Basso JC, English DF.</strong> Hippocampal sharp wave-ripple dynamics in NREM sleep encode motivation for future physical activity. <em>bioRxiv</em>. 2023.</li>
+<li><strong>Sakairi T, et al.</strong> Hippocampal sharp-wave ripples decrease during physical actions. 2024.</li>
+<li><strong>Domagala P, et al.</strong> Attention modulates hippocampal sharp-wave ripples in humans. 2025.</li>
+<li><strong>Espinoza D, Seibold F, Stanley S.</strong> Central and peripheral neural circuits regulating glucose homeostasis. 2025.</li>
+<li><strong>Lu Y, Wang L, Luo F, Savani R, Rossi MA, Pang ZP.</strong> Dorsolateral septum GLP-1R neurons regulate feeding via lateral hypothalamic projections. 2024.</li>
+<li><strong>Chen Y, et al.</strong> GLP-1R-positive neurons in the lateral septum mediate the anorectic and weight-lowering effects of liraglutide in mice. 2024.</li>
+<li><strong>Kopp KO, et al.</strong> Glucagon-like peptide-1 receptor agonists and neuroinflammation: implications for neurodegenerative disease treatment. 2022.</li>
+</ol>
+</section>
+
+<footer class="article-footer">
+  本文依據「Sharp wave ripple and glucose metabolism」與「GLP-1RA and sharp wave ripple」資料夾內簡報、圖像與文獻整理。<br>
+  <a href="../index.html#teaching">回到演講教學列表</a>
+</footer>
+</article>
+</body>
+</html>
