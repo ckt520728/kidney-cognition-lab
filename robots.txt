@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ckt520728.github.io/kidney-cognition-lab/sitemap.xml
