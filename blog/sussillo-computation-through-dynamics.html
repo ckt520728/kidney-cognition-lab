@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="從 FORCE 學習法則到定點分析與吸引子流形：David Sussillo 如何把循環神經網路變成可逆向工程的大腦代理，揭示神經運算的幾何骨架。">
+<title>Opening the Black Box：經由動力學的運算 | 朱國大醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg-primary:#0a0f1e;
+  --bg-card:#111d3c;
+  --bg-card2:#162248;
+  --teal:#4dd9cf;
+  --teal-light:#7ee8e2;
+  --purple:#8b5cf6;
+  --purple-light:#a78bfa;
+  --gold:#f4a261;
+  --text:#e8f4f8;
+  --text-sec:#8ba8c4;
+  --text-dim:#4a6580;
+  --border:rgba(77,217,207,0.15);
+  --shadow:0 8px 32px rgba(0,0,0,0.45);
+  --radius:12px;
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family:'Noto Sans TC','Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text);
+  line-height:1.9;
+}
+a { color:var(--teal); text-decoration:none; }
+a:hover { color:var(--teal-light); }
+.top-bar {
+  position:sticky; top:0; z-index:100;
+  background:rgba(10,15,30,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;
+}
+.top-bar-inner {
+  max-width:980px; margin:0 auto; padding:0 24px;
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+}
+.back-link { color:var(--text-sec); font-size:0.9rem; display:inline-flex; gap:8px; align-items:center; }
+.top-bar-title { font-size:0.82rem; color:var(--text-dim); font-family:'JetBrains Mono',monospace; }
+.article { max-width:860px; margin:0 auto; padding:58px 24px 82px; }
+.article-header {
+  margin-bottom:44px; padding-bottom:34px;
+  border-bottom:1px solid var(--border);
+}
+.article-meta {
+  color:var(--teal); font-size:0.85rem;
+  font-family:'JetBrains Mono',monospace; margin-bottom:14px;
+}
+.article-title {
+  font-size:2.25rem; line-height:1.35; margin-bottom:18px;
+  background:linear-gradient(135deg,var(--text),var(--teal-light));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.article-subtitle { color:var(--text-sec); font-size:1.04rem; }
+.article-author {
+  margin-top:24px; padding-top:20px; border-top:1px solid var(--border);
+  display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+}
+.author-avatar {
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,#2a9d8f,var(--purple));
+  display:flex; align-items:center; justify-content:center; font-weight:700;
+}
+.author-info { color:var(--text-sec); font-size:0.88rem; line-height:1.65; }
+.author-info strong { color:var(--text); }
+.article-tags { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; }
+.tag {
+  font-size:0.72rem; padding:3px 12px; border-radius:20px;
+  background:rgba(77,217,207,0.08); color:var(--teal);
+  border:1px solid rgba(77,217,207,0.2);
+}
+.hero-figure {
+  margin:34px 0 42px; border:1px solid var(--border); border-radius:var(--radius);
+  background:var(--bg-card); overflow:hidden; box-shadow:var(--shadow);
+}
+.hero-figure img { display:block; width:100%; height:auto; }
+.hero-figure figcaption { color:var(--text-dim); font-size:0.82rem; padding:12px 16px; }
+.inline-figure {
+  margin:36px 0; border:1px solid var(--border); border-radius:var(--radius);
+  background:var(--bg-card); overflow:hidden; box-shadow:var(--shadow);
+}
+.inline-figure img { display:block; width:100%; height:auto; }
+.inline-figure figcaption { color:var(--text-dim); font-size:0.82rem; padding:12px 16px; }
+h2 {
+  font-size:1.55rem; margin:54px 0 20px; padding-bottom:10px;
+  border-bottom:2px solid var(--teal); display:inline-block;
+}
+h3 { font-size:1.18rem; color:var(--teal-light); margin:34px 0 14px; }
+p { color:var(--text-sec); margin:0 0 20px; }
+p strong, li strong { color:var(--text); }
+em { color:var(--teal-light); }
+ul,ol { color:var(--text-sec); padding-left:24px; margin:0 0 24px; }
+li { margin-bottom:10px; }
+li::marker { color:var(--teal); }
+.callout {
+  margin:28px 0; padding:20px 24px; background:var(--bg-card);
+  border-left:4px solid var(--teal); border-radius:8px; color:var(--text-sec);
+}
+.callout.purple { border-left-color:var(--purple); }
+.callout.gold { border-left-color:var(--gold); }
+.formula {
+  margin:24px 0; padding:18px 24px; background:rgba(77,217,207,0.06);
+  border-left:3px solid var(--teal); border-radius:8px;
+  font-family:'JetBrains Mono',monospace; color:var(--teal-light); font-size:1.05rem;
+}
+.formula small { display:block; margin-top:8px; font-size:0.78rem; color:var(--text-dim); }
+.tbl-wrap { overflow-x:auto; margin:24px 0; }
+table {
+  width:100%; border-collapse:collapse; background:var(--bg-card);
+  border-radius:var(--radius); overflow:hidden; font-size:0.92rem;
+}
+th {
+  text-align:left; color:var(--teal); background:rgba(77,217,207,0.1);
+  padding:12px 14px; border-bottom:1px solid var(--border);
+}
+td { padding:12px 14px; color:var(--text-sec); border-bottom:1px solid rgba(77,217,207,0.08); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+blockquote {
+  margin:34px 0; padding:24px 28px;
+  background:linear-gradient(135deg,rgba(77,217,207,0.06),rgba(139,92,246,0.06));
+  border-left:4px solid var(--teal); border-radius:8px;
+  color:var(--text); font-size:1.05rem;
+}
+.references { margin-top:60px; padding-top:34px; border-top:2px solid var(--teal); }
+.references h2 { border:none; margin-top:0; padding:0; }
+.references ol { list-style:none; counter-reset:ref; padding-left:0; }
+.references li {
+  counter-increment:ref; position:relative; padding-left:42px;
+  font-size:0.88rem; color:var(--text-sec);
+}
+.references li::before {
+  content:counter(ref); position:absolute; left:0; top:2px;
+  width:26px; height:26px; border-radius:50%;
+  background:rgba(77,217,207,0.12); color:var(--teal);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:0.75rem;
+}
+.article-footer {
+  margin-top:54px; padding-top:28px; border-top:1px solid var(--border);
+  color:var(--text-dim); font-size:0.88rem; text-align:center;
+}
+@media(max-width:640px) {
+  .article { padding:42px 18px 64px; }
+  .article-title { font-size:1.65rem; }
+  .top-bar-title { display:none; }
+  table { font-size:0.84rem; }
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="../index.html#teaching" class="back-link"><i class="fas fa-arrow-left"></i> 返回首頁</a>
+    <div class="top-bar-title">COMPUTATION THROUGH DYNAMICS</div>
+  </div>
+</div>
+
+<article class="article">
+<header class="article-header">
+  <div class="article-meta">2026 / 05 / 20 · 計算神經科學筆記</div>
+  <h1 class="article-title">Opening the Black Box：經由動力學的運算，與大腦的幾何骨架</h1>
+  <p class="article-subtitle">大腦或許不是用「編碼」工作，而是用「幾何」工作。David Sussillo 的研究路線——從 FORCE 學習法則、定點分析，到吸引子流形——把循環神經網路從不可知的統計黑盒子，變成一座可解剖、可驗證的大腦代理。</p>
+  <div class="article-author">
+    <div class="author-avatar">朱</div>
+    <div class="author-info">
+      <strong>朱國大 醫師</strong><br>
+      腎臟科暨認知神經科學研究 · 依據 David Sussillo 演講資料夾簡報與相關文獻整理
+    </div>
+  </div>
+  <div class="article-tags">
+    <span class="tag">FORCE Learning</span>
+    <span class="tag">Fixed Points</span>
+    <span class="tag">Attractor Manifold</span>
+    <span class="tag">RNN</span>
+    <span class="tag">Dynamical Systems</span>
+    <span class="tag">Sussillo</span>
+  </div>
+</header>
+
+<figure class="hero-figure">
+  <img src="sussillo-hero.jpg" alt="Abstract visualization of neural attractor manifolds: trajectories spiraling around a glowing ring-shaped attractor in state space">
+  <figcaption>核心意象：訓練好的循環神經網路內部，藏著由定點與吸引子構成的低維幾何骨架——那才是運算真正發生的地方。</figcaption>
+</figure>
+
+<p>系統神經科學長期被一個尷尬的問題困住：當我們把電極插進前額葉皮質，記錄到的單一神經元放電，往往「亂七八糟」。同一個神經元，在不同任務階段呈現截然不同的反應曲線，找不到乾淨的 tuning curve。這種<strong>混合選擇性（mixed selectivity）</strong>讓傳統「找出某顆神經元編碼什麼」的解碼策略幾乎失效。</p>
+
+<p>David Sussillo 的研究，提供了一條截然不同的出路。他主張：神經運算的本質，不在單一神經元的靜態編碼裡，而在<strong>大量神經元構成的高維狀態空間中、隨時間演化的軌跡</strong>。這就是「經由動力學的運算」（Computation Through Dynamics, CTD）框架。本文整理這條研究路線的三個支柱——FORCE 學習、定點分析、吸引子流形——以及它對臨床與跨領域思考的啟發。</p>
+
+<div class="callout">
+  <strong>核心命題：</strong>大腦不是用「編碼」工作，而是用「幾何」工作。記憶、決策、節律與動作，對應到狀態空間裡不同形狀的吸引子結構。混合選擇性只是這個高維流形動力學投影到單神經元的「陰影」。
+</div>
+
+<h2>一、範式轉移：從單神經元調諧到群體狀態空間</h2>
+
+<p>在 Sussillo 提出這套框架之前，系統神經科學主要依賴「單一神經元調諧」分析法，試圖尋找放電率與外部參數（速度、方向、刺激強度）的相關性。這在初級感覺與運動皮層相當有效，但到了前額葉皮質就失靈——因為混合選擇性讓單細胞層級看不到任何穩定模式。</p>
+
+<p>CTD 框架的關鍵跳躍，是把分析的單位從「神經元」換成「群體軌跡」。想像把 N 個神經元的瞬時放電，視為 N 維空間裡的一個點；系統隨時間演化，就是這個點畫出一條軌跡。鐘擺只需要 2 維（角度、角速度），Lorenz 系統需要 3 維，而一個 1000 顆神經元的網路名義上有 1000 維——但它的軌跡通常<em>坍縮到一個低維流形上</em>。</p>
+
+<p>在這個視角下，混合選擇性不再是雜訊，而是高維流形動力學在低維（單神經元）空間的投影。問題從「這顆神經元編碼什麼」，變成「整個群體的軌跡，受到什麼樣的幾何結構約束」。</p>
+
+<h3>RNN 作為「可解剖的大腦代理」</h3>
+
+<p>Sussillo 的方法論有一個三步驟的核心循環：先訓練一個循環神經網路（RNN）執行與動物相同的認知或運動任務；接著對訓練好的 RNN 進行逆向工程，解剖其內部結構；最後把從人工模型獲得的機制性假設，拿回生物神經數據（如恆河猴的 Utah Array 記錄）中驗證。</p>
+
+<p>這裡 RNN 不是大腦本身，而是一個<strong>可以隨意打開、測量、擾動的代理</strong>。它提供的是一種「足夠性證明」（sufficiency argument）：如果 RNN 用某個幾何機制就能完成任務，那麼大腦也<em>可能</em>用相同的機制。這把電生理研究從「描述現象」推進到「提出可檢驗的機制假設」。</p>
+
+<h2>二、FORCE：馴服混沌的學習法則</h2>
+
+<p>要把 RNN 當代理，第一個難關是：具備混沌動力學的循環網路極難訓練。傳統的時間反向傳播（BPTT）在混沌系統中，梯度容易爆炸或消失；而早期的回聲狀態網絡（ESN）需要用「鉗制（clamping）」技術強迫網路看到正確目標，這在生物學上並不自然。</p>
+
+<p>2009 年，Sussillo 與 Larry Abbott 在 <em>Neuron</em> 提出 <strong>FORCE</strong>（First-Order Reduced and Controlled Error）學習法則。它的核心是利用<strong>遞歸最小二乘法（Recursive Least Squares, RLS）</strong>，在每一個時間步即時、快速地微調輸出權重。</p>
+
+<div class="formula">
+  w(t+1) = w(t) − e(t) · P(t) · r(t)
+  <small>e(t)：當前誤差（實際輸出 − 目標）　r(t)：reservoir 神經元活動向量　P(t)：RLS 逆相關矩陣，攜帶局部曲率資訊</small>
+</div>
+
+<p>與梯度下降「沿著梯度走一小步」不同，RLS 幾乎是「直接跳到當前最佳解」。因此誤差從第一步起就被壓得很小，不會在完整的反饋迴路裡被混沌放大。FORCE 最關鍵的突破在於：它<strong>允許反饋路徑保持完整、不需鉗制</strong>，讓網路學會穩定自身的混沌，而不是被外力強制矯正。</p>
+
+<div class="callout purple">
+  <strong>突現（emergence）的啟示：</strong>FORCE 證明了智慧與秩序不需要精確的初始化，而能從混沌的非線性互動中突現。雜亂的網路可以被訓練出走路的步態、奏鳴曲的節律，甚至 Lorenz 蝴蝶的混沌軌跡。
+</div>
+
+<h2>三、開啟黑盒子：定點與慢點分析</h2>
+
+<p>訓練好的 RNN 仍是一個黑盒子。2013 年，Sussillo 與 Omri Barak 在 <em>Neural Computation</em> 發表《Opening the Black Box》，提出一套打開它的數學框架：尋找狀態空間中的<strong>定點（fixed points）</strong>與<strong>慢點（slow points）</strong>。</p>
+
+<figure class="inline-figure">
+  <img src="sussillo-fixed-point.jpg" alt="State-space trajectories converging onto fixed points; the identifiability pitfall of confusing trajectories with mechanism">
+  <figcaption>逆向工程的核心：找出狀態空間中速度為零（定點）或極慢（慢點）的位置，再用線性化分析判讀其穩定性。注意「軌跡」與「機制」不可混為一談。</figcaption>
+</figure>
+
+<p>把訓練好的 RNN 視為動力系統 ẋ = F(x, u)。定點 x* 是速度為零的位置（F(x*, u*) = 0）；慢點則是速度極小、但仍可線性化分析的區域。由於高維非線性系統無法直接解方程，Sussillo 採用數值方法：定義一個輔助函數 q(x) = ½‖F(x, u*)‖²（代表系統的「動能」），透過最小化 q(x) 來定位這些隱藏的結構。</p>
+
+<div class="formula">
+  q(x) = ½ ‖ F(x, u*) ‖²　　　A = ∂F / ∂x |<sub>x*</sub>
+  <small>左：以最小化 q(x) 取代直接解方程；右：在定點附近做 Jacobian 線性化，用特徵值實部判定穩定性。</small>
+</div>
+
+<p>接著在每個定點附近計算 Jacobian 矩陣，分析其特徵值，將定點分類：</p>
+
+<div class="tbl-wrap">
+<table>
+<thead>
+<tr><th>類型</th><th>特徵值實部</th><th>動力學意義</th><th>運算角色</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>穩定吸引子 (Attractor)</strong></td><td>全部為負</td><td>周邊軌跡收斂</td><td>長期記憶儲存</td></tr>
+<tr><td><strong>不穩定排斥子 (Repeller)</strong></td><td>全部為正</td><td>周邊軌跡發散</td><td>不穩定模式</td></tr>
+<tr><td><strong>鞍點 (Saddle)</strong></td><td>正負並存</td><td>部分吸引、部分排斥</td><td>決策邊界、狀態切換</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>這就是把「神經元放電率」翻譯成「特徵值複平面散點圖」的概念跳躍。一個經典範例是 3-bit Flip-Flop：一個 1000 神經元的 RNN 儲存 3 個獨立記憶位元，逆向工程精確識別出 <strong>8 個穩定吸引子（對應 2³ 個記憶狀態）加上多個鞍點</strong>。輸入脈衝把軌跡推過鞍點這道分水嶺，再沿著「異宿軌（heteroclinic orbit）」完成狀態切換。</p>
+
+<h2>四、五種吸引子流形 = 五種運算</h2>
+
+<p>把這套分析套用到不同任務訓練出的網路，會反覆看到幾種固定的幾何結構。它們構成了一套「運算的幾何詞彙表」：</p>
+
+<figure class="inline-figure">
+  <img src="sussillo-five-manifolds.jpg" alt="Five attractor manifold types: point, line, ring, plane, and limit cycle">
+  <figcaption>五種吸引子流形與其運算分工。記住這張對照，幾乎所有經典案例都能用它來解讀。</figcaption>
+</figure>
+
+<ul>
+<li><strong>點吸引子（Point）</strong>：孤立穩定定點，負責離散狀態的記憶與分類，抗噪。例：3-bit Flip-Flop。</li>
+<li><strong>線吸引子（Line）</strong>：一系列邊際穩定定點構成的一維曲線，負責連續標量的時間積分與證據累積。例：PFC 決策、腦幹眼動積分器。</li>
+<li><strong>環形吸引子（Ring）</strong>：封閉一維圓環，負責連續角度／方向的記憶。例：果蠅 heading direction circuit。</li>
+<li><strong>平面吸引子（Plane）</strong>：二維邊際穩定流形，負責多變數並行記憶與二維積分。</li>
+<li><strong>極限環（Limit Cycle）</strong>：穩定閉合軌道，負責節律生成與精確定時。例：運動皮層的旋轉動力學。</li>
+</ul>
+
+<div class="callout">
+  <strong>運算分工總覽：</strong>點／環負責記憶（離散／連續角度），線／平面負責積分，極限環負責節律生成，鞍點加異宿軌負責邏輯切換。同一套幾何詞彙，能解釋從工作記憶到運動控制的多種認知功能。
+</div>
+
+<h2>五、四個經典案例</h2>
+
+<h3>Mante 2013：PFC 的線吸引子與選擇向量</h3>
+
+<p>恆河猴在「顏色」與「運動」兩種情境（context）之間切換決策。Mante 等人發現，PFC 用一個近似線吸引子來累積感官證據；而「選擇向量」在指定情境中與相關輸入軸對齊（投影累積），與無關輸入軸保持正交（雜訊衰減）。關鍵洞見是：<strong>情境切換不需要物理上的「門控」，幾何上的正交隔離就足夠了。</strong></p>
+
+<h3>M1 旋轉動力學：運動皮層是動力產生器</h3>
+
+<figure class="inline-figure">
+  <img src="sussillo-m1-rotation.jpg" alt="Motor cortex rotational dynamics: neural trajectories rotating in state space producing linear movement output">
+  <figcaption>即使手臂做的是直線動作，訓練後的網路內部卻自發突現旋轉動力學——M1 不是參數編碼器，而是產生肌肉指令的「動力引擎」。</figcaption>
+</figure>
+
+<p>Sussillo 與 Churchland 訓練 RNN 產生多相式肌肉指令（EMG）。即使動作本身是直線的，訓練後的網路<strong>自發突現出旋轉動力學</strong>。這支持了一個重新框定：主要運動皮層 M1 不是把速度、方向等參數編碼起來的「查表器」，而是一個產生時變肌肉指令的動力產生器，其幾何結構是短期極限環。</p>
+
+<h3>Driscoll & Sussillo 2022：動態基元的模組化重用</h3>
+
+<figure class="inline-figure">
+  <img src="sussillo-motifs.jpg" alt="A central ring attractor shared across multiple cognitive tasks via dynamical motifs">
+  <figcaption>單一網路執行 15–20 個任務時，所有需要記憶圓形變數的任務，共享同一個環形吸引子——這就是 dynamical motif 的重用。</figcaption>
+</figure>
+
+<p>當單一 RNN 被訓練執行 15–20 個認知任務時，Driscoll 與 Sussillo 發現網路並沒有為每個任務重新布線，而是<strong>重用既有的動力學結構（dynamical motifs）</strong>。所有需要記憶圓形變數的任務（MemoryPro、IntegrationModality 等）共享同一個環形吸引子；切換任務時，rule input 只是平滑地旋轉或平移既有的動力景觀，而非重建電路。這對應到生物智慧的快速遷移學習與任務切換效率。</p>
+
+<h2>六、跨領域與臨床意義</h2>
+
+<p>這套幾何語言，把 Sussillo 的計算神經科學與 Strogatz 的非線性動力學連在了一起。Strogatz 用「奇異吸引子」與「伸展與摺疊」描述混沌的幾何本質；Sussillo 則把同一套吸引子詞彙，轉化為大腦運算的「語法」。兩者共用數學語言，但目標不同：一個是顯微鏡，一個是把顯微鏡對準大腦的人。</p>
+
+<p>Kuramoto 同步模型則提供了「低維流形如何從無序中湧現」的數學基礎：當耦合強度超過臨界值，大量隨機頻率的振子會自發同步，序參數從接近零飛升到接近一，高維系統坍縮到一個二維的 Ott-Antonsen 流形上。</p>
+
+<div class="callout gold">
+  <strong>臨床連結（仍需保守）：</strong>帕金森氏症的病理狀態，在 Kuramoto 框架下對應於基底核的「病理性過度同步」——序參數被鎖在接近一的僵化狀態。深腦刺激（DBS）的本質，或許不是單純「抑制」神經活動，而是用外部高頻電場改變振子相位，把系統從相鎖定狀態推離。把震顫理解為「病理性的流形鎖定」，為閉迴路精準刺激提供了機制性語言——但臨床轉譯仍需更多直接證據。
+</div>
+
+<h2>七、我如何理解這套框架</h2>
+
+<p>對一個同時做臨床與認知神經科學的人來說，CTD 框架最迷人的地方，在於它把「機制」這個詞還給了系統神經科學。過去我們能描述神經元放電與行為的相關性，卻很難說出「運算到底是怎麼發生的」。Sussillo 的回答是：運算發生在狀態空間的幾何結構裡——記憶是定點，決策是軌跡分叉，節律是極限環。</p>
+
+<p>但我也提醒自己保持懷疑。FORCE 依賴的全局誤差計算，在真實突觸層級尚無明確的生物對應；目前的速率網路忽略了細胞類型多樣性與樹突運算；而低維幾何流形能否撐起「組合爆炸」性質的高階語言與抽象推理，仍是開放問題。這套框架是強大的假設產生器，但它生成的是假設，不是定論。</p>
+
+<blockquote>
+  訓練好的 RNN 像一具被風乾的標本：它告訴你「這個解法是可能的」，卻不保證大腦真的選了同一條路。逆向工程給的是地圖，不是領土。
+</blockquote>
+
+<h2>Take-home Messages</h2>
+
+<ol>
+<li><strong>大腦用幾何工作，不是用編碼工作。</strong>混合選擇性是高維流形動力學投影到單神經元的陰影；運算發生在群體軌跡的幾何結構裡。</li>
+<li><strong>FORCE 讓混沌 RNN 可以被訓練。</strong>用遞歸最小二乘法即時控制誤差、保留完整反饋，證明秩序能從混沌的非線性互動中突現。</li>
+<li><strong>定點分析打開了黑盒子。</strong>透過最小化 q(x) 找出定點與慢點，再用 Jacobian 特徵值分類為吸引子、排斥子或鞍點。</li>
+<li><strong>五種吸引子流形對應五種運算。</strong>點／環＝記憶，線／平面＝積分，極限環＝節律，鞍點加異宿軌＝邏輯切換。</li>
+<li><strong>跨領域與臨床想像。</strong>從 Strogatz 的奇異吸引子、Kuramoto 同步，到帕金森氏症 DBS 的「病理流形鎖定」——同一套幾何語言貫穿基礎與臨床，但臨床轉譯仍需保守。</li>
+</ol>
+
+<section class="references">
+<h2>參考資料</h2>
+<ol>
+<li><strong>Sussillo D, Abbott LF.</strong> Generating coherent patterns of activity from chaotic neural networks. <em>Neuron</em>. 2009;63(4):544-557.</li>
+<li><strong>Sussillo D, Barak O.</strong> Opening the black box: Low-dimensional dynamics in high-dimensional recurrent neural networks. <em>Neural Computation</em>. 2013;25(3):626-649.</li>
+<li><strong>Mante V, Sussillo D, Shenoy KV, Newsome WT.</strong> Context-dependent computation by recurrent dynamics in prefrontal cortex. <em>Nature</em>. 2013;503:78-84.</li>
+<li><strong>Churchland MM, Cunningham JP, Kaufman MT, et al.</strong> Neural population dynamics during reaching. <em>Nature</em>. 2012;487:51-56.</li>
+<li><strong>Sussillo D, Churchland MM, Kaufman MT, Shenoy KV.</strong> A neural network that finds a naturalistic solution for the production of muscle activity. <em>Nature Neuroscience</em>. 2015;18:1025-1033.</li>
+<li><strong>Driscoll LN, Shenoy K, Sussillo D.</strong> Flexible multitask computation in recurrent networks utilizes shared dynamical motifs. <em>Nature Neuroscience</em>. 2024;27:1349-1363.</li>
+<li><strong>Golub MD, Sussillo D.</strong> FixedPointFinder: A Tensorflow toolbox for identifying and characterizing fixed points in recurrent neural networks. <em>Journal of Open Source Software</em>. 2018;3(31):1003.</li>
+<li><strong>Vyas S, Golub MD, Sussillo D, Shenoy KV.</strong> Computation through neural population dynamics. <em>Annual Review of Neuroscience</em>. 2020;43:249-275.</li>
+<li><strong>Strogatz SH.</strong> <em>Nonlinear Dynamics and Chaos</em>. 2nd ed. Westview Press; 2015. (Ch. 12 Strange Attractors, Ch. 13 系列同步主題)</li>
+<li><strong>Kuramoto Y.</strong> Self-entrainment of a population of coupled non-linear oscillators. In: <em>International Symposium on Mathematical Problems in Theoretical Physics</em>. 1975:420-422.</li>
+<li><strong>Ott E, Antonsen TM.</strong> Low dimensional behavior of large systems of globally coupled oscillators. <em>Chaos</em>. 2008;18(3):037113.</li>
+<li><strong>Maling N, McIntyre C.</strong> Local field potential analysis for closed-loop deep brain stimulation. In: <em>Closed Loop Neuroscience</em>. 2016. （DBS 與病理同步之去耦合化機制綜述）</li>
+</ol>
+</section>
+
+<footer class="article-footer">
+  本文依據「David Sussillo 大腦皮層動力學」演講資料夾內簡報、FORCE 與定點分析文獻、以及 Strogatz／Kuramoto 跨領域整理而成。<br>
+  <a href="../index.html#teaching">回到演講教學列表</a>
+</footer>
+</article>
+</body>
+</html>
