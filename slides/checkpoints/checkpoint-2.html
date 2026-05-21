@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkpoint 2 | 3-bit Flip-Flop</title>
+  <link rel="stylesheet" href="checkpoint.css">
+</head>
+<body data-checkpoint="2">
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand"><div class="mark">02</div><span>Sussillo CTD Interactive Questions</span></div>
+      <nav class="navlinks" aria-label="checkpoint navigation">
+        <a href="checkpoint-1.html">01</a>
+        <a class="active" href="checkpoint-2.html">02</a>
+        <a href="checkpoint-3.html">03</a>
+        <a href="checkpoint-4.html">04</a>
+        <a href="checkpoint-5.html">05</a>
+      </nav>
+    </header>
+    <section class="layout">
+      <article class="quiz-card">
+        <div class="kicker">CHECK-POINT 2 · 投票 + 案例</div>
+        <h1>3-bit Flip-Flop 內部</h1>
+        <p class="prompt">1000 神經元的 RNN 儲存 3 個獨立記憶位元。逆向工程找出 8 個穩定吸引子 + 多個鞍點。</p>
+        <div class="question-label">SELECT ONE</div>
+        <p class="prompt">鞍點在這個系統裡扮演什麼角色?</p>
+        <div class="options" role="list">
+          <button class="option" data-option="A"><span class="letter">A</span><span class="option-text">儲存中間記憶</span></button>
+          <button class="option" data-option="B"><span class="letter">B</span><span class="option-text">過濾雜訊</span></button>
+          <button class="option" data-option="C"><span class="letter">C</span><span class="option-text">作為狀態切換的決策邊界</span></button>
+          <button class="option" data-option="D"><span class="letter">D</span><span class="option-text">完全無功能,只是數學產物</span></button>
+        </div>
+        <div class="actions">
+          <button class="primary" data-submit disabled>送出答案</button>
+          <button class="secondary" data-reset>重新作答</button>
+        </div>
+        <div class="feedback" data-feedback>
+          <strong data-feedback-title></strong>
+          <div data-feedback-body></div>
+        </div>
+        <div class="pager">
+          <a href="checkpoint-1.html">上一題</a>
+          <a href="checkpoint-3.html">下一題</a>
+        </div>
+      </article>
+      <aside class="side-panel">
+        <div class="visual">
+          <svg viewBox="0 0 420 300" role="img" aria-label="flip flop attractors and saddle points">
+            <rect width="420" height="300" fill="#11161d"/>
+            <g fill="#10b981">
+              <circle cx="96" cy="82" r="10"/><circle cx="210" cy="66" r="10"/><circle cx="326" cy="86" r="10"/>
+              <circle cx="92" cy="214" r="10"/><circle cx="210" cy="230" r="10"/><circle cx="328" cy="212" r="10"/>
+              <circle cx="74" cy="150" r="10"/><circle cx="346" cy="150" r="10"/>
+            </g>
+            <g fill="#f59e0b">
+              <rect x="196" y="136" width="28" height="28" rx="5"/>
+              <rect x="136" y="138" width="24" height="24" rx="5"/>
+              <rect x="262" y="138" width="24" height="24" rx="5"/>
+            </g>
+            <g fill="none" stroke="#94a3b8" stroke-width="2" opacity=".62">
+              <path d="M96 82 C142 116 169 135 196 148"/>
+              <path d="M326 86 C282 112 248 132 224 148"/>
+              <path d="M92 214 C136 182 169 164 196 152"/>
+              <path d="M328 212 C286 184 248 162 224 152"/>
+            </g>
+            <text x="210" y="36" fill="#f1f5f9" font-size="17" text-anchor="middle" font-weight="700">8 stable states + saddle boundaries</text>
+            <text x="210" y="274" fill="#94a3b8" font-size="13" text-anchor="middle">input pulse crosses the watershed</text>
+          </svg>
+        </div>
+        <div class="note-box">
+          <h2>關鍵直覺</h2>
+          <p>穩定吸引子保存狀態,鞍點負責定義狀態之間何時、如何轉換。</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <script src="checkpoint.js"></script>
+</body>
+</html>

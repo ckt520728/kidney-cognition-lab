@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkpoint 5 | Sussillo 派 vs Transformer 派</title>
+  <link rel="stylesheet" href="checkpoint.css">
+</head>
+<body data-checkpoint="5">
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand"><div class="mark">05</div><span>Sussillo CTD Interactive Questions</span></div>
+      <nav class="navlinks" aria-label="checkpoint navigation">
+        <a href="checkpoint-1.html">01</a>
+        <a href="checkpoint-2.html">02</a>
+        <a href="checkpoint-3.html">03</a>
+        <a href="checkpoint-4.html">04</a>
+        <a class="active" href="checkpoint-5.html">05</a>
+      </nav>
+    </header>
+    <section class="layout">
+      <article class="quiz-card">
+        <div class="kicker">CHECK-POINT 5 · 終場投票</div>
+        <h1>Sussillo 派 vs Transformer 派</h1>
+        <p class="prompt">下一個十年,NeuroAI 的核心工具會是?</p>
+        <div class="question-label">DEBATE</div>
+        <div class="options" role="list">
+          <button class="option" data-option="A"><span class="letter">A</span><span class="option-text">動力學派 (低維流形 + fixed point)</span></button>
+          <button class="option" data-option="B"><span class="letter">B</span><span class="option-text">Transformer 派 (規模法則 + token)</span></button>
+          <button class="option" data-option="C"><span class="letter">C</span><span class="option-text">兩者融合 (motif × attention)</span></button>
+          <button class="option" data-option="D"><span class="letter">D</span><span class="option-text">都不夠,需要全新框架</span></button>
+        </div>
+        <div class="actions">
+          <button class="primary" data-submit disabled>送出立場</button>
+          <button class="secondary" data-reset>重新選擇</button>
+        </div>
+        <div class="poll-bars" data-poll-bars></div>
+        <div class="feedback" data-feedback>
+          <strong data-feedback-title></strong>
+          <div data-feedback-body></div>
+        </div>
+        <div class="pager">
+          <a href="checkpoint-4.html">上一題</a>
+          <a href="index.html">題目總覽</a>
+        </div>
+      </article>
+      <aside class="side-panel">
+        <div class="visual">
+          <svg viewBox="0 0 420 300" role="img" aria-label="dynamics and transformer hybrid debate">
+            <rect width="420" height="300" fill="#11161d"/>
+            <circle cx="145" cy="150" r="86" fill="rgba(16,185,129,.13)" stroke="#10b981" stroke-width="3"/>
+            <circle cx="275" cy="150" r="86" fill="rgba(167,139,250,.13)" stroke="#a78bfa" stroke-width="3"/>
+            <text x="116" y="136" fill="#d1fae5" font-size="16" font-weight="800" text-anchor="middle">dynamics</text>
+            <text x="302" y="136" fill="#ede9fe" font-size="16" font-weight="800" text-anchor="middle">transformer</text>
+            <text x="210" y="164" fill="#f1f5f9" font-size="18" font-weight="900" text-anchor="middle">hybrid</text>
+            <g stroke="#f59e0b" stroke-width="2.2" fill="none" opacity=".82">
+              <path d="M88 204 C128 232 176 230 208 204"/>
+              <path d="M333 98 C296 70 248 70 212 98"/>
+            </g>
+            <text x="210" y="40" fill="#f1f5f9" font-size="17" text-anchor="middle" font-weight="700">mechanism meets scale</text>
+            <text x="210" y="270" fill="#94a3b8" font-size="13" text-anchor="middle">motif as inductive bias, attention as scaling engine</text>
+          </svg>
+        </div>
+        <div class="note-box">
+          <h2>辯論張力</h2>
+          <p>動力幾何提供可驗證機制,Transformer 提供可擴展代理模型。最有力的 NeuroAI 可能會同時需要兩者。</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <script src="checkpoint.js"></script>
+</body>
+</html>

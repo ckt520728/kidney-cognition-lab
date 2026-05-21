@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkpoint 4 | 五案例與認知功能</title>
+  <link rel="stylesheet" href="checkpoint.css">
+</head>
+<body data-checkpoint="4">
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand"><div class="mark">04</div><span>Sussillo CTD Interactive Questions</span></div>
+      <nav class="navlinks" aria-label="checkpoint navigation">
+        <a href="checkpoint-1.html">01</a>
+        <a href="checkpoint-2.html">02</a>
+        <a href="checkpoint-3.html">03</a>
+        <a class="active" href="checkpoint-4.html">04</a>
+        <a href="checkpoint-5.html">05</a>
+      </nav>
+    </header>
+    <section class="layout">
+      <article class="quiz-card">
+        <div class="kicker">CHECK-POINT 4 · 投票 + 收束</div>
+        <h1>五案例 ↔ 流形 ↔ 認知功能</h1>
+        <p class="prompt">哪個案例對你的研究最有啟發?</p>
+        <div class="question-label">QUICK POLL</div>
+        <div class="options" role="list">
+          <button class="option" data-option="A"><span class="letter">A</span><span class="option-text">Flip-Flop · 離散記憶幾何</span></button>
+          <button class="option" data-option="B"><span class="letter">B</span><span class="option-text">Mante · context 正交映射</span></button>
+          <button class="option" data-option="C"><span class="letter">C</span><span class="option-text">M1 · 旋轉動力學</span></button>
+          <button class="option" data-option="D"><span class="letter">D</span><span class="option-text">Motifs · 模組化重用</span></button>
+        </div>
+        <div class="actions">
+          <button class="primary" data-submit disabled>送出投票</button>
+          <button class="secondary" data-reset>重新選擇</button>
+        </div>
+        <div class="poll-bars" data-poll-bars></div>
+        <div class="feedback" data-feedback>
+          <strong data-feedback-title></strong>
+          <div data-feedback-body></div>
+        </div>
+        <div class="pager">
+          <a href="checkpoint-3.html">上一題</a>
+          <a href="checkpoint-5.html">下一題</a>
+        </div>
+      </article>
+      <aside class="side-panel">
+        <div class="visual">
+          <svg viewBox="0 0 420 300" role="img" aria-label="five cases mapped to cognitive functions">
+            <rect width="420" height="300" fill="#11161d"/>
+            <g font-size="13" font-weight="700" text-anchor="middle">
+              <circle cx="210" cy="150" r="44" fill="rgba(167,139,250,.18)" stroke="#a78bfa" stroke-width="2"/>
+              <text x="210" y="145" fill="#f1f5f9">cognitive</text><text x="210" y="164" fill="#f1f5f9">function</text>
+              <g fill="rgba(16,185,129,.16)" stroke="#10b981" stroke-width="2">
+                <rect x="48" y="48" width="110" height="46" rx="8"/><rect x="262" y="48" width="110" height="46" rx="8"/>
+                <rect x="48" y="206" width="110" height="46" rx="8"/><rect x="262" y="206" width="110" height="46" rx="8"/>
+                <rect x="155" y="28" width="110" height="46" rx="8"/>
+              </g>
+              <g fill="#e2e8f0">
+                <text x="103" y="76">Flip-Flop</text><text x="317" y="76">Mante</text><text x="103" y="234">M1</text><text x="317" y="234">Motifs</text><text x="210" y="56">Null/Potent</text>
+              </g>
+            </g>
+            <g stroke="#94a3b8" stroke-width="2" opacity=".6">
+              <path d="M158 82 L178 120"/><path d="M262 82 L242 120"/><path d="M158 222 L178 180"/><path d="M262 222 L242 180"/><path d="M210 74 L210 106"/>
+            </g>
+          </svg>
+        </div>
+        <div class="note-box">
+          <h2>討論焦點</h2>
+          <p>這一題沒有正解。它把聽眾的直覺拉回「哪種神經動力學最能啟發自己的研究問題」。</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <script src="checkpoint.js"></script>
+</body>
+</html>
