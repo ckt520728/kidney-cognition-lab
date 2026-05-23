@@ -158,6 +158,7 @@ h1 { margin: 10px 0 8px; font-size: 36px; line-height: 1.18; }
     <div class="qr-area">
       <div class="qr-label" id="voteUrlLabel">載入中...</div>
       <img id="qrImg" alt="QR Code">
+      <a id="qrFallback" href="#" target="_blank" style="display:none;font-size:11px;color:var(--cyan);word-break:break-all;max-width:100px;text-align:right">打開投票頁面</a>
     </div>
   </header>
 
@@ -232,7 +233,12 @@ auth.signInAnonymously().then(async cred => {
   uid = cred.user.uid;
   var url = window.location.href;
   document.getElementById('voteUrlLabel').textContent = url;
-  document.getElementById('qrImg').src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(url);
+  var qrImg = document.getElementById('qrImg');
+  var qrFallback = document.getElementById('qrFallback');
+  qrFallback.href = url;
+  qrImg.onload = function() { qrImg.style.display = ''; qrFallback.style.display = 'none'; };
+  qrImg.onerror = function() { qrImg.style.display = 'none'; qrFallback.style.display = 'inline'; };
+  qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(url);
   await ensureDocs();
   listenVotes();
   switchTo(0);
