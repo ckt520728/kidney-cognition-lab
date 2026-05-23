@@ -170,6 +170,7 @@ h1 { margin: 10px 0 8px; font-size: 36px; line-height: 1.18; }
     <div class="topbar-left">
       <div class="mark" id="navMark">CTD</div>
       <span class="brand-label">Sussillo CTD Live Vote</span>
+      <span id="hostBadge" style="display:none;font-size:11px;color:var(--amber);border:1px solid rgba(245,158,11,.4);border-radius:6px;padding:2px 8px">主持人</span>
       <nav class="navlinks" id="navLinks">
         <a data-cp="0" class="active">01</a>
         <a data-cp="1">02</a>
@@ -255,7 +256,7 @@ const DATA = [
     noteTitle:'辯論張力', noteBody:'動力幾何提供可驗證機制，Transformer 提供可擴展代理模型。最有力的 NeuroAI 可能會同時需要兩者。' }
 ];
 
-let uid = null, currentIdx = 0;
+let uid = null, currentIdx = 0, isHost = false;
 let unsubscribes = [], myVotes = {}, voteData = {};
 const container = document.getElementById('cardsContainer');
 const visualC = document.getElementById('visualContainer');
@@ -273,6 +274,15 @@ auth.signInAnonymously().then(async cred => {
   qrImg.onload = function() { qrImg.style.display = ''; qrFallback.style.display = 'none'; };
   qrImg.onerror = function() { qrImg.style.display = 'none'; qrFallback.style.display = 'inline'; };
   qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(url);
+  var hostRef = db.collection('controls').doc('host');
+  var hostSnap = await hostRef.get();
+  if (!hostSnap.exists) {
+    await hostRef.set({ uid: uid });
+    isHost = true;
+  } else if (hostSnap.data().uid === uid) {
+    isHost = true;
+  }
+  if (isHost) document.getElementById('hostBadge').style.display = '';
   await ensureDocs();
   listenVotes();
   switchTo(0);
@@ -288,7 +298,7 @@ async function ensureDocs() {
   for (const d of DATA) {
     const ref = db.collection('votes').doc(d.id);
     if (!(await ref.get()).exists)
-      batch.set(ref, { question: d.title, options: d.opts, responses: {}, active: true, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+      batch.set(ref, { question: d.title, options: d.opts, responses: {}, answersRevealed: false, active: true, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
   }
   await batch.commit();
 }
@@ -297,8 +307,9 @@ function listenVotes() {
   for (const d of DATA) {
     const unsub = db.collection('votes').doc(d.id).onSnapshot(snap => {
       if (!snap.exists) return;
-      voteData[d.id] = snap.data().responses || {};
-      if (d.id === DATA[currentIdx].id) renderCard(currentIdx);
+      var sd = snap.data();
+      voteData[d.id] = { responses: sd.responses || {}, answersRevealed: !!sd.answersRevealed };
+      if (d.id === DATA[currentIdx].id) { renderCard(currentIdx); showSide(currentIdx); }
       updateCount();
     });
     unsubscribes.push(unsub);
@@ -307,7 +318,7 @@ function listenVotes() {
 
 function updateCount() {
   const all = new Set();
-  Object.values(voteData).forEach(m => Object.keys(m).forEach(k => all.add(k)));
+  Object.values(voteData).forEach(m => Object.keys(m.responses || {}).forEach(k => all.add(k)));
   document.getElementById('participantCount').textContent = all.size;
 }
 
@@ -327,11 +338,11 @@ function switchTo(idx) {
 // --- Render ---
 function renderCard(idx) {
   const d = DATA[idx];
-  const responses = voteData[d.id] || {};
-  const total = Object.keys(responses).length;
+  const respMap = (voteData[d.id] || {}).responses || {};
+  const total = Object.keys(respMap).length;
   const counts = {};
-  d.opts.forEach((_,i) => { const l = String.fromCharCode(65+i); counts[l] = Object.values(responses).filter(v=>v===l).length; });
-  const myVote = myVotes[d.id] || (responses[uid] || null);
+  d.opts.forEach((_,i) => { const l = String.fromCharCode(65+i); counts[l] = Object.values(respMap).filter(v=>v===l).length; });
+  const myVote = myVotes[d.id] || (respMap[uid] || null);
 
   const promptHtml = d.subPrompt ? `<p class="prompt">${d.subPrompt}</p>` : '';
 
@@ -395,12 +406,21 @@ function renderCard(idx) {
 function showSide(idx) {
   const d = DATA[idx];
   visualC.innerHTML = d.svg;
-  if (myVotes[d.id]) {
+  var revealed = (voteData[d.id] || {}).answersRevealed;
+  if (revealed) {
     noteTitle.textContent = d.noteTitle;
     noteBody.textContent = d.noteBody;
   } else {
     noteTitle.textContent = '🔒 答案已隱藏';
-    noteBody.textContent = '請先完成投票，送出答案後即可查看說明。';
+    noteBody.innerHTML = isHost
+      ? '<span style="color:var(--muted);font-size:13px">主持人請點擊下方按鈕公佈答案</span><br><br><button id="revealBtn" style="min-height:38px;padding:8px 18px;border:1px solid var(--green);border-radius:8px;background:rgba(16,185,129,.13);color:var(--green);font:inherit;font-size:13px;font-weight:700;cursor:pointer">📢 全班公佈答案</button>'
+      : '<span style="color:var(--muted);font-size:13px">等待主持人公佈答案中⋯</span>';
+    setTimeout(function() {
+      var btn = document.getElementById('revealBtn');
+      if (btn) btn.addEventListener('click', function() {
+        db.collection('votes').doc(d.id).update({ answersRevealed: true });
+      });
+    }, 0);
   }
 }
 
@@ -420,7 +440,7 @@ async function submitVote(idx) {
   await db.collection('votes').doc(d.id).update({ [`responses.${uid}`]: answer });
   myVotes[d.id] = answer;
   selectedIdx = null;
-  showSide(idx);
+  renderCard(idx);
   showToast('✓ 已送出' + (myVotes[d.id] ? '（更新答案）' : '投票'));
 }
 
@@ -448,7 +468,7 @@ document.getElementById('confirmReset').addEventListener('click', async function
   document.getElementById('resetOverlay').classList.remove('show');
   var batch = db.batch();
   for (var d of DATA) {
-    batch.update(db.collection('votes').doc(d.id), { responses: {} });
+    batch.update(db.collection('votes').doc(d.id), { responses: {}, answersRevealed: false });
   }
   await batch.commit();
   myVotes = {};
