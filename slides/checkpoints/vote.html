@@ -395,8 +395,13 @@ function renderCard(idx) {
 function showSide(idx) {
   const d = DATA[idx];
   visualC.innerHTML = d.svg;
-  noteTitle.textContent = d.noteTitle;
-  noteBody.textContent = d.noteBody;
+  if (myVotes[d.id]) {
+    noteTitle.textContent = d.noteTitle;
+    noteBody.textContent = d.noteBody;
+  } else {
+    noteTitle.textContent = '🔒 答案已隱藏';
+    noteBody.textContent = '請先完成投票，送出答案後即可查看說明。';
+  }
 }
 
 // --- Vote logic ---
@@ -415,6 +420,7 @@ async function submitVote(idx) {
   await db.collection('votes').doc(d.id).update({ [`responses.${uid}`]: answer });
   myVotes[d.id] = answer;
   selectedIdx = null;
+  showSide(idx);
   showToast('✓ 已送出' + (myVotes[d.id] ? '（更新答案）' : '投票'));
 }
 
