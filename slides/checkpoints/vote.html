@@ -346,17 +346,22 @@ function renderCard(idx) {
       <span class="letter">${letter}</span><span class="option-text">${label}</span></button>`;
   }).join('');
 
-  let pollHtml = d.opts.map((_,i) => {
-    const letter = String.fromCharCode(65+i);
-    const count = counts[letter]||0;
-    const pct = total ? Math.round(count/total*100) : 0;
-    return `<div class="poll-row">
-      <span class="lbl">${letter}</span>
-      <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${COLORS[i]}"></div></div>
-      <span class="pct">${pct}%</span>
-      <span class="votes">${count}</span>
-    </div>`;
-  }).join('');
+  let pollHtml = '';
+  if (myVote) {
+    pollHtml = d.opts.map((_,i) => {
+      const letter = String.fromCharCode(65+i);
+      const count = counts[letter]||0;
+      const pct = total ? Math.round(count/total*100) : 0;
+      return `<div class="poll-row">
+        <span class="lbl">${letter}</span>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${COLORS[i]}"></div></div>
+        <span class="pct">${pct}%</span>
+        <span class="votes">${count}</span>
+      </div>`;
+    }).join('');
+  } else {
+    pollHtml = '<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center">📊 投票後即可查看即時結果</div>';
+  }
 
   const prevIdx = idx > 0 ? idx-1 : -1;
   const nextIdx = idx < DATA.length-1 ? idx+1 : -1;
