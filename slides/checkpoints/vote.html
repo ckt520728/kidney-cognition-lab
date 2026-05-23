@@ -57,6 +57,29 @@ a { color: inherit; }
   padding: 10px 16px; margin-bottom: 22px; font-size: 14px; box-shadow: 0 18px 60px rgba(0,0,0,.28);
 }
 .participant-bar .count { font-weight: 700; color: var(--green); font-size: 16px; }
+.participant-bar .reset-btn {
+  background: none; border: 1px solid rgba(244,63,94,.4); color: var(--rose); font: inherit; font-size: 12px;
+  padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: border-color .16s, background .16s;
+}
+.participant-bar .reset-btn:hover { border-color: var(--rose); background: rgba(244,63,94,.12); }
+.overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 1000;
+  justify-content: center; align-items: center;
+}
+.overlay.show { display: flex; }
+.overlay .box {
+  background: #141b24; border: 1px solid var(--line); border-radius: 12px; padding: 28px; max-width: 400px; width: 90%;
+  text-align: center; box-shadow: 0 24px 80px rgba(0,0,0,.5);
+}
+.overlay .box h2 { font-size: 18px; margin-bottom: 8px; }
+.overlay .box p { color: #cbd5e1; font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
+.overlay .box .actions { display: flex; gap: 10px; justify-content: center; }
+.overlay .box .actions button {
+  min-height: 40px; padding: 8px 20px; border-radius: 8px; border: 1px solid var(--line);
+  font: inherit; font-weight: 700; cursor: pointer; font-size: 14px;
+}
+.overlay .box .actions .danger { background: var(--rose); color: #fff; border-color: transparent; }
+.overlay .box .actions .cancel { background: rgba(15,23,42,.72); color: #cbd5e1; }
 .layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 22px; align-items: start; }
 .checkpoint-pane { display: none; }
 .checkpoint-pane.active { display: block; }
@@ -163,8 +186,19 @@ h1 { margin: 10px 0 8px; font-size: 36px; line-height: 1.18; }
   </header>
 
   <div class="participant-bar">
-    <span>👥 參與人數</span>
-    <span class="count" id="participantCount">—</span>
+    <span>👥 參與人數 <span class="count" id="participantCount">—</span></span>
+    <button class="reset-btn" id="resetBtn">重新開始</button>
+  </div>
+
+  <div class="overlay" id="resetOverlay">
+    <div class="box">
+      <h2>確定要重新開始？</h2>
+      <p>這將清除所有五題的投票資料（共 <span id="totalVotesSpan">0</span> 筆），且無法復原。</p>
+      <div class="actions">
+        <button class="cancel" id="cancelReset">取消</button>
+        <button class="danger" id="confirmReset">確定歸零</button>
+      </div>
+    </div>
   </div>
 
   <section class="layout" id="layout">
@@ -388,6 +422,35 @@ function showToast(msg) {
   clearTimeout(window._tt);
   window._tt = setTimeout(() => el.classList.remove('show'), 2000);
 }
+
+// --- Reset ---
+function showResetOverlay() {
+  var total = 0;
+  Object.values(voteData).forEach(m => total += Object.keys(m).length);
+  document.getElementById('totalVotesSpan').textContent = total;
+  document.getElementById('resetOverlay').classList.add('show');
+}
+
+document.getElementById('resetBtn').addEventListener('click', showResetOverlay);
+document.getElementById('cancelReset').addEventListener('click', function() {
+  document.getElementById('resetOverlay').classList.remove('show');
+});
+document.getElementById('confirmReset').addEventListener('click', async function() {
+  document.getElementById('resetOverlay').classList.remove('show');
+  var batch = db.batch();
+  for (var d of DATA) {
+    batch.update(db.collection('votes').doc(d.id), { responses: {} });
+  }
+  await batch.commit();
+  myVotes = {};
+  voteData = {};
+  selectedIdx = null;
+  for (var i = 0; i < unsubscribes.length; i++) unsubscribes[i]();
+  unsubscribes = [];
+  listenVotes();
+  switchTo(currentIdx);
+  showToast('已歸零 — 所有投票資料已清除');
+});
 </script>
 </body>
 </html>
