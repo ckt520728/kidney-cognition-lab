@@ -335,12 +335,14 @@ function renderCard(idx) {
 
   const promptHtml = d.subPrompt ? `<p class="prompt">${d.subPrompt}</p>` : '';
 
+  let selectedNow = selectedIdx !== null ? String.fromCharCode(65+selectedIdx) : null;
   let optsHtml = d.opts.map((opt,i) => {
     const letter = String.fromCharCode(65+i);
-    const isVoted = myVote === letter;
     const label = opt.replace(/^[A-D]\.\s*/, '');
-    const cls = isVoted ? 'option voted' : (myVote ? '' : 'option');
-    return `<button class="${cls}" data-idx="${i}" ${myVote?'disabled':''}>
+    let cls = 'option';
+    if (selectedNow === letter) cls += ' selected';
+    else if (myVote === letter && selectedNow === null) cls += ' voted';
+    return `<button class="${cls}" data-idx="${i}">
       <span class="letter">${letter}</span><span class="option-text">${label}</span></button>`;
   }).join('');
 
@@ -372,13 +374,13 @@ function renderCard(idx) {
     ${promptHtml}
     <div class="options">${optsHtml}</div>
     <div class="actions">
-      <button class="primary" data-submit ${!myVote?'disabled':''}>${idx===3||idx===4?'送出投票':'送出答案'}</button>
+      <button class="primary" data-submit ${selectedIdx===null?'disabled':''}>${myVote ? '更改答案' : (idx===3||idx===4?'送出投票':'送出答案')}</button>
     </div>
     <div class="poll-bars">${pollHtml}</div>
     <div class="pager">${pagerHtml}</div>
   </article>`;
 
-  container.querySelectorAll('.option:not(.voted):not([disabled])').forEach(btn => {
+  container.querySelectorAll('.option').forEach(btn => {
     btn.addEventListener('click', () => selectOption(idx, parseInt(btn.dataset.idx)));
   });
   container.querySelector('.primary')?.addEventListener('click', () => submitVote(idx));
@@ -396,23 +398,19 @@ function showSide(idx) {
 let selectedIdx = null;
 
 function selectOption(idx, optIdx) {
-  if (myVotes[DATA[idx].id]) return;
+  var prev = selectedIdx;
   selectedIdx = optIdx;
-  const card = container.querySelector('.quiz-card');
-  card.querySelectorAll('.option').forEach((btn,i) => btn.classList.toggle('selected', i===optIdx));
-  card.querySelector('.primary').disabled = false;
+  renderCard(idx);
 }
 
 async function submitVote(idx) {
+  if (selectedIdx === null) return;
   const d = DATA[idx];
-  if (selectedIdx === null && !myVotes[d.id]) return;
-  const answer = String.fromCharCode(65 + (myVotes[d.id] ? DATA[idx].opts.findIndex((_,i)=>String.fromCharCode(65+i)===myVotes[d.id]) : selectedIdx));
-  const actualIdx = myVotes[d.id] ? DATA[idx].opts.findIndex((_,i)=>String.fromCharCode(65+i)===myVotes[d.id]) : selectedIdx;
-  if (!myVotes[d.id]) {
-    await db.collection('votes').doc(d.id).update({ [`responses.${uid}`]: answer });
-    myVotes[d.id] = answer;
-  }
-  showToast('✓ 已送出投票');
+  const answer = String.fromCharCode(65 + selectedIdx);
+  await db.collection('votes').doc(d.id).update({ [`responses.${uid}`]: answer });
+  myVotes[d.id] = answer;
+  selectedIdx = null;
+  showToast('✓ 已送出' + (myVotes[d.id] ? '（更新答案）' : '投票'));
 }
 
 function showToast(msg) {
