@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sussillo CTD Live Vote</title>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #f1f5f9; color: #1e293b; padding: 16px; min-height: 100vh; }
+.app { max-width: 900px; margin: 0 auto; }
+.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+.header h1 { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.header h1 .badge { font-size: .65rem; background: #3b82f6; color: #fff; padding: 2px 8px; border-radius: 99px; font-weight: 500; }
+.qr-area { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.qr-area canvas, .qr-area img { border-radius: 8px; }
+.qr-area .meta { font-size: .75rem; color: #64748b; line-height: 1.4; text-align: right; }
+.participant-bar { background: #fff; border-radius: 12px; padding: 10px 16px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,.06); font-size: .85rem; }
+.participant-bar .count { font-weight: 600; color: #3b82f6; font-size: 1rem; }
+.card { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,.06); border-left: 4px solid #3b82f6; }
+.card .cp { font-size: .7rem; font-weight: 600; color: #3b82f6; text-transform: uppercase; letter-spacing: .05em; }
+.card h3 { margin: 4px 0 6px; font-size: 1rem; }
+.card .desc { font-size: .8rem; color: #64748b; margin-bottom: 12px; }
+.card .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.card .opts button { padding: 10px 12px; border: 2px solid #e2e8f0; border-radius: 8px; background: #f8fafc; cursor: pointer; font-size: .8rem; text-align: left; line-height: 1.3; transition: all .15s; position: relative; }
+.card .opts button:hover { border-color: #93c5fd; background: #eff6ff; }
+.card .opts button.voted { border-color: #3b82f6; background: #dbeafe; font-weight: 600; }
+.card .opts button .letter { display: inline-block; width: 20px; height: 20px; border-radius: 4px; background: #e2e8f0; text-align: center; line-height: 20px; font-weight: 700; font-size: .7rem; margin-right: 6px; }
+.card .opts button.voted .letter { background: #3b82f6; color: #fff; }
+.card .opts button:disabled { opacity: .6; cursor: default; }
+.card .result-section { margin-top: 12px; padding-top: 10px; border-top: 1px solid #e2e8f0; }
+.card .result-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; font-size: .75rem; }
+.card .result-row .lbl { min-width: 16px; font-weight: 700; color: #475569; }
+.card .result-row .track { flex: 1; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+.card .result-row .fill { height: 100%; border-radius: 4px; transition: width .4s ease; min-width: 0; }
+.card .result-row .pct { min-width: 36px; text-align: right; font-weight: 600; color: #475569; }
+.card .result-row .votes { min-width: 20px; text-align: right; font-size: .65rem; color: #94a3b8; }
+.loader { text-align: center; padding: 60px 20px; color: #64748b; }
+.spinner { width: 32px; height: 32px; border: 3px solid #e2e8f0; border-top-color: #3b82f6; border-radius: 50%; animation: spin .6s linear infinite; margin: 0 auto 12px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1e293b; color: #fff; padding: 8px 20px; border-radius: 8px; font-size: .8rem; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999; }
+.toast.show { opacity: 1; }
+@media (max-width:600px) {
+  .card .opts { grid-template-columns: 1fr; }
+  .qr-area canvas, .qr-area img { width: 80px; height: 80px; }
+  .header h1 { font-size: 1rem; }
+}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="header">
+    <h1>Sussillo CTD <span class="badge">Live Vote</span></h1>
+    <div class="qr-area">
+      <div class="meta" id="voteUrlLabel">載入中...</div>
+      <div id="qrcode"></div>
+    </div>
+  </div>
+
+  <div class="participant-bar">
+    <span>參與人數</span>
+    <span class="count" id="participantCount">—</span>
+  </div>
+
+  <div id="cardsContainer">
+    <div class="loader"><div class="spinner"></div>載入投票資料...</div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyD-Mmjwmi2Rc13aGx6nNmq9XWOujgyOKl0",
+  authDomain: "teachers-study.firebaseapp.com",
+  projectId: "teachers-study",
+  storageBucket: "teachers-study.firebasestorage.app",
+  messagingSenderId: "914262628141",
+  appId: "1:914262628141:web:89edaf38b4140c2581a5a4",
+  measurementId: "G-0N1SPG3ZGH"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const auth = firebase.auth();
+
+const COLORS = ['#3b82f6','#10b981','#f59e0b','#ef4444'];
+
+const CHECKPOINTS = [
+  { id: 'CP1', question: '訓練混沌 RNN 為什麼難？', desc: 'FORCE、BPTT 與反饋路徑的穩定性問題。',
+    opts: ['A. 梯度爆炸', 'B. 梯度消失', 'C. 反饋路徑被混沌放大', 'D. 以上皆是'] },
+  { id: 'CP2', question: '3-bit Flip-Flop：鞍點的角色是什麼？', desc: '1000 神經元 RNN 儲存 3 個獨立記憶位元。',
+    opts: ['A. 儲存中間記憶', 'B. 過濾雜訊', 'C. 狀態切換的決策邊界', 'D. 完全無功能'] },
+  { id: 'CP3', question: '環形記憶最適合哪個 motif？', desc: 'heading direction 對應哪一種 attractor motif。',
+    opts: ['A. 點吸引子', 'B. 線吸引子', 'C. 環吸引子', 'D. 極限環'] },
+  { id: 'CP4', question: '哪個案例對你最有啟發？', desc: '無正解，純意見調查。',
+    opts: ['A. Flip-Flop 離散記憶', 'B. Mante context 正交映射', 'C. M1 旋轉動力學', 'D. Motifs 模組化重用'] },
+  { id: 'CP5', question: 'NeuroAI 下個十年的核心工具？', desc: 'Sussillo 派 vs Transformer 派。',
+    opts: ['A. 動力學派', 'B. Transformer 派', 'C. 兩者融合', 'D. 全新框架'] }
+];
+
+let uid = null;
+let unsubscribes = [];
+let myVotes = {};
+let voteData = {};
+
+auth.signInAnonymously().then(async (cred) => {
+  uid = cred.user.uid;
+  document.getElementById('voteUrlLabel').textContent = window.location.href;
+  new QRCode(document.getElementById('qrcode'), { text: window.location.href, width: 100, height: 100 });
+  await ensureVoteDocs();
+  listenVotes();
+}).catch(err => {
+  document.getElementById('cardsContainer').innerHTML = `<div class="loader" style="color:#dc2626">Firebase 連線失敗：${err.message}</div>`;
+});
+
+async function ensureVoteDocs() {
+  const batch = db.batch();
+  for (const cp of CHECKPOINTS) {
+    const ref = db.collection('votes').doc(cp.id);
+    const snap = await ref.get();
+    if (!snap.exists) {
+      batch.set(ref, {
+        question: cp.question,
+        options: cp.opts,
+        responses: {},
+        active: true,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+  }
+  await batch.commit();
+}
+
+function listenVotes() {
+  for (const cp of CHECKPOINTS) {
+    const unsub = db.collection('votes').doc(cp.id).onSnapshot((doc) => {
+      if (!doc.exists) return;
+      const data = doc.data();
+      voteData[cp.id] = data.responses || {};
+      renderCard(cp, data);
+      updateParticipantCount();
+    });
+    unsubscribes.push(unsub);
+  }
+}
+
+async function castVote(checkpointId, optionIndex) {
+  const answer = String.fromCharCode(65 + optionIndex);
+  const ref = db.collection('votes').doc(checkpointId);
+  await ref.update({ [`responses.${uid}`]: answer });
+  myVotes[checkpointId] = answer;
+  showToast('✓ 已送出投票');
+}
+
+function renderCard(cp, data) {
+  const responses = data.responses || {};
+  const total = Object.keys(responses).length;
+  const counts = {};
+  cp.opts.forEach((_, i) => {
+    const letter = String.fromCharCode(65 + i);
+    counts[letter] = Object.values(responses).filter(v => v === letter).length;
+  });
+  const myVote = myVotes[cp.id] || (responses[uid] || null);
+
+  const existing = document.getElementById('card-' + cp.id);
+  const container = document.getElementById('cardsContainer');
+  if (container.querySelector('.loader')) container.innerHTML = '';
+
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.id = 'card-' + cp.id;
+
+  let optsHtml = cp.opts.map((opt, i) => {
+    const letter = String.fromCharCode(65 + i);
+    const isVoted = myVote === letter;
+    const label = opt.replace(/^[A-D]\.\s*/, '');
+    return `<button class="${isVoted ? 'voted' : ''}" data-cp="${cp.id}" data-idx="${i}" ${myVote ? 'disabled' : ''}>
+      <span class="letter">${letter}</span> ${label}
+    </button>`;
+  }).join('');
+
+  let resultsHtml = cp.opts.map((_, i) => {
+    const letter = String.fromCharCode(65 + i);
+    const count = counts[letter] || 0;
+    const pct = total ? Math.round(count / total * 100) : 0;
+    return `<div class="result-row">
+      <span class="lbl">${letter}</span>
+      <div class="track"><div class="fill" style="width:${pct}%;background:${COLORS[i]}"></div></div>
+      <span class="pct">${pct}%</span>
+      <span class="votes">${count}</span>
+    </div>`;
+  }).join('');
+
+  card.innerHTML = `
+    <div class="cp">Checkpoint ${cp.id.replace('CP','')}</div>
+    <h3>${cp.question}</h3>
+    <div class="desc">${cp.desc}</div>
+    <div class="opts">${optsHtml}</div>
+    <div class="result-section">${resultsHtml}</div>
+  `;
+
+  if (existing) existing.replaceWith(card);
+  else container.appendChild(card);
+
+  card.querySelectorAll('.opts button:not([disabled])').forEach(btn => {
+    btn.addEventListener('click', () => castVote(btn.dataset.cp, parseInt(btn.dataset.idx)));
+  });
+}
+
+function updateParticipantCount() {
+  const all = new Set();
+  Object.values(voteData).forEach(m => Object.keys(m).forEach(k => all.add(k)));
+  document.getElementById('participantCount').textContent = all.size;
+}
+
+let toastTimer;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2000);
+}
+</script>
+</body>
+</html>
