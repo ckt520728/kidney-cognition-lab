@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
@@ -9,68 +9,177 @@
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #f1f5f9; color: #1e293b; padding: 16px; min-height: 100vh; }
-.app { max-width: 900px; margin: 0 auto; }
-.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
-.header h1 { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-.header h1 .badge { font-size: .65rem; background: #3b82f6; color: #fff; padding: 2px 8px; border-radius: 99px; font-weight: 500; }
-.qr-area { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+:root {
+  color-scheme: dark;
+  --bg: #0d1117;
+  --panel: #141b24;
+  --panel-strong: #182231;
+  --line: rgba(148, 163, 184, .28);
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --green: #10b981;
+  --violet: #a78bfa;
+  --amber: #f59e0b;
+  --rose: #f43f5e;
+  --cyan: #22d3ee;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  min-height: 100vh;
+  font-family: Inter, "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+  background: radial-gradient(circle at 20% 0%, rgba(34, 211, 238, .14), transparent 28rem), linear-gradient(135deg, #0d1117 0%, #111827 55%, #0f172a 100%);
+  color: var(--text);
+}
+a { color: inherit; }
+.app-shell { width: min(1120px, calc(100% - 32px)); margin: 0 auto; padding: 24px 0 32px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 0 22px; flex-wrap: wrap; }
+.topbar-left { display: flex; align-items: center; gap: 12px; }
+.mark {
+  display: grid; place-items: center; width: 34px; height: 34px;
+  border: 1px solid var(--line); border-radius: 8px;
+  background: rgba(15, 23, 42, .8); color: var(--green); font-weight: 800;
+}
+.brand-label { color: var(--muted); font-size: 14px; }
+.navlinks { display: flex; flex-wrap: wrap; gap: 8px; }
+.navlinks a {
+  min-height: 36px; padding: 8px 11px; border: 1px solid var(--line); border-radius: 8px;
+  background: rgba(15, 23, 42, .62); color: #cbd5e1; text-decoration: none; font-size: 13px; line-height: 18px; cursor: pointer;
+  transition: border-color .16s, background .16s, color .16s;
+}
+.navlinks a.active { border-color: rgba(16, 185, 129, .7); color: white; background: rgba(16, 185, 129, .14); }
+.navlinks a:hover { border-color: rgba(34, 211, 238, .5); }
+.qr-area { display: flex; align-items: center; gap: 8px; }
 .qr-area canvas, .qr-area img { border-radius: 8px; }
-.qr-area .meta { font-size: .75rem; color: #64748b; line-height: 1.4; text-align: right; }
-.participant-bar { background: #fff; border-radius: 12px; padding: 10px 16px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,.06); font-size: .85rem; }
-.participant-bar .count { font-weight: 600; color: #3b82f6; font-size: 1rem; }
-.card { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,.06); border-left: 4px solid #3b82f6; }
-.card .cp { font-size: .7rem; font-weight: 600; color: #3b82f6; text-transform: uppercase; letter-spacing: .05em; }
-.card h3 { margin: 4px 0 6px; font-size: 1rem; }
-.card .desc { font-size: .8rem; color: #64748b; margin-bottom: 12px; }
-.card .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.card .opts button { padding: 10px 12px; border: 2px solid #e2e8f0; border-radius: 8px; background: #f8fafc; cursor: pointer; font-size: .8rem; text-align: left; line-height: 1.3; transition: all .15s; position: relative; }
-.card .opts button:hover { border-color: #93c5fd; background: #eff6ff; }
-.card .opts button.voted { border-color: #3b82f6; background: #dbeafe; font-weight: 600; }
-.card .opts button .letter { display: inline-block; width: 20px; height: 20px; border-radius: 4px; background: #e2e8f0; text-align: center; line-height: 20px; font-weight: 700; font-size: .7rem; margin-right: 6px; }
-.card .opts button.voted .letter { background: #3b82f6; color: #fff; }
-.card .opts button:disabled { opacity: .6; cursor: default; }
-.card .result-section { margin-top: 12px; padding-top: 10px; border-top: 1px solid #e2e8f0; }
-.card .result-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; font-size: .75rem; }
-.card .result-row .lbl { min-width: 16px; font-weight: 700; color: #475569; }
-.card .result-row .track { flex: 1; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
-.card .result-row .fill { height: 100%; border-radius: 4px; transition: width .4s ease; min-width: 0; }
-.card .result-row .pct { min-width: 36px; text-align: right; font-weight: 600; color: #475569; }
-.card .result-row .votes { min-width: 20px; text-align: right; font-size: .65rem; color: #94a3b8; }
-.loader { text-align: center; padding: 60px 20px; color: #64748b; }
-.spinner { width: 32px; height: 32px; border: 3px solid #e2e8f0; border-top-color: #3b82f6; border-radius: 50%; animation: spin .6s linear infinite; margin: 0 auto 12px; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1e293b; color: #fff; padding: 8px 20px; border-radius: 8px; font-size: .8rem; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999; }
+.qr-area .qr-label { font-size: 11px; color: var(--muted); line-height: 1.3; text-align: right; }
+.participant-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  border: 1px solid var(--line); border-radius: 8px; background: rgba(20, 27, 36, .88);
+  padding: 10px 16px; margin-bottom: 22px; font-size: 14px; box-shadow: 0 18px 60px rgba(0,0,0,.28);
+}
+.participant-bar .count { font-weight: 700; color: var(--green); font-size: 16px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 22px; align-items: start; }
+.checkpoint-pane { display: none; }
+.checkpoint-pane.active { display: block; }
+.quiz-card, .side-panel { border: 1px solid var(--line); border-radius: 8px; background: rgba(20, 27, 36, .88); box-shadow: 0 18px 60px rgba(0,0,0,.28); }
+.quiz-card { padding: 28px; }
+.kicker { color: var(--green); font-family: "SFMono-Regular", Consolas, monospace; font-size: 13px; font-weight: 800; text-transform: uppercase; }
+h1 { margin: 10px 0 8px; font-size: 36px; line-height: 1.18; }
+.prompt { margin: 0 0 22px; color: #cbd5e1; font-size: 18px; line-height: 1.65; }
+.question-label {
+  display: inline-flex; align-items: center; min-height: 28px; margin-bottom: 10px; padding: 4px 9px;
+  border-radius: 8px; background: rgba(167, 139, 250, .16); color: #ddd6fe;
+  font-family: "SFMono-Regular", Consolas, monospace; font-size: 12px; font-weight: 800;
+}
+.options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 10px; }
+.option {
+  display: grid; grid-template-columns: 42px minmax(0, 1fr); align-items: center; min-height: 62px;
+  border: 1px solid var(--line); border-radius: 8px; background: rgba(15, 23, 42, .74);
+  color: var(--text); cursor: pointer; text-align: left;
+  transition: border-color .16s ease, transform .16s ease, background .16s ease;
+  font: inherit; font-size: 15px; padding: 0;
+}
+.option:hover, .option:focus-visible { outline: none; transform: translateY(-1px); border-color: rgba(34, 211, 238, .7); }
+.option.selected { border-color: rgba(167, 139, 250, .92); background: rgba(167, 139, 250, .13); }
+.option.voted { border-color: rgba(16, 185, 129, .96); background: rgba(16, 185, 129, .14); }
+.option .letter {
+  display: grid; place-items: center; width: 30px; height: 30px; margin-left: 12px;
+  border-radius: 8px; background: rgba(148, 163, 184, .13); color: white;
+  font-family: "SFMono-Regular", Consolas, monospace; font-weight: 900;
+}
+.option.voted .letter { background: rgba(16, 185, 129, .4); }
+.option .option-text { min-width: 0; padding: 12px 14px 12px 2px; line-height: 1.45; overflow-wrap: anywhere; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.primary {
+  min-height: 42px; border: 1px solid transparent; border-radius: 8px; padding: 10px 16px;
+  background: linear-gradient(135deg, #0ea5e9, var(--green)); color: white;
+  font: inherit; font-weight: 800; cursor: pointer;
+}
+.primary:disabled { cursor: not-allowed; opacity: .48; }
+.poll-bars { display: grid; gap: 9px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); }
+.poll-row { display: grid; grid-template-columns: 38px minmax(0, 1fr) 48px 32px; gap: 10px; align-items: center; color: #cbd5e1; font-size: 13px; }
+.poll-row .lbl { font-weight: 700; color: var(--text); font-family: "SFMono-Regular", Consolas, monospace; }
+.bar-track { height: 10px; border-radius: 999px; background: rgba(148, 163, 184, .17); overflow: hidden; }
+.bar-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--violet), var(--cyan)); transition: width .4s ease; }
+.poll-row .pct { text-align: right; font-weight: 700; }
+.poll-row .votes { text-align: right; font-size: 11px; color: var(--muted); }
+.pager { display: flex; justify-content: space-between; gap: 10px; margin-top: 18px; }
+.pager a {
+  flex: 1; min-height: 42px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px;
+  background: rgba(15, 23, 42, .62); color: #cbd5e1; text-align: center; text-decoration: none; font-size: 14px; cursor: pointer;
+  transition: border-color .16s;
+}
+.pager a:hover { border-color: rgba(34, 211, 238, .7); }
+.side-panel { position: sticky; top: 18px; overflow: hidden; }
+.visual { min-height: 260px; padding: 14px; background: #11161d; }
+.visual svg { display: block; width: 100%; height: auto; }
+.note-box { padding: 18px; border-top: 1px solid var(--line); }
+.note-box h2 { margin: 0 0 9px; font-size: 18px; }
+.note-box p { margin: 0; color: #cbd5e1; line-height: 1.6; }
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: #1e293b; border: 1px solid var(--line); color: #d1fae5; padding: 10px 24px;
+  border-radius: 8px; font-size: 14px; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999;
+}
 .toast.show { opacity: 1; }
-@media (max-width:600px) {
-  .card .opts { grid-template-columns: 1fr; }
-  .qr-area canvas, .qr-area img { width: 80px; height: 80px; }
-  .header h1 { font-size: 1rem; }
+
+@media (max-width: 900px) {
+  .layout { display: block; }
+  .topbar { flex-direction: column; align-items: stretch; }
+  .topbar-left { flex-wrap: wrap; }
+  .navlinks { justify-content: flex-start; }
+  .quiz-card { padding: 22px; }
+  h1 { font-size: 30px; }
+  .options { grid-template-columns: 1fr; }
+  .side-panel { position: static; margin-top: 18px; }
+}
+@media (max-width: 520px) {
+  .app-shell { width: calc(100% - 20px); padding-top: 12px; }
+  .quiz-card { padding: 18px; }
+  h1 { font-size: 26px; }
+  .prompt { font-size: 16px; }
+  .option { min-height: 52px; }
 }
 </style>
 </head>
 <body>
-<div class="app" id="app">
-  <div class="header">
-    <h1>Sussillo CTD <span class="badge">Live Vote</span></h1>
+<main class="app-shell">
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="mark" id="navMark">CTD</div>
+      <span class="brand-label">Sussillo CTD Live Vote</span>
+      <nav class="navlinks" id="navLinks">
+        <a data-cp="0" class="active">01</a>
+        <a data-cp="1">02</a>
+        <a data-cp="2">03</a>
+        <a data-cp="3">04</a>
+        <a data-cp="4">05</a>
+      </nav>
+    </div>
     <div class="qr-area">
-      <div class="meta" id="voteUrlLabel">載入中...</div>
+      <div class="qr-label" id="voteUrlLabel">載入中...</div>
       <div id="qrcode"></div>
     </div>
-  </div>
+  </header>
 
   <div class="participant-bar">
-    <span>參與人數</span>
+    <span>👥 參與人數</span>
     <span class="count" id="participantCount">—</span>
   </div>
 
-  <div id="cardsContainer">
-    <div class="loader"><div class="spinner"></div>載入投票資料...</div>
-  </div>
+  <section class="layout" id="layout">
+    <div id="cardsContainer"></div>
+
+    <aside class="side-panel" id="sidePanel">
+      <div class="visual" id="visualContainer"></div>
+      <div class="note-box" id="noteBox">
+        <h2 id="noteTitle"></h2>
+        <p id="noteBody"></p>
+      </div>
+    </aside>
+  </section>
 
   <div class="toast" id="toast"></div>
-</div>
+</main>
 
 <script>
 const firebaseConfig = {
@@ -79,8 +188,7 @@ const firebaseConfig = {
   projectId: "teachers-study",
   storageBucket: "teachers-study.firebasestorage.app",
   messagingSenderId: "914262628141",
-  appId: "1:914262628141:web:89edaf38b4140c2581a5a4",
-  measurementId: "G-0N1SPG3ZGH"
+  appId: "1:914262628141:web:89edaf38b4140c2581a5a4"
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
@@ -88,141 +196,190 @@ const auth = firebase.auth();
 
 const COLORS = ['#3b82f6','#10b981','#f59e0b','#ef4444'];
 
-const CHECKPOINTS = [
-  { id: 'CP1', question: '訓練混沌 RNN 為什麼難？', desc: 'FORCE、BPTT 與反饋路徑的穩定性問題。',
-    opts: ['A. 梯度爆炸', 'B. 梯度消失', 'C. 反饋路徑被混沌放大', 'D. 以上皆是'] },
-  { id: 'CP2', question: '3-bit Flip-Flop：鞍點的角色是什麼？', desc: '1000 神經元 RNN 儲存 3 個獨立記憶位元。',
-    opts: ['A. 儲存中間記憶', 'B. 過濾雜訊', 'C. 狀態切換的決策邊界', 'D. 完全無功能'] },
-  { id: 'CP3', question: '環形記憶最適合哪個 motif？', desc: 'heading direction 對應哪一種 attractor motif。',
-    opts: ['A. 點吸引子', 'B. 線吸引子', 'C. 環吸引子', 'D. 極限環'] },
-  { id: 'CP4', question: '哪個案例對你最有啟發？', desc: '無正解，純意見調查。',
-    opts: ['A. Flip-Flop 離散記憶', 'B. Mante context 正交映射', 'C. M1 旋轉動力學', 'D. Motifs 模組化重用'] },
-  { id: 'CP5', question: 'NeuroAI 下個十年的核心工具？', desc: 'Sussillo 派 vs Transformer 派。',
-    opts: ['A. 動力學派', 'B. Transformer 派', 'C. 兩者融合', 'D. 全新框架'] }
+const DATA = [
+  { id:'CP1', kicker:'CHECK-POINT 1 · 投票', title:'訓練混沌 RNN 為什麼難?', prompt:'請選擇你認為的主因。', qlabel:'SELECT ONE',
+    opts:['A. 梯度爆炸 (Exploding gradient)','B. 梯度消失 (Vanishing gradient)','C. 反饋路徑被混沌放大，不穩定','D. 以上皆是'],
+    svg:`<svg viewBox="0 0 420 300"><rect width="420" height="300" fill="#11161d"/><g fill="#a78bfa" opacity=".86"><circle cx="122" cy="112" r="5"/><circle cx="166" cy="82" r="5"/><circle cx="214" cy="104" r="5"/><circle cx="116" cy="174" r="5"/><circle cx="184" cy="156" r="5"/><circle cx="244" cy="176" r="5"/><circle cx="150" cy="224" r="5"/><circle cx="226" cy="232" r="5"/></g><g fill="none" stroke="#a78bfa" stroke-width="1.4" opacity=".42"><path d="M122 112 C160 40 230 50 244 176"/><path d="M116 174 C190 250 260 230 214 104"/><path d="M166 82 C120 130 120 200 226 232"/><path d="M244 176 C300 112 260 72 166 82"/></g><path d="M270 154 C310 132 338 132 364 154 C337 177 307 176 270 154Z" fill="none" stroke="#10b981" stroke-width="3"/><path d="M318 132 L318 82" stroke="#10b981" stroke-width="3"/><text x="210" y="42" fill="#f1f5f9" font-size="17" text-anchor="middle" font-weight="700">feedback is part of the dynamics</text><text x="210" y="272" fill="#94a3b8" font-size="13" text-anchor="middle">RLS corrects output error at every step</text></svg>`,
+    noteTitle:'FORCE 的核心', noteBody:'不要拔掉反饋路徑，而是在系統運轉時即時調整輸出權重，讓混沌 RNN 產生穩定目標軌跡。' },
+  { id:'CP2', kicker:'CHECK-POINT 2 · 投票 + 案例', title:'3-bit Flip-Flop 內部', prompt:'1000 神經元的 RNN 儲存 3 個獨立記憶位元。逆向工程找出 8 個穩定吸引子 + 多個鞍點。', qlabel:'SELECT ONE',
+    subPrompt:'鞍點在這個系統裡扮演什麼角色?',
+    opts:['A. 儲存中間記憶','B. 過濾雜訊','C. 作為狀態切換的決策邊界','D. 完全無功能，只是數學產物'],
+    svg:`<svg viewBox="0 0 420 300"><rect width="420" height="300" fill="#11161d"/><g fill="#10b981"><circle cx="96" cy="82" r="10"/><circle cx="210" cy="66" r="10"/><circle cx="326" cy="86" r="10"/><circle cx="92" cy="214" r="10"/><circle cx="210" cy="230" r="10"/><circle cx="328" cy="212" r="10"/><circle cx="74" cy="150" r="10"/><circle cx="346" cy="150" r="10"/></g><g fill="#f59e0b"><rect x="196" y="136" width="28" height="28" rx="5"/><rect x="136" y="138" width="24" height="24" rx="5"/><rect x="262" y="138" width="24" height="24" rx="5"/></g><g fill="none" stroke="#94a3b8" stroke-width="2" opacity=".62"><path d="M96 82 C142 116 169 135 196 148"/><path d="M326 86 C282 112 248 132 224 148"/><path d="M92 214 C136 182 169 164 196 152"/><path d="M328 212 C286 184 248 162 224 152"/></g><text x="210" y="36" fill="#f1f5f9" font-size="17" text-anchor="middle" font-weight="700">8 stable states + saddle boundaries</text><text x="210" y="274" fill="#94a3b8" font-size="13" text-anchor="middle">input pulse crosses the watershed</text></svg>`,
+    noteTitle:'關鍵直覺', noteBody:'穩定吸引子保存狀態，鞍點負責定義狀態之間何時、如何轉換。' },
+  { id:'CP3', kicker:'CHECK-POINT 3 · 投票 + 對照', title:'動力學結構速查', prompt:'環形記憶 (heading direction) 最適合用哪個 motif?', qlabel:'SELECT ONE',
+    opts:['A. 點吸引子','B. 線吸引子','C. 環吸引子','D. 極限環'],
+    svg:`<svg viewBox="0 0 420 300"><rect width="420" height="300" fill="#11161d"/><circle cx="210" cy="150" r="88" fill="none" stroke="#22d3ee" stroke-width="7" opacity=".85"/><circle cx="210" cy="150" r="42" fill="none" stroke="#a78bfa" stroke-width="1.5" opacity=".55"/><path d="M210 150 L269 85" stroke="#f59e0b" stroke-width="4"/><circle cx="269" cy="85" r="10" fill="#f59e0b"/><g fill="#10b981"><circle cx="210" cy="62" r="5"/><circle cx="298" cy="150" r="5"/><circle cx="210" cy="238" r="5"/><circle cx="122" cy="150" r="5"/></g><text x="210" y="34" fill="#f1f5f9" font-size="17" text-anchor="middle" font-weight="700">closed one-dimensional manifold</text><text x="210" y="274" fill="#94a3b8" font-size="13" text-anchor="middle">0 to 360 degrees live on a ring</text></svg>`,
+    noteTitle:'motif 對應', noteBody:'點吸引子適合離散狀態，線吸引子適合連續量，環吸引子適合週期性的連續變量。' },
+  { id:'CP4', kicker:'CHECK-POINT 4 · 投票 + 收束', title:'五案例 ↔ 流形 ↔ 認知功能', prompt:'哪個案例對你的研究最有啟發？', qlabel:'QUICK POLL',
+    opts:['A. Flip-Flop · 離散記憶幾何','B. Mante · context 正交映射','C. M1 · 旋轉動力學','D. Motifs · 模組化重用'],
+    svg:`<svg viewBox="0 0 420 300"><rect width="420" height="300" fill="#11161d"/><g font-size="13" font-weight="700" text-anchor="middle"><circle cx="210" cy="150" r="44" fill="rgba(167,139,250,.18)" stroke="#a78bfa" stroke-width="2"/><text x="210" y="145" fill="#f1f5f9">cognitive</text><text x="210" y="164" fill="#f1f5f9">function</text><g fill="rgba(16,185,129,.16)" stroke="#10b981" stroke-width="2"><rect x="48" y="48" width="110" height="46" rx="8"/><rect x="262" y="48" width="110" height="46" rx="8"/><rect x="48" y="206" width="110" height="46" rx="8"/><rect x="262" y="206" width="110" height="46" rx="8"/><rect x="155" y="28" width="110" height="46" rx="8"/></g><g fill="#e2e8f0"><text x="103" y="76">Flip-Flop</text><text x="317" y="76">Mante</text><text x="103" y="234">M1</text><text x="317" y="234">Motifs</text><text x="210" y="56">Null/Potent</text></g></g><g stroke="#94a3b8" stroke-width="2" opacity=".6"><path d="M158 82 L178 120"/><path d="M262 82 L242 120"/><path d="M158 222 L178 180"/><path d="M262 222 L242 180"/><path d="M210 74 L210 106"/></g></svg>`,
+    noteTitle:'討論焦點', noteBody:'這一題沒有正解。它把聽眾的直覺拉回「哪種神經動力學最能啟發自己的研究問題」。' },
+  { id:'CP5', kicker:'CHECK-POINT 5 · 終場投票', title:'Sussillo 派 vs Transformer 派', prompt:'下一個十年，NeuroAI 的核心工具會是？', qlabel:'DEBATE',
+    opts:['A. 動力學派（低維流形 + fixed point）','B. Transformer 派（規模法則 + token）','C. 兩者融合（motif × attention）','D. 都不夠，需要全新框架'],
+    svg:`<svg viewBox="0 0 420 300"><rect width="420" height="300" fill="#11161d"/><circle cx="145" cy="150" r="86" fill="rgba(16,185,129,.13)" stroke="#10b981" stroke-width="3"/><circle cx="275" cy="150" r="86" fill="rgba(167,139,250,.13)" stroke="#a78bfa" stroke-width="3"/><text x="116" y="136" fill="#d1fae5" font-size="16" font-weight="800" text-anchor="middle">dynamics</text><text x="302" y="136" fill="#ede9fe" font-size="16" font-weight="800" text-anchor="middle">transformer</text><text x="210" y="164" fill="#f1f5f9" font-size="18" font-weight="900" text-anchor="middle">hybrid</text><g stroke="#f59e0b" stroke-width="2.2" fill="none" opacity=".82"><path d="M88 204 C128 232 176 230 208 204"/><path d="M333 98 C296 70 248 70 212 98"/></g><text x="210" y="40" fill="#f1f5f9" font-size="17" text-anchor="middle" font-weight="700">mechanism meets scale</text><text x="210" y="270" fill="#94a3b8" font-size="13" text-anchor="middle">motif as inductive bias, attention as scaling engine</text></svg>`,
+    noteTitle:'辯論張力', noteBody:'動力幾何提供可驗證機制，Transformer 提供可擴展代理模型。最有力的 NeuroAI 可能會同時需要兩者。' }
 ];
 
-let uid = null;
-let unsubscribes = [];
-let myVotes = {};
-let voteData = {};
+let uid = null, currentIdx = 0;
+let unsubscribes = [], myVotes = {}, voteData = {};
+const container = document.getElementById('cardsContainer');
+const visualC = document.getElementById('visualContainer');
+const noteTitle = document.getElementById('noteTitle');
+const noteBody = document.getElementById('noteBody');
 
-auth.signInAnonymously().then(async (cred) => {
+// --- Auth & Firestore ---
+auth.signInAnonymously().then(async cred => {
   uid = cred.user.uid;
   document.getElementById('voteUrlLabel').textContent = window.location.href;
-  new QRCode(document.getElementById('qrcode'), { text: window.location.href, width: 100, height: 100 });
-  await ensureVoteDocs();
+  new QRCode(document.getElementById('qrcode'), { text: window.location.href, width: 90, height: 90 });
+  await ensureDocs();
   listenVotes();
+  switchTo(0);
 }).catch(err => {
-  document.getElementById('cardsContainer').innerHTML = `<div class="loader" style="color:#dc2626">Firebase 連線失敗：${err.message}</div>`;
+  container.innerHTML = `<article class="quiz-card" style="text-align:center;padding:60px 28px;">
+    <div class="kicker" style="color:var(--rose)">連線失敗</div>
+    <p style="color:var(--muted);margin-top:12px">${err.message}</p>
+  </article>`;
 });
 
-async function ensureVoteDocs() {
+async function ensureDocs() {
   const batch = db.batch();
-  for (const cp of CHECKPOINTS) {
-    const ref = db.collection('votes').doc(cp.id);
-    const snap = await ref.get();
-    if (!snap.exists) {
-      batch.set(ref, {
-        question: cp.question,
-        options: cp.opts,
-        responses: {},
-        active: true,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-    }
+  for (const d of DATA) {
+    const ref = db.collection('votes').doc(d.id);
+    if (!(await ref.get()).exists)
+      batch.set(ref, { question: d.title, options: d.opts, responses: {}, active: true, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
   }
   await batch.commit();
 }
 
 function listenVotes() {
-  for (const cp of CHECKPOINTS) {
-    const unsub = db.collection('votes').doc(cp.id).onSnapshot((doc) => {
-      if (!doc.exists) return;
-      const data = doc.data();
-      voteData[cp.id] = data.responses || {};
-      renderCard(cp, data);
-      updateParticipantCount();
+  for (const d of DATA) {
+    const unsub = db.collection('votes').doc(d.id).onSnapshot(snap => {
+      if (!snap.exists) return;
+      voteData[d.id] = snap.data().responses || {};
+      if (d.id === DATA[currentIdx].id) renderCard(currentIdx);
+      updateCount();
     });
     unsubscribes.push(unsub);
   }
 }
 
-async function castVote(checkpointId, optionIndex) {
-  const answer = String.fromCharCode(65 + optionIndex);
-  const ref = db.collection('votes').doc(checkpointId);
-  await ref.update({ [`responses.${uid}`]: answer });
-  myVotes[checkpointId] = answer;
-  showToast('✓ 已送出投票');
-}
-
-function renderCard(cp, data) {
-  const responses = data.responses || {};
-  const total = Object.keys(responses).length;
-  const counts = {};
-  cp.opts.forEach((_, i) => {
-    const letter = String.fromCharCode(65 + i);
-    counts[letter] = Object.values(responses).filter(v => v === letter).length;
-  });
-  const myVote = myVotes[cp.id] || (responses[uid] || null);
-
-  const existing = document.getElementById('card-' + cp.id);
-  const container = document.getElementById('cardsContainer');
-  if (container.querySelector('.loader')) container.innerHTML = '';
-
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.id = 'card-' + cp.id;
-
-  let optsHtml = cp.opts.map((opt, i) => {
-    const letter = String.fromCharCode(65 + i);
-    const isVoted = myVote === letter;
-    const label = opt.replace(/^[A-D]\.\s*/, '');
-    return `<button class="${isVoted ? 'voted' : ''}" data-cp="${cp.id}" data-idx="${i}" ${myVote ? 'disabled' : ''}>
-      <span class="letter">${letter}</span> ${label}
-    </button>`;
-  }).join('');
-
-  let resultsHtml = cp.opts.map((_, i) => {
-    const letter = String.fromCharCode(65 + i);
-    const count = counts[letter] || 0;
-    const pct = total ? Math.round(count / total * 100) : 0;
-    return `<div class="result-row">
-      <span class="lbl">${letter}</span>
-      <div class="track"><div class="fill" style="width:${pct}%;background:${COLORS[i]}"></div></div>
-      <span class="pct">${pct}%</span>
-      <span class="votes">${count}</span>
-    </div>`;
-  }).join('');
-
-  card.innerHTML = `
-    <div class="cp">Checkpoint ${cp.id.replace('CP','')}</div>
-    <h3>${cp.question}</h3>
-    <div class="desc">${cp.desc}</div>
-    <div class="opts">${optsHtml}</div>
-    <div class="result-section">${resultsHtml}</div>
-  `;
-
-  if (existing) existing.replaceWith(card);
-  else container.appendChild(card);
-
-  card.querySelectorAll('.opts button:not([disabled])').forEach(btn => {
-    btn.addEventListener('click', () => castVote(btn.dataset.cp, parseInt(btn.dataset.idx)));
-  });
-}
-
-function updateParticipantCount() {
+function updateCount() {
   const all = new Set();
   Object.values(voteData).forEach(m => Object.keys(m).forEach(k => all.add(k)));
   document.getElementById('participantCount').textContent = all.size;
 }
 
-let toastTimer;
+// --- Navigation ---
+document.querySelectorAll('.navlinks a').forEach(a => {
+  a.addEventListener('click', () => switchTo(parseInt(a.dataset.cp)));
+});
+
+function switchTo(idx) {
+  currentIdx = idx;
+  document.querySelectorAll('.navlinks a').forEach((a,i) => a.classList.toggle('active', i===idx));
+  document.getElementById('navMark').textContent = String(idx+1).padStart(2,'0');
+  renderCard(idx);
+  showSide(idx);
+}
+
+// --- Render ---
+function renderCard(idx) {
+  const d = DATA[idx];
+  const responses = voteData[d.id] || {};
+  const total = Object.keys(responses).length;
+  const counts = {};
+  d.opts.forEach((_,i) => { const l = String.fromCharCode(65+i); counts[l] = Object.values(responses).filter(v=>v===l).length; });
+  const myVote = myVotes[d.id] || (responses[uid] || null);
+
+  const promptHtml = d.subPrompt ? `<p class="prompt">${d.subPrompt}</p>` : '';
+
+  let optsHtml = d.opts.map((opt,i) => {
+    const letter = String.fromCharCode(65+i);
+    const isVoted = myVote === letter;
+    const label = opt.replace(/^[A-D]\.\s*/, '');
+    const cls = isVoted ? 'option voted' : (myVote ? '' : 'option');
+    return `<button class="${cls}" data-idx="${i}" ${myVote?'disabled':''}>
+      <span class="letter">${letter}</span><span class="option-text">${label}</span></button>`;
+  }).join('');
+
+  let pollHtml = d.opts.map((_,i) => {
+    const letter = String.fromCharCode(65+i);
+    const count = counts[letter]||0;
+    const pct = total ? Math.round(count/total*100) : 0;
+    return `<div class="poll-row">
+      <span class="lbl">${letter}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${COLORS[i]}"></div></div>
+      <span class="pct">${pct}%</span>
+      <span class="votes">${count}</span>
+    </div>`;
+  }).join('');
+
+  const prevIdx = idx > 0 ? idx-1 : -1;
+  const nextIdx = idx < DATA.length-1 ? idx+1 : -1;
+  let pagerHtml = '';
+  if (prevIdx >=0) pagerHtml += `<a class="pg prev" data-idx="${prevIdx}">← 上一題</a>`;
+  else pagerHtml += `<a style="visibility:hidden"></a>`;
+  if (nextIdx >=0) pagerHtml += `<a class="pg next" data-idx="${nextIdx}">下一題 →</a>`;
+  else pagerHtml += `<a style="visibility:hidden"></a>`;
+
+  container.innerHTML = `<article class="quiz-card">
+    <div class="kicker">${d.kicker}</div>
+    <h1>${d.title}</h1>
+    <p class="prompt">${d.prompt}</p>
+    <div class="question-label">${d.qlabel}</div>
+    ${promptHtml}
+    <div class="options">${optsHtml}</div>
+    <div class="actions">
+      <button class="primary" data-submit ${!myVote?'disabled':''}>${idx===3||idx===4?'送出投票':'送出答案'}</button>
+    </div>
+    <div class="poll-bars">${pollHtml}</div>
+    <div class="pager">${pagerHtml}</div>
+  </article>`;
+
+  container.querySelectorAll('.option:not(.voted):not([disabled])').forEach(btn => {
+    btn.addEventListener('click', () => selectOption(idx, parseInt(btn.dataset.idx)));
+  });
+  container.querySelector('.primary')?.addEventListener('click', () => submitVote(idx));
+  container.querySelectorAll('.pg').forEach(a => a.addEventListener('click', () => switchTo(parseInt(a.dataset.idx))));
+}
+
+function showSide(idx) {
+  const d = DATA[idx];
+  visualC.innerHTML = d.svg;
+  noteTitle.textContent = d.noteTitle;
+  noteBody.textContent = d.noteBody;
+}
+
+// --- Vote logic ---
+let selectedIdx = null;
+
+function selectOption(idx, optIdx) {
+  if (myVotes[DATA[idx].id]) return;
+  selectedIdx = optIdx;
+  const card = container.querySelector('.quiz-card');
+  card.querySelectorAll('.option').forEach((btn,i) => btn.classList.toggle('selected', i===optIdx));
+  card.querySelector('.primary').disabled = false;
+}
+
+async function submitVote(idx) {
+  const d = DATA[idx];
+  if (selectedIdx === null && !myVotes[d.id]) return;
+  const answer = String.fromCharCode(65 + (myVotes[d.id] ? DATA[idx].opts.findIndex((_,i)=>String.fromCharCode(65+i)===myVotes[d.id]) : selectedIdx));
+  const actualIdx = myVotes[d.id] ? DATA[idx].opts.findIndex((_,i)=>String.fromCharCode(65+i)===myVotes[d.id]) : selectedIdx;
+  if (!myVotes[d.id]) {
+    await db.collection('votes').doc(d.id).update({ [`responses.${uid}`]: answer });
+    myVotes[d.id] = answer;
+  }
+  showToast('✓ 已送出投票');
+}
+
 function showToast(msg) {
   const el = document.getElementById('toast');
   el.textContent = msg;
   el.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove('show'), 2000);
+  clearTimeout(window._tt);
+  window._tt = setTimeout(() => el.classList.remove('show'), 2000);
 }
 </script>
 </body>
