@@ -455,7 +455,7 @@ function showToast(msg) {
 // --- Reset ---
 function showResetOverlay() {
   var total = 0;
-  Object.values(voteData).forEach(m => total += Object.keys(m).length);
+  Object.values(voteData).forEach(m => total += Object.keys(m.responses || {}).length);
   document.getElementById('totalVotesSpan').textContent = total;
   document.getElementById('resetOverlay').classList.add('show');
 }
