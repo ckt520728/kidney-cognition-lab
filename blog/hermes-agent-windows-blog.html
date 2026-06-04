@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="一份從 Windows 部署 Hermes Agent 的實作札記：安裝、模型路由、Telegram 回報、API 來源與雲端化工作流。">
+<title>在 Windows 上部署 Hermes Agent：從 20 個坑整理出的 Agentic AI 實作札記</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg-primary:#0a0f1e;
+  --bg-card:#111d3c;
+  --bg-card2:#162248;
+  --teal:#4dd9cf;
+  --teal-light:#7ee8e2;
+  --purple:#8b5cf6;
+  --gold:#f4a261;
+  --red:#fb7185;
+  --text:#e8f4f8;
+  --text-sec:#8ba8c4;
+  --text-dim:#4a6580;
+  --border:rgba(77,217,207,0.15);
+  --shadow:0 8px 32px rgba(0,0,0,0.45);
+  --radius:12px;
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family:'Noto Sans TC','Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text);
+  line-height:1.9;
+}
+a { color:var(--teal); text-decoration:none; }
+a:hover { color:var(--teal-light); }
+.top-bar {
+  position:sticky; top:0; z-index:100;
+  background:rgba(10,15,30,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;
+}
+.top-bar-inner {
+  max-width:980px; margin:0 auto; padding:0 24px;
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+}
+.back-link { color:var(--text-sec); font-size:0.9rem; display:inline-flex; gap:8px; align-items:center; }
+.top-bar-title { font-size:0.82rem; color:var(--text-dim); font-family:'JetBrains Mono',monospace; }
+.article { max-width:860px; margin:0 auto; padding:58px 24px 82px; }
+.article-header {
+  margin-bottom:44px; padding-bottom:34px;
+  border-bottom:1px solid var(--border);
+}
+.article-meta {
+  color:var(--teal); font-size:0.85rem;
+  font-family:'JetBrains Mono',monospace; margin-bottom:14px;
+}
+.article-title {
+  font-size:2.25rem; line-height:1.35; margin-bottom:18px;
+  background:linear-gradient(135deg,var(--text),var(--teal-light));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.article-subtitle { color:var(--text-sec); font-size:1.04rem; }
+.article-author {
+  margin-top:24px; padding-top:20px; border-top:1px solid var(--border);
+  display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+}
+.author-avatar {
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,#2a9d8f,var(--purple));
+  display:flex; align-items:center; justify-content:center; font-weight:700;
+}
+.author-info { color:var(--text-sec); font-size:0.88rem; line-height:1.65; }
+.author-info strong { color:var(--text); }
+.article-tags { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; }
+.tag {
+  font-size:0.72rem; padding:3px 12px; border-radius:20px;
+  background:rgba(77,217,207,0.08); color:var(--teal);
+  border:1px solid rgba(77,217,207,0.2);
+}
+.hero-figure,.inline-figure {
+  margin:34px 0 42px; border:1px solid var(--border); border-radius:var(--radius);
+  background:var(--bg-card); overflow:hidden; box-shadow:var(--shadow);
+}
+.hero-figure img,.inline-figure img { display:block; width:100%; height:auto; }
+.hero-figure figcaption,.inline-figure figcaption { color:var(--text-dim); font-size:0.82rem; padding:12px 16px; }
+h2 {
+  font-size:1.55rem; margin:54px 0 20px; padding-bottom:10px;
+  border-bottom:2px solid var(--teal); display:inline-block;
+}
+h3 { font-size:1.18rem; color:var(--teal-light); margin:34px 0 14px; }
+p { color:var(--text-sec); margin:0 0 20px; }
+p strong, li strong { color:var(--text); }
+ul,ol { color:var(--text-sec); padding-left:24px; margin:0 0 24px; }
+li { margin-bottom:10px; }
+li::marker { color:var(--teal); }
+.callout {
+  margin:28px 0; padding:20px 24px; background:var(--bg-card);
+  border-left:4px solid var(--teal); border-radius:8px; color:var(--text-sec);
+}
+.callout.gold { border-left-color:var(--gold); }
+.callout.purple { border-left-color:var(--purple); }
+.formula {
+  margin:24px 0; padding:18px 24px; background:rgba(77,217,207,0.06);
+  border-left:3px solid var(--teal); border-radius:8px;
+  font-family:'JetBrains Mono',monospace; color:var(--teal-light); font-size:1.05rem;
+}
+.tbl-wrap { overflow-x:auto; margin:24px 0; }
+table {
+  width:100%; border-collapse:collapse; background:var(--bg-card);
+  border-radius:var(--radius); overflow:hidden; font-size:0.92rem;
+}
+th {
+  text-align:left; color:var(--teal); background:rgba(77,217,207,0.1);
+  padding:12px 14px; border-bottom:1px solid var(--border);
+}
+td { padding:12px 14px; color:var(--text-sec); border-bottom:1px solid rgba(77,217,207,0.08); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+code {
+  font-family:'JetBrains Mono',monospace;
+  color:var(--teal-light);
+  background:rgba(77,217,207,0.08);
+  border:1px solid rgba(77,217,207,0.16);
+  padding:1px 6px;
+  border-radius:6px;
+}
+.article-footer {
+  margin-top:54px; padding-top:28px; border-top:1px solid var(--border);
+  color:var(--text-dim); font-size:0.88rem; text-align:center;
+}
+@media(max-width:640px) {
+  .article { padding:42px 18px 64px; }
+  .article-title { font-size:1.65rem; }
+  .top-bar-title { display:none; }
+  table { font-size:0.84rem; }
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="../index.html#teaching" class="back-link"><i class="fas fa-arrow-left"></i> 返回演講教學</a>
+    <div class="top-bar-title">HERMES AGENT PRACTICE NOTE</div>
+  </div>
+</div>
+
+<article class="article">
+<header class="article-header">
+  <div class="article-meta">2026 / 06 / 04 ｜ Agentic AI 實作札記</div>
+  <h1 class="article-title">在 Windows 上部署 Hermes Agent：從 20 個坑整理出的 Agentic AI 實作札記</h1>
+  <p class="article-subtitle">這不是一篇追逐新工具的開箱文，而是一份把本機部署、模型路由、Telegram 回報與研究 brief 自動化串起來的實作紀錄。我的重點是：當模型逐漸商品化，真正決定可用性的，往往是模型外面的 harness。</p>
+  <div class="article-author">
+    <div class="author-avatar">朱</div>
+    <div class="author-info">
+      <strong>朱國大 醫師</strong><br>
+      這篇文章整理 Windows 上部署 Hermes Agent、模型路由與研究 brief 自動化的實作經驗。
+    </div>
+  </div>
+  <div class="article-tags">
+    <span class="tag">Hermes Agent</span>
+    <span class="tag">Agentic AI</span>
+    <span class="tag">Windows</span>
+    <span class="tag">Telegram Bot</span>
+    <span class="tag">Research Automation</span>
+  </div>
+</header>
+
+<figure class="hero-figure">
+  <img src="hermes-blog-assets/pdf-hermes-three-layers.png" alt="Hermes Agent 在 Windows 上的三層配置地圖">
+  <figcaption>圖一：我把原本散落的 20 個部署問題整理成三層：安裝層、模型層、工作流層。圖片取自補上的 PDF 簡報第 5 頁。</figcaption>
+</figure>
+
+<p>我第一次在 Windows 上部署 Hermes Agent 時，最深的感覺不是「這個工具很難」，而是「文件預設的世界，和我的工作環境不是同一個世界」。許多 agent 工具的說明習慣以 Linux 或 macOS 為基準；到了 Windows，問題會變成 PATH、Python 版本、PowerShell 語法、自動啟動、排程與權限的混合題。</p>
+
+<p>但這些問題填平後，收穫也很明確：我開始更精準地理解 agent 和 chatbot 的差別。Chatbot 主要處理對話；agent 則要能使用工具、保存上下文、排程任務、處理失敗，並把結果送回正確的位置。這些能力合在一起，就是我在這次實作中一直碰到的核心概念：<strong>harness</strong>。</p>
+
+<div class="formula">Agent = Model + Harness</div>
+
+<p>模型像推理核心；harness 則像作業系統，負責工具調度、記憶、排程、安全邊界與容錯。Windows 上的 20 個坑，表面上是安裝問題，實際上是在配置一套能讓 agent 真正工作的外殼。</p>
+
+<h2>一、安裝層：不要把 Linux 指令硬搬到 Windows</h2>
+
+<p>安裝階段最常見的卡點，是把錯誤歸因到 Hermes 本身。實際上，很多狀況只是 Windows 語境沒有被轉換好。例如 <code>sudo</code>、<code>systemd</code>、某些 shell 串接語法，在 Windows 上不是不能做，而是要換成 PowerShell 與相對應的啟動方式。</p>
+
+<p>我的實務結論很簡單：如果官方提供 Windows PowerShell 安裝腳本，就先用腳本，不要一開始就用 <code>pip install</code> 手動拆相依性。Hermes 需要的 Python、Node.js、ripgrep、ffmpeg、uv 等元件，手動補齊會花掉大量時間；更重要的是，裝完後要重新開啟 PowerShell，讓 PATH 的更新真正生效。</p>
+
+<div class="callout">
+  <strong>安裝層的心法：</strong>看到文件裡出現 <code>sudo</code>、<code>systemd</code>、背景服務或自動啟動時，先停一下，把它翻譯成 Windows 上實際可控的操作。這通常比反覆重裝更省時間。
+</div>
+
+<h2>二、模型層：改 Main Model 只是第一步</h2>
+
+<p>第二層是模型路由。為了控制成本或測試免費模型，很多人會把預設模型改成 Gemini 或 OpenRouter 上的 free model。問題是，Hermes 不只用一個 Main Model。它還可能在 summarization、triage、compression、vision、MCP routing 等 auxiliary tasks 中呼叫其他模型。</p>
+
+<figure class="inline-figure">
+  <img src="hermes-blog-assets/pdf-hermes-model-routing.png" alt="Hermes Agent 模型設定的四層路由">
+  <figcaption>圖二：模型設定不是單點開關，而是多層路由。只改 Main Model，舊任務或輔助任務仍可能呼叫原本的模型。圖片取自 PDF 簡報第 10 頁。</figcaption>
+</figure>
+
+<p>這也是我實作中最值得記下來的一點：<strong>CRON 任務可能保留建立當下的模型快照</strong>。也就是說，全域設定改完後，舊的排程任務未必會自動更新。若你發現明明已經改成免費模型，log 裡卻仍然出現付費模型相關錯誤，請把既有 CRON 任務刪掉重建一次。</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>設定層</th><th>要檢查什麼</th><th>實務提醒</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Main Model</td><td>主要對話模型</td><td>這只是入口，不代表所有任務都跟著改。</td></tr>
+    <tr><td>Auxiliary Tasks</td><td>摘要、分流、壓縮、vision、MCP routing</td><td>逐項 override，否則容易漏掉隱藏呼叫。</td></tr>
+    <tr><td>Profile</td><td>Researcher、Coder 等角色設定</td><td>不同 profile 可能有獨立模型偏好。</td></tr>
+    <tr><td>CRON Snapshot</td><td>建立排程任務當下的設定</td><td>改完模型後，舊任務建議重建。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>三、工作流層：Dashboard 是儀表板，對話才是主軸</h2>
+
+<p>第三層是最容易被誤解的地方。Dashboard 看起來像一般 SaaS 產品，所以直覺上會想在上面按按鈕、建任務、Run now。但 Hermes 的任務回報不是單純的 UI 狀態，它牽涉到「任務從哪裡被觸發」以及「結果要回到哪個 channel」。</p>
+
+<figure class="inline-figure">
+  <img src="hermes-blog-assets/pdf-hermes-origin-routing.png" alt="deliver origin 的回報路徑">
+  <figcaption>圖三：Dashboard 可以看狀態，但要讓 Telegram 穩定收到結果，任務最好從對話中建立，並指定 <code>deliver: origin</code>。圖片取自 PDF 簡報第 13 頁。</figcaption>
+</figure>
+
+<p>我遇到過的典型情境是：Dashboard 顯示任務成功，Telegram 卻沒有收到訊息，log 裡出現 <code>Chat not found</code>。後來才理解，關鍵不是任務有沒有跑，而是 Hermes 是否知道要把結果送回哪個對話。實務上，用 Telegram 對 bot 直接說「建立一個 CRON 任務，傳送至 origin」更穩定，因為 origin 指向建立任務的原始對話。</p>
+
+<div class="callout purple">
+  <strong>工作流層的心法：</strong>如果你在 Dashboard 點到第三次仍然不成功，先不要繼續點。回到 Telegram 或 CLI，用自然語言建立任務，讓 agent 自己處理參數與回報路徑。
+</div>
+
+<h2>四、資料來源：指定 API，不要只說搜尋網路</h2>
+
+<p>當我把 Hermes 用在每日研究 brief 時，另一個重要教訓是資料來源。若只是要求 agent「搜尋最新 AI 或醫學消息」，輸出品質會受模型能力與搜尋工具影響，甚至可能產生看似合理但不能驗證的連結。</p>
+
+<p>比較可靠的做法，是直接指定資料來源與 API endpoint。例如醫學文獻可以用 PubMed E-utilities，預印本可以用 arXiv API，新聞或產品更新則限定 RSS 或官方來源。這樣 agent 的任務就從「憑空搜尋」變成「依照明確來源抓取、整理、回報」。對醫療與研究工作流來說，這個差異非常重要。</p>
+
+<h2>五、從本機 Hermes 到雲端自動化</h2>
+
+<p>Hermes 的本機部署讓我看清楚 agent workflow 的結構：觸發、抓取、整理、回報、記錄。不過，如果目標是每天固定時間推送研究 brief，本機 Windows 電腦必須長開，就是一個現實限制。因此，我後來把穩定推播的版本轉成 Google Apps Script。</p>
+
+<figure class="inline-figure">
+  <img src="hermes-blog-assets/pdf-hermes-gas-architecture.png" alt="從 Hermes 到 Google Apps Script 的每日 brief 架構">
+  <figcaption>圖四：Hermes 提供的是概念與實作練習；長期穩定的每日 brief，則可改由 Google Apps Script 承接排程與推播。圖片取自 PDF 簡報第 22 頁。</figcaption>
+</figure>
+
+<p>這不是否定 Hermes，而是把工具放到適合的位置：Hermes 適合探索 agent 能力、測試工具調度、理解對話式工作流；Google Apps Script 則適合固定排程、低成本、雲端長期運作。兩者的共同原則是：資料來源要明確，回報路徑要可驗證，錯誤要能追蹤。</p>
+
+<h2>如果只帶走六件事</h2>
+
+<ol>
+  <li><strong>Windows 問題要先翻譯。</strong>不要把 Linux / macOS 文件直接搬到 Windows。</li>
+  <li><strong>安裝優先使用官方 PowerShell 腳本。</strong>手動拆相依性會放大 PATH 與版本問題。</li>
+  <li><strong>模型設定有多層。</strong>Main Model、Auxiliary Tasks、Profile、CRON snapshot 都要檢查。</li>
+  <li><strong>Dashboard 是儀表板。</strong>任務建立與回報路徑，常常回到 Telegram 或 CLI 更穩。</li>
+  <li><strong>指定 API 比泛稱搜尋可靠。</strong>尤其醫療與研究工作流，來源可驗證比文字流暢更重要。</li>
+  <li><strong>本機 agent 是學會工作流的入口。</strong>若要長期自動推播，可再把穩定任務搬到雲端。</li>
+</ol>
+
+<div class="callout gold">
+  <strong>最後的實作結論：</strong>Agentic AI 的價值不只是「幫我回答問題」，而是能在明確邊界內使用工具、執行任務、回報結果，並把失敗變成可診斷的線索。對知識工作者來說，真正要學的是 harness，而不是只追下一個模型名稱。
+</div>
+
+<footer class="article-footer">
+  本文由既有部署筆記與 Hermes Agent PDF 教學簡報改寫，語氣與版型調整為個人網站 Blog 發布版本。
+</footer>
+</article>
+</body>
+</html>
