@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" font-family="'Noto Sans TC','Inter',sans-serif">
+  <defs>
+    <linearGradient id="pl-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c1326"/>
+      <stop offset="1" stop-color="#0a0f1e"/>
+    </linearGradient>
+    <marker id="pl-arrow" markerWidth="14" markerHeight="14" refX="10" refY="7" orient="auto">
+      <path d="M0,0 L14,7 L0,14 Z" fill="#4dd9cf"/>
+    </marker>
+    <marker id="pl-arrow-rev" markerWidth="14" markerHeight="14" refX="10" refY="7" orient="auto">
+      <path d="M0,0 L14,7 L0,14 Z" fill="#8b5cf6"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#pl-bg)"/>
+  <text x="800" y="74" text-anchor="middle" fill="#e8f4f8" font-size="40" font-weight="700">虛擬大腦的資料流：從結構到推論</text>
+  <text x="800" y="116" text-anchor="middle" fill="#8ba8c4" font-size="22">Virtual Brain pipeline — forward simulation 與 inverse inference</text>
+
+  <!-- five stages -->
+  <g font-size="22">
+    <!-- stage 1 -->
+    <rect x="60" y="300" width="250" height="200" rx="18" fill="#111d3c" stroke="#4dd9cf" stroke-width="2"/>
+    <text x="185" y="345" text-anchor="middle" fill="#4dd9cf" font-size="24" font-weight="700">①</text>
+    <text x="185" y="392" text-anchor="middle" fill="#e8f4f8" font-size="23" font-weight="700">dMRI</text>
+    <text x="185" y="424" text-anchor="middle" fill="#e8f4f8">結構連接體</text>
+    <text x="185" y="458" text-anchor="middle" fill="#8ba8c4" font-size="18">connectome 權重矩陣</text>
+
+    <!-- stage 2 -->
+    <rect x="370" y="300" width="250" height="200" rx="18" fill="#111d3c" stroke="#4dd9cf" stroke-width="2"/>
+    <text x="495" y="345" text-anchor="middle" fill="#4dd9cf" font-size="24" font-weight="700">②</text>
+    <text x="495" y="392" text-anchor="middle" fill="#e8f4f8" font-size="23" font-weight="700">12 個 Jansen–Rit nodes</text>
+    <text x="495" y="424" text-anchor="middle" fill="#8ba8c4" font-size="18">每區一組 neural mass</text>
+    <text x="495" y="456" text-anchor="middle" fill="#8ba8c4" font-size="18">E / I 突觸動力</text>
+
+    <!-- stage 3 -->
+    <rect x="680" y="300" width="250" height="200" rx="18" fill="#111d3c" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="805" y="345" text-anchor="middle" fill="#8b5cf6" font-size="24" font-weight="700">③</text>
+    <text x="805" y="392" text-anchor="middle" fill="#e8f4f8" font-size="23" font-weight="700">全域耦合 G</text>
+    <text x="805" y="424" text-anchor="middle" fill="#e8f4f8">與傳導延遲</text>
+    <text x="805" y="458" text-anchor="middle" fill="#8ba8c4" font-size="18">node 間互相驅動</text>
+
+    <!-- stage 4 -->
+    <rect x="990" y="300" width="250" height="200" rx="18" fill="#111d3c" stroke="#f4a261" stroke-width="2"/>
+    <text x="1115" y="345" text-anchor="middle" fill="#f4a261" font-size="24" font-weight="700">④</text>
+    <text x="1115" y="392" text-anchor="middle" fill="#e8f4f8" font-size="23" font-weight="700">synthetic EEG</text>
+    <text x="1115" y="424" text-anchor="middle" fill="#e8f4f8">/ spectrum</text>
+    <text x="1115" y="458" text-anchor="middle" fill="#8ba8c4" font-size="18">模型產生的腦波</text>
+
+    <!-- stage 5 -->
+    <rect x="1300" y="300" width="250" height="200" rx="18" fill="#162248" stroke="#f4a261" stroke-width="2"/>
+    <text x="1425" y="345" text-anchor="middle" fill="#f4a261" font-size="24" font-weight="700">⑤</text>
+    <text x="1425" y="392" text-anchor="middle" fill="#e8f4f8" font-size="22" font-weight="700">model-based</text>
+    <text x="1425" y="422" text-anchor="middle" fill="#e8f4f8" font-size="22" font-weight="700">parameter inference</text>
+    <text x="1425" y="456" text-anchor="middle" fill="#8ba8c4" font-size="18">反推 E/I、tau_i</text>
+  </g>
+
+  <!-- forward arrows -->
+  <line x1="312" y1="400" x2="366" y2="400" stroke="#4dd9cf" stroke-width="4" marker-end="url(#pl-arrow)"/>
+  <line x1="622" y1="400" x2="676" y2="400" stroke="#4dd9cf" stroke-width="4" marker-end="url(#pl-arrow)"/>
+  <line x1="932" y1="400" x2="986" y2="400" stroke="#4dd9cf" stroke-width="4" marker-end="url(#pl-arrow)"/>
+  <line x1="1242" y1="400" x2="1296" y2="400" stroke="#4dd9cf" stroke-width="4" marker-end="url(#pl-arrow)"/>
+
+  <!-- inverse arrow (back from 5 to 2) -->
+  <path d="M1425,500 C1425,610 495,610 495,506" fill="none" stroke="#8b5cf6" stroke-width="3" stroke-dasharray="10 8" marker-end="url(#pl-arrow-rev)"/>
+
+  <!-- legend -->
+  <g>
+    <rect x="180" y="700" width="1240" height="120" rx="16" fill="#111d3c" stroke="#1d2a4d" stroke-width="1.5"/>
+    <circle cx="240" cy="744" r="8" fill="#4dd9cf"/>
+    <text x="262" y="751" fill="#e8f4f8" font-size="21" font-weight="700">Forward：</text>
+    <text x="372" y="751" fill="#8ba8c4" font-size="21">從假設病理預測訊號</text>
+    <circle cx="240" cy="788" r="8" fill="#8b5cf6"/>
+    <text x="262" y="795" fill="#e8f4f8" font-size="21" font-weight="700">Inverse：</text>
+    <text x="372" y="795" fill="#8ba8c4" font-size="21">從觀測訊號反推模型參數</text>
+  </g>
+</svg>

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 810" width="1440" height="810" font-family="'Noto Sans TC','Inter',sans-serif">
+  <defs>
+    <linearGradient id="ba-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c1326"/>
+      <stop offset="1" stop-color="#0a0f1e"/>
+    </linearGradient>
+    <radialGradient id="ba-hub" cx="0.5" cy="0.4" r="0.7">
+      <stop offset="0" stop-color="#f4a261"/>
+      <stop offset="1" stop-color="#b8743b"/>
+    </radialGradient>
+    <marker id="ba-arrow-teal" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#4dd9cf"/>
+    </marker>
+    <marker id="ba-arrow-purple" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#8b5cf6"/>
+    </marker>
+    <marker id="ba-arrow-gold" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#f4a261"/>
+    </marker>
+  </defs>
+
+  <rect width="1440" height="810" fill="url(#ba-bg)"/>
+
+  <text x="720" y="70" text-anchor="middle" fill="#e8f4f8" font-size="40" font-weight="700">大腦的「油門」與「煞車」</text>
+  <text x="720" y="112" text-anchor="middle" fill="#8ba8c4" font-size="22">Excitation 與 Inhibition 的動態平衡，決定神經迴路是否穩定</text>
+
+  <!-- LEFT: Excitation / accelerator -->
+  <g>
+    <rect x="90" y="180" width="380" height="470" rx="20" fill="#111d3c" stroke="#4dd9cf" stroke-width="2"/>
+    <circle cx="280" cy="270" r="46" fill="#123" stroke="#4dd9cf" stroke-width="3"/>
+    <text x="280" y="278" text-anchor="middle" fill="#4dd9cf" font-size="40">⏩</text>
+    <text x="280" y="360" text-anchor="middle" fill="#4dd9cf" font-size="30" font-weight="700">興奮 Excitation</text>
+    <text x="280" y="400" text-anchor="middle" fill="#e8f4f8" font-size="22">錐體細胞 Pyramidal cells</text>
+    <text x="280" y="440" text-anchor="middle" fill="#8ba8c4" font-size="19">釋放 glutamate，踩下「油門」</text>
+    <text x="280" y="476" text-anchor="middle" fill="#8ba8c4" font-size="19">推升膜電位、增加放電</text>
+    <text x="280" y="560" text-anchor="middle" fill="#8ba8c4" font-size="18">↑ 過度興奮 = hyperexcitability</text>
+    <text x="280" y="592" text-anchor="middle" fill="#8ba8c4" font-size="18">迴路偏離穩定運作區</text>
+  </g>
+
+  <!-- RIGHT: Inhibition / brake -->
+  <g>
+    <rect x="970" y="180" width="380" height="470" rx="20" fill="#162248" stroke="#8b5cf6" stroke-width="2"/>
+    <circle cx="1160" cy="270" r="46" fill="#1a1340" stroke="#8b5cf6" stroke-width="3"/>
+    <text x="1160" y="282" text-anchor="middle" fill="#8b5cf6" font-size="40">⏸</text>
+    <text x="1160" y="360" text-anchor="middle" fill="#8b5cf6" font-size="30" font-weight="700">抑制 Inhibition</text>
+    <text x="1160" y="400" text-anchor="middle" fill="#e8f4f8" font-size="22">抑制性中介神經元 Interneurons</text>
+    <text x="1160" y="440" text-anchor="middle" fill="#8ba8c4" font-size="19">釋放 GABA，踩下「煞車」</text>
+    <text x="1160" y="476" text-anchor="middle" fill="#8ba8c4" font-size="19">時間常數 tau_i 決定煞車的形狀</text>
+    <text x="1160" y="560" text-anchor="middle" fill="#8ba8c4" font-size="18">tau_i 變化同時改變時間與面積</text>
+    <text x="1160" y="592" text-anchor="middle" fill="#8ba8c4" font-size="18">不可單純讀成「煞車變少」</text>
+  </g>
+
+  <!-- CENTER: balance hub -->
+  <g>
+    <circle cx="720" cy="415" r="92" fill="url(#ba-hub)"/>
+    <text x="720" y="405" text-anchor="middle" fill="#1a1206" font-size="26" font-weight="700">E / I</text>
+    <text x="720" y="440" text-anchor="middle" fill="#1a1206" font-size="22" font-weight="700">平衡樞紐</text>
+  </g>
+  <line x1="478" y1="415" x2="612" y2="415" stroke="#4dd9cf" stroke-width="4" marker-end="url(#ba-arrow-teal)"/>
+  <line x1="962" y1="415" x2="828" y2="415" stroke="#8b5cf6" stroke-width="4" marker-end="url(#ba-arrow-purple)"/>
+
+  <!-- Abeta: possible influence, dashed, not confirmed causal -->
+  <g>
+    <rect x="560" y="640" width="320" height="64" rx="14" fill="none" stroke="#f4a261" stroke-width="2.5" stroke-dasharray="9 7"/>
+    <text x="720" y="668" text-anchor="middle" fill="#f4a261" font-size="21" font-weight="700">Amyloid-β（Aβ）</text>
+    <text x="720" y="694" text-anchor="middle" fill="#8ba8c4" font-size="17">可能影響：機制鏈尚未完全確證</text>
+    <path d="M720,640 L720,512" stroke="#f4a261" stroke-width="2.5" stroke-dasharray="9 7" marker-end="url(#ba-arrow-gold)"/>
+  </g>
+
+  <rect x="360" y="742" width="720" height="44" rx="10" fill="#111d3c" stroke="#f4a261" stroke-width="1.5"/>
+  <text x="720" y="770" text-anchor="middle" fill="#f4a261" font-size="22" font-weight="700">失衡不等於單一參數</text>
+</svg>

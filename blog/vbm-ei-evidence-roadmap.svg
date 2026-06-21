@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 860" width="1440" height="860" font-family="'Noto Sans TC','Inter',sans-serif">
+  <defs>
+    <linearGradient id="rm-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c1326"/>
+      <stop offset="1" stop-color="#0a0f1e"/>
+    </linearGradient>
+    <marker id="rm-arrow" markerWidth="14" markerHeight="14" refX="10" refY="7" orient="auto">
+      <path d="M0,0 L14,7 L0,14 Z" fill="#8ba8c4"/>
+    </marker>
+  </defs>
+
+  <rect width="1440" height="860" fill="url(#rm-bg)"/>
+  <text x="720" y="72" text-anchor="middle" fill="#e8f4f8" font-size="40" font-weight="700">證據地圖：我們站在哪裡？</text>
+  <text x="720" y="114" text-anchor="middle" fill="#8ba8c4" font-size="22">把「已知」「推論」與「待驗證」分清楚，避免把模型當成定論</text>
+
+  <!-- layer 1: established evidence -->
+  <g>
+    <rect x="110" y="170" width="1220" height="150" rx="18" fill="#0f2a28" stroke="#4dd9cf" stroke-width="2.5"/>
+    <text x="150" y="222" fill="#4dd9cf" font-size="27" font-weight="700">已有實證</text>
+    <text x="150" y="266" fill="#e8f4f8" font-size="22">腦波／MEG／fMRI network abnormalities</text>
+    <text x="150" y="300" fill="#8ba8c4" font-size="19">AD 與 MCI 可重複觀察到頻譜變慢、功能連結改變、前側超同步與後側低同步</text>
+  </g>
+
+  <!-- layer 2: model inference -->
+  <g>
+    <rect x="110" y="360" width="1220" height="150" rx="18" fill="#1c1740" stroke="#8b5cf6" stroke-width="2.5"/>
+    <text x="150" y="412" fill="#8b5cf6" font-size="27" font-weight="700">模型推論</text>
+    <text x="150" y="456" fill="#e8f4f8" font-size="22">E/I、tau_i、coupling、hub propagation</text>
+    <text x="150" y="490" fill="#8ba8c4" font-size="19">以 neural mass / virtual brain 反推看不見的參數；屬於可計算假說，非直接量測</text>
+  </g>
+
+  <!-- layer 3: to be validated -->
+  <g>
+    <rect x="110" y="550" width="1220" height="150" rx="18" fill="#2a1f12" stroke="#f4a261" stroke-width="2.5"/>
+    <text x="150" y="602" fill="#f4a261" font-size="27" font-weight="700">尚待驗證</text>
+    <text x="150" y="646" fill="#e8f4f8" font-size="22">same-subject EEG/PET/MRI、aging baseline、longitudinal intervention</text>
+    <text x="150" y="680" fill="#8ba8c4" font-size="19">缺少同一受試者的電生理對照、缺少澱粉樣陰性的正常老化基準線與縱貫介入</text>
+  </g>
+
+  <line x1="720" y1="322" x2="720" y2="358" stroke="#8ba8c4" stroke-width="3" marker-end="url(#rm-arrow)"/>
+  <line x1="720" y1="512" x2="720" y2="548" stroke="#8ba8c4" stroke-width="3" marker-end="url(#rm-arrow)"/>
+
+  <!-- bottom gold caution -->
+  <rect x="210" y="744" width="1020" height="74" rx="14" fill="#111d3c" stroke="#f4a261" stroke-width="2"/>
+  <text x="720" y="780" text-anchor="middle" fill="#f4a261" font-size="23" font-weight="700">目前定位：可計算的研究框架，</text>
+  <text x="720" y="808" text-anchor="middle" fill="#f4a261" font-size="23" font-weight="700">不是已驗證的臨床 biomarker</text>
+</svg>
