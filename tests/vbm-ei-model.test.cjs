@@ -9,6 +9,12 @@ const {
   sigmoid,
   jansenRitDerivative,
   rk4Step,
+  STRUCTURAL_WEIGHTS,
+  PRESETS,
+  applyPreset,
+  computeSpectrum,
+  computeBandPower,
+  computeSynchrony,
 } = require('../blog/vbm-ei-model.js');
 
 test('相同 seed 產生相同亂數序列', () => {
@@ -100,4 +106,65 @@ test('提高 inhibitory gain B 會降低穩態平均 pyramidal output', () => {
     return sum / count;
   }
   assert.ok(meanOutput(28) < meanOutput(16));
+});
+
+test('結構矩陣為 12×12、對稱且 diagonal 為零', () => {
+  assert.equal(STRUCTURAL_WEIGHTS.length, 12);
+  for (let row = 0; row < 12; row += 1) {
+    assert.equal(STRUCTURAL_WEIGHTS[row].length, 12);
+    assert.equal(STRUCTURAL_WEIGHTS[row][row], 0);
+    for (let col = 0; col < 12; col += 1) {
+      assert.equal(STRUCTURAL_WEIGHTS[row][col], STRUCTURAL_WEIGHTS[col][row]);
+    }
+  }
+});
+
+test('同 seed 與 preset 的 whole-brain output 可重現', () => {
+  const first = createSimulation(createDefaultConfig({ seed: 99 }));
+  const second = createSimulation(createDefaultConfig({ seed: 99 }));
+  applyPreset(first, 'healthy');
+  applyPreset(second, 'healthy');
+  stepSimulation(first, 600);
+  stepSimulation(second, 600);
+  assert.deepEqual(first.history.global, second.history.global);
+});
+
+test('所有 presets 都有顯示名稱、改變參數與限制說明', () => {
+  for (const key of ['healthy', 'tauLong', 'hubHyper', 'widespread']) {
+    assert.equal(typeof PRESETS[key].label, 'string');
+    assert.equal(typeof PRESETS[key].changes, 'string');
+    assert.equal(typeof PRESETS[key].cannotInfer, 'string');
+  }
+});
+
+test('hub hyperexcitability 提高指定 hubs 的平均活動', () => {
+  const healthy = createSimulation(createDefaultConfig({ seed: 44 }));
+  const hub = createSimulation(createDefaultConfig({ seed: 44 }));
+  applyPreset(healthy, 'healthy');
+  applyPreset(hub, 'hubHyper');
+  stepSimulation(healthy, 1200);
+  stepSimulation(hub, 1200);
+  const mean = (values) => values.reduce((sum, value) => sum + value, 0) / values.length;
+  const healthyHub = mean(healthy.history.nodeOutputs.slice(-400).map((row) => (row[2] + row[8]) / 2));
+  const activeHub = mean(hub.history.nodeOutputs.slice(-400).map((row) => (row[2] + row[8]) / 2));
+  assert.ok(activeHub > healthyHub);
+});
+
+test('spectrum 可辨識 10 Hz 正弦波', () => {
+  const sampleRate = 200;
+  const signal = Array.from(
+    { length: 400 },
+    (_, index) => Math.sin(2 * Math.PI * 10 * index / sampleRate),
+  );
+  const spectrum = computeSpectrum(signal, sampleRate);
+  const peak = spectrum.reduce((best, current) => (
+    current.power > best.power ? current : best
+  ));
+  assert.ok(Math.abs(peak.frequency - 10) <= 0.5);
+  assert.ok(computeBandPower(spectrum, 8, 13) > computeBandPower(spectrum, 4, 8));
+});
+
+test('完全相同訊號的 synchrony 為 1', () => {
+  const signal = [0, 1, 0, -1, 0, 1, 0, -1];
+  assert.ok(Math.abs(computeSynchrony([signal, signal, signal]) - 1) < 1e-12);
 });
