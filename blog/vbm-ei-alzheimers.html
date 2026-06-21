@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="用 Jansen–Rit neural mass model 與虛擬大腦，理解阿茲海默症早期 excitation–inhibition 失衡、腦波變慢與目前證據限制。">
+<title>幫大腦做一台數位分身：用腦波看見阿茲海默症的 E/I 失衡？ | 朱國大 醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg-primary:#0a0f1e;
+  --bg-card:#111d3c;
+  --bg-card2:#162248;
+  --teal:#4dd9cf;
+  --teal-light:#7ee8e2;
+  --purple:#8b5cf6;
+  --purple-light:#a78bfa;
+  --gold:#f4a261;
+  --text:#e8f4f8;
+  --text-sec:#8ba8c4;
+  --text-dim:#4a6580;
+  --border:rgba(77,217,207,0.15);
+  --shadow:0 8px 32px rgba(0,0,0,0.45);
+  --radius:12px;
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family:'Noto Sans TC','Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text);
+  line-height:1.9;
+}
+a { color:var(--teal); text-decoration:none; }
+a:hover { color:var(--teal-light); }
+.top-bar {
+  position:sticky; top:0; z-index:100;
+  background:rgba(10,15,30,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;
+}
+.top-bar-inner {
+  max-width:980px; margin:0 auto; padding:0 24px;
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+}
+.back-link { color:var(--text-sec); font-size:0.9rem; display:inline-flex; gap:8px; align-items:center; }
+.top-bar-title { font-size:0.82rem; color:var(--text-dim); font-family:'JetBrains Mono',monospace; }
+.article { max-width:860px; margin:0 auto; padding:58px 24px 82px; }
+.article-header {
+  margin-bottom:44px; padding-bottom:34px;
+  border-bottom:1px solid var(--border);
+}
+.article-meta {
+  color:var(--teal); font-size:0.85rem;
+  font-family:'JetBrains Mono',monospace; margin-bottom:14px;
+}
+.article-title {
+  font-size:2.25rem; line-height:1.35; margin-bottom:18px;
+  background:linear-gradient(135deg,var(--text),var(--teal-light));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.article-subtitle { color:var(--text-sec); font-size:1.04rem; }
+.article-author {
+  margin-top:24px; padding-top:20px; border-top:1px solid var(--border);
+  display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+}
+.author-avatar {
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,#2a9d8f,var(--purple));
+  display:flex; align-items:center; justify-content:center; font-weight:700;
+  font-size:1.1rem;
+}
+.author-info { color:var(--text-sec); font-size:0.88rem; line-height:1.65; }
+.author-info strong { color:var(--text); }
+.article-tags { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; }
+.tag {
+  font-size:0.72rem; padding:3px 12px; border-radius:20px;
+  background:rgba(77,217,207,0.08); color:var(--teal);
+  border:1px solid rgba(77,217,207,0.2);
+}
+figure { margin:34px 0; }
+.hero-figure { margin:34px 0 42px; }
+figure img { width:100%; display:block; border:1px solid var(--border); border-radius:var(--radius); background:var(--bg-card); box-shadow:var(--shadow); }
+figcaption { margin-top:12px; color:var(--text-sec); font-size:0.85rem; text-align:center; line-height:1.7; }
+h2 {
+  font-size:1.55rem; margin:54px 0 20px; padding-bottom:10px;
+  border-bottom:2px solid var(--teal); display:inline-block;
+}
+h3 { font-size:1.18rem; color:var(--teal-light); margin:34px 0 14px; }
+p { color:var(--text-sec); margin:0 0 20px; }
+p strong, li strong { color:var(--text); }
+em { color:var(--teal-light); }
+ul,ol { color:var(--text-sec); padding-left:24px; margin:0 0 24px; }
+li { margin-bottom:10px; }
+li::marker { color:var(--teal); }
+.callout {
+  margin:28px 0; padding:20px 24px; background:var(--bg-card);
+  border-left:4px solid var(--teal); border-radius:8px; color:var(--text-sec);
+}
+.callout.purple { border-left-color:var(--purple); }
+.callout.gold { border-left-color:var(--gold); }
+.formula {
+  margin:24px 0; padding:18px 24px; background:rgba(77,217,207,0.06);
+  border-left:3px solid var(--teal); border-radius:8px;
+  font-family:'JetBrains Mono',monospace; color:var(--teal-light); font-size:1.05rem;
+}
+.formula small { display:block; margin-top:8px; font-size:0.78rem; color:var(--text-dim); font-family:'Noto Sans TC',sans-serif; }
+.tbl-wrap { overflow-x:auto; margin:24px 0; }
+table {
+  width:100%; border-collapse:collapse; background:var(--bg-card);
+  border-radius:var(--radius); overflow:hidden; font-size:0.92rem;
+}
+th {
+  text-align:left; color:var(--teal); background:rgba(77,217,207,0.1);
+  padding:12px 14px; border-bottom:1px solid var(--border);
+}
+td { padding:12px 14px; color:var(--text-sec); border-bottom:1px solid rgba(77,217,207,0.08); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+blockquote {
+  margin:34px 0; padding:24px 28px;
+  background:linear-gradient(135deg,rgba(77,217,207,0.06),rgba(139,92,246,0.06));
+  border-left:4px solid var(--teal); border-radius:8px;
+  color:var(--text); font-size:1.05rem;
+}
+.references { margin-top:60px; padding-top:34px; border-top:2px solid var(--teal); }
+.references h2 { border:none; margin-top:0; padding:0; }
+.references ol { list-style:none; counter-reset:ref; padding-left:0; }
+.references li {
+  counter-increment:ref; position:relative; padding-left:42px;
+  font-size:0.88rem; color:var(--text-sec); margin-bottom:14px;
+}
+.references li::before {
+  content:counter(ref); position:absolute; left:0; top:2px;
+  width:26px; height:26px; border-radius:50%;
+  background:rgba(77,217,207,0.12); color:var(--teal);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:0.75rem;
+}
+.article-footer {
+  margin-top:54px; padding-top:28px; border-top:1px solid var(--border);
+  color:var(--text-dim); font-size:0.88rem; text-align:center;
+}
+/* ---- dashboard ---- */
+.article-wide { max-width:1180px; margin:0 auto; padding:0 24px; }
+.dashboard { background:#0c1429; border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+.dashboard-grid { display:grid; grid-template-columns:260px minmax(0,1fr) 330px; gap:14px; padding:16px; }
+.dashboard-panel { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:14px; }
+.dashboard-panel h3 { color:var(--teal-light); margin:0 0 12px; font-size:1.02rem; }
+.dashboard-panel h3 + canvas { margin-bottom:14px; }
+.dashboard canvas { width:100%; display:block; border-radius:8px; background:#08101f; }
+.control-row { margin-bottom:14px; }
+.control-row label { display:flex; justify-content:space-between; color:var(--text-sec); font-size:.82rem; }
+.control-row output { color:var(--teal-light); font-family:'JetBrains Mono',monospace; }
+.control-row input[type="range"] { width:100%; accent-color:var(--teal); margin-top:4px; }
+.preset-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px; }
+.preset-button,.sim-button { border:1px solid var(--border); color:var(--text); background:var(--bg-card2); border-radius:8px; padding:9px; cursor:pointer; font-family:inherit; font-size:.82rem; }
+.preset-button:hover,.sim-button:hover { border-color:var(--teal); }
+.preset-button.active { border-color:var(--teal); color:var(--teal); }
+.simulation-actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:14px 0; }
+#preset-explanation { color:var(--text-sec); font-size:.82rem; margin:8px 0 4px; }
+#preset-limit { color:var(--gold); font-size:.8rem; margin:0; }
+.metric-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:14px; }
+.metric-card { background:#0a1326; border-radius:8px; padding:10px; }
+.metric-card span { color:var(--text-sec); font-size:.74rem; }
+.metric-value { color:var(--teal-light); font:600 1.2rem 'JetBrains Mono',monospace; margin-top:4px; }
+#model-status { color:var(--text-dim); font-size:.76rem; font-family:'JetBrains Mono',monospace; margin-top:12px; }
+.model-warning { border-left:4px solid var(--gold); background:rgba(244,162,97,.08); padding:14px 16px; color:var(--text-sec); border-radius:8px; margin-bottom:14px; font-size:.9rem; }
+.model-warning strong { color:var(--gold); }
+@media (max-width:980px) {
+  .dashboard-grid { grid-template-columns:1fr; }
+  .dashboard-panel.controls { order:2; }
+  .dashboard-panel.metrics { order:3; }
+}
+@media(max-width:640px) {
+  .article { padding:42px 18px 64px; }
+  .article-title { font-size:1.65rem; }
+  .top-bar-title { display:none; }
+  table { font-size:0.84rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="../index.html#teaching" class="back-link"><i class="fas fa-arrow-left"></i> 返回首頁</a>
+    <div class="top-bar-title">VIRTUAL BRAIN · E/I BALANCE · ALZHEIMER'S</div>
+  </div>
+</div>
+
+<article class="article">
+<header class="article-header">
+  <div class="article-meta">2026 / 06 / 22 · 計算神經科學與阿茲海默症</div>
+  <h1 class="article-title">幫大腦做一台「數位分身」：我們能用腦波，看見阿茲海默症最早的失衡嗎？</h1>
+  <p class="article-subtitle">從結構連接體、Jansen–Rit neural mass model 到 synthetic EEG：把看不見的 excitation–inhibition balance 變成可計算假說，也誠實標出目前仍未跨越的驗證缺口。</p>
+  <div class="article-author">
+    <div class="author-avatar">朱</div>
+    <div class="author-info">
+      <strong>朱國大 醫師</strong><br>
+      腎臟科暨認知神經科學研究 · 依據本專案學術回顧與 11 篇原始文獻整理
+    </div>
+  </div>
+  <div class="article-tags">
+    <span class="tag">Virtual Brain</span>
+    <span class="tag">Jansen–Rit</span>
+    <span class="tag">Neural Mass Model</span>
+    <span class="tag">E/I Balance</span>
+    <span class="tag">Alzheimer's Disease</span>
+    <span class="tag">EEG / MEG</span>
+    <span class="tag">Computational Neuroscience</span>
+  </div>
+</header>
+
+<figure class="hero-figure">
+  <img src="vbm-ei-brake-accelerator.svg" alt="大腦興奮與抑制平衡的油門與煞車圖解">
+  <figcaption>健康神經迴路需要 excitation 與 inhibition 的動態協調；模型中的任一參數都不能單獨等同真實生理 E/I。</figcaption>
+</figure>
+
+<p>我們常以為阿茲海默症就是「腦細胞一個一個死掉」。這沒錯，但只說對了一半。近十年，神經科學界越來越相信：在記憶真正開始流失之前很久，大腦其實是先<strong>失去了一種平衡</strong>。</p>
+
+<p>這篇文章，談的是一群科學家如何用數學模型，把看不見的「大腦煞車與油門」變成可以推算的數字——以及這條路目前走到哪、哪裡還是工地。中間會有一個你可以親手轉動的虛擬大腦儀表板。</p>
+
+<h2>一、大腦不是只會「壞掉」，它會先「失去平衡」</h2>
+
+<p>大腦的每一個神經迴路，都同時裝著「油門」和「煞車」。負責興奮（excitation）的<strong>錐體細胞</strong>是油門，負責抑制（inhibition）的<strong>中介神經元（interneuron）</strong>是煞車。健康的大腦，油門和煞車配合得天衣無縫，產生規律、和諧的腦波節奏。這種興奮與抑制之間的平衡，簡稱 <strong>E/I 平衡</strong>。</p>
+
+<p>阿茲海默症的元兇之一、澱粉樣蛋白（amyloid-β，簡稱 Aβ），最毒的地方不只是讓細胞死亡，而是它<em>可能</em>會特別去破壞「煞車」——傷害那些快速放電的抑制性中介神經元。煞車一鬆，油門就相對失控，於是局部腦區陷入「過度興奮」（hyperexcitability）。這種微觀的失衡，會一路往上放大，變成腦波上看得到的異常（Maestú 等人，2021）。</p>
+
+<div class="callout gold">
+  <strong>關鍵難題：</strong>這個「煞車與油門的比例」，在活人的腦袋裡根本量不到。你總不能在病人腦中插電極、或切片去數中介神經元。於是科學家想了一個迂迴卻聰明的辦法——做一台大腦的數位分身。
+</div>
+
+<h2>二、什麼是「虛擬大腦」？用電纜和振盪器拼出一顆腦</h2>
+
+<p>想像你要重建一座城市的供電網。你需要兩樣東西：<strong>電纜的接線圖</strong>，還有<strong>每一棟建築裡的設備</strong>。虛擬大腦（virtual brain / brain network model）也是這樣拼出來的：</p>
+
+<ul>
+  <li><strong>接線圖：</strong>用擴散造影（dMRI）掃出大腦白質纖維的走向，得到「哪一區連到哪一區」的<strong>結構連接體（connectome）</strong>。這是網路的「邊」。</li>
+  <li><strong>每個節點的設備：</strong>在每一個腦區放一個會自己振盪的數學模組（neural mass model），用方程式描述這區神經元群體的興奮與抑制如何拉鋸。這是網路的「節點」（Lu 等人，2022）。</li>
+</ul>
+
+<p>把這兩者組起來餵進電腦，它就會<strong>自己長出</strong>模擬的腦波或血流訊號（forward simulation）。最妙的是——你可以反過來操作：拿真實病人的腦波，去「反推」那台分身裡看不見的旋鈕轉到了哪裡，包括我們最想知道的 E/I 比例（inverse inference）。</p>
+
+<figure>
+  <img src="vbm-ei-pipeline.svg" alt="Virtual Brain 模型資料流：從結構連接體到參數推論">
+  <figcaption>從 dMRI 結構連接體、12 個 Jansen–Rit nodes、全域耦合與傳導延遲，到 synthetic EEG 與 model-based parameter inference。Forward 是預測訊號，Inverse 是反推參數。</figcaption>
+</figure>
+
+<h2>三、親手轉動模型：Jansen–Rit 全腦模擬</h2>
+
+<p>下面這個儀表板，背後是一個由 <strong>Jansen–Rit 方程式</strong>實際數值積分（RK4）出來的 12-node 全腦網路。每一個 node 都包含三個族群：<strong>錐體細胞</strong>、<strong>興奮性中介神經元</strong>與<strong>抑制性中介神經元</strong>；它輸出的「腦波」是錐體細胞接收到的興奮與抑制突觸電位之差。12 個 node 再透過一個固定、對稱、稀疏的結構權重矩陣互相耦合，其中兩個是高連結度的<strong>樞紐（hub）</strong>。</p>
+
+<p>你可以調整外部輸入、興奮／抑制增益、抑制時間常數 tau_i、全域耦合 G 與雜訊，並切換四種情境預設。所有波形都是<strong>當下算出來的</strong>，不是預錄動畫；固定 seed 時輸出可重現，按「重設」即回到基準狀態。</p>
+
+<section class="article-wide" aria-labelledby="dashboard-title">
+  <div class="model-warning">
+    <strong>研究示範，非診斷工具：</strong>
+    此 dashboard 使用簡化的 12-node Jansen–Rit network。它不含任何病患資料，也不代表特定研究受試者，呈現的是模型的內部一致性，而非生理驗證。
+  </div>
+  <div class="dashboard" id="vbm-dashboard">
+    <div class="dashboard-grid">
+      <aside class="dashboard-panel controls">
+        <h3 id="dashboard-title">模型控制</h3>
+        <div class="preset-grid" id="preset-grid">
+          <button class="preset-button active" data-preset="healthy">健康平衡</button>
+          <button class="preset-button" data-preset="tauLong">tau_i 延長</button>
+          <button class="preset-button" data-preset="hubHyper">Hub hyperexcitability</button>
+          <button class="preset-button" data-preset="widespread">廣泛失衡</button>
+        </div>
+        <div id="controls"></div>
+        <div class="simulation-actions">
+          <button class="sim-button" id="pause-button">暫停</button>
+          <button class="sim-button" id="reset-button">重設</button>
+        </div>
+        <p id="preset-explanation"></p>
+        <p id="preset-limit"></p>
+      </aside>
+      <div class="dashboard-panel">
+        <h3>12-node Virtual Brain</h3>
+        <canvas id="network-canvas" width="720" height="430"></canvas>
+        <h3>EEG-like activity</h3>
+        <canvas id="trace-canvas" width="720" height="230"></canvas>
+      </div>
+      <aside class="dashboard-panel metrics">
+        <h3>即時頻譜與指標</h3>
+        <canvas id="spectrum-canvas" width="430" height="260"></canvas>
+        <div class="metric-grid">
+          <div class="metric-card"><span>Theta power</span><div id="theta-value" class="metric-value">—</div></div>
+          <div class="metric-card"><span>Alpha power</span><div id="alpha-value" class="metric-value">—</div></div>
+          <div class="metric-card"><span>Theta / Alpha</span><div id="ratio-value" class="metric-value">—</div></div>
+          <div class="metric-card"><span>Synchrony</span><div id="sync-value" class="metric-value">—</div></div>
+        </div>
+        <p id="model-status" aria-live="polite"></p>
+      </aside>
+    </div>
+    <noscript>
+      <figure class="inline-figure">
+        <img src="vbm-ei-pipeline.svg" alt="Virtual Brain 模型資料流">
+        <figcaption>JavaScript 未啟用，因此顯示靜態模型流程。</figcaption>
+      </figure>
+    </noscript>
+  </div>
+</section>
+
+<div class="formula">
+  S(v) = 2·e0 / (1 + exp(r·(v0 − v)))
+  <small>每個 node 的錐體細胞膜電位 v = y1 − y2（興奮減抑制突觸電位），經 sigmoid 轉成放電率。改變 tau_i 會同時改變抑制反應的「時間形狀」與「曲線下面積」，因此 preset 命名為「抑制時間常數延長」，而不是「抑制下降」。</small>
+</div>
+
+<h2>四、三個比喻，看懂背後的數學</h2>
+
+<h3>比喻一：足球場的「人浪」</h3>
+<p>（對應 Cooray 2023 的絕熱近似）人浪是怎麼形成的？微觀上每個球迷只是看旁邊的人快速站起、坐下；但從高處看，是一道緩緩繞場移動的<strong>巨大的波</strong>。要理解大腦的慢變化，你不需要追蹤每個神經元每一毫秒的動作，只要描述那道波的「能量地形」（勢能景觀）。當阿茲海默症讓某些「球迷」不配合，這片地形就會變形，人浪可能提早崩潰。</p>
+
+<h3>比喻二：收音機的「調幅解調」</h3>
+<p>（對應 Schirner 2018 的半波整流）老式 AM 收音機靠「整流器」把波形負半邊削掉，把人聲從高頻電波擠出來。大腦裡的<strong>抑制性神經元就扮演整流器</strong>：因為放電率不能小於零，高頻 Alpha 波（約 10 Hz）的負半邊被削掉，於是 Alpha 的強弱起伏被翻譯成 fMRI 看到的那種極慢網路活動。重點是：<strong>大腦是非線性的</strong>，必須把「放電率不能為負」寫進模型。</p>
+
+<h3>比喻三：城市的音響合成器</h3>
+<p>（對應 Stefanovski 2019 的全腦傳播）把大腦想成一整組相連的合成器，每區原本都奏著和諧的 10 Hz 中音。當 Aβ 在某幾個街區堆積，就像把那個模組的濾波器旋鈕（tau_i）轉慢了，那一區開始發出低沉的 4 Hz 噪音。可怕的是——<strong>如果壞掉的剛好是樞紐</strong>，它會逼著其他健康模組一起走音。研究的漂亮對照是：若把 Aβ 平均撒開（而非集中），這種變慢就不會發生——「不均勻」與「透過樞紐傳播」缺一不可。</p>
+
+<h2>五、這套方法目前「看到」了什麼？</h2>
+
+<p>四個代表性研究，各自從不同角度提供了證據：</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>研究</th><th>樣本</th><th>關鍵發現</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Stam 2023</strong><br>MEG × Stuart-Landau</td>
+      <td>SCD / MCI 世代</td>
+      <td>Theta 頻段「振幅包絡相關（AEC）」最敏感，在高興奮、中等耦合時最貼近真實大腦（<strong style="color:var(--teal)">SCD r=0.697、MCI r=0.587</strong>）。</td>
+    </tr>
+    <tr>
+      <td><strong>Yokoyama 2023</strong><br>睡眠 EEG × 卡爾曼濾波</td>
+      <td><strong style="color:var(--teal)">19 位健康受試者</strong></td>
+      <td>以不到一秒的解析度追蹤整夜睡眠的 E/I 變化：深睡興奮上升、REM 抑制上升，傳統方法測不到。</td>
+    </tr>
+    <tr>
+      <td><strong>Stefanovski 2019</strong><br>Aβ 驅動虛擬腦波</td>
+      <td><strong style="color:var(--teal)">N=33；10 AD、8 MCI、15 HC</strong></td>
+      <td>把 Aβ-PET 餵進虛擬大腦，重現典型「Alpha 轉 Theta」變慢（tau_i 14→50 ms），並模擬虛擬 Memantine 讓腦波「正常化」。</td>
+    </tr>
+    <tr>
+      <td><strong>Zimmermann 2018</strong><br>反推參數 × 認知</td>
+      <td><strong style="color:var(--teal)">N=124；73 HC、35 aMCI、16 AD</strong></td>
+      <td>模型反推的內部參數比單純連接矩陣更能預測認知分數；邊緣系統「過度興奮」與認知衰退負相關，「局部抑制」反而是保護因子。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>把這些拼起來，故事很迷人：<strong>分子病變 → 煞車失靈 → 局部過度興奮 → 腦波變慢 → 認知衰退</strong>，而且每一步都能用數學接起來、甚至能在電腦裡試藥。</p>
+
+<h2>六、請務必把這些「但是」聽完</h2>
+
+<p>真正負責任的科學，重點往往在「但是」之後。這套方法目前有幾個還沒解決的硬傷，誠實列出來：</p>
+
+<ol>
+  <li><strong>E/I 從頭到尾沒有被「量」過，只是被「猜」出來的。</strong>所有「過度興奮」都是模型擬合出來的最佳參數，沒有任何一個 AD 世代用電極、磁振波譜或穿顱磁刺激去直接驗證。這帶有一點循環論證：模型假設有一個 E/I 軸 → 用它去擬合腦波 → 然後宣布 E/I 能解釋腦波。</li>
+  <li><strong>數學最可靠的地方，剛好不是疾病最嚴重的地方。</strong>Deschle 2021 明白指出，這類均場模型只有在某個臨界帶（validity band，<strong style="color:var(--teal)">lambda 約 0.70–0.85</strong>）附近才準；而 AD 最典型的「前側超同步、後側低同步」恰恰落在這個可信區間之外。我們的尺，在最該量的地方最不準。</li>
+  <li><strong>虛擬腦波，從沒跟「同一個人的真實腦波」對照過。</strong>最關鍵的模擬研究（Stefanovski 2019）當年並沒有同步收錄這些病人的真實腦電圖。缺少 <strong>same-subject</strong> 的電生理對照，「模擬出變慢」其實只是模型的內部自洽，不是驗證。</li>
+  <li><strong>「正常老化」幾乎沒有被認真建模。</strong>沒有任何研究真的招募「澱粉樣蛋白陰性的健康老人」當基準線。沒有這條老化基準線，所謂「AD 特有的失衡」就可能混入了單純老化的雜訊。</li>
+  <li><strong>一個容易被忽略的數學陷阱。</strong>模型用「把抑制時間常數 tau_i 拉長」代表「煞車失靈」。但拉長 tau_i 會讓抑制訊號的總面積變大——數學上反而是<strong>抑制增加</strong>，跟「去抑制」的故事方向相反。換句話說，<strong>tau_i 延長不等同抑制總量減少</strong>；「比較慢」不等於「比較少」。</li>
+</ol>
+
+<p>此外：確診 AD 的樣本數偏小、缺乏縱貫追蹤、程式碼與資料多半未公開、不同研究的世代與儀器各異而無法互相複製。</p>
+
+<figure>
+  <img src="vbm-ei-evidence-roadmap.svg" alt="證據地圖：已有實證、模型推論與尚待驗證三層分區">
+  <figcaption>把「已知」「推論」與「待驗證」分清楚，避免把模型當定論。</figcaption>
+</figure>
+
+<h2>七、不是臨床工具，而是一張施工藍圖</h2>
+
+<p>把上面的批評讀完，你該得到的結論不是「這套方法沒用」，而是——它現在是一個非常有價值的<strong>理論框架與研究路線圖</strong>，<strong>不是已驗證的臨床 biomarker</strong>。</p>
+
+<p>它把分子、腦波、認知第一次用一套可以計算、可以反推、甚至可以模擬投藥的數學語言串了起來。它真正缺的，是接下來這幾件事：</p>
+
+<ul>
+  <li>在<strong>同一群病人</strong>身上同時收 PET、磁振造影與真實腦波，讓模型對照他們自己的 same-subject 訊號；</li>
+  <li>老老實實建立一條<strong>健康老化的 E/I 基準線</strong>；</li>
+  <li>把不同方法（Stam 的 a、Yokoyama 的 mE/I、Zimmermann 的耦合參數）拿來<strong>跨模型互相驗證</strong>，而不是各說各話；</li>
+  <li>做<strong>縱貫追蹤與介入</strong>，把「相關」變成「因果」。</li>
+</ul>
+
+<blockquote>
+  科學最迷人的地方，從來不是給你一個漂亮的答案，而是清楚告訴你：我們現在站在哪裡，下一塊磚該往哪裡砌。用數位分身解碼大腦的煞車與油門，這條路才剛鋪到一半——但方向，已經看得很清楚了。
+</blockquote>
+
+<h2>Take-home Messages</h2>
+
+<div class="callout">
+  <ul style="margin:0;">
+    <li>阿茲海默症在記憶流失之前，<strong>很可能先出現 E/I 失衡與局部過度興奮</strong>。</li>
+    <li>虛擬大腦把看不見的 E/I 變成<strong>可計算的假說</strong>，並能在電腦裡模擬病程與投藥。</li>
+    <li>本文的儀表板呈現的是<strong>模型內部一致性</strong>，不是生理效度；它是研究示範、<strong>非診斷工具</strong>。</li>
+    <li>最大的缺口是 same-subject 電生理驗證、正常老化基準線與縱貫研究；在補上之前，它<strong>不是已驗證的臨床 biomarker</strong>。</li>
+  </ul>
+</div>
+
+<section class="references">
+<h2>參考資料</h2>
+<ol>
+  <li><strong>Clusella P, Köksal-Ersöz E, Garcia-Ojalvo J, Ruffini G.</strong> Comparison between an exact and a heuristic neural mass model with second-order synapses. <em>Biological Cybernetics</em>. 2022;117(1–2):5–19. <a href="https://doi.org/10.1007/s00422-022-00952-7" target="_blank">doi:10.1007/s00422-022-00952-7</a></li>
+  <li><strong>Cooray GK, Rosch RE, Friston KJ.</strong> Global dynamics of neural mass models. <em>PLOS Computational Biology</em>. 2023;19(2):e1010915. <a href="https://doi.org/10.1371/journal.pcbi.1010915" target="_blank">doi:10.1371/journal.pcbi.1010915</a></li>
+  <li><strong>Deschle N, Ignacio Gossn J, Tewarie P, Schelter B, Daffertshofer A.</strong> On the validity of neural mass models. <em>Frontiers in Computational Neuroscience</em>. 2021;14:581040. <a href="https://doi.org/10.3389/fncom.2020.581040" target="_blank">doi:10.3389/fncom.2020.581040</a></li>
+  <li><strong>Lu M, Guo Z, Gao Z, Cao Y, Fu J.</strong> Multiscale brain network models and their applications in neuropsychiatric diseases. <em>Electronics</em>. 2022;11(21):3468. <a href="https://doi.org/10.3390/electronics11213468" target="_blank">doi:10.3390/electronics11213468</a></li>
+  <li><strong>Maestú F, de Haan W, Busche MA, DeFelipe J.</strong> Neuronal excitation/inhibition imbalance: Core element of a translational perspective on Alzheimer pathophysiology. <em>Ageing Research Reviews</em>. 2021;69:101372. <a href="https://doi.org/10.1016/j.arr.2021.101372" target="_blank">doi:10.1016/j.arr.2021.101372</a></li>
+  <li><strong>Schirner M, McIntosh AR, Jirsa V, Deco G, Ritter P.</strong> Inferring multi-scale neural mechanisms with brain network modelling. <em>eLife</em>. 2018;7:e28927. <a href="https://doi.org/10.7554/eLife.28927" target="_blank">doi:10.7554/eLife.28927</a></li>
+  <li><strong>Stam CJ, van Nifterick AM, de Haan W, Gouw AA.</strong> Network hyperexcitability in early Alzheimer's disease: Is functional connectivity a potential biomarker? <em>Brain Topography</em>. 2023;36:595–612. <a href="https://doi.org/10.1007/s10548-023-00968-7" target="_blank">doi:10.1007/s10548-023-00968-7</a></li>
+  <li><strong>Stefanovski L, Triebkorn P, Spiegler A, et al.</strong> Linking molecular pathways and large-scale computational modeling to assess candidate disease mechanisms and pharmacodynamics in Alzheimer's disease. <em>Frontiers in Computational Neuroscience</em>. 2019;13:54. <a href="https://doi.org/10.3389/fncom.2019.00054" target="_blank">doi:10.3389/fncom.2019.00054</a></li>
+  <li><strong>Stefanovski L, Meier JM, Pai RK, et al.</strong> Bridging scales in Alzheimer's disease: Biological framework for brain simulation with The Virtual Brain. <em>Frontiers in Neuroinformatics</em>. 2021;15:630172. <a href="https://doi.org/10.3389/fninf.2021.630172" target="_blank">doi:10.3389/fninf.2021.630172</a></li>
+  <li><strong>Yokoyama H, Kitajo K.</strong> A data assimilation method to track excitation–inhibition balance change using scalp EEG. <em>Communications Engineering</em>. 2023;2:92. <a href="https://doi.org/10.1038/s44172-023-00143-7" target="_blank">doi:10.1038/s44172-023-00143-7</a></li>
+  <li><strong>Zimmermann J, Perry A, Breakspear M, et al.</strong> Differentiation of Alzheimer's disease based on local and global parameters in personalized Virtual Brain models. <em>NeuroImage: Clinical</em>. 2018;19:240–251. <a href="https://doi.org/10.1016/j.nicl.2018.04.017" target="_blank">doi:10.1016/j.nicl.2018.04.017</a></li>
+</ol>
+</section>
+
+<footer class="article-footer">
+  本文為科普改寫，依據本專案英文學術回顧與 11 篇已發表原始文獻；文中比喻僅為輔助理解，數值與結論以學術版與原文為準。互動儀表板為 Jansen–Rit neural mass model 的即時數值模擬，呈現模型內部一致性，屬研究示範、非診斷工具。<br><br>
+  <a href="../index.html#teaching">← 回到演講教學列表</a>
+</footer>
+</article>
+
+<script src="vbm-ei-model.js"></script>
+<script src="vbm-ei-alzheimers.js"></script>
+</body>
+</html>
