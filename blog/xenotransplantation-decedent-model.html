@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="首例豬到人原位多器官聯合移植研究解析：探討六基因編輯供體豬如何突破超急性排斥反應，以及 S100A12+ 嗜中性球與系統代謝同化的早期適應機制。">
+<title>首例人體遺體原位多器官異種移植：打破超急性排斥的跨物種適應圖譜 | 朱國大醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg-primary:#0a0f1e;
+  --bg-card:#111d3c;
+  --bg-card2:#162248;
+  --teal:#4dd9cf;
+  --teal-light:#7ee8e2;
+  --purple:#8b5cf6;
+  --purple-light:#a78bfa;
+  --gold:#f4a261;
+  --text:#e8f4f8;
+  --text-sec:#8ba8c4;
+  --text-dim:#4a6580;
+  --border:rgba(77,217,207,0.15);
+  --shadow:0 8px 32px rgba(0,0,0,0.45);
+  --radius:12px;
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family:'Noto Sans TC','Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text);
+  line-height:1.9;
+}
+a { color:var(--teal); text-decoration:none; }
+a:hover { color:var(--teal-light); }
+.top-bar {
+  position:sticky; top:0; z-index:100;
+  background:rgba(10,15,30,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;
+}
+.top-bar-inner {
+  max-width:980px; margin:0 auto; padding:0 24px;
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+}
+.back-link { color:var(--text-sec); font-size:0.9rem; display:inline-flex; gap:8px; align-items:center; }
+.top-bar-title { font-size:0.82rem; color:var(--text-dim); font-family:'JetBrains Mono',monospace; }
+.article { max-width:860px; margin:0 auto; padding:58px 24px 82px; }
+.article-header {
+  margin-bottom:44px; padding-bottom:34px;
+  border-bottom:1px solid var(--border);
+}
+.article-meta {
+  color:var(--teal); font-size:0.85rem;
+  font-family:'JetBrains Mono',monospace; margin-bottom:14px;
+}
+.article-title {
+  font-size:2.25rem; line-height:1.35; margin-bottom:18px;
+  background:linear-gradient(135deg,var(--text),var(--teal-light));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.article-subtitle { color:var(--text-sec); font-size:1.04rem; }
+.article-author {
+  margin-top:24px; padding-top:20px; border-top:1px solid var(--border);
+  display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+}
+.author-avatar {
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,#2a9d8f,var(--purple));
+  display:flex; align-items:center; justify-content:center; font-weight:700;
+}
+.author-info { color:var(--text-sec); font-size:0.88rem; line-height:1.65; }
+.author-info strong { color:var(--text); }
+.article-tags { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; }
+.tag {
+  font-size:0.72rem; padding:3px 12px; border-radius:20px;
+  background:rgba(77,217,207,0.08); color:var(--teal);
+  border:1px solid rgba(77,217,207,0.2);
+}
+.hero-figure {
+  margin:34px 0 42px; border:1px solid var(--border); border-radius:var(--radius);
+  background:var(--bg-card); overflow:hidden; box-shadow:var(--shadow);
+}
+.hero-figure img { display:block; width:100%; height:auto; }
+.hero-figure figcaption { color:var(--text-dim); font-size:0.82rem; padding:12px 16px; }
+.inline-figure {
+  margin:36px 0; border:1px solid var(--border); border-radius:var(--radius);
+  background:var(--bg-card); overflow:hidden; box-shadow:var(--shadow);
+}
+.inline-figure img { display:block; width:100%; height:auto; }
+.inline-figure figcaption { color:var(--text-dim); font-size:0.82rem; padding:12px 16px; }
+h2 {
+  font-size:1.55rem; margin:54px 0 20px; padding-bottom:10px;
+  border-bottom:2px solid var(--teal); display:inline-block;
+}
+h3 { font-size:1.18rem; color:var(--teal-light); margin:34px 0 14px; }
+p { color:var(--text-sec); margin:0 0 20px; }
+p strong, li strong { color:var(--text); }
+em { color:var(--teal-light); }
+ul,ol { color:var(--text-sec); padding-left:24px; margin:0 0 24px; }
+li { margin-bottom:10px; }
+li::marker { color:var(--teal); }
+.callout {
+  margin:28px 0; padding:20px 24px; background:var(--bg-card);
+  border-left:4px solid var(--teal); border-radius:8px; color:var(--text-sec);
+}
+.callout.purple { border-left-color:var(--purple); }
+.callout.gold { border-left-color:var(--gold); }
+.formula {
+  margin:24px 0; padding:18px 24px; background:rgba(77,217,207,0.06);
+  border-left:3px solid var(--teal); border-radius:8px;
+  font-family:'JetBrains Mono',monospace; color:var(--teal-light); font-size:1.05rem;
+}
+.formula small { display:block; margin-top:8px; font-size:0.78rem; color:var(--text-dim); }
+.tbl-wrap { overflow-x:auto; margin:24px 0; }
+table {
+  width:100%; border-collapse:collapse; background:var(--bg-card);
+  border-radius:var(--radius); overflow:hidden; font-size:0.92rem;
+}
+th {
+  text-align:left; color:var(--teal); background:rgba(77,217,207,0.1);
+  padding:12px 14px; border-bottom:1px solid var(--border);
+}
+td { padding:12px 14px; color:var(--text-sec); border-bottom:1px solid rgba(77,217,207,0.08); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+blockquote {
+  margin:34px 0; padding:24px 28px;
+  background:linear-gradient(135deg,rgba(77,217,207,0.06),rgba(139,92,246,0.06));
+  border-left:4px solid var(--teal); border-radius:8px;
+  color:var(--text); font-size:1.05rem;
+}
+.references { margin-top:60px; padding-top:34px; border-top:2px solid var(--teal); }
+.references h2 { border:none; margin-top:0; padding:0; }
+.references ol { list-style:none; counter-reset:ref; padding-left:0; }
+.references li {
+  counter-increment:ref; position:relative; padding-left:42px;
+  font-size:0.88rem; color:var(--text-sec);
+}
+.references li::before {
+  content:counter(ref); position:absolute; left:0; top:2px;
+  width:26px; height:26px; border-radius:50%;
+  background:rgba(77,217,207,0.12); color:var(--teal);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:0.75rem;
+}
+.article-footer {
+  margin-top:54px; padding-top:28px; border-top:1px solid var(--border);
+  color:var(--text-dim); font-size:0.88rem; text-align:center;
+}
+@media(max-width:640px) {
+  .article { padding:42px 18px 64px; }
+  .article-title { font-size:1.65rem; }
+  .top-bar-title { display:none; }
+  table { font-size:0.84rem; }
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="../index.html#teaching" class="back-link"><i class="fas fa-arrow-left"></i> 返回首頁</a>
+    <div class="top-bar-title">XENOTRANSPLANTATION IMMUNOLOGY</div>
+  </div>
+</div>
+
+<article class="article">
+<header class="article-header">
+  <div class="article-meta">2026 / 06 / 23 · 移植免疫學與前沿醫學</div>
+  <h1 class="article-title">首例豬到人原位多器官聯合移植：打破跨物種排斥的適應圖譜與早期免疫防線</h1>
+  <p class="article-subtitle">當我們試圖用編輯過的豬器官完整替代人體臟器，跨物種的免疫與代謝系統會發生什麼衝突？解析最新人體遺體模型研究中的基因工程、單細胞測序與系統代謝同化軌跡。</p>
+  <div class="article-author">
+    <div class="author-avatar">朱</div>
+    <div class="author-info">
+      <strong>朱國大 醫師</strong><br>
+      腎臟科暨認知神經科學研究 · 依據 Liao 等人 2026 發表於 Med 論文整理
+    </div>
+  </div>
+  <div class="article-tags">
+    <span class="tag">異種移植</span>
+    <span class="tag">六基因編輯豬</span>
+    <span class="tag">單細胞轉錄組</span>
+    <span class="tag">非靶向代謝組學</span>
+    <span class="tag">移植免疫學</span>
+  </div>
+</header>
+
+<figure class="hero-figure">
+  <img src="xenotransplant-hero.png" alt="Sleek scientific illustration showing edited DNA double helix and stylized glassmorphic liver and kidney organs representing pig-to-human transplantation.">
+  <figcaption>前沿探索：藉由基因編輯的供體豬，人類首次在遺體模型中實現了原位完整肝臟與雙側腎臟的跨物種聯合移植。</figcaption>
+</figure>
+
+<p>長期以來，器官短缺一直是器官移植醫學面臨的最大瓶頸。為了解決這一难题，「異種移植」（Xenotransplantation）——即將動物（通常為豬）的器官移植到人體中，被視為最具潛力的終極解決方案。然而，人類免疫系統極為敏感，面對跨物種器官時，會立刻發動毀滅性的「超急性排斥反應」（Hyperacute Rejection, HAR），在幾分鐘到幾小時內摧毀移植臟器。</p>
+
+<p>最新發表於國際頂尖醫學期刊 <em>Med</em> 的研究（Liao et al., 2026），首次在腦死人體遺體模型中，成功實施了**原位完整肝臟合併雙側腎臟異種移植**（xeno-CLKT）。研究團隊利用基因編輯技術設計的供體豬，不僅成功維持移植臟器生理功能達 5 天，更透過高維度的系統生物學手段（單細胞測序、代謝組學），為我們揭示了跨物種適應的早期圖譜。</p>
+
+<div class="callout">
+  <strong>研究里程碑：</strong>本研究證明了經過「六基因編輯」的豬臟器，能在沒有超急性排斥的情況下，於人體內維持基本的合成與排泄功能。然而，單細胞測序與化學通訊網絡也抓到了早期免疫應答的「排頭兵」——$S100A12^+$ 嗜中性球。
+</div>
+
+<h2>一、六基因編輯平台：拆除超急性排斥的引信</h2>
+
+<p>異種移植的首要任務是讓移植器官在人體血液灌流下存活。這項研究的供體豬（一隻 427 天大的巴馬香豬）經過了 6 個基因的精密修改，包含 3 個「基因敲除」與 3 個「人源基因轉入」：</p>
+
+<h3>1. 敲除三大物種屏障（Knockout）</h3>
+<ul>
+  <li><strong>GGTA1 敲除</strong>：消除 $\alpha$-Gal 碳水化合物抗原，這是防範人體預存天然抗體發動超急性排斥最關鍵的一步。</li>
+  <li><strong>CMAH 敲除</strong>：消除 Neu5Gc 抗原。人類因基因突變缺乏 CMAH 酶，因此會對 Neu5Gc 產生排斥應答。</li>
+  <li><strong>B4GALNT2 敲除</strong>：消除 SDa 抗原，徹底清除人體抗體識別的主要靶點。</li>
+</ul>
+
+<h3>2. 導入人體保護蛋白（Knock-in）</h3>
+<ul>
+  <li><strong>hCD46 & hCD55</strong>：兩者皆為人類補體調節蛋白，能有效抑制人體補體級聯反應的激活，防止細胞溶解與血管內皮破壞。</li>
+  <li><strong>hTHBD（人類血栓調節蛋白）</strong>：由於豬-人凝血系統不相容，異種移植極易並發微血管血栓形成。hTHBD 的表達能激活蛋白 C，從而發揮強效抗凝血與抗炎作用，保護移植器官血管內皮。</li>
+</ul>
+
+<div class="tbl-wrap">
+<table>
+<thead>
+<tr><th>編輯類型</th><th>目標基因</th><th>主要功能</th><th>解決之臨床瓶頸</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Knockout (敲除)</strong></td><td>GGTA1 / CMAH / B4GALNT2</td><td>消除豬源性碳水化合物抗原</td><td>防範超急性排斥反應 (HAR)</td></tr>
+<tr><td><strong>Knock-in (轉入)</strong></td><td>hCD46 / hCD55</td><td>表達人類補體調節蛋白</td><td>阻止補體激活與細胞溶解</td></tr>
+<tr><td><strong>Knock-in (轉入)</strong></td><td>hTHBD</td><td>表達人類血栓調節蛋白</td><td>預防微血管血栓形成 (TMA)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>二、$S100A12^+$ 嗜中性球：早期免疫防線的「核心樞紐」</h2>
+
+<p>雖然六基因編輯成功壓制了體液免疫的超急性排斥，但細胞層級的早期炎症反應依然會被激活。研究團隊在移植後不同時間點（最長至 72 小時），對受體外周血及移植肝腎組織進行了單細胞 RNA 測序（scRNA-seq）。</p>
+
+<p>分析發現，在 PBMCs 和移植組織中，一類特殊的**$S100A12^+$ 嗜中性球（Neutrophils）**出現了顯著的擴增與浸潤：</p>
+
+<figure class="inline-figure">
+  <img src="xenotransplant-hero.png" style="opacity: 0.8;" alt="Neutrophil infiltration schematics">
+  <figcaption>圖示：隨著時間推移，$S100A12^+$ 嗜中性球會逐漸浸潤至移植器官血管周圍，引導後續的免疫與凝血反應。</figcaption>
+</figure>
+
+<ul>
+  <li><strong>細胞狀態特徵</strong>：這群嗜中性球不僅高度表達鈣結合蛋白 S100A12（反映高度發炎激活狀態），同時表現出強烈的凝血活化與血小板相互作用特徵。</li>
+  <li><strong>ADGRE 通訊軸</strong>：透過 CellChat 細胞通訊網絡分析，研究人員發現這群 $S100A12^+$ 嗜中性球與宿主的單核細胞、巨噬細胞、NK/T 細胞之間，主要透過 <strong>`ADGRE` 通訊通路</strong> 進行對話，成為調節早期異種移植物損傷的網絡中心。</li>
+</ul>
+
+<div class="callout purple">
+  <strong><i class="fas fa-microscope" style="margin-right:6px;"></i>未來干預策略：</strong>這項發現提示我們，未來要提高異種移植的長期存活率，除了常規的免疫抑制劑外，專門針對 S100A12 蛋白或 ADGRE 軸的分子靶向藥物，將是減輕早期缺血再灌注與異種細胞排斥的關鍵。
+</div>
+
+<h2>三、系統代謝組學：驚人的「宿主代謝同化」軌跡</h2>
+
+<p>除了免疫系統的對抗，另一個核心問題是：豬的器官在化學運作上，能適應人的內環境嗎？研究團隊利用液相色譜-質譜聯用（LC-MS/MS）技術，對受體的膽汁、尿液、血漿及組織進行了**非靶向代謝組學分析**，共捕捉到 3,352 種代謝物。</p>
+
+<h3>1. 哨兵代謝物：牛磺膽酸（Taurocholic Acid）</h3>
+<p>在膽汁基質中，移植後的**牛磺膽酸**呈現出漸進式的線性增加。牛磺膽酸是反映肝臟膽汁酸合成與主動排泄功能的「哨兵分子」。這表明移植的豬肝臟能成功利用受體的膽固醇前體，合成並正常排泄膽汁，具備完整的肝臟代謝合成活性。</p>
+
+<h3>2. 宿主代謝同化（Host Assimilation）</h3>
+<p>最有趣的發現來自對受體尿液和血漿代謝模式的相似度分析。隨著時間推移，受體系統的代謝特徵逐漸朝**受體移植前的基準線（Human baseline）**靠攏，而不是向供體豬的特徵漂移。</p>
+<p>這說明，雖然臟器來自豬，但在全身體液循環系統的緩衝與反饋調節下，外周代謝物迅速被宿主系統「同化（Assimilation）」，這為維持全身代謝穩態提供了強有力的支持。</p>
+
+<h2>四、邁向臨床的關鍵挑戰與局限性</h2>
+
+<p>儘管本研究在學術上取得了巨大成功，但要真正走入臨床應用，仍有幾個難題需要被解決：</p>
+
+<ol>
+  <li><strong>遺體模型的生理不穩定</strong>：腦死模型由於神經-內分泌系統瓦解，會伴隨嚴重的細胞因子風暴（Cytokine Storm），這可能放大了早期免疫激活的訊號。</li>
+  <li><strong>時間窗口的限制</strong>：受限於 decedent somatic condition，觀察時間僅維持了約 5 天。這段時間完全無法觀察到在移植後數周至數月才會發生的「急性細胞性排斥」與「慢性抗體介導排斥」。</li>
+  <li><strong>高劑量免疫抑制劑的副作用</strong>：為了壓制排斥，受體接受了極高劑量的免疫抑制劑，這些藥物對代謝系統的干擾需要更長的觀察期來進行校正。</li>
+</ol>
+
+---
+
+<div class="references">
+  <h2>參考文獻</h2>
+  <ol>
+    <li>Liao, J., An, S., Dong, J., Li, S., et al. (2026). First human decedent model of orthotopic multi-organ xenotransplantation: Whole liver and bilateral kidneys from a six-gene-edited pig. <em>Med</em>, 7, 101148. https://doi.org/10.1016/j.medj.2026.101148</li>
+    <li>Cooper, D. K., Ekser, B., & Tector, A. J. (2015). Immunobiology of xenotransplantation. <em>International Journal of Surgery</em>, 23, 268-275. https://doi.org/10.1016/j.ijsu.2015.06.059</li>
+  </ol>
+</div>
+
+<footer class="article-footer">
+  本文由朱國大醫師整理撰寫。內容僅供學術交流與科普傳播，轉載請註明出處。
+</footer>
+</article>
+</body>
+</html>
