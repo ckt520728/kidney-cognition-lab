@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="三個月、五個 AI 寫程式助手、一百多個坑：Codex、Claude Code、OpenCode、Antigravity、Hermes Agent 的真實實戰比較。">
+<title>我同時用了 5 個 AI 寫程式助手——真實實戰比較 | 朱國大醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg-primary:#0a0f1e;
+  --bg-card:#111d3c;
+  --bg-card2:#162248;
+  --teal:#4dd9cf;
+  --teal-light:#7ee8e2;
+  --purple:#8b5cf6;
+  --purple-light:#a78bfa;
+  --gold:#f4a261;
+  --red:#fb7185;
+  --text:#e8f4f8;
+  --text-sec:#8ba8c4;
+  --text-dim:#4a6580;
+  --border:rgba(77,217,207,0.15);
+  --shadow:0 8px 32px rgba(0,0,0,0.45);
+  --radius:12px;
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family:'Noto Sans TC','Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text);
+  line-height:1.9;
+}
+a { color:var(--teal); text-decoration:none; }
+a:hover { color:var(--teal-light); }
+.top-bar {
+  position:sticky; top:0; z-index:100;
+  background:rgba(10,15,30,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;
+}
+.top-bar-inner {
+  max-width:980px; margin:0 auto; padding:0 24px;
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+}
+.back-link { color:var(--text-sec); font-size:0.9rem; display:inline-flex; gap:8px; align-items:center; }
+.top-bar-title { font-size:0.82rem; color:var(--text-dim); font-family:'JetBrains Mono',monospace; }
+.article { max-width:860px; margin:0 auto; padding:58px 24px 82px; }
+.article-header {
+  margin-bottom:44px; padding-bottom:34px;
+  border-bottom:1px solid var(--border);
+}
+.article-meta {
+  color:var(--teal); font-size:0.85rem;
+  font-family:'JetBrains Mono',monospace; margin-bottom:14px;
+}
+.article-title {
+  font-size:2.25rem; line-height:1.35; margin-bottom:18px;
+  background:linear-gradient(135deg,var(--text),var(--teal-light));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.article-subtitle { color:var(--text-sec); font-size:1.04rem; }
+.article-author {
+  margin-top:24px; padding-top:20px; border-top:1px solid var(--border);
+  display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+}
+.author-avatar {
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,#2a9d8f,var(--purple));
+  display:flex; align-items:center; justify-content:center; font-weight:700;
+}
+.author-info { color:var(--text-sec); font-size:0.88rem; line-height:1.65; }
+.author-info strong { color:var(--text); }
+.article-tags { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; }
+.tag {
+  font-size:0.72rem; padding:3px 12px; border-radius:20px;
+  background:rgba(77,217,207,0.08); color:var(--teal);
+  border:1px solid rgba(77,217,207,0.2);
+}
+.hero-figure,.inline-figure {
+  margin:34px 0 42px; border:1px solid var(--border); border-radius:var(--radius);
+  background:var(--bg-card); overflow:hidden; box-shadow:var(--shadow);
+}
+.hero-figure img,.inline-figure img { display:block; width:100%; height:auto; }
+.hero-figure figcaption,.inline-figure figcaption { color:var(--text-dim); font-size:0.82rem; padding:12px 16px; }
+h2 {
+  font-size:1.55rem; margin:54px 0 20px; padding-bottom:10px;
+  border-bottom:2px solid var(--teal); display:inline-block;
+}
+h3 { font-size:1.18rem; color:var(--teal-light); margin:34px 0 14px; }
+h4 { font-size:1.02rem; color:var(--gold); margin:28px 0 12px; }
+p { color:var(--text-sec); margin:0 0 20px; }
+p strong, li strong { color:var(--text); }
+em { color:var(--teal-light); }
+ul,ol { color:var(--text-sec); padding-left:24px; margin:0 0 24px; }
+li { margin-bottom:10px; }
+li::marker { color:var(--teal); }
+code {
+  font-family:'JetBrains Mono',monospace; font-size:0.88em;
+  background:rgba(77,217,207,0.08); color:var(--teal-light);
+  padding:2px 7px; border-radius:4px;
+}
+.callout {
+  margin:28px 0; padding:20px 24px; background:var(--bg-card);
+  border-left:4px solid var(--teal); border-radius:8px; color:var(--text-sec);
+}
+.callout.purple { border-left-color:var(--purple); }
+.callout.gold { border-left-color:var(--gold); }
+.callout.red { border-left-color:var(--red); }
+.callout strong { display:block; margin-bottom:8px; color:var(--text); }
+.formula {
+  margin:24px 0; padding:18px 24px; background:rgba(77,217,207,0.06);
+  border-left:3px solid var(--teal); border-radius:8px;
+  font-family:'JetBrains Mono',monospace; color:var(--teal-light); font-size:1.05rem;
+}
+.tbl-wrap { overflow-x:auto; margin:24px 0; }
+table {
+  width:100%; border-collapse:collapse; background:var(--bg-card);
+  border-radius:var(--radius); overflow:hidden; font-size:0.92rem;
+}
+th {
+  text-align:left; color:var(--teal); background:rgba(77,217,207,0.1);
+  padding:12px 14px; border-bottom:1px solid var(--border);
+}
+td { padding:12px 14px; color:var(--text-sec); border-bottom:1px solid rgba(77,217,207,0.08); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+blockquote {
+  margin:34px 0; padding:24px 28px;
+  background:linear-gradient(135deg,rgba(77,217,207,0.06),rgba(139,92,246,0.06));
+  border-left:4px solid var(--teal); border-radius:8px;
+  color:var(--text); font-size:1.05rem;
+}
+.take-home {
+  margin:40px 0; padding:28px 32px;
+  background:linear-gradient(135deg,rgba(77,217,207,0.06),rgba(244,162,97,0.06));
+  border:1px solid var(--border); border-radius:var(--radius);
+}
+.take-home h3 {
+  color:var(--gold); margin-top:0; margin-bottom:18px;
+  font-size:1.2rem;
+}
+.take-home ol { padding-left:20px; }
+.take-home li { margin-bottom:14px; color:var(--text); }
+.references { margin-top:60px; padding-top:34px; border-top:2px solid var(--teal); }
+.references h2 { border:none; margin-top:0; padding:0; }
+.references ol { list-style:none; counter-reset:ref; padding-left:0; }
+.references li {
+  counter-increment:ref; position:relative; padding-left:42px;
+  font-size:0.88rem; color:var(--text-sec); margin-bottom:14px;
+}
+.references li::before {
+  content:counter(ref); position:absolute; left:0; top:2px;
+  width:26px; height:26px; border-radius:50%;
+  background:rgba(77,217,207,0.12); color:var(--teal);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:0.75rem;
+}
+.article-footer {
+  margin-top:54px; padding-top:28px; border-top:1px solid var(--border);
+  color:var(--text-dim); font-size:0.88rem; text-align:center;
+}
+@media(max-width:640px) {
+  .article { padding:42px 18px 64px; }
+  .article-title { font-size:1.65rem; }
+  .top-bar-title { display:none; }
+  table { font-size:0.84rem; }
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="../index.html#teaching" class="back-link"><i class="fas fa-arrow-left"></i> 返回首頁</a>
+    <span class="top-bar-title">AI TOOLS · FIELD REPORT</span>
+  </div>
+</div>
+
+<article class="article">
+<header class="article-header">
+  <div class="article-meta">2026 / 06 / 24 &nbsp;·&nbsp; AI 工具實戰</div>
+  <h1 class="article-title">我同時用了 5 個 AI 寫程式助手——真實實戰比較</h1>
+  <p class="article-subtitle">三個月、五個工具、一百多個坑：Codex、Claude Code、OpenCode、Antigravity、Hermes Agent 的田野調查報告</p>
+  <div class="article-author">
+    <div class="author-avatar">朱</div>
+    <div class="author-info">
+      <strong>朱國大 醫師</strong><br>
+      腎臟科 · 認知神經科學 · 陽明醫院
+    </div>
+  </div>
+  <div class="article-tags">
+    <span class="tag">AI Coding Agent</span>
+    <span class="tag">Codex</span>
+    <span class="tag">Claude Code</span>
+    <span class="tag">OpenCode</span>
+    <span class="tag">Antigravity</span>
+    <span class="tag">Hermes Agent</span>
+    <span class="tag">實戰比較</span>
+  </div>
+</header>
+
+<p>從 2026 年 4 月到 6 月，我花了將近三個月，同時用五個 AI 寫程式助手：OpenAI 的 Codex、Anthropic 的 Claude Code、開源的 OpenCode（搭 GLM-5.2）、Google 的 Antigravity、還有 Nous Research 的 Hermes Agent。這不是開箱文，是踩了近百個坑之後的真實心得。</p>
+
+<h2>為什麼要同時用五個？</h2>
+
+<p>因為沒有一個能搞定所有事。</p>
+
+<p>我是一個腎臟科醫師，同時做計算神經科學研究。我的日常工作很雜：早上讀 PubMed 新文獻、下午寫論文審稿、晚上做互動式教學網站、偶爾還要搞一個 Telegram bot 每天自動推播 AI 新聞到手機。</p>
+
+<p>每個 AI 助手都有它擅長的場景。與其找一個「全能」的，不如搞清楚哪個場合用哪個。這篇文章就是這三個月來的田野調查報告。</p>
+
+<h2>五位選手簡介</h2>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>工具</th><th>來源</th><th>底層模型</th><th>一句話定位</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong style="color:var(--teal);">Codex</strong></td><td>OpenAI</td><td>GPT-5.5</td><td>Skill 生態系最完整、內建圖像生成</td></tr>
+    <tr><td><strong style="color:var(--purple-light);">Claude Code</strong></td><td>Anthropic</td><td>Claude Opus/Sonnet</td><td>多代理人研究管線最成熟、品質控制最強</td></tr>
+    <tr><td><strong style="color:var(--teal-light);">OpenCode</strong></td><td>開源社群</td><td>GLM-5.2</td><td>MCP 整合能力最強、開源可替換模型</td></tr>
+    <tr><td><strong style="color:var(--gold);">Antigravity</strong></td><td>Google</td><td>Gemini</td><td>人機協作最友善、靜態部署最簡單</td></tr>
+    <tr><td><strong style="color:var(--red);">Hermes Agent</strong></td><td>Nous Research</td><td>Gemini / StepFun（免費輪換）</td><td>Telegram 遠端控制最自然、CRON 排程最實用</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>一、操作技巧：誰擅長什麼？</h2>
+
+<h3>Skill 打包與分享：Codex &gt; Claude Code &gt; OpenCode</h3>
+
+<p>三個工具都有 Skill 系統——把工作流封裝成可重複使用的技能包——但打包流程差很多。</p>
+
+<p><strong>Codex</strong> 的 Skill 打包最成熟，但上傳 claude.ai 時有四個陷阱：zip 結構、路徑分隔符、根目錄名、frontmatter <code>name:</code> 欄位。最狡猾的是第 3 和第 4 個錯誤訊息<em>一字不差</em>但根因完全不同——一個指 zip 內的資料夾名，一個指 SKILL.md 裡的 <code>name:</code> 欄位。我連續失敗 4 次才搞懂。</p>
+
+<div class="callout red">
+  <strong>踩坑教訓：錯誤訊息一樣不代表根因一樣</strong>
+  Codex Skill 上傳第 3 次和第 4 次的錯誤訊息文字完全相同：<code>root directory name must contain only alphanumeric characters, underscores, and hyphens</code>。但第 3 次的根因是 zip 內根目錄名含中文，第 4 次的根因是 SKILL.md frontmatter 的 <code>name:</code> 欄位含中文。不知道這點會陷入無限迴圈。
+</div>
+
+<p>另外，PowerShell 的 <code>Compress-Archive</code> 不能用——它把路徑分隔符寫成 <code>\</code>，但 ZIP 標準必須用 <code>/</code>。得用 .NET 的 <code>System.IO.Compression.ZipArchive</code> 手動處理。</p>
+
+<p><strong>Claude Code</strong> 的 Skill 生態也很完整，而且可以上傳到 claude.ai 分享。它的 SKILL.md 有標準結構（frontmatter → 鐵則 → 工作流程 → 編輯原則），共同原則是「零外部 LLM API 依賴、零捏造、反 LLM 陳腐用詞」。</p>
+
+<h3>MCP 連接能力：OpenCode &gt;&gt; Codex &gt; Claude Code ≈ Hermes</h3>
+
+<p>MCP（Model Context Protocol）是讓 AI 助手連接外部服務的協議。連得越多，能做的事越多。</p>
+
+<p><strong>OpenCode</strong> 是 MCP 整合之王。我的設定檔裡同時連了 NotebookLM（151 個筆記本的語意檢索）、Firebase（資料庫）、Obsidian（知識庫 vault）、Gmail（一度想接但 OAuth 踩坑連連）。設定完重啟一次就全部生效。</p>
+
+<p><strong>Codex</strong> 的 MCP 連接也不錯，但設定檔是 TOML 格式，Windows 路徑要寫雙反斜線 <code>C:\\Users\\...</code>，修改後必須完整重啟 Codex Desktop。</p>
+
+<p><strong>Hermes Agent</strong> 不走 MCP 路線，它用自己的 plugin 系統。但它的 Telegram bot 整合是獨門絕活——你可以在手機上用 Telegram 跟它講話，它就幫你建 CRON 排程、改模型設定、跑任務。</p>
+
+<h3>人機協作模式：Antigravity &gt; Claude Code &gt; Codex</h3>
+
+<p><strong>Antigravity</strong> 的「雙環迭代機制」是我用過最友善的協作模式。它不直接改你的稿子，而是先生一份 <code>implementation_plan.md</code>（預計修改條目、科學論據、擬新增文獻），讓你先看再批准。你可以在計畫裡加 comment 微調，它收到微調後重新精確計算並更新計畫，直到你說 Proceed 才動手。</p>
+
+<div class="callout">
+  <strong>Antigravity 雙環迭代的價值</strong>
+  第一環「無損回饋」——不直接改稿而是先生計畫供使用者微調，避免一改就錯。第二環 walkthrough 報告讓使用者一眼掌握微調後的最終呈現。對學術論文審查簡直是完美——不怕一改就錯。
+</div>
+
+<p><strong>Claude Code</strong> 的多代理人管線有類似的精神（Grounding Gate → BTL Tournament → Self-Healing Synthesis），但更自動化、更適合大量文獻的批量分析。</p>
+
+<h3>定時自動化：Hermes Agent &gt;&gt; Codex &gt; OpenCode</h3>
+
+<p><strong>Hermes Agent</strong> 的 CRON + Telegram 推播組合是全場最實用的自動化方案。我設了一個每天早上 8 點的 CRON，自動抓 PubMed（腎臟學 + 認知神經）+ arXiv（AI 論文）+ 五家 AI 新聞 RSS，用 GPT-5.5 整理成四區塊推到手機。完全免費、不綁信用卡、雲端排程不靠電腦開著。</p>
+
+<p>但 Hermes 有個「自反性死結」陷阱：</p>
+
+<div class="callout red">
+  <strong>Hermes 最獨家的坑：自反性死結</strong>
+  quota 用完時，你想用 Telegram 叫 bot 改模型，但 bot 的對話本身也用 Main Model——Main Model 壞了 bot 連解析「請改模型」都做不到。這時只能繞過 Telegram，直接用 PowerShell CLI 救。這是「對話為主」原則的唯一例外：<em>對話通道故障時，CLI 才是唯一救星</em>。
+</div>
+
+<h3>圖像生成：Codex 獨佔</h3>
+
+<p>只有 <strong>Codex</strong> 內建 gpt-image-2（OpenAI 的圖像生成模型）。Codex 訂閱者免設 API key 就能生圖。我的 SOIL 教學簡報工作流就是靠這個：OpenCode（GLM-5.2）跑引擎 1-5 產 prompt → 到 Codex Desktop 生圖 → 圖回來後 OpenCode 做 QA + 打包。其他四個工具都沒有內建圖像生成。</p>
+
+<h2>二、碰到的坑：共同陷阱 vs 獨家地雷</h2>
+
+<h3>五個工具都會踩的共同陷阱</h3>
+
+<h4>PowerShell 5.1 是 Windows 上 AI agent 的最大敵人</h4>
+
+<p>這五個工具在 Windows 上都踩過同一批 PowerShell 坑：</p>
+
+<ul>
+  <li><code>Set-Content</code> / <code>Out-File</code> 預設寫 UTF-16 LE with BOM，破壞中文 → 全部改用 .NET <code>UTF8Encoding($false)</code> 寫無 BOM UTF-8。</li>
+  <li>含中文路徑 <code>Test-Path</code> / <code>Join-Path</code> 失敗 → 先 <code>cp</code> 到 ASCII 路徑再用 <code>-LiteralPath</code>。</li>
+  <li><code>ConvertFrom-Json</code> 在 PS 5.1 是 case-insensitive，JSON 有 <code>.c</code> 跟 <code>.C</code> 兩個 key 時會誤判。</li>
+  <li>PowerShell 管線傳中文 JSON 變 <code>??</code> → 先用 ASCII 路徑測試確認管線正常。</li>
+</ul>
+
+<h4>Anaconda DLL load failed 是同一個根因</h4>
+
+<p>conda <code>Library\bin</code> 沒掛 PATH，只有 <code>conda activate</code> 才會掛。PIL 和 numpy 都會中招。治本解法是 <code>import enable_conda_dlls</code>，<strong>不要重灌 Anaconda</strong>。這個坑我在 OpenCode 和 Claude Code 上都踩過，花了兩天才搞清楚是同一個原因。</p>
+
+<h3>各工具的獨家地雷</h3>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>工具</th><th>獨家地雷</th><th>根因</th><th>救法</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong style="color:var(--teal);">Codex</strong></td><td>Skill 上傳錯誤 #3 = #4 但根因不同</td><td>「root directory」同時指 zip 結構和 SKILL.md <code>name:</code> 欄位</td><td>ASCII name + <code>System.IO.Compression</code> 打包</td></tr>
+    <tr><td><strong style="color:var(--purple-light);">Claude Code</strong></td><td>Cowork NPE <code>Cannot read properties of undefined</code></td><td>manifest.json 壞 entry 缺 <code>name</code> 欄位</td><td>手動砍壞 entry + 完全重啟 Desktop</td></tr>
+    <tr><td><strong style="color:var(--teal-light);">OpenCode</strong></td><td>Gmail MCP OAuth 全線卡關</td><td>OAuth 需瀏覽器互動，agent 環境做不到</td><td>改用 App Password + IMAP/SMTP</td></tr>
+    <tr><td><strong style="color:var(--gold);">Antigravity</strong></td><td>沙盒 iframe 語音合成 SecurityError 崩潰</td><td><code>speechSynthesis.speak()</code> 在受限沙盒被拒</td><td>try-catch + JS <code>setInterval</code> 降級模擬進度</td></tr>
+    <tr><td><strong style="color:var(--red);">Hermes</strong></td><td>Quota 用完時 bot 無法改自己的模型</td><td>Main Model 壞了 bot 連「請改模型」都解析不了</td><td>繞過 Telegram，直接用 PowerShell CLI</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>我最深刻的教訓是：<strong>錯誤訊息的文字一樣不代表根因一樣。</strong> Codex 的 Skill 上傳第 3 次和第 4 次錯誤訊息一字不差，但一個指 zip 內根目錄名、一個指 SKILL.md frontmatter <code>name:</code> 欄位。不知道這點會陷入無限迴圈。</p>
+
+<h2>三、實務經驗：每個 AI 的獨門絕活</h2>
+
+<h3>Codex：自動化心跳與圖像生成的王者</h3>
+
+<p>Codex 最獨特的能力是 <strong>heartbeat automation</strong>——排程每天自動執行任務。我用它做 OpenClaw + LINE 生活助理的自動恢復：每天早上 7:05 自動檢查 LINE webhook 是否活著，tunnel 停了就重建並更新 endpoint。這是其他四個工具都做不到的。</p>
+
+<p>另外，gpt-image-2 內建是巨大優勢。我的 SOIL 教學簡報工作流（六顆引擎的教學設計 → AI 逐頁生圖 → 打包 PPTX）完全依賴 Codex 的圖像生成能力。其他工具要生圖只能走跨工具協作模式。</p>
+
+<h3>Claude Code：多代理人學術分析的泰斗</h3>
+
+<p>Claude Code 的 Robin MAS（Multi-Agent System）是我用過最成熟的多代理人研究管線。15 個 agent、971 秒、52 萬 tokens，產出一份 Reject 3.5/10 的論文評審報告——三條獨立數學軌跡都抵達同一個結論，Grounding Gate 還抓到了作者摘要裡的錯誤數字。</p>
+
+<div class="callout purple">
+  <strong>Grounding Gate 的價值</strong>
+  論文摘要寫 EigenWorms 83.9%，但 Grounding Agent 讀完全文發現這是 S5 baseline 的數字，PHCSSM 本身其實是 85.0%。更重要的是，GPU 記憶體「10-48MB」論文裡根本沒寫——是模型從摘要推測編造的。Grounding Gate 把這些全部標為 <code>hallucination_flags</code>。
+</div>
+
+<p>最讓我印象深刻的是 <strong>BTL Tournament</strong>（Bradley-Terry-Luce 錦標賽排名）：當兩個 agent 對同一個論點有矛盾時，不是讓一個 Monitor 裁判，而是讓它們兩兩比對「誰有更直接的論文佐證」。這比直接打分數穩得多，位置偏差也更少。</p>
+
+<h3>OpenCode：MCP 整合與跨工具協作的樞紐</h3>
+
+<p>OpenCode 的最大價值是「樞紐」——它能同時連接 NotebookLM（語意檢索 151 個筆記本）、Obsidian（結構化知識庫）、Firebase（資料庫），然後用 GLM-5.2 當大腦做跨來源整合。</p>
+
+<p>我用它做了 Sussillo vs Richards 研究方法論八維度對比表：同時查兩個 NotebookLM 筆記本（45 sources + 23 sources），由 LLM 做 cross-referencing，效率遠優於逐一查詢。最後產出的結論是：</p>
+
+<blockquote>
+  Sussillo 說大腦是動力學幾何；Richards 說大腦是資料生成引擎。兩者都是對的。
+</blockquote>
+
+<p>它也是跨工具協作的中心：OpenCode 產 prompt → Codex 生圖 → OpenCode 做 QA + 打包。沒有 OpenCode 的 MCP 整合能力，這個工作流跑不起來。</p>
+
+<h3>Antigravity：最懂「人類想審查」的夥伴</h3>
+
+<p>Antigravity 的雙環迭代（Implementation Plan ⇄ Walkthrough）是我用過最舒服的人機協作節奏。它做學術論文審查時，不直接改稿，而是先給你一份計畫：「我打算改這 7 個地方，引用這 5 篇文獻，架構這樣調整。」你可以加 comment 微調，它收到後重新精確計算，直到你批准才動手。</p>
+
+<p>而且它的 <code>sync_index.py</code> 把 React app 打包成單一靜態 HTML 的模式非常優雅——去 imports、去 export default、注入 template placeholder、寫出 UTF-8。改完 code 跑一行指令就同步，雙擊 HTML 就能跑，不用裝任何依賴。這對要帶去演講現場 demo 的人來說是救命功能。</p>
+
+<h3>Hermes Agent：手機就能控制的 AI 管家</h3>
+
+<p>Hermes 最獨特的是 Telegram bot 整合。我可以在通勤時用手機跟 bot 講話：「幫我建一個 CRON，每天早上 8 點抓 PubMed 腎臟學新文獻，傳送至 origin。」bot 自己呼叫 <code>cronjob create</code> 就建好了。Dashboard 點按鈕做不到的事（比如 <code>origin</code> delivery mode），用講的反而一句話搞定。</p>
+
+<p>它的 Multi-Agent Kanban + 資料合約也很有意思：researcher 寫 <code>literature_map.md</code> → coder 讀它寫 <code>validation_plan.md</code> → reviewer 讀兩份寫 <code>review.md</code>。每份 SOUL.md 有「給下一棒的交棒清單」——coder 不用通讀 literature_map 也能定位重點，reviewer 不用憑空判斷 coder 哪裡心虛。這比單純的「角色描述」高了一個檔次。</p>
+
+<p>不過 Hermes 最大的代價是 Windows 水土不服——我踩了 24 個坑才跑通。從 <code>gateway start</code> 卡死（要用 <code>gateway run</code>）到 <code>ui</code> 不存在（要用 <code>dashboard</code>），從 sudo 提示無意義到 UAC 迴圈，全是 Linux 慣例在 Windows 上的翻譯問題。</p>
+
+<h2>結論：哪個場合用哪個？</h2>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>場景</th><th>推薦工具</th><th>理由</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>每天自動推播文獻到手機</td><td><strong style="color:var(--red);">Hermes Agent</strong></td><td>CRON + Telegram 最省心</td></tr>
+    <tr><td>深度學術論文審查 / 文獻回顧</td><td><strong style="color:var(--purple-light);">Claude Code</strong></td><td>Robin MAS 三層品質控制</td></tr>
+    <tr><td>整合多來源做研究分析</td><td><strong style="color:var(--teal-light);">OpenCode</strong></td><td>MCP 同時連 NotebookLM + Obsidian + Firebase</td></tr>
+    <tr><td>帶去演講的互動式教學網站</td><td><strong style="color:var(--gold);">Antigravity</strong></td><td>雙環迭代 + sync_index.py 靜態部署</td></tr>
+    <tr><td>需要圖像生成的工作流</td><td><strong style="color:var(--teal);">Codex</strong></td><td>gpt-image-2 內建，訂閱者免 API key</td></tr>
+    <tr><td>需要排程自動執行的任務</td><td><strong style="color:var(--teal);">Codex</strong></td><td>heartbeat automation</td></tr>
+    <tr><td>需要遠端控制（手機就能下指令）</td><td><strong style="color:var(--red);">Hermes Agent</strong></td><td>Telegram bot</td></tr>
+    <tr><td>需要人類審查把關的修改</td><td><strong style="color:var(--gold);">Antigravity</strong></td><td>先生計畫再批准，不怕一改就錯</td></tr>
+    <tr><td>需要多 agent 分工協作</td><td><strong style="color:var(--purple-light);">Claude Code</strong> / <strong style="color:var(--red);">Hermes</strong></td><td>Robin MAS / Kanban 資料合約</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>如果只能選一個</h3>
+
+<ul>
+  <li>如果你是<strong>研究者</strong>，選 <strong style="color:var(--purple-light);">Claude Code</strong>——Robin MAS 的深度分析能力無可替代。</li>
+  <li>如果你是<strong>教學者</strong>，選 <strong style="color:var(--gold);">Antigravity</strong>——雙環迭代 + 靜態部署最適合做教學工具。</li>
+  <li>如果你是<strong>臨床醫師</strong>想自動化日常，選 <strong style="color:var(--red);">Hermes Agent</strong>——每天早上手機收到文獻 brief 的體驗太好了。</li>
+  <li>如果你是<strong>開發者</strong>想最大彈性，選 <strong style="color:var(--teal-light);">OpenCode</strong>——開源、模型可替換、MCP 整合最強。</li>
+  <li>如果你需要<strong>圖像生成</strong>，選 <strong style="color:var(--teal);">Codex</strong>——gpt-image-2 內建是獨家。</li>
+</ul>
+
+<p>但最好的答案其實是：<strong>組合使用。</strong> 我的日常工作流就是 OpenCode 當樞紐（MCP 整合）+ Claude Code 做深度分析（Robin MAS）+ Codex 生圖 + Hermes Agent 每天推播 + Antigravity 做需要審查的修改。五個工具各司其職，加起來大於任何單一個。</p>
+
+<div class="take-home">
+  <h3><i class="fas fa-lightbulb" style="color:var(--gold);margin-right:8px;"></i>Take-home Messages</h3>
+  <ol>
+    <li><strong>沒有全能工具，只有適合場景。</strong>五個工具各有所長，組合使用的效果遠大於單選一個。</li>
+    <li><strong>錯誤訊息一樣不代表根因一樣。</strong>Codex Skill 上傳的第 3 和第 4 次錯誤訊息一字不差，但根因完全不同。除錯時要先看 stack trace，不要靠錯誤訊息文字猜。</li>
+    <li><strong>PowerShell 5.1 是 Windows 上所有 AI agent 的共同敵人。</strong>編碼（UTF-16 BOM）、中文路徑、case-insensitive JSON 是三大重複踩坑點。治本解法一律是 .NET <code>UTF8Encoding($false)</code> + <code>-LiteralPath</code>。</li>
+    <li><strong>「對話為主」原則有例外。</strong>Hermes 的「跟 bot 講話最有效」在 quota 用完時失效——bot 自己也壞了。對話通道故障時，CLI 才是唯一救星。</li>
+    <li><strong>免費方案有陷阱。</strong>Hermes 的 40+ provider 只有 2 個真免費；PubMed 無 key 每秒 3 欲求有 key 才到 10 次。訂閱官方郵件追蹤免費 promo 輪換是必要的。</li>
+    <li><strong>一百多個坑，換來的是一套知道什麼時候用什麼工具的直覺。</strong>希望這篇文章能幫你少踩幾個。</li>
+  </ol>
+</div>
+
+<h2>附錄：三個月踩坑統計</h2>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr><th>工具</th><th>記錄坑數</th><th>最痛的坑</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong style="color:var(--teal);">Codex</strong></td><td>~30</td><td>Skill 上傳 4 連失敗（錯誤訊息相同但根因不同）</td></tr>
+    <tr><td><strong style="color:var(--purple-light);">Claude Code</strong></td><td>~25</td><td>Cowork NPE（誤判 VM 壞 → 誤判 SKILL.md 缺 name → 真兇是 manifest 壞 entry）</td></tr>
+    <tr><td><strong style="color:var(--teal-light);">OpenCode</strong></td><td>~20</td><td>Gmail MCP OAuth 全線卡關 → 最終改走 App Password</td></tr>
+    <tr><td><strong style="color:var(--gold);">Antigravity</strong></td><td>~10</td><td>沙盒 iframe 語音合成 SecurityError 崩潰</td></tr>
+    <tr><td><strong style="color:var(--red);">Hermes Agent</strong></td><td>~24</td><td>Quota 用完時 bot 無法改自己的模型（自反性死結）</td></tr>
+    <tr><td><strong style="color:var(--text);">合計</strong></td><td><strong style="color:var(--gold);">~109</strong></td><td>—</td></tr>
+  </tbody>
+</table>
+</div>
+
+<footer class="article-footer">
+  <p>朱國大 醫師 · 腎臟科 · 認知神經科學 · 陽明醫院</p>
+  <p style="margin-top:8px;">本文整理自 2026 年 4 月至 6 月之 AI 工具使用紀錄，原始筆記存於 Obsidian Second Brain 知識庫。</p>
+</footer>
+</article>
+</body>
+</html>
