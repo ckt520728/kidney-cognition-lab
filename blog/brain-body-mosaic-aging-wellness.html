@@ -126,6 +126,26 @@ code {
   padding:1px 6px;
   border-radius:6px;
 }
+blockquote {
+  margin:34px 0; padding:24px 28px;
+  background:linear-gradient(135deg,rgba(77,217,207,0.06),rgba(139,92,246,0.06));
+  border-left:4px solid var(--teal); border-radius:8px;
+  color:var(--text); font-size:1.05rem;
+}
+.references { margin-top:60px; padding-top:34px; border-top:2px solid var(--teal); }
+.references h2 { border:none; margin-top:0; padding:0; }
+.references ol { list-style:none; counter-reset:ref; padding-left:0; }
+.references li {
+  counter-increment:ref; position:relative; padding-left:42px;
+  font-size:0.88rem; color:var(--text-sec); margin-bottom:14px;
+}
+.references li::before {
+  content:counter(ref); position:absolute; left:0; top:2px;
+  width:26px; height:26px; border-radius:50%;
+  background:rgba(77,217,207,0.12); color:var(--teal);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:0.75rem;
+}
 .article-footer {
   margin-top:54px; padding-top:28px; border-top:1px solid var(--border);
   color:var(--text-dim); font-size:0.88rem; text-align:center;
@@ -279,8 +299,26 @@ code {
 
 <p>曆法年齡是不可逆的，但透過系統生物學與人類表型體的精密羅盤，我們不僅能提早十年看見大腦與全身器官滑向疾病的「過渡期」裂痕，更有機會透過精準的多模態介入，重新配置我們體內的「老化馬賽克」，讓生物學年齡逆風上揚。</p>
 
+<blockquote>
+  老化不是單一的倒數計時，而是一組多重節奏的馬賽克交響樂。只有當我們看清每一塊生理拼圖的步伐，才能在時間的河流中掌握掌舵的權力。
+</blockquote>
+
+<section class="references">
+<h2>參考資料</h2>
+<ol>
+  <li><strong>Cole JH, Franke K.</strong> Predicting age using neuroimaging: systematic review and meta-analysis. <em>Trends in Neurosciences</em>. 2017;40(12):681–690. <a href="https://doi.org/10.1016/j.tins.2017.10.001" target="_blank">doi:10.1016/j.tins.2017.10.001</a></li>
+  <li><strong>Cole JH, et al.</strong> Brain age predicts mortality. <em>Molecular Psychiatry</em>. 2018;23(5):1385–1392. <a href="https://doi.org/10.1038/mp.2017.62" target="_blank">doi:10.1038/mp.2017.62</a></li>
+  <li><strong>Bethlehem RAI, Cole JH, et al.</strong> Brain charts for the human lifespan. <em>Nature</em>. 2022;604(7906):525–533. <a href="https://doi.org/10.1038/s41586-022-04554-y" target="_blank">doi:10.1038/s41586-022-04554-y</a></li>
+  <li><strong>Khayretdinova A, et al.</strong> Predicting age from resting-state scalp EEG signals with deep convolutional neural networks on TD-brain dataset. <em>NeuroImage</em>. 2022;252:119040. <a href="https://doi.org/10.1016/j.neuroimage.2022.119040" target="_blank">doi:10.1016/j.neuroimage.2022.119040</a></li>
+  <li><strong>James TM, Burgess AP.</strong> Estimating Chronological Age From the Electrical Activity of the Brain: How EEG-Age Can Be Used as a Marker of General Brain Functioning. <em>Psychophysiology</em>. 2025;62(3):e14725. <a href="https://doi.org/10.1111/psyp.14725" target="_blank">doi:10.1111/psyp.14725</a></li>
+  <li><strong>Genon S, Ibanez A, Tahmasian M, Eickhoff SB.</strong> Linking the exposome to the brain–behaviour phenotype. <em>Nature Reviews Neuroscience</em>. 2026;27(1):15-29. <a href="https://doi.org/10.1038/s41583-026-01049-x" target="_blank">doi:10.1038/s41583-026-01049-x</a></li>
+  <li><strong>Hood L, Price N.</strong> <em>The Age of Scientific Wellness: Why the Future of Medicine Is Personalized, Predictive, Preventive, and Participatory</em>. Harvard University Press; 2023.</li>
+</ol>
+</section>
+
 <footer class="article-footer">
-  <p>© 2026 朱國大醫師個人網頁 ｜ 科普部落格 ｜ 本文內容基於系統生物學、多模態大腦年齡與暴露體神經科學前沿研究</p>
+  本文為科普改寫，依據本專案英文學術回顧與多篇已發表原始文獻；文中比喻僅為輔助理解，數值與結論以學術版與原文為準。<br><br>
+  <a href="../index.html#teaching">← 回到演講教學列表</a>
 </footer>
 </article>
 
