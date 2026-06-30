@@ -199,10 +199,15 @@ blockquote {
 }
 .accordion-header:hover { background: rgba(77,217,207,0.05); }
 .accordion-content {
-  padding: 0 20px; height: 0; overflow: hidden; transition: 0.3s ease-out;
-  font-size: 0.9rem; color: var(--text-sec);
+  display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease-out, padding 0.3s ease-out;
+  overflow: hidden; padding: 0 20px; font-size: 0.9rem; color: var(--text-sec);
 }
-.accordion-content.open { padding: 16px 20px; height: auto; border-top: 1px solid rgba(77,217,207,0.1); }
+.accordion-content.open {
+  grid-template-rows: 1fr; padding: 16px 20px; border-top: 1px solid rgba(77,217,207,0.1);
+}
+.accordion-inner {
+  min-height: 0;
+}
 .accordion-icon { transition: var(--tr); }
 .accordion-icon.open { transform: rotate(180deg); }
 
@@ -402,7 +407,9 @@ blockquote {
       <span class="accordion-icon"><i class="fas fa-chevron-down"></i></span>
     </div>
     <div class="accordion-content" id="acc-liver">
-      肝細胞內積聚的脂毒性（如 DAG 和神經醯胺）會活化 PKC&epsilon;，阻斷胰島素受體底物（IRS-1/2）的訊息傳導，誘發全身性胰島素阻抗。同時，受損的肝臟會釋放多種促炎因子（TNF-&alpha;, IL-6），這股系統性發炎血流直達腎臟與血管，加速硬化與纖維化。
+      <div class="accordion-inner">
+        肝細胞內積聚的脂毒性（如 DAG 和神經醯胺）會活化 PKC&epsilon;，阻斷胰島素受體底物（IRS-1/2）的訊息傳導，誘發全身性胰島素阻抗。同時，受損的肝臟會釋放多種促炎因子（TNF-&alpha;, IL-6），這股系統性發炎血流直達腎臟與血管，加速硬化與纖維化。
+      </div>
     </div>
   </div>
 
@@ -412,7 +419,9 @@ blockquote {
       <span class="accordion-icon"><i class="fas fa-chevron-down"></i></span>
     </div>
     <div class="accordion-content" id="acc-kidney">
-      在 CKM 早期，腎臟以「腎絲球高濾過」作為代償。但當濾過屏障受損、eGFR 開始下降時，體內尿毒素（如 indoxyl sulfate）開始蓄積。這些毒素不僅會活化 RAAS 系統加重心臟重塑與高血壓，更會穿透血腦屏障（BBB），誘發神經炎症，這正是慢性腎病患者常伴隨認知功能衰退（腎腦軸受損）的分子機轉。
+      <div class="accordion-inner">
+        在 CKM 早期，腎臟以「腎絲球高濾過」作為代償。但當濾過屏障受損、eGFR 開始下降時，體內尿毒素（如 indoxyl sulfate）開始蓄積。這些毒素不僅會活化 RAAS 系統加重心臟重塑與高血壓，更會穿透血腦屏障（BBB），誘發神經炎症，這正是慢性腎病患者常伴隨認知功能衰退（腎腦軸受損）的分子機轉。
+      </div>
     </div>
   </div>
 
@@ -422,7 +431,9 @@ blockquote {
       <span class="accordion-icon"><i class="fas fa-chevron-down"></i></span>
     </div>
     <div class="accordion-content" id="acc-heart">
-      當心臟進入顯性心臟衰竭（CKM 第 4 期）時，心輸出量下降與靜脈系統淤血會直接導致腎臟與肝臟的血液灌流不足（心腎/心肝綜合症）。這會進一步降低腎絲球過濾率，加重水鈉滯留，並干擾肝臟的代謝排毒，使全身穩態徹底崩解。
+      <div class="accordion-inner">
+        當心臟進入顯性心臟衰竭（CKM 第 4 期）時，心輸出量下降與靜脈系統淤血會直接導致腎臟與肝臟的血液灌流不足（心腎/心肝綜合症）。這會進一步降低腎絲球過濾率，加重水鈉滯留，並干擾肝臟的代謝排毒，使全身穩態徹底崩解。
+      </div>
     </div>
   </div>
 </div>
@@ -498,18 +509,15 @@ function toggleAccordion(id, header) {
   
   if (content.classList.contains('open')) {
     content.classList.remove('open');
-    content.style.height = '0';
     icon.classList.remove('open');
   } else {
     // Close other panels
     const allContents = document.querySelectorAll('.accordion-content');
     const allIcons = document.querySelectorAll('.accordion-icon');
-    allContents.forEach(c => { c.classList.remove('open'); c.style.height = '0'; });
+    allContents.forEach(c => c.classList.remove('open'));
     allIcons.forEach(i => i.classList.remove('open'));
     
-    // Open current panel
     content.classList.add('open');
-    content.style.height = content.scrollHeight + 'px';
     icon.classList.add('open');
   }
 }
