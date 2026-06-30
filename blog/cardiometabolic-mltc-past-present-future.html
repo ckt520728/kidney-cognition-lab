@@ -199,14 +199,13 @@ blockquote {
 }
 .accordion-header:hover { background: rgba(77,217,207,0.05); }
 .accordion-content {
-  display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease-out;
-  overflow: hidden; font-size: 0.9rem; color: var(--text-sec);
+  max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;
+  font-size: 0.9rem; color: var(--text-sec);
 }
 .accordion-content.open {
-  grid-template-rows: 1fr; border-top: 1px solid rgba(77,217,207,0.1);
+  max-height: 250px; border-top: 1px solid rgba(77,217,207,0.1);
 }
 .accordion-inner {
-  min-height: 0;
   padding: 16px 20px;
 }
 .accordion-icon { transition: var(--tr); }
@@ -451,9 +450,9 @@ blockquote {
   <h2>參考文獻</h2>
   <ol>
     <li>American Heart Association. (2023). Cardiovascular-kidney-metabolic syndrome: Staging and risk assessment. <em>Circulation</em>, 148(20), 1632-1660. https://doi.org/10.1161/CIR.0000000000001184</li>
-    <li>CDC. (2023). Trends in multiple chronic conditions among US adults, by life stage, Behavioral Risk Factor Surveillance System, 2013–2023. <em>Preventing Chronic Disease</em>, 20, 230142. https://doi.org/10.5888/pcd20.230142</li>
-    <li>Khunti, K., Zaccardi, F., Mehta, R., Gregg, E. W., &amp; Misra, S. (2026). Epidemiology of cardiometabolic multiple long-term conditions. <em>The Lancet</em>, 407(10530), 123-135. https://doi.org/10.1016/S0140-6736(26)00192-3</li>
-    <li>Lees, J. S., Mark, P. B., &amp; Gillis, K. A. (2026). Chronic kidney disease, complex conditions, and advancing therapeutics: New hope and challenges. <em>The Lancet</em>, 407(10530), 146-158. https://doi.org/10.1016/S0140-6736(26)00195-9</li>
+    <li>Watson, K. B., Wiltz, J. L., Nhim, K., Kaufmann, R., Thomas, C., & Greenlund, K. J. (2025). Trends in Multiple Chronic Conditions Among US Adults, By Life Stage, Behavioral Risk Factor Surveillance System, 2013–2023. <em>Preventing Chronic Disease</em>, 22, E15. https://doi.org/10.5888/pcd22.240539</li>
+    <li>Khunti, K., Zaccardi, F., Mehta, R., Gregg, E. W., &amp; Misra, S. (2026). Epidemiology of cardiometabolic multiple long-term conditions. <em>The Lancet</em>, 407(10530), 123-135. https://doi.org/10.1016/S0140-6736(26)00606-9</li>
+    <li>Lees, J. S., Mark, P. B., &amp; Gillis, K. A. (2026). Chronic kidney disease, complex conditions, and advancing therapeutics: New hope and challenges. <em>The Lancet</em>, 407(10530), 146-158. https://doi.org/10.1016/S0140-6736(26)00653-7</li>
     <li>Scottish Government. (2026). <em>Polypharmacy guidance: Appropriate prescribing, making medicines safe, effective and sustainable 2026 - 2029</em>. Scottish Government Health Directorates. https://www.gov.scot/publications/polypharmacy-guidance-2026/</li>
     <li>Zhou, B., &amp; Zeng, P. (2026). Impact of socioeconomic status on cardiometabolic multimorbidity progression trajectories: A multi-state model analysis based on three prospective cohort studies. <em>PLOS Medicine</em>, 23(3), e1004523. https://doi.org/10.1371/journal.pmed.1004523</li>
   </ol>
