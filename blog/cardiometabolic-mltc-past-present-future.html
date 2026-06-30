@@ -199,14 +199,15 @@ blockquote {
 }
 .accordion-header:hover { background: rgba(77,217,207,0.05); }
 .accordion-content {
-  display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease-out, padding 0.3s ease-out;
-  overflow: hidden; padding: 0 20px; font-size: 0.9rem; color: var(--text-sec);
+  display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease-out;
+  overflow: hidden; font-size: 0.9rem; color: var(--text-sec);
 }
 .accordion-content.open {
-  grid-template-rows: 1fr; padding: 16px 20px; border-top: 1px solid rgba(77,217,207,0.1);
+  grid-template-rows: 1fr; border-top: 1px solid rgba(77,217,207,0.1);
 }
 .accordion-inner {
   min-height: 0;
+  padding: 16px 20px;
 }
 .accordion-icon { transition: var(--tr); }
 .accordion-icon.open { transform: rotate(180deg); }
