@@ -1,4 +1,4 @@
 User-agent: *
-Allow: /google-site-verification: googlee62d7e6353c3e71f.html
+Allow: /
 
-Sitemap: https://ckt520728.github.io/kidney-cognition-lab/sitemap.xml
+Sitemap: https://kidney-cognition-lab.vercel.app/sitemap.xml
