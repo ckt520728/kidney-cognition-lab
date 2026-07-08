@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="用一般人也能理解的方式介紹 oscillatory entrainment：從大腦節律、tACS、40 Hz gamma entrainment，到 MCI/Alzheimer's disease 的臨床轉譯與限制。">
+<title>用節律牽引大腦：從腦波同步到精準腦刺激 | 邱國銘醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--bg-primary:#0a0f1e;--bg-card:#111d3c;--bg-card2:#162248;--teal:#4dd9cf;--teal-light:#7ee8e2;--purple:#8b5cf6;--purple-light:#a78bfa;--gold:#f4a261;--red:#ef4444;--green:#22c55e;--text:#e8f4f8;--text-sec:#8ba8c4;--text-dim:#4a6580;--border:rgba(77,217,207,.15);--shadow:0 8px 32px rgba(0,0,0,.45);--radius:12px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:'Noto Sans TC','Inter',sans-serif;background:var(--bg-primary);color:var(--text);line-height:1.9}a{color:var(--teal);text-decoration:none}a:hover{color:var(--teal-light)}.top-bar{position:sticky;top:0;z-index:100;background:rgba(10,15,30,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:14px 0}.top-bar-inner{max-width:980px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;gap:16px}.back-link{color:var(--text-sec);font-size:.9rem;display:inline-flex;gap:8px;align-items:center}.top-bar-title{font-size:.82rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace}.article{max-width:880px;margin:0 auto;padding:58px 24px 82px}.article-header{margin-bottom:44px;padding-bottom:34px;border-bottom:1px solid var(--border)}.article-meta{color:var(--teal);font-size:.85rem;font-family:'JetBrains Mono',monospace;margin-bottom:14px}.article-title{font-size:2.25rem;line-height:1.35;margin-bottom:18px;background:linear-gradient(135deg,var(--text),var(--teal-light));-webkit-background-clip:text;background-clip:text;color:transparent}.article-subtitle{color:var(--text-sec);font-size:1.04rem}.article-author{margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:flex;gap:16px;align-items:center;flex-wrap:wrap}.author-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#2a9d8f,var(--purple));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem}.author-info{color:var(--text-sec);font-size:.88rem;line-height:1.65}.author-info strong{color:var(--text)}.article-tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}.tag{font-size:.72rem;padding:3px 12px;border-radius:20px;background:rgba(77,217,207,.08);color:var(--teal);border:1px solid rgba(77,217,207,.2)}figure{margin:34px 0}.hero-figure{margin:34px 0 42px}figure svg,figure img{width:100%;display:block;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-card);box-shadow:var(--shadow)}figcaption{margin-top:12px;color:var(--text-sec);font-size:.85rem;text-align:center;line-height:1.7}h2{font-size:1.55rem;margin:54px 0 20px;padding-bottom:10px;border-bottom:2px solid var(--teal);display:inline-block}h3{font-size:1.18rem;color:var(--teal-light);margin:34px 0 14px}p{color:var(--text-sec);margin:0 0 20px}p strong,li strong{color:var(--text)}em{color:var(--teal-light);font-style:normal}ul,ol{color:var(--text-sec);padding-left:24px;margin:0 0 24px}li{margin-bottom:10px}li::marker{color:var(--teal)}.callout{margin:28px 0;padding:20px 24px;background:var(--bg-card);border-left:4px solid var(--teal);border-radius:8px;color:var(--text-sec)}.callout.purple{border-left-color:var(--purple)}.callout.gold{border-left-color:var(--gold)}.callout.red{border-left-color:var(--red)}.callout strong{color:var(--text)}.tbl-wrap{overflow-x:auto;margin:24px 0}table{width:100%;border-collapse:collapse;background:var(--bg-card);border-radius:var(--radius);overflow:hidden;font-size:.92rem}th{text-align:left;color:var(--teal);background:rgba(77,217,207,.1);padding:12px 14px;border-bottom:1px solid var(--border)}td{padding:12px 14px;color:var(--text-sec);border-bottom:1px solid rgba(77,217,207,.08);vertical-align:top}tr:last-child td{border-bottom:none}.dashboard{margin:34px 0;padding:22px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:18px 0 20px}.control{background:rgba(255,255,255,.03);border:1px solid rgba(77,217,207,.12);border-radius:8px;padding:12px}.control label{display:block;color:var(--text);font-size:.86rem;margin-bottom:8px}.control input{width:100%}.control output{font-family:'JetBrains Mono',monospace;color:var(--teal-light);font-size:.82rem}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}.metric{padding:12px;border-radius:8px;background:rgba(10,15,30,.55);border:1px solid rgba(77,217,207,.12)}.metric small{display:block;color:var(--text-dim);font-size:.75rem}.metric strong{display:block;color:var(--text);font-size:1.15rem}.viz-canvas{width:100%;height:260px;border:1px solid var(--border);border-radius:10px;background:#08101f;display:block}.ladder{display:grid;grid-template-columns:1fr;gap:12px;margin:26px 0}.ladder-step{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start;padding:14px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px}.ladder-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(77,217,207,.12);color:var(--teal);font-family:'JetBrains Mono',monospace}.ladder-step strong{display:block;color:var(--text);margin-bottom:3px}.ladder-step span{color:var(--text-sec);font-size:.92rem}.refs{font-size:.86rem}.refs li{margin-bottom:12px}.article-footer{margin-top:58px;padding-top:28px;border-top:1px solid var(--border);color:var(--text-dim);font-size:.86rem}.note{font-size:.82rem;color:var(--text-dim)}@media(max-width:760px){.article{padding:40px 18px 64px}.article-title{font-size:1.75rem}.controls,.metrics{grid-template-columns:1fr}.top-bar-inner{align-items:flex-start;flex-direction:column}.viz-canvas{height:220px}}
+</style>
+</head>
+<body>
+<nav class="top-bar"><div class="top-bar-inner"><a class="back-link" href="../index.html#teaching"><i class="fas fa-arrow-left"></i>回到演講與教學</a><div class="top-bar-title">oscillatory entrainment / MCI-AD translation</div></div></nav>
+<main class="article">
+<header class="article-header">
+  <div class="article-meta">2026 / 07 / 08 · 科普長文 · 腦節律與神經調控</div>
+  <h1 class="article-title">用節律牽引大腦：從腦波同步到精準腦刺激</h1>
+  <p class="article-subtitle">大腦節律不只是 EEG 上的波形；它可能是注意力、記憶、睡眠與神經調控之間的共同語言。但從 40 Hz gamma entrainment 走到 MCI/Alzheimer’s disease 臨床應用，中間還有一整條必須驗證的路。</p>
+  <div class="article-author"><div class="author-avatar">KC</div><div class="author-info"><strong>邱國銘醫師</strong><br>腎臟病、糖尿病與複雜內科急症；認知神經科學博士。本文為研究整理與教學用途，不是醫療建議。</div></div>
+  <div class="article-tags"><span class="tag">oscillatory entrainment</span><span class="tag">tACS</span><span class="tag">gamma rhythm</span><span class="tag">MCI / AD</span><span class="tag">closed-loop stimulation</span></div>
+</header>
+
+<figure class="hero-figure">
+<svg viewBox="0 0 960 420" role="img" aria-label="從大腦節律到臨床轉譯的概念橋接圖">
+  <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#4dd9cf"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <rect width="960" height="420" fill="#0a0f1e"/>
+  <path d="M80 275 C210 165, 300 360, 430 240 S650 130, 860 230" fill="none" stroke="url(#g1)" stroke-width="6" filter="url(#glow)"/>
+  <g font-family="Noto Sans TC, Inter" text-anchor="middle">
+    <g><circle cx="120" cy="250" r="46" fill="#10213f" stroke="#4dd9cf"/><text x="120" y="244" fill="#e8f4f8" font-size="17">腦節律</text><text x="120" y="268" fill="#8ba8c4" font-size="13">rhythm</text></g>
+    <g><circle cx="300" cy="205" r="46" fill="#10213f" stroke="#4dd9cf"/><text x="300" y="199" fill="#e8f4f8" font-size="17">牽引</text><text x="300" y="223" fill="#8ba8c4" font-size="13">entrainment</text></g>
+    <g><circle cx="480" cy="260" r="46" fill="#191d46" stroke="#8b5cf6"/><text x="480" y="254" fill="#e8f4f8" font-size="17">刺激</text><text x="480" y="278" fill="#8ba8c4" font-size="13">tACS / sensory</text></g>
+    <g><circle cx="660" cy="185" r="46" fill="#2b2138" stroke="#f4a261"/><text x="660" y="179" fill="#e8f4f8" font-size="17">打到靶</text><text x="660" y="203" fill="#8ba8c4" font-size="13">target engagement</text></g>
+    <g><circle cx="835" cy="245" r="46" fill="#2b2138" stroke="#f4a261"/><text x="835" y="239" fill="#e8f4f8" font-size="17">臨床轉譯</text><text x="835" y="263" fill="#8ba8c4" font-size="13">MCI / AD</text></g>
+  </g>
+  <g font-family="JetBrains Mono" font-size="13" fill="#ef4444"><text x="382" y="335">pitfalls: artifact · placebo · plasticity · animal-to-human gap</text></g>
+</svg>
+<figcaption>Oscillatory entrainment 的臨床價值，不在「把腦波變漂亮」，而在能否形成可驗證的 target engagement 與臨床轉譯路線。</figcaption>
+</figure>
+
+<div class="callout gold"><strong>一句話結論：</strong>大腦不是一台只等外界輸入的機器，它更像一個有許多節拍器的系統。Oscillatory entrainment 想問的是：我們能不能用光、聲音或微弱電流，把某些大腦節律安全地「帶上拍」，進而推動 MCI / Alzheimer’s disease 的治療研究？目前答案是：很有潛力，但還不是成熟療法。</div>
+
+<h2>1. 大腦本來就有節拍</h2>
+<p>如果你看過 EEG，會看到一條像波浪的訊號。那不是裝飾性的背景雜訊，而是大腦很多神經網路一起活動時留下的節律痕跡。有些節律和注意力有關，有些和睡眠有關，有些和記憶、感覺處理、動作控制有關。這些節律不一定像音樂節拍那麼規則，但它們提醒我們：大腦處理資訊時，時間點很重要。</p>
+<p>Oscillatory entrainment 可以先用一個簡單比喻理解：如果房間裡有很多節拍器，外界給一個穩定節奏，有些節拍器可能會慢慢跟著對齊。大腦也可能發生類似現象，只是它不是木頭節拍器，而是神經元、突觸、血管、感覺輸入與注意力共同形成的動態系統。</p>
+
+<h2>2. Entrainment 不是「把腦波調成某個頻率」</h2>
+<p>很多人第一次聽到 brainwave entrainment，會以為它的意思是：「給大腦 40 Hz，大腦就變成 40 Hz；給 10 Hz，大腦就變成 10 Hz。」真正的情況比較複雜。</p>
+<div class="tbl-wrap"><table><thead><tr><th>層次</th><th>白話意思</th><th>為什麼重要</th></tr></thead><tbody><tr><td>短暫對拍</td><td>刺激來的時候，某些神經活動的相位被拉齊。</td><td>這是最接近「entrainment」原意的層次。</td></tr><tr><td>網路可塑性</td><td>刺激結束後，腦網路的興奮性或連結狀態暫時改變。</td><td>這可能不是同步，而是 aftereffect。</td></tr><tr><td>臨床意義</td><td>這些變化是否真的和記憶、日常功能或疾病進程有關。</td><td>這才是 MCI/AD 轉譯最終要回答的問題。</td></tr></tbody></table></div>
+<p>看到 EEG power 增加，不等於病人記憶改善；看到刺激後有變化，也不代表刺激期間真的發生 neural entrainment。好的研究不只問「腦波有沒有變」，還要問「變的是不是目標節律」、「是不是 artifact」、「是否能重複」、「是否對病人有意義」。</p>
+
+<h2>3. tACS：用微弱電流打節拍</h2>
+<p><strong>tACS</strong> 全名是 transcranial alternating current stimulation，可以理解成用很微弱的交替電流，從頭皮外面給大腦一個節奏。例如研究者可能給 10 Hz、40 Hz 或其他頻率，看看大腦節律或行為表現是否改變。</p>
+<p>但問題也在這裡：你給的是電流，記到的也是電訊號。這就像你一邊用麥克風錄音，一邊在旁邊開著很大的節拍器。你錄到的節奏到底是房間裡的人真的跟著拍手，還是麥克風直接收到了節拍器的聲音？</p>
+<div class="callout red"><strong>Artifact 是核心問題，不是技術小事。</strong> artifact 可以來自儀器、皮膚、肌肉、視網膜，甚至受試者感覺到的閃光或刺癢。如果 artifact 沒處理好，研究者可能以為自己看到的是大腦節律，其實看到的是刺激本身的痕跡。</div>
+
+<section class="dashboard" aria-label="interactive entrainment teaching simulation">
+<h3>互動示意：頻率越接近，不代表證據越完整</h3>
+<p class="note">這是教學用簡化模型，不是真實生理模型。它示範 intrinsic frequency、stimulation frequency、intensity 如何影響「可解釋性」，並提醒 artifact risk。</p>
+<div class="controls"><div class="control"><label for="intrinsic">個體內在頻率 intrinsic</label><input id="intrinsic" type="range" min="6" max="50" value="40" step="1"><output id="intrinsicOut">40 Hz</output></div><div class="control"><label for="stim">刺激頻率 stimulation</label><input id="stim" type="range" min="6" max="50" value="40" step="1"><output id="stimOut">40 Hz</output></div><div class="control"><label for="intensity">刺激強度 intensity</label><input id="intensity" type="range" min="1" max="10" value="4" step="1"><output id="intensityOut">4 / 10</output></div></div>
+<canvas id="entrainCanvas" class="viz-canvas" width="820" height="260"></canvas>
+<div class="metrics"><div class="metric"><small>frequency match</small><strong id="matchMetric">100%</strong></div><div class="metric"><small>entrainment plausibility</small><strong id="entrainMetric">moderate</strong></div><div class="metric"><small>artifact caution</small><strong id="artifactMetric">low</strong></div></div>
+</section>
+
+<h2>4. 為什麼 40 Hz gamma entrainment 會和 Alzheimer’s disease 扯上關係？</h2>
+<p>在 Alzheimer’s disease 和 MCI 研究中，<strong>gamma rhythm</strong> 特別受到注意。Gamma 通常指較高頻率的腦節律，常被連結到局部神經網路協調、注意力、感覺處理與記憶相關活動。</p>
+<p>一些動物研究讓 40 Hz gamma entrainment 變得非常有吸引力。研究者用 40 Hz 的光或感覺刺激讓動物腦中 gamma activity 增加，並觀察到和 amyloid、microglia、神經保護相關的變化。這提出一個大膽但可測試的想法：如果 Alzheimer’s disease 不只是蛋白質堆積，也是腦網路節律失衡，那麼調整節律是否可能影響疾病相關生物學？</p>
+<div class="callout purple"><strong>必須保守：</strong>mouse model 裡看到的 amyloid 或 microglia 變化，不能直接翻譯成「人類照 40 Hz 光就能治療失智症」。比較準確的說法是：40 Hz gamma entrainment 是值得研究的 MCI/AD translational hypothesis，需要先在人類身上證明 target engagement、安全性、耐受性，再談長期臨床效益。</div>
+
+<h2>5. Target engagement：先證明有打到靶</h2>
+<p>臨床研究最怕的是還不知道有沒有打到靶，就急著問有沒有療效。對 brain stimulation 來說，target engagement 是：刺激是否真的改變了目標大腦節律。</p>
+<ol><li>40 Hz 刺激是否真的增加或同步化人類大腦中的 gamma activity？</li><li>這個變化是否出現在和疾病、記憶或感覺處理相關的網路？</li><li>這個變化是否能和眼睛、皮膚、儀器 artifact 分開？</li><li>不同病人是否需要不同頻率、強度、時間或感覺刺激方式？</li><li>這種 target engagement 是否能預測後續認知或 biomarker 變化？</li></ol>
+
+<h2>6. Closed-loop：不是一直刺激，而是看狀態再刺激</h2>
+<p>下一代 brain stimulation 可能不是「固定時間、固定頻率、一直刺激」，而是 <strong>closed-loop stimulation</strong>。可以用冷氣比喻：傳統冷氣是設定溫度後一直運轉；比較聰明的系統會偵測室內溫度，太熱才加強，夠冷就降低。腦刺激也可以走這個方向：偵測到某個腦狀態時才刺激。</p>
+<p>這個想法在 Parkinson disease 的 adaptive deep brain stimulation 和 epilepsy 的 closed-loop stimulation 已經有重要臨床參照。它們和 AD/MCI gamma entrainment 不是同一種治療，但提供了重要原則：真正精準的腦刺激，不只是選一個頻率，而是知道什麼時候、對誰、用多少、刺激哪裡。</p>
+
+<h2>7. 從研究到臨床，需要爬幾階？</h2>
+<div class="ladder"><div class="ladder-step"><div class="ladder-num">1</div><div><strong>Rhythm exists</strong><span>先證明疾病或功能狀態和某種節律有關。</span></div></div><div class="ladder-step"><div class="ladder-num">2</div><div><strong>Rhythm can be perturbed</strong><span>用感覺刺激、tACS 或其他方式改變它。</span></div></div><div class="ladder-step"><div class="ladder-num">3</div><div><strong>Not artifact</strong><span>確認不是儀器、眼睛、皮膚或 placebo 造成的假象。</span></div></div><div class="ladder-step"><div class="ladder-num">4</div><div><strong>Target engagement</strong><span>證明刺激真的打到預期的神經節律。</span></div></div><div class="ladder-step"><div class="ladder-num">5</div><div><strong>Intermediate outcome</strong><span>看到網路、睡眠、認知任務或 biomarker 的合理變化。</span></div></div><div class="ladder-step"><div class="ladder-num">6</div><div><strong>Clinical endpoint</strong><span>最後才問：症狀、功能或疾病進程是否有臨床意義的改善。</span></div></div></div>
+
+<h2>8. Take-home messages</h2>
+<ul><li><strong>Oscillatory entrainment 是研究框架，不是魔法按鈕。</strong></li><li><strong>MCI/AD gamma entrainment 最有吸引力，但目前仍是轉譯研究路線。</strong></li><li><strong>tACS 和 sensory stimulation 都需要嚴格排除 artifact。</strong></li><li><strong>最重要的早期目標不是宣稱療效，而是證明 target engagement。</strong></li><li><strong>未來方向會走向 individualized、state-dependent、closed-loop stimulation。</strong></li></ul>
+
+<div class="callout gold"><strong>收束：</strong>如果把 Alzheimer’s disease 想成一個逐漸失去協調的大型管弦樂團，oscillatory entrainment 不是神奇指揮棒；它比較像一套正在發展中的調音方法。真正的挑戰不是讓某個節拍變大聲，而是證明這個節拍真的能讓整個樂團重新更有功能地演奏。</div>
+
+<h2>參考文獻</h2>
+<ol class="refs"><li>Lakatos P, Karmos G, Mehta AD, Ulbert I, Schroeder CE. Entrainment of neuronal oscillations as a mechanism of attentional selection. <em>Science</em>. 2008. doi:10.1126/science.1154735</li><li>Lakatos P, Gross J, Thut G. A New Unifying Account of the Roles of Neuronal Entrainment. <em>Current Biology</em>. 2019. doi:10.1016/j.cub.2019.07.075</li><li>Helfrich RF et al. Entrainment of Brain Oscillations by Transcranial Alternating Current Stimulation. <em>Current Biology</em>. 2014. doi:10.1016/j.cub.2013.12.041</li><li>Vossen A, Gross J, Thut G. Alpha Power Increase After Transcranial Alternating Current Stimulation at Alpha Frequency reflects plastic changes rather than entrainment. <em>Brain Stimulation</em>. 2015. doi:10.1016/j.brs.2014.12.004</li><li>Asamoah B, Khatoun A, Mc Laughlin M. Cutaneous retinal activation and neural entrainment in transcranial alternating current stimulation: A systematic review. <em>NeuroImage</em>. 2016. doi:10.1016/j.neuroimage.2015.09.067</li><li>Iaccarino HF et al. Gamma frequency entrainment attenuates amyloid load and modifies microglia. <em>Nature</em>. 2016. doi:10.1038/nature20587</li><li>Adaikkan C et al. Gamma Entrainment Binds Higher-Order Brain Regions and Offers Neuroprotection. <em>Neuron</em>. 2019. doi:10.1016/j.neuron.2019.04.011</li><li>Jones M et al. Gamma Band Light Stimulation in Human Case Studies: Groundwork for Potential Alzheimer’s Disease Treatment. <em>Journal of Alzheimer’s Disease</em>. 2019. doi:10.3233/JAD-190299</li><li>Reinhart RMG, Nguyen JA. Working memory revived in older adults by synchronizing rhythmic brain circuits. <em>Nature Neuroscience</em>. 2019. doi:10.1038/s41593-019-0371-x</li><li>Kokkinos V et al. Association of Closed-Loop Brain Stimulation Neurophysiological Features With Seizure Control Among Patients With Focal Epilepsy. <em>JAMA Neurology</em>. 2019. doi:10.1001/jamaneurol.2019.0658</li></ol>
+
+<footer class="article-footer">本文為教學與研究整理，不構成醫療建議。文中對 MCI/Alzheimer’s disease 的 oscillatory entrainment 討論，定位為研究轉譯路線與 target-engagement 問題，不代表已證實的臨床療法。</footer>
+</main>
+<script>
+(function(){
+const canvas=document.getElementById('entrainCanvas');const ctx=canvas.getContext('2d');const intrinsic=document.getElementById('intrinsic');const stim=document.getElementById('stim');const intensity=document.getElementById('intensity');const io=document.getElementById('intrinsicOut');const so=document.getElementById('stimOut');const into=document.getElementById('intensityOut');const matchEl=document.getElementById('matchMetric');const entEl=document.getElementById('entrainMetric');const artEl=document.getElementById('artifactMetric');
+function resize(){const dpr=Math.max(1,window.devicePixelRatio||1);const rect=canvas.getBoundingClientRect();canvas.width=Math.round(rect.width*dpr);canvas.height=Math.round(rect.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw();}
+function drawWave(y,amp,freq,color,phase){const w=canvas.clientWidth,h=canvas.clientHeight;ctx.beginPath();for(let x=0;x<w;x++){const t=x/w*Math.PI*8;const yy=y+Math.sin(t*freq/20+phase)*amp; if(x===0)ctx.moveTo(x,yy);else ctx.lineTo(x,yy);}ctx.strokeStyle=color;ctx.lineWidth=2;ctx.stroke();}
+function draw(){const w=canvas.clientWidth,h=canvas.clientHeight;ctx.clearRect(0,0,w,h);ctx.fillStyle='#08101f';ctx.fillRect(0,0,w,h);ctx.strokeStyle='rgba(77,217,207,.12)';ctx.lineWidth=1;for(let i=1;i<6;i++){ctx.beginPath();ctx.moveTo(0,h*i/6);ctx.lineTo(w,h*i/6);ctx.stroke();}
+const fi=+intrinsic.value,fs=+stim.value,iv=+intensity.value;io.textContent=fi+' Hz';so.textContent=fs+' Hz';into.textContent=iv+' / 10';const diff=Math.abs(fi-fs);const match=Math.max(0,100-Math.round(diff/44*100));const artifact=Math.min(100,Math.round(iv*8+(fs>35?12:0)));const plaus=Math.max(0,Math.min(100,Math.round(match*.7+iv*3-artifact*.18)));matchEl.textContent=match+'%';entEl.textContent=plaus>72?'higher':plaus>42?'moderate':'low';artEl.textContent=artifact>65?'high':artifact>35?'moderate':'low';drawWave(h*.38,24,fi,'#4dd9cf',0);drawWave(h*.62,24,fs,'#8b5cf6',0.5);ctx.fillStyle='#e8f4f8';ctx.font='13px JetBrains Mono, monospace';ctx.fillText('intrinsic rhythm',18,24);ctx.fillStyle='#4dd9cf';ctx.fillRect(140,16,28,3);ctx.fillStyle='#e8f4f8';ctx.fillText('stimulation rhythm',18,46);ctx.fillStyle='#8b5cf6';ctx.fillRect(160,38,28,3);ctx.fillStyle=artifact>65?'#ef4444':'#f4a261';ctx.fillText('artifact caution rises with intensity and sensory confounds',18,h-18);}
+[intrinsic,stim,intensity].forEach(el=>el.addEventListener('input',draw));window.addEventListener('resize',resize);resize();})();
+</script>
+</body>
+</html>
