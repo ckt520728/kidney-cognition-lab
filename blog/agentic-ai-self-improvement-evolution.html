@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Agentic AI 如何從模型、記憶、harness、多代理系統走向共同演化？用五層架構區分真正學習、短暫改善與尚未實現的 open-ended evolution。">
+<title>AI 不只是變聰明：從工具、代理人到共同演化的生態系｜朱國大醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* 與站內既有長文一致的正文尺度；所有圖表不得超出文章欄。 */
+:root{--bg:#0a0f1e;--card:#111d3c;--card2:#0c1429;--teal:#4dd9cf;--teal2:#7ee8e2;--purple:#8b5cf6;--purple2:#a78bfa;--gold:#f4a261;--red:#ef4444;--green:#22c55e;--text:#e8f4f8;--muted:#8ba8c4;--dim:#4a6580;--border:#24385d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:'Noto Sans TC','Inter',sans-serif;line-height:1.85}a{color:var(--teal);text-decoration:none}.top-bar{position:sticky;top:0;z-index:10;background:rgba(10,15,30,.94);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}.top-bar-inner{max-width:980px;margin:auto;padding:13px 22px;display:flex;justify-content:space-between;align-items:center}.top-bar-title{font:600 .8rem 'JetBrains Mono';color:var(--dim);letter-spacing:.08em}.article-header{max-width:980px;margin:auto;padding:70px 22px 40px}.meta{font:600 .78rem 'JetBrains Mono';color:var(--gold);letter-spacing:.08em;text-transform:uppercase}.article-title{font-size:clamp(2.2rem,6vw,4.6rem);line-height:1.14;margin:18px 0;background:linear-gradient(110deg,var(--teal2),#fff 48%,var(--purple2));-webkit-background-clip:text;color:transparent}.subtitle{max-width:790px;color:var(--muted);font-size:1.22rem}.author{margin-top:24px;color:var(--muted)}.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}.tag{padding:5px 10px;border:1px solid var(--border);border-radius:999px;font:600 .72rem 'JetBrains Mono';color:var(--teal2)}main{max-width:800px;margin:auto;padding:0 22px 80px}p{margin:1.05em 0;color:#d8e7ef}h2{font-size:1.75rem;margin:2.3em 0 .7em;padding-left:15px;border-left:4px solid var(--teal);line-height:1.4}h3{color:var(--teal2);font-size:1.25rem;margin-top:1.8em}.lead{font-size:1.18rem;color:#fff}.callout{margin:30px 0;padding:20px 22px;background:var(--card);border-left:4px solid var(--teal);border-radius:0 12px 12px 0}.callout.gold{border-left-color:var(--gold)}.callout.purple{border-left-color:var(--purple)}.hero{max-width:1120px;margin:0 auto 60px;padding:0 22px}.figure{background:var(--card2);border:1px solid var(--border);border-radius:18px;padding:18px;overflow:hidden}.figure svg{display:block;width:100%;height:auto}.caption{color:var(--muted);font-size:.84rem;margin-top:12px}.layers{display:grid;gap:10px;margin:24px 0}.layer{padding:16px 18px;border-radius:12px;border:1px solid var(--border);background:linear-gradient(90deg,rgba(77,217,207,.13),transparent)}.layer b{color:var(--teal2)}.dashboard-wide{max-width:1120px;margin:55px auto;padding:0 22px}.dashboard{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:18px}.dashboard-grid{display:grid;grid-template-columns:260px 1fr;gap:16px}.panel{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px}.panel h3{margin-top:0}.control label{display:block;color:var(--muted);margin-top:12px}.control input{width:100%;accent-color:var(--teal)}.metric{font:700 2rem 'JetBrains Mono';color:var(--gold)}canvas{width:100%;height:360px;display:block;background:#08101f;border-radius:9px}.checklist{counter-reset:q;padding:0}.checklist li{list-style:none;margin:13px 0;padding:15px 18px 15px 55px;background:var(--card);border:1px solid var(--border);border-radius:12px;position:relative}.checklist li:before{counter-increment:q;content:counter(q);position:absolute;left:17px;top:14px;width:25px;height:25px;border-radius:50%;background:var(--purple);display:grid;place-items:center;font:700 .8rem 'JetBrains Mono'}.references{margin-top:60px;padding-top:32px;border-top:2px solid var(--teal)}.references li{margin:12px 0;color:var(--muted);font-size:.9rem}.article-footer{margin-top:55px;padding:24px;border:1px solid var(--border);border-radius:14px;color:var(--muted);text-align:center;font-size:.86rem}@media(max-width:760px){.dashboard-grid{grid-template-columns:1fr}.article-header{padding-top:45px}.article-title{font-size:2.35rem}.top-bar-title{display:none}canvas{height:300px}}
+</style>
+<style>
+body{line-height:1.9}
+.article-header{max-width:880px;padding:58px 24px 34px;border-bottom:1px solid var(--border)}
+.meta{font-size:.85rem;color:var(--teal)}
+.article-title{font-size:2.25rem;line-height:1.35}
+.subtitle{max-width:none;font-size:1.04rem}
+.author{margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:flex;gap:16px;align-items:center;font-size:.88rem}
+.author-avatar{width:48px;height:48px;flex:0 0 48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#2a9d8f,var(--purple));color:#fff;font-weight:700}
+.author strong{color:var(--text)}
+.tag{padding:3px 12px;background:rgba(77,217,207,.08);border-color:rgba(77,217,207,.2)}
+main{max-width:880px;padding-left:24px;padding-right:24px}
+p{margin:0 0 20px;color:#9bc4ee}
+h2{font-size:1.55rem;margin:54px 0 20px;padding:0 0 10px;border-left:0;border-bottom:2px solid var(--teal);display:inline-block}
+.lead{font-size:1.05rem;color:#d8e7ef}
+.hero,.dashboard-wide{max-width:880px;margin:34px auto 42px;padding:0 24px}
+.figure{width:100%;max-width:100%;padding:0;border-radius:12px;overflow:hidden}
+.figure svg{width:100%;max-width:100%;height:auto}
+.caption{margin:12px 12px 14px;text-align:center;line-height:1.7}
+.dashboard{overflow:hidden;border-radius:12px}.dashboard-grid{grid-template-columns:260px minmax(0,1fr)}
+@media(max-width:760px){.article-header{padding:40px 18px 30px}.article-title{font-size:1.75rem}.hero,.dashboard-wide,main{padding-left:18px;padding-right:18px}.figure svg{min-width:0}.author{align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="top-bar"><div class="top-bar-inner"><a href="../index.html#teaching">← 回到首頁</a><div class="top-bar-title">AGENTIC AI · SELF-IMPROVEMENT · EVOLUTION</div></div></div>
+<header class="article-header">
+  <div class="meta">2026-07-12 · AI × Cognitive Science · Blog 全文</div>
+  <h1 class="article-title">AI 不只是變聰明：從工具、代理人到共同演化的生態系</h1>
+  <p class="subtitle">AI 已開始記住錯誤、保存技能、使用工具並互相協作。但這算「自我改進」甚至「演化」嗎？關鍵不是它看起來多聰明，而是改善發生在哪裡、能保留多久，以及誰決定進步的方向。</p>
+  <div class="author"><div class="author-avatar">朱</div><div><strong>朱國大醫師</strong><br>腎臟科暨認知神經科學研究・依一級文獻與多代理人對抗性合成框架整理</div></div>
+  <div class="tags"><span class="tag">Agentic AI</span><span class="tag">Self-improvement</span><span class="tag">Harness</span><span class="tag">Evolution</span><span class="tag">Governance</span></div>
+</header>
+
+<section class="hero"><div class="figure">
+<svg viewBox="0 0 1100 470" role="img" aria-labelledby="hero-title hero-desc"><title id="hero-title">AI 從工具走向演化生態系</title><desc id="hero-desc">五個逐漸擴大的圓代表模型、代理人、harness、多代理系統與人類AI生態系。</desc><defs><radialGradient id="g"><stop stop-color="#4dd9cf" stop-opacity=".35"/><stop offset="1" stop-color="#8b5cf6" stop-opacity=".03"/></radialGradient><filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="1100" height="470" rx="18" fill="#08101f"/><circle cx="310" cy="235" r="190" fill="url(#g)" stroke="#24385d"/><circle cx="310" cy="235" r="150" fill="none" stroke="#8b5cf6"/><circle cx="310" cy="235" r="112" fill="none" stroke="#f4a261"/><circle cx="310" cy="235" r="76" fill="none" stroke="#4dd9cf"/><circle cx="310" cy="235" r="35" fill="#4dd9cf" filter="url(#glow)"/><text x="310" y="241" text-anchor="middle" font-size="16" font-weight="700" fill="#08101f">MODEL</text><text x="310" y="147" text-anchor="middle" font-size="17" fill="#7ee8e2">AGENT</text><text x="310" y="103" text-anchor="middle" font-size="17" fill="#f4a261">HARNESS</text><text x="310" y="59" text-anchor="middle" font-size="17" fill="#a78bfa">MULTI-AGENT</text><text x="310" y="455" text-anchor="middle" font-size="17" fill="#8ba8c4">HUMAN–AI ECOSYSTEM</text><path d="M540 125 C640 125 640 345 540 345" fill="none" stroke="#4dd9cf" stroke-width="3" stroke-dasharray="8 8"/><text x="610" y="215" font-size="25" font-weight="700" fill="#e8f4f8">真正的問題</text><text x="610" y="258" font-size="21" fill="#8ba8c4">不是「AI 有沒有變好」</text><text x="610" y="296" font-size="21" fill="#8ba8c4">而是「誰改變、存在何處、</text><text x="610" y="331" font-size="21" fill="#8ba8c4">能轉移多遠、由誰選擇」</text></svg>
+<div class="caption">圖 1｜Agentic AI 的能力不是單一模型屬性，而是 model、memory、tools、harness、agents 與 institutions 的耦合結果。</div></div></section>
+
+<main>
+<p class="lead">如果你曾用 AI 幫忙查資料、寫信或整理報告，可能已經發現：真正決定結果好壞的，往往不只是模型聰不聰明，而是它能不能記住前面的工作、使用工具、檢查錯誤，並在失敗後換一條路。</p>
+<p>聊天模型像一位知識豐富、但談話結束就下班的顧問；人工智慧代理人（AI agent）則像能接任務、查資料、操作軟體、保存進度並回報結果的助理。當它再配備記憶、工具、測試、其他代理人與管理規則，我們面對的就不只是一個模型，而是一整套會行動的系統。</p>
+<div class="callout gold"><b>先給結論：</b>代理式人工智慧已出現局部、受限制的累積學習；但沒有證據顯示現有系統能跨領域、長期、安全而且無止境地自我提升。</div>
+
+<h2>五個層次，五種完全不同的「進步」</h2>
+<div class="layers"><div class="layer"><b>1｜模型</b>：模型權重、訓練資料或學習方法改變。</div><div class="layer"><b>2｜代理人</b>：根據回饋改變未來行動，並在不同任務間保存記憶。</div><div class="layer"><b>3｜運作框架</b>：工具、權限、測試、隔離環境與評分方式改變。</div><div class="layer"><b>4｜多代理系統</b>：角色分工、辯論、工作交接與協調機制改變。</div><div class="layer"><b>5｜生態系</b>：組織、市場、規範與人類依賴共同決定哪些系統被保留。</div></div>
+
+<div class="figure">
+<svg viewBox="0 0 760 390" role="img" aria-labelledby="ladder-title ladder-desc"><title id="ladder-title">Agentic AI 五層改善階梯</title><desc id="ladder-desc">從模型、代理人、harness、多代理系統到生態系的五階階梯；前三階已有局部證據，後兩階仍待嚴格驗證。</desc><defs><linearGradient id="step-fill" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#4dd9cf" stop-opacity=".3"/><stop offset="1" stop-color="#8b5cf6" stop-opacity=".4"/></linearGradient></defs><rect width="760" height="390" rx="16" fill="#08101f"/><path d="M55 325H180V270H300V215H420V160H540V105H705V345H55Z" fill="url(#step-fill)" stroke="#4dd9cf" stroke-width="2"/><g fill="#e8f4f8" font-family="Noto Sans TC, sans-serif" font-size="17" font-weight="700"><text x="78" y="310">1 Model</text><text x="199" y="255">2 Agent</text><text x="316" y="200">3 Harness</text><text x="435" y="145">4 Multi-agent</text><text x="558" y="90">5 Ecosystem</text></g><path d="M70 355H410" stroke="#22c55e" stroke-width="5"/><text x="70" y="378" fill="#8ba8c4" font-size="14">已有局部、受限的實證</text><path d="M430 355H690" stroke="#f4a261" stroke-width="5" stroke-dasharray="8 7"/><text x="475" y="378" fill="#8ba8c4" font-size="14">仍待嚴格驗證</text></svg>
+<div class="caption">圖 2｜層級越高，改善越依賴跨時間保留、跨情境轉移與可靠 selection。這不是「成熟度排名」，而是主張需要跨越的證據門檻。</div></div>
+
+<h2>多想一下，不等於真的學會</h2>
+<p>Muennighoff 等人在 2025 年發表〈s1：簡單的作答階段運算擴展〉（<i>s1: Simple Test-Time Scaling</i>）。研究只用一千個精選推理範例訓練模型；模型準備停止推理時，再提示它「等一下」（Wait），要求它繼續檢查。在某些數學題中，模型確實會改正答案。</p><p>但這比較像考試時多給學生五分鐘。這次答對，不代表下次不再犯。只讓當次答案變好，屬於適應性運算；改善若能被保存並影響日後任務，才比較接近真正的學習。</p>
+
+<h2>AI 開始擁有錯題本與工具箱</h2>
+<p>「反思」（Reflexion）系統會在失敗後整理錯誤原因與下一次策略，再把反思寫進事件記憶。「航海家」（Voyager）則在《Minecraft》中，把成功任務保存為可執行技能，日後再從技能庫取出並重新組合。</p><p>這證明 AI 的學習不一定只存在模型權重裡，也能存在文字記憶、程式、測試與工作流程中。但記憶也有風險：錯誤反思可能被保存，脆弱程式也可能通過不完善的驗證器。</p>
+<div class="callout purple"><b>管理記憶，就是管理「繼承」：</b>誰可以寫入、如何查核、何時淘汰、能否回復舊版本，會決定成功與錯誤如何傳到下一次行動。</div>
+
+<h2>真正重要的，可能是運作框架</h2>
+<p>運作框架（harness）是包圍模型的工作環境，包括提示、工具、權限、記憶、隔離測試環境、測試程序、評分方式與停止條件。自動化 AI 研究已能提出想法、改寫程式、執行實驗，再依結果保留較好的版本。</p><p>但這不等於 AI 已成為獨立科學家。研究題目、程式基礎、評量指標、算力與行動範圍，仍由人類設計。未來人類的角色可能從親自爬山，轉成選擇要爬哪座山。</p>
+
+<h2>多個代理人不一定比較聰明</h2>
+<p>多個代理人分工、辯論或互評，能提高覆蓋率，也會增加運算成本、溝通錯誤與協調負擔。如果它們使用相同模型，又讀到相同的錯誤資料，最後可能只形成一個非常有自信的錯誤共識。</p><p>要證明集體智慧，必須在相同運算量、工具與時間下，證明互動比單一代理人反覆嘗試帶來更多價值。同一條溝通管道，既能傳遞證據，也可能放大幻覺與錯誤。</p>
+
+<h2>這算演化嗎？</h2>
+<p>生物演化至少需要變異、繼承，以及不同版本有不同的存續機會。某些 AI 工作流程已具備這些元素：產生多個程式版本、執行測試，再保存較好的技能。這可以稱為「受限的演化搜尋」。</p><p>真正的開放式演化還要求成果持續「新穎」又「可以學習」。亂碼很新穎，卻學不到東西；固定課程可以學，完成後卻會停止。現有代理人尚未證明能長期跨越不同領域，持續產生新穎、可理解，又不會停滯的成果。</p>
+</main>
+
+<section class="dashboard-wide" aria-labelledby="dash-title"><div class="dashboard"><div class="dashboard-grid"><aside class="panel control"><h3 id="dash-title">互動模型：改善能保留多久？</h3><label>跨任務保留率 <span id="retention-label">35%</span></label><input id="retention" type="range" min="0" max="100" value="35"><label>跨領域轉移率 <span id="transfer-label">20%</span></label><input id="transfer" type="range" min="0" max="100" value="20"><label>查核可靠度 <span id="verify-label">65%</span></label><input id="verify" type="range" min="0" max="100" value="65"><p class="caption">這是教學模型，不是實驗資料。調整三個條件，觀察一次性改善是否能成為累積能力。</p><div class="metric" id="stage">第 2 階</div><div id="stage-text" class="caption">跨任務記憶</div></aside><div class="panel"><canvas id="gradient" aria-label="改善保留程度示意圖"></canvas></div></div></div></section>
+
+<main>
+<h2>治理不是最後一道煞車，而是方向盤</h2>
+<p>評量決定什麼叫進步；權限決定哪些行動可以嘗試；記憶規則決定哪些經驗會被保留；算力與部署資源則決定哪些版本能繼續存在。因此，治理可能就是 AI 面對的「選擇環境」。</p><p>這仍是需要驗證的假說，卻能導出實際原則：重要記憶要標示來源與可信程度；可執行技能要通過測試與權限限制；每次變更都要追蹤來源與版本；錯誤版本則要能回復。</p>
+
+<h2>想像一間 2030 年的研究型醫院</h2>
+<p>一個腎臟照護代理人把脫水造成的腎功能惡化誤判為疾病進展。醫師糾正後，系統把錯誤寫進記憶；這是代理人層次的調整。工程團隊再把「先檢查體重、血壓與利尿劑」寫成查核規則與回歸測試。即使更換底層模型，安全檢查仍然存在；這是運作框架層次的改進。</p><p>若腎臟科、藥師與感染科代理人分工，而且在相同時間與成本下真的比單一代理人更準確，才有資格稱為「集體改進」。所有保留下來的變更，還必須記錄來源、版本、核准者與回復路徑。</p><p>若多家醫院採用這套系統，保險與評鑑制度又偏好使用它的機構，治理便開始影響哪些人機組合能擴張。這很像選擇環境，卻還不能證明醫院與 AI 已形成新的演化個體。</p>
+
+<h2>五個問題，判斷 self-improvement 是真是假</h2>
+<ol class="checklist"><li><b>誰改變了？</b>一次回答、模型權重、代理人的記憶，還是整套工作流程？</li><li><b>改善存在哪裡？</b>對話結束後還在嗎？</li><li><b>誰決定好壞？</b>可靠的外部結果，還是另一個可能犯錯的 AI 評審？</li><li><b>能轉移多遠？</b>同一題、同領域新題，還是完全不同世界？</li><li><b>誰控制方向？</b>誰設定目標、權限、資源與停止條件？</li></ol>
+
+<h2>結語：我們正在設計共同演化的環境</h2>
+<p>代理式人工智慧已跨過重要界線：它開始使用工具、接受回饋、保存技能，並在某些受控環境累積改善。但它尚未跨過更遠的界線：沒有證據顯示現有系統能跨領域、長期、安全而且無止境地自我提升。</p><div class="callout"><b>本文重點</b><br>AI 能不能爬得更快，逐漸有了答案。接下來，人類必須決定的是：要選哪座山，以及在走得太遠以前，是否仍保有回頭的能力。</div>
+
+<section class="references"><h2>延伸閱讀</h2><ol><li>Yang Z. Continually self-improving AI. Stanford University; 2026.</li><li>Muennighoff N, et al. s1: Simple Test-Time Scaling. arXiv:2501.19393; 2025.</li><li>Wang G, et al. Voyager. arXiv:2305.16291; 2023.</li><li>Shinn N, et al. Reflexion. arXiv:2303.11366; 2023.</li><li>Hughes E, et al. Open-Endedness is Essential for Artificial Superhuman Intelligence. 2024.</li><li>Rainey PB, Hochberg ME. Could humans and AI become a new evolutionary individual? PNAS. 2025;122:e2509122122.</li><li>Chan A, et al. Harms from Increasingly Agentic Algorithmic Systems. FAccT; 2023.</li></ol></section>
+<footer class="article-footer">本文為學術研究的大眾科普轉譯，不構成醫療、投資或技術部署建議。所有強主張均依原始論文降階處理；「governance as selection environment」為作者提出的可檢驗假說。</footer>
+</main>
+
+<script>
+(()=>{const canvas=document.getElementById('gradient'),ctx=canvas.getContext('2d'),inputs=['retention','transfer','verify'].map(id=>document.getElementById(id));function resize(){const r=canvas.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);canvas.width=r.width*d;canvas.height=r.height*d;ctx.setTransform(d,0,0,d,0,0);draw()}function draw(){const w=canvas.clientWidth,h=canvas.clientHeight,vals=inputs.map(x=>+x.value/100);ctx.clearRect(0,0,w,h);const score=.45*vals[0]+.35*vals[1]+.2*vals[2],stage=Math.min(5,Math.max(1,Math.ceil(score*5)));document.getElementById('stage').textContent='第 '+stage+' 階';document.getElementById('stage-text').textContent=['一次性計算','跨任務記憶','同領域技能重用','跨領域持續學習','開放式演化'][stage-1];['retention','transfer','verify'].forEach((id,i)=>document.getElementById(id+'-label').textContent=Math.round(vals[i]*100)+'%');const names=['單次任務','記憶','技能','跨領域','開放演化'],colors=['#277da1','#43aa8b','#8b5cf6','#f4a261','#ef4444'];const gap=14,bw=(w-gap*6)/5,y=h*.3,bh=h*.42;for(let i=0;i<5;i++){const x=gap+(bw+gap)*i,active=i<stage;ctx.fillStyle=active?colors[i]:'#172844';ctx.strokeStyle=i>=3?'#f4a261':'#3a5275';ctx.lineWidth=active?3:1;ctx.setLineDash(i>=3?[7,6]:[]);ctx.beginPath();ctx.roundRect(x,y,bw,bh,12);ctx.fill();ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#e8f4f8';ctx.font='600 13px Noto Sans TC';ctx.textAlign='center';ctx.fillText(names[i],x+bw/2,y+bh/2);ctx.fillStyle='#8ba8c4';ctx.font='12px Noto Sans TC';ctx.fillText(i<3?'已有證據':'尚未證實',x+bw/2,y+bh/2+24)}ctx.fillStyle='#8ba8c4';ctx.font='14px Noto Sans TC';ctx.textAlign='left';ctx.fillText('改善越能被可靠保留並跨情境轉移，才越接近真正的累積學習。',14,h-26)}inputs.forEach(x=>x.addEventListener('input',draw));addEventListener('resize',resize);resize();if(matchMedia('(prefers-reduced-motion: reduce)').matches){inputs.forEach(x=>x.style.transition='none')}})();
+</script>
+</body></html>
