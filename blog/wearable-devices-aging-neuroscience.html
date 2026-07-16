@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="從睡眠規律、日夜節律破碎到血漿 p-tau217：穿戴式裝置在高齡神經科學的證據與限制，以及體動儀作為阿茲海默症輔助追蹤的最新前瞻證據。">
+<title>手錶讀得懂你的大腦嗎？穿戴式裝置與高齡神經科學 | 朱國大醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg-primary:#0a0f1e;
+  --bg-card:#111d3c;
+  --bg-card2:#162248;
+  --teal:#4dd9cf;
+  --teal-light:#7ee8e2;
+  --purple:#8b5cf6;
+  --purple-light:#a78bfa;
+  --gold:#f4a261;
+  --text:#e8f4f8;
+  --text-sec:#8ba8c4;
+  --text-dim:#4a6580;
+  --border:rgba(77,217,207,0.15);
+  --shadow:0 8px 32px rgba(0,0,0,0.45);
+  --radius:12px;
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family:'Noto Sans TC','Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text);
+  line-height:1.9;
+}
+a { color:var(--teal); text-decoration:none; }
+a:hover { color:var(--teal-light); }
+.top-bar {
+  position:sticky; top:0; z-index:100;
+  background:rgba(10,15,30,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;
+}
+.top-bar-inner {
+  max-width:980px; margin:0 auto; padding:0 24px;
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+}
+.back-link { color:var(--text-sec); font-size:0.9rem; display:inline-flex; gap:8px; align-items:center; }
+.top-bar-title { font-size:0.82rem; color:var(--text-dim); font-family:'JetBrains Mono',monospace; }
+.article { max-width:860px; margin:0 auto; padding:58px 24px 82px; }
+.article-header {
+  margin-bottom:44px; padding-bottom:34px;
+  border-bottom:1px solid var(--border);
+}
+.article-meta {
+  color:var(--teal); font-size:0.85rem;
+  font-family:'JetBrains Mono',monospace; margin-bottom:14px;
+}
+.article-title {
+  font-size:2.25rem; line-height:1.35; margin-bottom:18px;
+  background:linear-gradient(135deg,var(--text),var(--teal-light));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.article-subtitle { color:var(--text-sec); font-size:1.04rem; }
+.article-author {
+  margin-top:24px; padding-top:20px; border-top:1px solid var(--border);
+  display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+}
+.author-avatar {
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,#2a9d8f,var(--purple));
+  display:flex; align-items:center; justify-content:center; font-weight:700;
+  font-size:1.1rem;
+}
+.author-info { color:var(--text-sec); font-size:0.88rem; line-height:1.65; }
+.author-info strong { color:var(--text); }
+.article-tags { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; }
+.tag {
+  font-size:0.72rem; padding:3px 12px; border-radius:20px;
+  background:rgba(77,217,207,0.08); color:var(--teal);
+  border:1px solid rgba(77,217,207,0.2);
+}
+figure { margin:34px 0; }
+.hero-figure { margin:34px 0 42px; }
+figure img { width:100%; display:block; border:1px solid var(--border); border-radius:var(--radius); background:var(--bg-card); box-shadow:var(--shadow); }
+figcaption { margin-top:12px; color:var(--text-sec); font-size:0.85rem; text-align:center; line-height:1.7; }
+h2 {
+  font-size:1.55rem; margin:54px 0 20px; padding-bottom:10px;
+  border-bottom:2px solid var(--teal); display:inline-block;
+}
+h3 { font-size:1.18rem; color:var(--teal-light); margin:34px 0 14px; }
+p { color:var(--text-sec); margin:0 0 20px; }
+p strong, li strong { color:var(--text); }
+em { color:var(--teal-light); }
+ul,ol { color:var(--text-sec); padding-left:24px; margin:0 0 24px; }
+li { margin-bottom:10px; }
+li::marker { color:var(--teal); }
+.callout {
+  margin:28px 0; padding:20px 24px; background:var(--bg-card);
+  border-left:4px solid var(--teal); border-radius:8px; color:var(--text-sec);
+}
+.callout.purple { border-left-color:var(--purple); }
+.callout.gold { border-left-color:var(--gold); }
+.formula {
+  margin:24px 0; padding:18px 24px; background:rgba(77,217,207,0.06);
+  border-left:3px solid var(--teal); border-radius:8px;
+  font-family:'JetBrains Mono',monospace; color:var(--teal-light); font-size:1.05rem;
+}
+.formula small { display:block; margin-top:8px; font-size:0.78rem; color:var(--text-dim); font-family:'Noto Sans TC',sans-serif; }
+.tbl-wrap { overflow-x:auto; margin:24px 0; }
+table {
+  width:100%; border-collapse:collapse; background:var(--bg-card);
+  border-radius:var(--radius); overflow:hidden; font-size:0.92rem;
+}
+th {
+  text-align:left; color:var(--teal); background:rgba(77,217,207,0.1);
+  padding:12px 14px; border-bottom:1px solid var(--border);
+}
+td { padding:12px 14px; color:var(--text-sec); border-bottom:1px solid rgba(77,217,207,0.08); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+blockquote {
+  margin:34px 0; padding:24px 28px;
+  background:linear-gradient(135deg,rgba(77,217,207,0.06),rgba(139,92,246,0.06));
+  border-left:4px solid var(--teal); border-radius:8px;
+  color:var(--text); font-size:1.05rem;
+}
+.references { margin-top:60px; padding-top:34px; border-top:2px solid var(--teal); }
+.references h2 { border:none; margin-top:0; padding:0; }
+.references ol { list-style:none; counter-reset:ref; padding-left:0; }
+.references li {
+  counter-increment:ref; position:relative; padding-left:42px;
+  font-size:0.88rem; color:var(--text-sec); margin-bottom:14px;
+}
+.references li::before {
+  content:counter(ref); position:absolute; left:0; top:2px;
+  width:26px; height:26px; border-radius:50%;
+  background:rgba(77,217,207,0.12); color:var(--teal);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:0.75rem;
+}
+.article-footer {
+  margin-top:54px; padding-top:28px; border-top:1px solid var(--border);
+  color:var(--text-dim); font-size:0.88rem; text-align:center;
+}
+/* ---- dashboard ---- */
+.article-wide { max-width:1180px; margin:0 auto; padding:0 24px; }
+.dashboard { background:#0c1429; border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+.dashboard-grid { display:grid; grid-template-columns:260px minmax(0,1fr) 330px; gap:14px; padding:16px; }
+.dashboard-panel { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:14px; }
+.dashboard-panel h3 { color:var(--teal-light); margin:0 0 12px; font-size:1.02rem; }
+.dashboard-panel h3 + canvas { margin-bottom:14px; }
+.dashboard canvas { width:100%; display:block; border-radius:8px; background:#08101f; }
+.control-row { margin-bottom:14px; }
+.control-row label { display:flex; justify-content:space-between; color:var(--text-sec); font-size:.82rem; }
+.control-row output { color:var(--teal-light); font-family:'JetBrains Mono',monospace; }
+.control-row input[type="range"] { width:100%; accent-color:var(--teal); margin-top:4px; }
+.preset-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px; }
+.preset-button,.sim-button { border:1px solid var(--border); color:var(--text); background:var(--bg-card2); border-radius:8px; padding:9px; cursor:pointer; font-family:inherit; font-size:.82rem; }
+.preset-button:hover,.sim-button:hover { border-color:var(--teal); }
+.preset-button.active { border-color:var(--teal); color:var(--teal); }
+.simulation-actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:14px 0; }
+#preset-explanation { color:var(--text-sec); font-size:.82rem; margin:8px 0 4px; }
+#preset-limit { color:var(--gold); font-size:.8rem; margin:0; }
+.metric-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:14px; }
+.metric-card { background:#0a1326; border-radius:8px; padding:10px; }
+.metric-card span { color:var(--text-sec); font-size:.74rem; }
+.metric-value { color:var(--teal-light); font:600 1.2rem 'JetBrains Mono',monospace; margin-top:4px; }
+#model-status { color:var(--text-dim); font-size:.76rem; font-family:'JetBrains Mono',monospace; margin-top:12px; }
+.model-warning { border-left:4px solid var(--gold); background:rgba(244,162,97,.08); padding:14px 16px; color:var(--text-sec); border-radius:8px; margin-bottom:14px; font-size:.9rem; }
+.model-warning strong { color:var(--gold); }
+@media (max-width:980px) {
+  .dashboard-grid { grid-template-columns:1fr; }
+  .dashboard-panel.controls { order:2; }
+  .dashboard-panel.metrics { order:3; }
+}
+@media(max-width:640px) {
+  .article { padding:42px 18px 64px; }
+  .article-title { font-size:1.65rem; }
+  .top-bar-title { display:none; }
+  table { font-size:0.84rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="../index.html#teaching" class="back-link"><i class="fas fa-arrow-left"></i> 返回首頁</a>
+    <div class="top-bar-title">WEARABLES · DIGITAL PHENOTYPING · AGING NEUROSCIENCE</div>
+  </div>
+</div>
+
+<article class="article">
+<header class="article-header">
+  <div class="article-meta">2026 / 07 / 16 · 穿戴式裝置與高齡神經科學</div>
+  <h1 class="article-title">手錶讀得懂你的大腦嗎？穿戴式裝置如何守護高齡與失智照護</h1>
+  <p class="article-subtitle">從睡眠規律、日夜節律破碎到血漿 p-tau217：一份誠實的證據評析——哪些用途已經站得住腳，哪些還只是假設，以及為什麼體動儀可能成為阿茲海默症的「輔助追蹤」工具。</p>
+  <div class="article-author">
+    <div class="author-avatar">朱</div>
+    <div class="author-info">
+      <strong>朱國大醫師</strong><br>
+      腎臟科暨認知神經科學研究 · 依據本專案英文學術回顧與 13 篇原始文獻整理
+    </div>
+  </div>
+  <div class="article-tags">
+    <span class="tag">穿戴式裝置</span>
+    <span class="tag">Actigraphy</span>
+    <span class="tag">數位表型</span>
+    <span class="tag">睡眠規律 SRI</span>
+    <span class="tag">阿茲海默症</span>
+    <span class="tag">p-tau217</span>
+    <span class="tag">高齡神經科學</span>
+  </div>
+</header>
+
+<div class="callout gold">
+  <strong>免責聲明：</strong>本文為我的科普整理，非診斷或醫療建議。文中數據多來自單一研究，不足以作為個人臨床決策依據；如有疑慮，請諮詢專業醫療人員。
+</div>
+
+<h2>問題從哪裡開始</h2>
+<p>失智症的照護長期依賴「門診當下」與「照顧者回憶」。但認知與行為的變化發生在家裡、發生在夜裡，而非診間的那 20 分鐘。我想回答的問題是：我們能不能用一支手錶，把這些看不見的變化持續記錄下來？</p>
+
+<h2>先給結論</h2>
+<blockquote>
+可以，但要謹慎。目前證據最紮實的用途，是監測「睡眠規律」與「日夜節律」，並證明穿戴式裝置在失智長者身上「戴得住」。更關鍵的是，「用體動儀追蹤阿茲海默症病理」不再只是空想：鹿特丹研究（JAMA Neurology, 2024）已提供前瞻證據，顯示節律破碎能在類澱粉沉積前好幾年就出現變化。因此方向已經明確——與其讓手錶單獨診斷，不如把它「加到」分子診斷（如 p-tau217）之上，作為輔助的早期偵測與長期追蹤工具。單靠手錶即時確診，才是仍需驗證的部分。
+</blockquote>
+
+<h2>必須理解的概念</h2>
+<p>「數位表型（digital phenotype）」是指用感測器持續量化一個人的行為：睡多久、幾點睡、白天動多少。我特別看重三個指標：睡眠規律性指數（Sleep Regularity Index, SRI）衡量每天作息的一致性（0 到 100，越高越規律）；入睡後醒覺時間（wake after sleep onset, WASO）是入睡後又醒著的時間；「節律破碎」（intradaily variability）則反映日夜活動被打散的程度。裝置也分兩級：研究級可輸出原始加速度資料、可重現分析；消費級（如 Apple Watch、Fitbit）方便好戴，但演算法是不透明的「黑盒子」。</p>
+
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>指標</th><th>意義</th><th>為什麼重要</th></tr></thead>
+<tbody>
+<tr><td>SRI</td><td>每天睡/醒時間的一致性（0–100）</td><td>越規律，失智風險越低</td></tr>
+<tr><td>WASO</td><td>入睡後醒著的時間</td><td>拉長與白天躁動相關</td></tr>
+<tr><td>節律破碎（intradaily variability）</td><td>日夜活動被打散的程度</td><td>可能早於類澱粉沉積出現</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>證據告訴我什麼</h2>
+<p><strong>第一，用科技不會變笨，反而可能有保護作用。</strong>我看到一份涵蓋 411,430 名中高齡者的統合分析：日常使用數位科技與較低的認知衰退風險相關（勝算比 OR 0.42；風險比 HR 0.74），效力與教育年限相當。我把它讀成「科技儲備」而非「數位失智」。</p>
+<p><strong>第二，規律的作息與較低的失智風險相關。</strong>在 82,391 名英國成人中，SRI 較高者（≥70）罹患失智的風險較低（HR 0.74），且呈近乎線性的劑量反應；我注意到，作息規律對「睡不夠的人」幫助最大。</p>
+<p><strong>第三，手錶量到的節律破碎，可能早在類澱粉沉積前好幾年就出現——這正是「用體動儀追蹤阿茲海默症」這個假說最直接的證據。</strong>在鹿特丹研究中，319 位尚無失智的長者先戴體動儀、平均約八年後才做類澱粉正子造影；基線「節律破碎程度」越高，日後腦中類澱粉負荷越高（標準化 β=0.15，95% 信賴區間 0.04–0.26），在帶有 APOE4 基因者身上更明顯。我特別看重一個細節：即使把「基線血漿失智標記（Aβ42/40、p-tau181、p-tau217）已經異常」的人排除後，這個關聯依然存在。這代表節律破碎比較像是「走在病理前面」，而不只是既有病理的早期症狀。不過我仍要保留：這是單一觀察性世代、效應量不大，只能說節律破碎「早於／相關」，而非「診斷」阿茲海默症。</p>
+<p><strong>第四，連重度躁動的失智長者也戴得住。</strong>我看到一項 29 人的研究用研究級 GENEActiv 手錶，接受度達 96.6%、四週配戴依從率 88.0%（第四週升到 91.4%），沒有一支手錶遺失。研究者提出「配戴依從度與認知功能呈 U 形曲線」：正常與極重度者依從最好。</p>
+<p><strong>第五，裝置等級不能互換。</strong>與研究級 ActiGraph 相比，Fitbit 高估步數 18%、Apple Watch 低估中高強度活動 46%、Fitbit 高估活動熱量消耗達 139%；步數雖然一致，但強度與睡眠破碎化的量測差很多。我的結論是：要做嚴謹研究，需要原始加速度資料搭配開源工具（如 GGIR、pyActigraphy）。</p>
+
+<h2>證據尚未告訴我什麼</h2>
+<p>我坦白幾個尚未釐清的地方。因果方向仍未定：是科技保護了認知，還是認知較好的人本來就更會用科技？我傾向兩者並存。血漿 p-tau217 能準確反映病理分期（早期類澱粉 AUC 0.964），我把它和體動儀看成互補：血液標記告訴我們「病理走到哪一階」，手錶則補上兩次抽血之間的連續「軌跡」。我認為手錶能「追蹤風險」已有鹿特丹這項前瞻證據支撐；但要當成「診斷工具」或即時預警藥物副作用，目前仍未被證實。另外，坊間流傳一個「WASO 與易怒相關係數 R 約 0.43–0.44」的數字，我在原始論文裡找不到，因此只當作方向性假設看待。</p>
+
+<h2>一個具體情境</h2>
+<p>想像一位早期阿茲海默症患者正在接受類澱粉標靶治療。理想上，如果手錶偵測到連續幾天 SRI 下降、WASO 拉長，或許能提示醫師提前安排檢查。但我要提醒：這些訊號<strong>沒有病理特異性</strong>——步態變差可能是藥物副作用，也可能只是關節炎或泌尿道感染。所以在我看來，數位表型頂多是「篩檢與提醒訊號」，不能取代影像或血液確診。</p>
+
+<h2>我建議讀者可以用的判斷問題</h2>
+<ul>
+<li>這個數字來自幾項研究？（我這篇多數關鍵結論其實各只有一項研究）</li>
+<li>用的是研究級還是消費級裝置？量測的是步數，還是較不可靠的睡眠分期？</li>
+<li>這是「相關」還是「因果」？研究對象包含高齡與失智族群嗎？</li>
+<li>過度盯著睡眠數據，會不會反而造成「完美睡眠焦慮」（orthosomnia）？</li>
+</ul>
+
+<h2>結語</h2>
+<p>在我看來，穿戴式裝置為高齡神經科學打開了一扇窗：它把「巨觀行為」和「大腦健康」連了起來，最實在的價值在於睡眠規律監測、一個能提早數年反映類澱粉風險的節律訊號，以及在脆弱族群身上的可行性。但在我願意把它當成早期診斷或病程追蹤工具之前，這個領域還需要把「單一研究的相關性」升級為「可重現、裝置標準化、族群具代表性、且有分子錨定」的證據。手錶還讀不懂你的大腦——但它已經開始學著讀你的作息。</p>
+
+<section class="references">
+<h2>參考資料</h2>
+<ol>
+  <li><strong>Benge JF, Scullin MK.</strong> A meta-analysis of technology use and cognitive aging. <em>Nature Human Behaviour</em>. 2025;9(7):1405–1419. <a href="https://doi.org/10.1038/s41562-025-02159-9" target="_blank">doi:10.1038/s41562-025-02159-9</a></li>
+  <li><strong>Bian W, Biswas RK, Ahmadi MN, et al.</strong> Dose-response associations of device-measured sleep regularity and duration with incident dementia in 82,391 UK adults. <em>BMC Public Health</em>. 2025;25:516. <a href="https://doi.org/10.1186/s12889-025-21649-z" target="_blank">doi:10.1186/s12889-025-21649-z</a></li>
+  <li><strong>Nguyen Ho PT, Hoepel SJW, Rodriguez-Ayllon M, Luik AI, Vernooij MW, Neitzel J.</strong> Sleep, 24-hour activity rhythms, and subsequent amyloid-β pathology. <em>JAMA Neurology</em>. 2024;81(8):824–834. <a href="https://doi.org/10.1001/jamaneurol.2024.1755" target="_blank">doi:10.1001/jamaneurol.2024.1755</a></li>
+  <li><strong>Guu T-W, Brem A-K, Albertyn CP, Kandangwa P, Aarsland D, ffytche D.</strong> Wrist-worn actigraphy in agitated late-stage dementia patients: a feasibility study on digital inclusion. <em>Alzheimer's &amp; Dementia</em>. 2024;20:3211–3218. <a href="https://doi.org/10.1002/alz.13772" target="_blank">doi:10.1002/alz.13772</a></li>
+  <li><strong>Guu T-W, Muurling M, Khan Z, Kalafatis C, Aarsland D, ffytche D, Brem A-K.</strong> Wearable devices: underrepresentation in the ageing society. <em>The Lancet Digital Health</em>. 2023;5(6):e336–e337. <a href="https://doi.org/10.1016/S2589-7500(23)00069-9" target="_blank">doi:10.1016/S2589-7500(23)00069-9</a></li>
+  <li><strong>Kim H-K, Lee JH, Chun J-H, Kim YJ, Park M, West T, et al.</strong> Plasma p-tau217 predicts PET-based pathological staging for precision Alzheimer disease assessment. <em>Alzheimer's &amp; Dementia</em>. 2026;22(2):e71199. <a href="https://doi.org/10.1002/alz.71199" target="_blank">doi:10.1002/alz.71199</a></li>
+</ol>
+</section>
+
+<footer class="article-footer">
+  本文為科普改寫，依據本專案英文學術回顧與 13 篇已發表原始文獻；文中數值與結論以學術版與原文為準。穿戴式裝置為研究與衛教用途之行為監測工具，非診斷儀器。<br><br>
+  <a href="../index.html#teaching">← 回到演講教學列表</a>
+</footer>
+</article>
+
+</body>
+</html>
