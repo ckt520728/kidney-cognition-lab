@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="靜息態腦波為什麼能在結構還沒崩壞前，提早讀出失智的訊號？從 HHSA 的振幅調變指紋到神經血管振盪假說的一條完整論證。">
+<title>從靜息腦波提早看見失智 · 神經血管振盪假說 | 朱國大醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg-primary:#0a0f1e;
+  --bg-card:#111d3c;
+  --bg-card2:#162248;
+  --teal:#4dd9cf;
+  --teal-light:#7ee8e2;
+  --purple:#8b5cf6;
+  --purple-light:#a78bfa;
+  --gold:#f4a261;
+  --coral:#ef6f6c;
+  --text:#e8f4f8;
+  --text-sec:#8ba8c4;
+  --text-dim:#4a6580;
+  --border:rgba(77,217,207,0.15);
+  --shadow:0 8px 32px rgba(0,0,0,0.45);
+  --radius:12px;
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family:'Noto Sans TC','Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text);
+  line-height:1.9;
+}
+a { color:var(--teal); text-decoration:none; }
+a:hover { color:var(--teal-light); }
+.top-bar {
+  position:sticky; top:0; z-index:100;
+  background:rgba(10,15,30,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;
+}
+.top-bar-inner {
+  max-width:980px; margin:0 auto; padding:0 24px;
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+}
+.back-link { color:var(--text-sec); font-size:0.9rem; display:inline-flex; gap:8px; align-items:center; }
+.top-bar-title { font-size:0.82rem; color:var(--text-dim); font-family:'JetBrains Mono',monospace; }
+.article { max-width:860px; margin:0 auto; padding:58px 24px 82px; }
+.article-header {
+  margin-bottom:44px; padding-bottom:34px;
+  border-bottom:1px solid var(--border);
+}
+.article-meta {
+  color:var(--teal); font-size:0.85rem;
+  font-family:'JetBrains Mono',monospace; margin-bottom:14px;
+}
+.article-title {
+  font-size:2.25rem; line-height:1.35; margin-bottom:18px;
+  background:linear-gradient(135deg,var(--text),var(--teal-light));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.article-subtitle { color:var(--text-sec); font-size:1.04rem; }
+.article-author {
+  margin-top:24px; padding-top:20px; border-top:1px solid var(--border);
+  display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+}
+.author-avatar {
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,#2a9d8f,var(--purple));
+  display:flex; align-items:center; justify-content:center; font-weight:700;
+}
+.author-info { color:var(--text-sec); font-size:0.88rem; line-height:1.65; }
+.author-info strong { color:var(--text); }
+.article-tags { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; }
+.tag {
+  font-size:0.72rem; padding:3px 12px; border-radius:20px;
+  background:rgba(77,217,207,0.08); color:var(--teal);
+  border:1px solid rgba(77,217,207,0.2);
+}
+figure.viz {
+  margin:34px 0 42px; border:1px solid var(--border); border-radius:var(--radius);
+  background:var(--bg-card); overflow:hidden; box-shadow:var(--shadow); padding:22px 20px 8px;
+}
+figure.viz svg { display:block; width:100%; height:auto; }
+figure.viz figcaption { color:var(--text-dim); font-size:0.82rem; padding:14px 4px 8px; line-height:1.7; }
+h2 {
+  font-size:1.55rem; margin:54px 0 20px; padding-bottom:10px;
+  border-bottom:2px solid var(--teal); display:inline-block;
+}
+h3 { font-size:1.18rem; color:var(--teal-light); margin:34px 0 14px; }
+p { color:var(--text-sec); margin:0 0 20px; }
+p strong, li strong { color:var(--text); }
+em { color:var(--teal-light); }
+ul,ol { color:var(--text-sec); padding-left:24px; margin:0 0 24px; }
+li { margin-bottom:10px; }
+li::marker { color:var(--teal); }
+.callout {
+  margin:28px 0; padding:20px 24px; background:var(--bg-card);
+  border-left:4px solid var(--teal); border-radius:8px; color:var(--text-sec);
+}
+.callout.purple { border-left-color:var(--purple); }
+.callout.gold { border-left-color:var(--gold); }
+.callout strong { color:var(--text); }
+.tbl-wrap { overflow-x:auto; margin:24px 0; }
+table {
+  width:100%; border-collapse:collapse; background:var(--bg-card);
+  border-radius:var(--radius); overflow:hidden; font-size:0.92rem;
+}
+th {
+  text-align:left; color:var(--teal); background:rgba(77,217,207,0.1);
+  padding:12px 14px; border-bottom:1px solid var(--border);
+}
+td { padding:12px 14px; color:var(--text-sec); border-bottom:1px solid rgba(77,217,207,0.08); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+blockquote {
+  margin:34px 0; padding:24px 28px;
+  background:linear-gradient(135deg,rgba(77,217,207,0.06),rgba(139,92,246,0.06));
+  border-left:4px solid var(--teal); border-radius:8px;
+  color:var(--text); font-size:1.05rem;
+}
+.references { margin-top:60px; padding-top:34px; border-top:2px solid var(--teal); }
+.references h2 { border:none; margin-top:0; padding:0; }
+.references ol { list-style:none; counter-reset:ref; padding-left:0; }
+.references li {
+  counter-increment:ref; position:relative; padding-left:42px;
+  font-size:0.88rem; color:var(--text-sec);
+}
+.references li::before {
+  content:counter(ref); position:absolute; left:0; top:2px;
+  width:26px; height:26px; border-radius:50%;
+  background:rgba(77,217,207,0.12); color:var(--teal);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:0.75rem;
+}
+.article-footer {
+  margin-top:54px; padding-top:28px; border-top:1px solid var(--border);
+  color:var(--text-dim); font-size:0.88rem; text-align:center;
+}
+@media(max-width:640px) {
+  .article { padding:42px 18px 64px; }
+  .article-title { font-size:1.65rem; }
+  .top-bar-title { display:none; }
+  table { font-size:0.84rem; }
+  figure.viz { padding:16px 12px 6px; }
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="../index.html#teaching" class="back-link"><i class="fas fa-arrow-left"></i> 返回首頁</a>
+    <div class="top-bar-title">NEUROVASCULAR OSCILLATIONS</div>
+  </div>
+</div>
+
+<article class="article">
+<header class="article-header">
+  <div class="article-meta">2026 / 07 / 18 · 認知神經科學筆記</div>
+  <h1 class="article-title">從靜息腦波提早看見失智：神經血管振盪假說</h1>
+  <p class="article-subtitle">診斷阿茲海默症目前仰賴昂貴的類澱粉正子造影與侵入性的腦脊髓液檢查。但一段幾分鐘、閉眼安靜的靜息態腦波（rsEEG），為什麼可能在大腦結構還沒崩壞之前，就提早讀出失智的訊號？這篇筆記把我博士研究的一條主線——從 HHSA 的「振幅調變指紋」到<em>神經血管振盪假說</em>——串成一個故事。</p>
+  <div class="article-author">
+    <div class="author-avatar">朱</div>
+    <div class="author-info">
+      <strong>朱國大 醫師</strong><br>
+      臨床神經科暨認知神經科學研究 · 依據本人博士論文與研究手稿蒸餾整理
+    </div>
+  </div>
+  <div class="article-tags">
+    <span class="tag">Resting-state EEG</span>
+    <span class="tag">HHSA</span>
+    <span class="tag">Alzheimer's Disease</span>
+    <span class="tag">MCI Conversion</span>
+    <span class="tag">Cholinergic</span>
+    <span class="tag">Neurovascular</span>
+  </div>
+</header>
+
+<p>阿茲海默症（AD）的診斷，隨著生物科技一路演進。2018 年 NIA-AA 提出 <strong>AT(N) 研究框架</strong>，把診斷建立在生物標記上：A 代表類澱粉（CSF Aβ42 或 amyloid-PET）、T 代表 tau（CSF p-tau 或 tau-PET）、(N) 代表神經退化（結構性 MRI、FDG-PET 或 CSF t-tau）。這讓 AD 從「臨床症候群」變成「一段連續的生物學過程」——一條在症狀出現前 15 到 20 年就已經啟動的 continuum。<sup>[1]</sup></p>
+
+<p>問題是：能看見這條 continuum 的工具，幾乎都很貴、或很痛。正子造影所費不貲、腰椎穿刺具侵入性，兩者都不適合拿來對社區裡的高齡長者做大規模、可重複的早期篩檢。於是一個很老、卻被低估的訊號重新回到桌面上——<strong>腦電圖（EEG）</strong>。</p>
+
+<h2>一、被 FFT 遺漏的訊號</h2>
+
+<p>臨床上「失智的腦波會變慢」是老觀察：低頻的 delta、theta 變多，高頻的 beta、gamma 變少。但傳統的傅立葉分析（FFT）有兩個先天限制：它假設訊號是<em>穩態且線性</em>的，而真實的腦波既非穩態、也高度非線性；它也只能給你「某個頻段有多少能量」，卻看不到<em>頻率與頻率之間如何互相調變</em>——而大腦的訊息，恰恰藏在這種跨頻率的巢狀結構裡。</p>
+
+<p>我採用的方法是 <strong>Holo-Hilbert 頻譜分析（HHSA）</strong>，它是 Hilbert-Huang 轉換（HHT）的延伸。<sup>[2]</sup> 直覺上可以這樣理解：</p>
+
+<ul>
+  <li>先用經驗模態分解（EMD）把腦波拆成一組本質模態函數（IMF）——這一步不需要預先指定頻段，能自然貼合非穩態訊號，得到<strong>載波頻率（FM）</strong>。</li>
+  <li>再對這些 IMF 的「包絡線」做<strong>第二次</strong> EMD，取出<strong>振幅調變（AM）</strong>——也就是「快的振盪，其強度如何被慢的節律推動」。</li>
+</ul>
+
+<p>結果不是一條一維的功率曲線，而是一張 <strong>AM×FM 的二維能量地圖</strong>。它把 FFT 看不見的非線性跨頻率調變攤開來——這也給了機器學習更豐富、更有鑑別力的特徵。</p>
+
+<figure class="viz">
+<svg viewBox="0 0 720 300" role="img" aria-label="FFT 一維功率曲線與 HHSA 二維 AM-FM 能量地圖的對比示意">
+  <text x="20" y="28" fill="#8ba8c4" font-size="14" font-family="JetBrains Mono, monospace">FFT · 一維功率</text>
+  <text x="410" y="28" fill="#4dd9cf" font-size="14" font-family="JetBrains Mono, monospace">HHSA · AM × FM 二維地圖</text>
+  <!-- FFT curve -->
+  <line x1="40" y1="250" x2="340" y2="250" stroke="#4a6580" stroke-width="1.5"/>
+  <line x1="40" y1="60" x2="40" y2="250" stroke="#4a6580" stroke-width="1.5"/>
+  <path d="M40,235 C90,120 120,90 150,150 C185,220 220,180 260,205 C300,225 320,232 340,238" fill="none" stroke="#8b5cf6" stroke-width="2.5"/>
+  <text x="150" y="272" fill="#4a6580" font-size="11">頻率 →</text>
+  <text x="52" y="80" fill="#4a6580" font-size="11">功率</text>
+  <!-- HHSA heatmap grid -->
+  <g transform="translate(410,50)">
+    <!-- cells: rows = AM (low..high top-down), cols = FM (delta..gamma) -->
+    <!-- row1 low AM -->
+    <rect x="0"   y="0"  width="46" height="38" fill="#ef6f6c" opacity="0.85"/>
+    <rect x="46"  y="0"  width="46" height="38" fill="#ef6f6c" opacity="0.6"/>
+    <rect x="92"  y="0"  width="46" height="38" fill="#ef6f6c" opacity="0.35"/>
+    <rect x="138" y="0"  width="46" height="38" fill="#162248"/>
+    <rect x="184" y="0"  width="46" height="38" fill="#4dd9cf" opacity="0.35"/>
+    <rect x="230" y="0"  width="46" height="38" fill="#4dd9cf" opacity="0.7"/>
+    <!-- row2 -->
+    <rect x="0"   y="38" width="46" height="38" fill="#ef6f6c" opacity="0.6"/>
+    <rect x="46"  y="38" width="46" height="38" fill="#ef6f6c" opacity="0.45"/>
+    <rect x="92"  y="38" width="46" height="38" fill="#162248"/>
+    <rect x="138" y="38" width="46" height="38" fill="#4dd9cf" opacity="0.3"/>
+    <rect x="184" y="38" width="46" height="38" fill="#4dd9cf" opacity="0.6"/>
+    <rect x="230" y="38" width="46" height="38" fill="#4dd9cf" opacity="0.85"/>
+    <!-- row3 high AM -->
+    <rect x="0"   y="76" width="46" height="38" fill="#ef6f6c" opacity="0.3"/>
+    <rect x="46"  y="76" width="46" height="38" fill="#162248"/>
+    <rect x="92"  y="76" width="46" height="38" fill="#4dd9cf" opacity="0.35"/>
+    <rect x="138" y="76" width="46" height="38" fill="#4dd9cf" opacity="0.55"/>
+    <rect x="184" y="76" width="46" height="38" fill="#4dd9cf" opacity="0.8"/>
+    <rect x="230" y="76" width="46" height="38" fill="#4dd9cf" opacity="0.95"/>
+    <text x="0" y="130" fill="#4a6580" font-size="10">δ</text>
+    <text x="92" y="130" fill="#4a6580" font-size="10">θ  α</text>
+    <text x="230" y="130" fill="#4a6580" font-size="10">β  γ  → 載波 FM</text>
+    <text x="-8" y="-8" fill="#4a6580" font-size="10">↑ 調變 AM</text>
+  </g>
+  <rect x="410" y="205" width="12" height="12" fill="#ef6f6c" opacity="0.8"/>
+  <text x="428" y="215" fill="#8ba8c4" font-size="11">能量增加</text>
+  <rect x="520" y="205" width="12" height="12" fill="#4dd9cf" opacity="0.8"/>
+  <text x="538" y="215" fill="#8ba8c4" font-size="11">能量減少</text>
+</svg>
+<figcaption>示意圖：FFT 只給一維功率曲線；HHSA 攤開成 AM×FM 二維地圖，紅＝能量增加、藍＝能量減少。失智的「指紋」出現在對角線兩端——低頻紅、高頻藍。</figcaption>
+</figure>
+
+<h2>二、失智的腦波指紋</h2>
+
+<p>我們收錄了三家醫院、共 <strong>205 位</strong>受試者：認知正常（CN，n=51）、輕度認知障礙（MCI，n=42）、以及三個嚴重度的 AD（AD1 n=61、AD2 n=35、AD3 n=16）。用 HHSA 對比各組與 CN 的靜息態腦波，一個清晰的模式浮現：</p>
+
+<ul>
+  <li><strong>低頻（delta、theta）的 AM 能量上升</strong>，且隨病程越來越明顯，從後腦區向前腦區蔓延。</li>
+  <li><strong>高頻（beta、gamma）的 AM 能量下降</strong>——而且這個下降<em>最早</em>出現，在 MCI 階段就已經站上檯面，並貫穿整個病程。</li>
+  <li><strong>alpha 頻段像一個「過渡帶」</strong>：MCI 期後腦區能量上升、前腦區下降；到了 AD2 期則轉為全腦廣泛下降。</li>
+</ul>
+
+<figure class="viz">
+<svg viewBox="0 0 720 260" role="img" aria-label="沿 AD continuum 由 CN 到 AD3 的振幅調變能量變化趨勢">
+  <text x="20" y="26" fill="#8ba8c4" font-size="13" font-family="JetBrains Mono, monospace">AM power 隨 AD continuum 的走向</text>
+  <!-- x axis stages -->
+  <g font-size="12" fill="#8ba8c4" text-anchor="middle" font-family="JetBrains Mono, monospace">
+    <text x="90" y="240">CN</text>
+    <text x="230" y="240">MCI</text>
+    <text x="370" y="240">AD1</text>
+    <text x="510" y="240">AD2</text>
+    <text x="650" y="240">AD3</text>
+  </g>
+  <line x1="60" y1="210" x2="690" y2="210" stroke="#4a6580" stroke-width="1"/>
+  <!-- low freq rising (coral) -->
+  <path d="M90,150 L230,130 L370,105 L510,80 L650,58" fill="none" stroke="#ef6f6c" stroke-width="3"/>
+  <g fill="#ef6f6c"><circle cx="90" cy="150" r="4"/><circle cx="230" cy="130" r="4"/><circle cx="370" cy="105" r="4"/><circle cx="510" cy="80" r="4"/><circle cx="650" cy="58" r="4"/></g>
+  <text x="655" y="52" fill="#ef6f6c" font-size="11">δ / θ ↑</text>
+  <!-- high freq falling (teal) -->
+  <path d="M90,150 L230,120 L370,135 L510,150 L650,168" fill="none" stroke="#4dd9cf" stroke-width="3"/>
+  <g fill="#4dd9cf"><circle cx="90" cy="150" r="4"/><circle cx="230" cy="120" r="4"/><circle cx="370" cy="135" r="4"/><circle cx="510" cy="150" r="4"/><circle cx="650" cy="168" r="4"/></g>
+  <text x="655" y="185" fill="#4dd9cf" font-size="11">β / γ ↓</text>
+  <!-- alpha transitional (gold) dashed -->
+  <path d="M90,150 L230,112 L370,120 L510,158 L650,176" fill="none" stroke="#f4a261" stroke-width="2.5" stroke-dasharray="6 5"/>
+  <text x="200" y="100" fill="#f4a261" font-size="11">α：過渡帶（先升後降）</text>
+  <text x="60" y="150" fill="#4a6580" font-size="10" text-anchor="end">基準</text>
+</svg>
+<figcaption>橫軸為疾病連續體。高頻（β/γ）能量在 MCI 期即先下降；低頻（δ/θ）能量隨病程持續上升；alpha 先升後於 AD2 期反轉——這條「先高頻鬆動、後低頻加重」的軌跡，是本研究觀察到的核心指紋。</figcaption>
+</figure>
+
+<p>更重要的是<strong>個體層級</strong>的判別。把 HHSA 特徵餵給機器學習分類器後，區辨效能明顯優於 FFT 或單層 HHT：</p>
+
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>比較</th><th>最佳分類器</th><th>敏感度</th><th>特異度</th><th>準確率</th></tr></thead>
+<tbody>
+<tr><td>MCI vs. CN</td><td>GentleBoost</td><td>82%</td><td>80%</td><td>81%</td></tr>
+<tr><td>輕度 AD (AD1) vs. CN</td><td>Bag</td><td>94%</td><td>80%</td><td>86%</td></tr>
+<tr><td>MCI 轉換預測（3 年追蹤）</td><td>SVM</td><td><strong>90%</strong></td><td>—</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>最有臨床份量的是<strong>預測</strong>。我們追蹤了 72 位 MCI（每人每年重錄腦波），其中 36 位在三年內惡化為 AD（converted），36 位維持穩定（stable）。<strong>在第一次記錄的當下</strong>，日後會轉換的那一組，alpha 與 beta 的 AM 能量就已經偏低——功能的鬆動，先於臨床的惡化。用 SVM 預測轉換可達 90% 敏感度。臨床上這帶來一個實用的分工：<em>高敏感度</em>的分類器適合對相對低風險族群（如 65 歲長者）做篩檢，<em>高特異度</em>的分類器則適合對最高齡者做確診。</p>
+
+<h2>三、為什麼這個指紋有意義？——神經血管振盪假說</h2>
+
+<p>到這裡為止，都還只是「方法有效」。真正的問題是：<strong>為什麼</strong>一段靜息腦波的振幅調變，能提早、而且跨病因地反映失智？把研究語料連起來，浮現的答案是一條假說：</p>
+
+<blockquote>神經血管振盪假說：<strong>膽鹼系統的缺損，與腦血流（rCBF）的下降，兩者交互作用</strong>，共同造成了神經退化與血管性失智所見的腦振盪改變。腦波減慢，是這條「共同終途」被破壞後的<em>功能讀數</em>。</blockquote>
+
+<p>這條假說縫合了原本被分開看待的兩件事。基底前腦的膽鹼神經元，本就依賴充足的腦血流；年齡、血管風險因子、小血管病、類澱粉沉積，都會同時傷害「血流」與「膽鹼」這兩條線。<sup>[3]</sup> 而 EEG 的節律，正是被膽鹼張力所調控——於是腦波減慢，成了這條路徑功能狀態的即時報表。</p>
+
+<figure class="viz">
+<svg viewBox="0 0 720 300" role="img" aria-label="從血管與膽鹼風險到腦振盪改變與認知失能的因果鏈示意">
+  <defs>
+    <marker id="arw" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#8ba8c4"/>
+    </marker>
+  </defs>
+  <g font-family="Noto Sans TC, sans-serif" font-size="12.5" text-anchor="middle">
+    <!-- upstream -->
+    <rect x="20" y="30" width="150" height="52" rx="8" fill="#162248" stroke="#4a6580"/>
+    <text x="95" y="52" fill="#e8f4f8">年齡・血管風險</text>
+    <text x="95" y="70" fill="#8ba8c4" font-size="11">類澱粉・小血管病</text>
+    <!-- two hits -->
+    <rect x="250" y="8" width="170" height="48" rx="8" fill="#111d3c" stroke="#ef6f6c"/>
+    <text x="335" y="30" fill="#ef6f6c">腦血流 rCBF ↓</text>
+    <text x="335" y="47" fill="#8ba8c4" font-size="11">神經血管單元受損</text>
+    <rect x="250" y="66" width="170" height="48" rx="8" fill="#111d3c" stroke="#f4a261"/>
+    <text x="335" y="88" fill="#f4a261">膽鹼功能 ↓</text>
+    <text x="335" y="105" fill="#8ba8c4" font-size="11">基底前腦病灶</text>
+    <!-- readout -->
+    <rect x="500" y="30" width="170" height="52" rx="8" fill="#162248" stroke="#4dd9cf"/>
+    <text x="585" y="52" fill="#4dd9cf">腦振盪改變</text>
+    <text x="585" y="70" fill="#8ba8c4" font-size="11">EEG 減慢・ACh index</text>
+    <!-- outcome -->
+    <rect x="285" y="170" width="150" height="48" rx="8" fill="#162248" stroke="#8b5cf6"/>
+    <text x="360" y="192" fill="#a78bfa">認知失能</text>
+    <text x="360" y="209" fill="#8ba8c4" font-size="11">VaD & AD</text>
+    <!-- arrows -->
+    <line x1="170" y1="50" x2="248" y2="34" stroke="#8ba8c4" stroke-width="1.6" marker-end="url(#arw)"/>
+    <line x1="170" y1="62" x2="248" y2="88" stroke="#8ba8c4" stroke-width="1.6" marker-end="url(#arw)"/>
+    <line x1="420" y1="34" x2="498" y2="50" stroke="#8ba8c4" stroke-width="1.6" marker-end="url(#arw)"/>
+    <line x1="420" y1="90" x2="498" y2="64" stroke="#8ba8c4" stroke-width="1.6" marker-end="url(#arw)"/>
+    <line x1="335" y1="56" x2="335" y2="64" stroke="#ef6f6c" stroke-width="1.4" stroke-dasharray="3 3"/>
+    <line x1="585" y1="82" x2="440" y2="188" stroke="#8ba8c4" stroke-width="1.6" marker-end="url(#arw)"/>
+    <line x1="335" y1="114" x2="352" y2="168" stroke="#8ba8c4" stroke-width="1.6" marker-end="url(#arw)"/>
+  </g>
+  <text x="360" y="258" fill="#4a6580" font-size="11" text-anchor="middle" font-family="Noto Sans TC, sans-serif">改編自 Roman &amp; Kalaria, 2006 的神經血管—膽鹼交互作用架構</text>
+</svg>
+<figcaption>因果鏈：上游的血管與退化風險，同時壓低「腦血流」與「膽鹼功能」這兩條線；兩者交互作用把訊號往下游推，最終顯現為腦振盪改變（EEG 減慢），並導向認知失能。EEG 讀到的，是這條共同終途的功能狀態。</figcaption>
+</figure>
+
+<p>這個連結，同時解釋了三件原本各自為政的觀察：</p>
+
+<ul>
+  <li><strong>為什麼能「提早」？</strong> 在生物標記的瀑布裡，功能性的 EEG-膽鹼讀數是最下游、最晚變、也對突觸功能最敏感的一環。<sup>[4][5]</sup> 結構還沒垮，功能已經鬆動——這正是高頻 AM 能量在 MCI 期就先掉的原因。</li>
+  <li><strong>為什麼「不管什麼病因」都會減慢？</strong> AD（類澱粉）、路易體失智（α-synuclein）、血管性失智（小血管病），甚至酒精，都能傷到基底前腦膽鹼系統或降低腦血流。EEG 減慢是這條共同終途的表現，不是某一病因的專利。（路易體失智減慢最重，是因為膽鹼系統遭受「雙重打擊」——基底前腦之外，橋腦被蓋也受累。）</li>
+  <li><strong>為什麼能「預測轉換」？</strong> GABA 中間神經元失能會壓低 gamma 振盪、造成網路過度同步與類癲癇活動；<sup>[6]</sup> 當這些功能性缺口在 MCI 期就已顯現，日後轉換的軌跡便先寫在腦波裡。</li>
+</ul>
+
+<div class="callout gold">
+  <strong>一個「兩擊模型」的視角：</strong> 把功能狀態想成「膽鹼功能 × 認知功能」的乘積。MCI 是第一擊已中、儲備見底的狀態；EEG 讀出的，正是這個乘積正在崩解的當下——就像糖尿病用「胰島素敏感度 × 胰島素分泌」的乘積來看代償失效。
+</div>
+
+<h2>四、意義，與誠實的邊界</h2>
+
+<p>如果這條假說成立，靜息態 EEG 的價值就不只是「又一個分類器」。它是一個<strong>便宜、非侵入、可重複</strong>的<em>功能性</em>生物標記：昂貴的 PET 與 CSF 告訴你分子病理「在不在」，而 EEG 告訴你這條神經血管—膽鹼路徑「還撐不撐得住」。兩者互補，而後者更適合放到社區篩檢與療效追蹤的位置上；AM×FM 的能量地圖，也直接指向未來的介入標的——無論是藥理，還是神經調節（electroceutical）。</p>
+
+<p>但需要誠實標出邊界：本研究為單一族群、樣本數有限，最重度的 AD3 僅 16 人，個別分類指標會受到樣本量與選樣偏誤影響；EEG 是<em>功能</em>的讀數，不是分子病因的直接證據，它應該與 AT(N) 生物標記互相參照，而不是取代。假說的價值，在於它把「方法為什麼有效」講清楚了——而下一步，是讓更大、更多元的世代資料來回推它。</p>
+
+<div class="callout purple">
+  <strong>方法論的後記：</strong> 這篇文章本身是一次 PKM「三層蒸餾」的產物——把數年累積的手稿與簡報（儲存層）連成一條論證脊椎（思考層），最後逼自己交出一件能被讀者與同行回推的作品（出貨層）。收集與連結都不是學會；只有交出去、被現實回應，模型才會被修正。
+</div>
+
+<section class="references">
+<h2>參考文獻</h2>
+<ol>
+<li><strong>Jack CR Jr, Bennett DA, Blennow K, et al.</strong> NIA-AA Research Framework: Toward a biological definition of Alzheimer's disease. <em>Alzheimer's &amp; Dementia</em>. 2018;14(4):535–562.</li>
+<li><strong>Huang NE, Hu K, Yang ACC, et al.</strong> On Holo-Hilbert spectral analysis: a full informational spectral representation for nonlinear and non-stationary data. <em>Philosophical Transactions of the Royal Society A</em>. 2016;374(2065):20150206.</li>
+<li><strong>Román GC, Kalaria RN.</strong> Vascular determinants of cholinergic deficits in Alzheimer disease and vascular dementia. <em>Neurobiology of Aging</em>. 2006;27(12):1769–1785.</li>
+<li><strong>Babiloni C, Blinowska K, Bonanni L, et al.</strong> What electrophysiology tells us about Alzheimer's disease: a window into the synchronization and connectivity of brain neurons. <em>Neurobiology of Aging</em>. 2020;85:58–73.</li>
+<li><strong>Snaedal J, Johannesson GH, Gudmundsson TE, et al.</strong> The use of EEG in Alzheimer's disease, with and without scopolamine — a pilot study. <em>Clinical Neurophysiology</em>. 2010;121(6):836–841.</li>
+<li><strong>Palop JJ, Mucke L.</strong> Network abnormalities and interneuron dysfunction in Alzheimer disease. <em>Nature Reviews Neuroscience</em>. 2016;17(12):777–792.</li>
+<li><strong>Sperling RA, Aisen PS, Beckett LA, et al.</strong> Toward defining the preclinical stages of Alzheimer's disease. <em>Alzheimer's &amp; Dementia</em>. 2011;7(3):280–292.</li>
+<li><strong>DeKosky ST, Ikonomovic MD, Styren SD, et al.</strong> Upregulation of choline acetyltransferase activity in hippocampus and frontal cortex of elderly subjects with mild cognitive impairment. <em>Annals of Neurology</em>. 2002;51(2):145–155.</li>
+</ol>
+</section>
+
+<footer class="article-footer">
+  本文依據作者博士論文《Cholinergic and Neurovascular Pathways in Neurocognitive Aging》與相關研究手稿、簡報蒸餾整理；圖為概念示意，非原始統計輸出。<br>
+  <a href="../index.html#teaching">回到演講教學列表</a>
+</footer>
+</article>
+</body>
+</html>
