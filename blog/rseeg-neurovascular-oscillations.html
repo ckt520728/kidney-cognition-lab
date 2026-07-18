@@ -87,6 +87,12 @@ figure.viz {
 }
 figure.viz svg { display:block; width:100%; height:auto; }
 figure.viz figcaption { color:var(--text-dim); font-size:0.82rem; padding:14px 4px 8px; line-height:1.7; }
+.hero-figure {
+  margin:34px 0 42px; border:1px solid var(--border); border-radius:var(--radius);
+  background:var(--bg-card); overflow:hidden; box-shadow:var(--shadow);
+}
+.hero-figure img { display:block; width:100%; height:auto; }
+.hero-figure figcaption { color:var(--text-dim); font-size:0.82rem; padding:12px 16px; line-height:1.7; }
 h2 {
   font-size:1.55rem; margin:54px 0 20px; padding-bottom:10px;
   border-bottom:2px solid var(--teal); display:inline-block;
@@ -178,6 +184,11 @@ blockquote {
     <span class="tag">Neurovascular</span>
   </div>
 </header>
+
+<figure class="hero-figure">
+  <img src="rseeg-neurovascular-oscillations.png" alt="以薄線條描繪的側臉腦部輪廓，靜息態 EEG 波形由腦部流出並轉化為振幅調變×載波頻率的能量地圖，低頻端呈暖色、高頻端呈冷色，背景襯有神經血管與膽鹼路徑的紫色網絡" onerror="this.closest('figure').style.display='none'">
+  <figcaption>概念首圖：靜息腦波經 HHSA 轉為 AM×FM 能量地圖——低頻放大（暖色）、高頻衰減（冷色），背景為神經血管與膽鹼路徑。（示意圖）</figcaption>
+</figure>
 
 <p>阿茲海默症（AD）的診斷，隨著生物科技一路演進。2018 年 NIA-AA 提出 <strong>AT(N) 研究框架</strong>，把診斷建立在生物標記上：A 代表類澱粉（CSF Aβ42 或 amyloid-PET）、T 代表 tau（CSF p-tau 或 tau-PET）、(N) 代表神經退化（結構性 MRI、FDG-PET 或 CSF t-tau）。這讓 AD 從「臨床症候群」變成「一段連續的生物學過程」——一條在症狀出現前 15 到 20 年就已經啟動的 continuum。<sup>[1]</sup></p>
 
