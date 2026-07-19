@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="一個混沌到看似無法計算的循環神經網路，如何在「開口」之前好幾步就把未來的輸出寫進自己的狀態裡？本文用 Jacobian Lens（雅可比透鏡）把「因果方向」量成一個預測性語意勢能 ψₖ，串起 Sussillo 的 FORCE 與慢流形、Anthropic 2026 的全域工作空間，並誠實區分紮實的數學、有用的類比與待驗證的假說。含互動模擬器與參考文獻。">
+<title>神經網路知道自己接下來要「說」什麼嗎？——從混沌 RNN 到 Jacobian Lens | 朱國大 醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg-primary:#0a0f1e;
+  --bg-card:#111d3c;
+  --bg-card2:#162248;
+  --teal:#4dd9cf;
+  --teal-light:#7ee8e2;
+  --purple:#8b5cf6;
+  --purple-light:#a78bfa;
+  --gold:#f4a261;
+  --red:#ef4444;
+  --green:#22c55e;
+  --text:#e8f4f8;
+  --text-sec:#8ba8c4;
+  --text-dim:#4a6580;
+  --border:rgba(77,217,207,0.15);
+  --shadow:0 8px 32px rgba(0,0,0,0.45);
+  --radius:12px;
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family:'Noto Sans TC','Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text);
+  line-height:1.9;
+}
+a { color:var(--teal); text-decoration:none; }
+a:hover { color:var(--teal-light); }
+.top-bar {
+  position:sticky; top:0; z-index:100;
+  background:rgba(10,15,30,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;
+}
+.top-bar-inner {
+  max-width:980px; margin:0 auto; padding:0 24px;
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+}
+.back-link { color:var(--text-sec); font-size:0.9rem; display:inline-flex; gap:8px; align-items:center; }
+.top-bar-title { font-size:0.82rem; color:var(--text-dim); font-family:'JetBrains Mono',monospace; }
+.article { max-width:860px; margin:0 auto; padding:58px 24px 82px; }
+.article-header {
+  margin-bottom:44px; padding-bottom:34px;
+  border-bottom:1px solid var(--border);
+}
+.article-meta {
+  color:var(--teal); font-size:0.85rem;
+  font-family:'JetBrains Mono',monospace; margin-bottom:14px;
+}
+.article-title {
+  font-size:2.25rem; line-height:1.35; margin-bottom:18px;
+  background:linear-gradient(135deg,var(--text),var(--teal-light));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.article-subtitle { color:var(--text-sec); font-size:1.04rem; }
+.article-author {
+  margin-top:24px; padding-top:20px; border-top:1px solid var(--border);
+  display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+}
+.author-avatar {
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,#2a9d8f,var(--purple));
+  display:flex; align-items:center; justify-content:center; font-weight:700;
+  font-size:1.1rem;
+}
+.author-info { color:var(--text-sec); font-size:0.88rem; line-height:1.65; }
+.author-info strong { color:var(--text); }
+.article-tags { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; }
+.tag {
+  font-size:0.72rem; padding:3px 12px; border-radius:20px;
+  background:rgba(77,217,207,0.08); color:var(--teal);
+  border:1px solid rgba(77,217,207,0.2);
+}
+figure { margin:34px 0; }
+.hero-figure { margin:34px 0 42px; }
+figure svg, figure img { width:100%; display:block; border:1px solid var(--border); border-radius:var(--radius); background:var(--bg-card); box-shadow:var(--shadow); }
+figcaption { margin-top:12px; color:var(--text-sec); font-size:0.85rem; text-align:center; line-height:1.7; }
+h2 {
+  font-size:1.55rem; margin:54px 0 20px; padding-bottom:10px;
+  border-bottom:2px solid var(--teal); display:inline-block;
+}
+h3 { font-size:1.18rem; color:var(--teal-light); margin:34px 0 14px; }
+p { color:var(--text-sec); margin:0 0 20px; }
+p strong, li strong { color:var(--text); }
+em { color:var(--teal-light); font-style:normal; }
+ul,ol { color:var(--text-sec); padding-left:24px; margin:0 0 24px; }
+li { margin-bottom:10px; }
+li::marker { color:var(--teal); }
+.callout {
+  margin:28px 0; padding:20px 24px; background:var(--bg-card);
+  border-left:4px solid var(--teal); border-radius:8px; color:var(--text-sec);
+}
+.callout.purple { border-left-color:var(--purple); }
+.callout.gold { border-left-color:var(--gold); }
+.callout.red { border-left-color:var(--red); }
+.callout strong { color:var(--text); }
+.tbl-wrap { overflow-x:auto; margin:24px 0; }
+table {
+  width:100%; border-collapse:collapse; background:var(--bg-card);
+  border-radius:var(--radius); overflow:hidden; font-size:0.92rem;
+}
+th {
+  text-align:left; color:var(--teal); background:rgba(77,217,207,0.1);
+  padding:12px 14px; border-bottom:1px solid var(--border);
+}
+td { padding:12px 14px; color:var(--text-sec); border-bottom:1px solid rgba(77,217,207,0.08); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+blockquote {
+  margin:34px 0; padding:24px 28px;
+  background:linear-gradient(135deg,rgba(77,217,207,0.06),rgba(139,92,246,0.06));
+  border-left:4px solid var(--teal); border-radius:8px;
+  color:var(--text); font-size:1.05rem;
+}
+.formula {
+  margin:22px 0; padding:16px 20px; background:#0c1429;
+  border:1px solid var(--border); border-radius:10px; text-align:center;
+  font-family:'JetBrains Mono',monospace; color:var(--teal-light);
+  font-size:1rem; overflow-x:auto;
+}
+.references { margin-top:60px; padding-top:34px; border-top:2px solid var(--teal); }
+.references h2 { border:none; margin-top:0; padding:0; }
+.references ol { list-style:none; counter-reset:ref; padding-left:0; }
+.references li {
+  counter-increment:ref; position:relative; padding-left:42px;
+  font-size:0.88rem; color:var(--text-sec); margin-bottom:14px;
+}
+.references li::before {
+  content:counter(ref); position:absolute; left:0; top:2px;
+  width:26px; height:26px; border-radius:50%;
+  background:rgba(77,217,207,0.12); color:var(--teal);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:0.75rem;
+}
+.article-footer {
+  margin-top:54px; padding-top:28px; border-top:1px solid var(--border);
+  color:var(--text-dim); font-size:0.88rem; text-align:center;
+}
+.demo {
+  margin:32px 0; background:#0c1429; border:1px solid var(--border);
+  border-radius:16px; padding:18px 18px 22px;
+}
+.demo h3 { margin:2px 0 6px; color:var(--teal-light); font-size:1.05rem; }
+.demo-note { color:var(--text-dim); font-size:0.82rem; margin:0 0 14px; }
+.demo canvas { width:100%; display:block; border-radius:10px; background:#08101f; border:1px solid var(--border); }
+.demo-controls { margin:16px 0 4px; }
+.demo-controls label { display:flex; justify-content:space-between; align-items:baseline; color:var(--text-sec); font-size:0.86rem; margin-bottom:6px; }
+.demo-controls output { color:var(--teal-light); font-family:'JetBrains Mono',monospace; font-size:0.95rem; }
+.demo-controls input[type="range"] { width:100%; accent-color:var(--teal); }
+.demo-presets { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+.demo-presets button {
+  border:1px solid var(--border); color:var(--text); background:var(--bg-card2);
+  border-radius:8px; padding:8px 14px; cursor:pointer; font-family:inherit; font-size:0.82rem;
+  transition:border-color 0.2s, color 0.2s;
+}
+.demo-presets button:hover { border-color:var(--teal); color:var(--teal); }
+.demo-presets button.active { border-color:var(--teal); color:var(--teal); background:rgba(77,217,207,0.08); }
+.status-row { display:flex; gap:14px; margin-top:14px; flex-wrap:wrap; }
+.status-pill {
+  font-size:0.78rem; padding:4px 12px; border-radius:20px;
+  font-family:'JetBrains Mono',monospace;
+  border:1px solid; display:inline-flex; align-items:center; gap:5px;
+}
+.status-pill.ok { color:var(--green); border-color:rgba(34,197,94,0.35); background:rgba(34,197,94,0.07); }
+.status-pill.fail { color:var(--red); border-color:rgba(239,68,68,0.35); background:rgba(239,68,68,0.07); }
+.status-pill.warn { color:var(--gold); border-color:rgba(244,162,97,0.35); background:rgba(244,162,97,0.07); }
+@media(max-width:640px) {
+  .article { padding:42px 18px 64px; }
+  .article-title { font-size:1.65rem; }
+  .top-bar-title { display:none; }
+  table { font-size:0.84rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="../index.html#teaching" class="back-link"><i class="fas fa-arrow-left"></i> 返回首頁</a>
+    <div class="top-bar-title">J-LENS · J-SPACE · FORCE · POPULATION DYNAMICS</div>
+  </div>
+</div>
+
+<article class="article">
+<header class="article-header">
+  <div class="article-meta">2026 / 07 / 19 · 計算神經科學 × AI 可解釋性</div>
+  <h1 class="article-title">神經網路知道自己接下來要「說」什麼嗎？——從 Sussillo 的混沌 RNN，到 Anthropic 的 Jacobian Lens</h1>
+  <p class="article-subtitle">一個混沌到看似無法計算的循環網路，如何在「開口」之前好幾步，就把未來的輸出寫進自己的狀態裡？本文用一支叫做 Jacobian Lens 的微積分工具，把「因果方向」量成一個預測性語意勢能 ψₖ，串起 Sussillo 的 FORCE 與慢流形、Anthropic 2026 的全域工作空間，並誠實區分：哪些是紮實的數學、哪些只是有用的類比、哪些仍是待驗證的假說。</p>
+  <div class="article-author">
+    <div class="author-avatar">朱</div>
+    <div class="author-info">
+      <strong>朱國大 醫師</strong><br>
+      腎臟科暨認知神經科學研究 · 含互動模擬器與參考文獻，數學推導蒸餾自作者的神經動力學模擬艙
+    </div>
+  </div>
+  <div class="article-tags">
+    <span class="tag">Jacobian Lens</span>
+    <span class="tag">J-Space</span>
+    <span class="tag">FORCE</span>
+    <span class="tag">Population Dynamics</span>
+    <span class="tag">Slow Manifold</span>
+    <span class="tag">Global Workspace</span>
+    <span class="tag">誠實評估</span>
+  </div>
+</header>
+
+<!-- HERO SVG -->
+<figure class="hero-figure">
+<svg viewBox="0 0 860 360" role="img" aria-label="從混沌 RNN 經 J-Lens 到未來輸出的示意圖">
+  <defs>
+    <linearGradient id="gTeal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4dd9cf"/><stop offset="1" stop-color="#7ee8e2"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect x="0" y="0" width="860" height="360" fill="#0c1429"/>
+
+  <!-- 混沌核心 -->
+  <text x="120" y="42" fill="#8ba8c4" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1" text-anchor="middle">CHAOTIC RNN (g &gt; 1)</text>
+  <circle cx="120" cy="190" r="86" fill="rgba(239,68,68,0.05)" stroke="rgba(239,68,68,0.35)" stroke-width="1.5"/>
+  <path id="hero-chaos" fill="none" stroke="#ef7a7a" stroke-width="1.3" opacity="0.85"/>
+  <text x="120" y="300" fill="#ef7a7a" font-family="Noto Sans TC, sans-serif" font-size="12" text-anchor="middle">高維混沌狀態 x(t)</text>
+
+  <!-- J-Lens 瓶頸 -->
+  <text x="430" y="42" fill="#4dd9cf" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1" text-anchor="middle">J-LENS · J-SPACE BOTTLENECK</text>
+  <rect x="330" y="70" width="200" height="230" rx="14" fill="rgba(77,217,207,0.06)" stroke="url(#gTeal)" stroke-width="2" filter="url(#glow)"/>
+  <text x="430" y="100" fill="#4dd9cf" font-family="Noto Sans TC, sans-serif" font-size="14" font-weight="700" text-anchor="middle">低維因果工作空間</text>
+  <text x="430" y="120" fill="#7ee8e2" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">low-dim · causal · predictive</text>
+  <path id="hero-orbit" fill="none" stroke="#22c55e" stroke-width="2.2"/>
+  <circle id="hero-dot" r="4.5" fill="#f4a261"/>
+  <text x="430" y="290" fill="#8ba8c4" font-family="Noto Sans TC, sans-serif" font-size="11" text-anchor="middle">vₖ(t) = Jₖᵀ D Wₒᵤₜ</text>
+
+  <!-- arrows -->
+  <line x1="206" y1="190" x2="326" y2="190" stroke="rgba(77,217,207,0.5)" stroke-width="1.6" stroke-dasharray="4 4"/>
+  <polygon points="326,185 334,190 326,195" fill="rgba(77,217,207,0.5)"/>
+  <line x1="534" y1="190" x2="654" y2="190" stroke="rgba(77,217,207,0.5)" stroke-width="1.6"/>
+  <polygon points="654,185 662,190 654,195" fill="rgba(77,217,207,0.5)"/>
+
+  <!-- 未來輸出 + 領先 -->
+  <text x="740" y="42" fill="#8ba8c4" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1" text-anchor="middle">OUTPUT z(t)</text>
+  <path id="hero-out" fill="none" stroke="#94a3b8" stroke-width="2.4" stroke-dasharray="6 4"/>
+  <path id="hero-psi" fill="none" stroke="#4dd9cf" stroke-width="2.4"/>
+  <text x="740" y="300" fill="#4dd9cf" font-family="Noto Sans TC, sans-serif" font-size="11" text-anchor="middle">ψₖ 峰值領先於輸出</text>
+</svg>
+<figcaption>混沌的循環網路把運算壓進一個低維的 J-Space；透過 J-Lens 量出的預測性語意勢能 ψₖ（青），在真實輸出 z(t)（灰虛線）之前就先達峰。</figcaption>
+</figure>
+
+<blockquote>
+  <strong>TL;DR：</strong>① 用 J-Lens 量測「當前狀態對未來輸出的因果梯度」，得到預測性語意勢能 ψₖ(t)。
+  ② 在 FORCE 訓練好的網路上，ψₖ(t) 的峰值<strong>領先</strong>於輸出，且水平線 k 越長領先越多。
+  ③ 所有因果作用都擠在一個低維 <strong>J-Space</strong> 裡，恰好對齊 Sussillo 的慢流形。
+  ④ 但這是<em>教學性的模擬與一階近似</em>，不是既成的實驗定論——界線寫在最後一節。
+</blockquote>
+
+<p>當我們問「神經網路知不知道自己接下來要說什麼」，很容易滑進哲學泥沼。所以先把問題<strong>操作化</strong>：我們不問它有沒有「感覺」，只問一件可量測的事——<em>在網路真正輸出某個值之前，那個值是否已經以某種形式，寫在它此刻的隱藏狀態裡？</em></p>
+
+<p>這就像問一位鋼琴家：當他彈下第一個音時，後面那句樂句是不是早已在手指的預備姿勢裡了？我們不需要讀他的心，只需要看他的手。把「手的預備姿勢」換成「隱藏狀態的方向」，把「後面那句樂句」換成「k 步之後的輸出」——這篇文章，就是要把這個比喻變成一條可以計算的方程式。</p>
+
+<h2>一切從混沌開始：FORCE 如何馴服雪花雜訊</h2>
+
+<p>隨機接上一百個神經元，把彼此的耦合強度調大（增益 g &gt; 1），整個系統就會陷入<strong>混沌</strong>：活動永不重複、永不停歇，看起來就像老電視收不到訊號時的雪花雜訊。這是你能想到最不像「會做事」的原料。</p>
+
+<p>然而 2009 年，David Sussillo 與 Larry Abbott 提出的 <strong>FORCE 演算法</strong>證明你可以「馴服」它——而且手法優雅得驚人：完全不動那團混沌核心，只即時微調<strong>輸出端</strong>的權重，再把輸出回饋進亂流中。用一個比喻：這不像重新設計一條河的河床，而更像在湍急的溪流裡放進幾塊石頭，讓水流自己繞出你要的形狀。短短的模擬時間內，雪花雜訊就組織成你指定的乾淨波形。</p>
+
+<figure>
+<svg class="fig-concept" viewBox="0 0 760 210" role="img" aria-label="混沌經 FORCE 轉為秩序">
+  <text x="180" y="26" fill="#ef7a7a" font-family="Noto Sans TC" font-size="13" text-anchor="middle" font-weight="700">混沌 Chaos (g &gt; 1)</text>
+  <path id="fig-chaos" fill="none" stroke="#ef7a7a" stroke-width="1.4" opacity="0.85"/>
+  <text x="580" y="26" fill="#22c55e" font-family="Noto Sans TC" font-size="13" text-anchor="middle" font-weight="700">馴服後的目標波形</text>
+  <path id="fig-order" fill="none" stroke="#22c55e" stroke-width="2.2"/>
+  <g transform="translate(360,110)">
+    <line x1="-14" y1="0" x2="54" y2="0" stroke="#7ee8e2" stroke-width="2.5"/>
+    <polygon points="50,-6 64,0 50,6" fill="#7ee8e2"/>
+    <text x="25" y="-12" fill="#4dd9cf" font-family="JetBrains Mono, monospace" font-size="12" text-anchor="middle" font-weight="700">FORCE</text>
+  </g>
+</svg>
+<figcaption>圖一：高增益混沌動力學（紅）經 FORCE 馴服後，產生乾淨的目標波形（綠）。</figcaption>
+</figure>
+
+<p>所以「網路能不能產生正確答案」已經有解。真正有趣的下一個問題是：它<strong>在什麼時候</strong>就下定決心要輸出這個答案？答案，要靠一支透鏡才看得見。</p>
+
+<h2>別看「最大聲的神經元」，要看「因果方向」</h2>
+
+<p>想知道網路在「想」什麼，新手直覺是去看哪個神經元活動最強。這幾乎總是失敗——叫得最大聲的，往往不是真正管事的。這裡的錯，和「把英制的尺當公制來讀」是同一種錯：數字讀得出來，卻不能信。</p>
+
+<p>Anthropic 2026 年關於<strong>全域工作空間</strong>的研究給了更好的問法。與其問「哪個神經元最活躍？」，不如問：<em>「如果我把隱藏狀態往方向 v 輕輕一推，k 步之後的輸出會改變多少？」</em> 使未來輸出改變最大的那個方向，就是 <strong>Jacobian Lens（雅可比透鏡，簡稱 J-Lens）</strong>。它由網路的雅可比矩陣（「明天如何依賴今天」的斜率表）沿著軌跡往前疊 k 步而來，像一根<strong>羅盤指針</strong>，直接指向「當前狀態裡真正操控未來的那個部分」。</p>
+
+<figure>
+<svg class="fig-concept" viewBox="0 0 480 220" role="img" aria-label="J-Lens 羅盤示意">
+  <rect x="14" y="14" width="300" height="192" rx="10" fill="none" stroke="rgba(77,217,207,0.2)"/>
+  <text x="26" y="34" fill="#4a6580" font-family="Noto Sans TC" font-size="11">隱藏狀態空間 hidden state</text>
+  <g id="fig-dots"></g>
+  <circle cx="96" cy="150" r="12" fill="#ef4444" opacity="0.5"/>
+  <text x="96" y="184" fill="#ef7a7a" font-family="Noto Sans TC" font-size="10" text-anchor="middle">最大聲的神經元（其實不重要）</text>
+  <line x1="150" y1="112" x2="392" y2="60" stroke="#4dd9cf" stroke-width="3.2"/>
+  <polygon points="384,50 402,58 386,70" fill="#4dd9cf"/>
+  <circle cx="150" cy="112" r="5" fill="#4dd9cf"/>
+  <text x="210" y="86" fill="#7ee8e2" font-family="Noto Sans TC" font-size="12" font-weight="700">J-Lens 向量 vₖ</text>
+  <text x="410" y="52" fill="#f4a261" font-family="Noto Sans TC" font-size="20">★</text>
+  <text x="402" y="92" fill="#f4a261" font-family="Noto Sans TC" font-size="10" text-anchor="middle">k 步後的未來輸出</text>
+</svg>
+<figcaption>圖二：最大聲的神經元（紅）其實不重要；J-Lens 向量（青）才指向 k 步後的未來輸出（★）。</figcaption>
+</figure>
+
+<div class="tbl-wrap">
+<table>
+  <thead><tr><th>視角</th><th>它問的問題</th><th>問題所在</th></tr></thead>
+  <tbody>
+    <tr><td><strong>大聲神經元</strong></td><td>「哪些單元在放電？」</td><td>吵雜、與輸出的因果關係薄弱、易誤導</td></tr>
+    <tr><td><strong>直接讀取中間層</strong></td><td>「把狀態當成輸出來解讀」</td><td>座標系不符（英制當公制），讀數不可信</td></tr>
+    <tr><td><strong style="color:var(--teal)">J-Lens</strong></td><td>「哪個方向操控 k 步後的輸出？」</td><td><em>因果、低維、可預測</em></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>語意勢能 ψₖ：網路指向未來的「電量」</h2>
+
+<p>拿到羅盤指針 vₖ(t) 之後，做一件最簡單的事——量測當前狀態沿著它的投影量。這一個純量，我們稱為<strong>預測性語意勢能</strong>：</p>
+
+<div class="formula">ψₖ(t) = vₖ(t)ᵀ · x(t)　，其中　vₖ(t) = Jₖ(t)ᵀ D(t+kΔt) Wₒᵤₜ</div>
+
+<p>把 ψₖ 想成一顆<strong>電池的電量</strong>，或水塔裡的<strong>水位</strong>：電量高，代表網路已經「充飽」、即將把輸出往某個方向擺；正負號一翻，代表反轉即將到來。而水平線 k 是一個<strong>時間縮放的旋鈕</strong>——小 k（如 8）量的是「即刻的承諾」，大 k（如 40）量的是「長線的佈局」。轉動這個旋鈕，你就能問網路：「你對五步之後有多少把握？五十步之後呢？」</p>
+
+<h2>關鍵成果：它「開口前就先達峰」</h2>
+
+<p>把勢能 ψₖ(t) 疊在網路的真實輸出 z(t) 上，你會看到勢能曲線<strong>領先</strong>於輸出——而且 k 越長，領先幅度越大。網路不是在「反應」，而是在<strong>預示（anticipating）</strong>：對下一個輸出的承諾，早已安坐在隱藏狀態裡、可被量測，遠在任何一個輸出值出現之前。</p>
+
+<p>這讓人聯想到神經科學裡的<strong>準備電位（readiness potential）</strong>——自主動作發生前的那道神經活動斜坡；或運動皮質在真正動作前的「預備活動」。這是一個誘人的類比，但請注意下一句：<em>類比不是證據</em>。我們在人工網路裡量到的領先，和大腦裡的準備電位「長得像」，不代表它們是同一個機制——這點會在最後一節誠實交代。</p>
+
+<div class="demo" id="jlens-demo">
+  <h3><i class="fas fa-wave-square" style="color:var(--teal);margin-right:8px;"></i>J-Lens 語意勢能領先模擬器</h3>
+  <p class="demo-note">概念示範，非真實神經激活資料；為慢流形上的一階近似，用以呈現「ψₖ 峰值領先於輸出」與「k 越大領先越多」兩個核心現象。</p>
+  <canvas id="jlens-canvas" width="760" height="300" aria-label="J-Lens 語意勢能領先模擬器"></canvas>
+  <div class="demo-controls">
+    <label for="horizon">分析水平線 Horizon k<output id="horizon-out">24 步</output></label>
+    <input type="range" id="horizon" min="4" max="56" value="24" step="1">
+  </div>
+  <div class="demo-controls">
+    <label for="gain">網路增益 Gain g<output id="gain-out">1.4</output></label>
+    <input type="range" id="gain" min="0.6" max="3.0" value="1.4" step="0.1">
+  </div>
+  <div class="demo-presets">
+    <span style="font-size:0.82rem;color:var(--text-sec);align-self:center;">目標頻率：</span>
+    <button data-freq="0.6">慢</button>
+    <button class="active" data-freq="1.0">中</button>
+    <button data-freq="1.6">快</button>
+  </div>
+  <div id="status-row" class="status-row">
+    <span class="status-pill ok"><i class="fas fa-clock"></i> 領先 ≈ 24 步</span>
+    <span class="status-pill warn"><i class="fas fa-arrows-left-right"></i> k 越大：領先越多</span>
+    <span class="status-pill ok"><i class="fas fa-bolt"></i> g 越大：承諾越陡</span>
+  </div>
+</div>
+
+<h2>外表混沌，內在卻是一間整齊的小房間</h2>
+
+<p>你或許以為，一個一百神經元混沌系統的「控制方向」會攤在全部一百個維度上。事實恰恰相反——把所有 J-Lens 向量隨時間收集起來，問「到底需要幾個維度」，答案是：<strong>少少幾個就夠了</strong>。所有因果作用都住在一個低維的 <strong>J-Space</strong> 裡。把游移的高維狀態投影進這間小房間，混沌就化為一條平滑、從容、緊貼目標的軌道。</p>
+
+<figure>
+<svg class="fig-concept" viewBox="0 0 400 250" role="img" aria-label="高維混沌收斂到低維 J-Space 軌道">
+  <g id="fig-scribbles"></g>
+  <path id="fig-orbit" fill="none" stroke="#22c55e" stroke-width="2.4"/>
+  <circle id="fig-orbit-dot" r="5" fill="#f4a261"/>
+  <text x="200" y="24" fill="#8ba8c4" font-family="Noto Sans TC" font-size="11" text-anchor="middle">高維混沌狀態（灰）收斂到低維 J-Space 軌道（綠）</text>
+</svg>
+<figcaption>圖三：把游移的高維狀態投影到 J-Space，混沌化為一條平滑的軌道——網路真正行走的因果工作空間。</figcaption>
+</figure>
+
+<p>這正是三條原本各走各路的研究路線握手言歡之處：</p>
+
+<figure>
+<svg class="fig-concept" viewBox="0 0 460 250" role="img" aria-label="三大理論在 J-Space 交會">
+  <line x1="230" y1="52" x2="230" y2="140" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6"/>
+  <line x1="86" y1="200" x2="230" y2="140" stroke="#4dd9cf" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6"/>
+  <line x1="374" y1="200" x2="230" y2="140" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6"/>
+  <circle cx="230" cy="140" r="34" fill="rgba(139,92,246,0.15)" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="230" y="138" fill="#c4b5fd" font-family="Noto Sans TC" font-size="14" text-anchor="middle" font-weight="700">J-Space</text>
+  <text x="230" y="154" fill="#a78bfa" font-family="Noto Sans TC" font-size="9" text-anchor="middle">因果工作空間</text>
+  <circle cx="230" cy="52" r="7" fill="#a78bfa"/>
+  <text x="230" y="38" fill="#a78bfa" font-family="Noto Sans TC" font-size="12" text-anchor="middle" font-weight="700">Sussillo</text>
+  <text x="230" y="74" fill="#8ba8c4" font-family="Noto Sans TC" font-size="10" text-anchor="middle">慢流形 · 幾何（形狀）</text>
+  <circle cx="86" cy="200" r="7" fill="#4dd9cf"/>
+  <text x="86" y="186" fill="#4dd9cf" font-family="Noto Sans TC" font-size="12" text-anchor="middle" font-weight="700">Anthropic J-Lens</text>
+  <text x="86" y="222" fill="#8ba8c4" font-family="Noto Sans TC" font-size="10" text-anchor="middle">因果方向（哪裡有作用力）</text>
+  <circle cx="374" cy="200" r="7" fill="#22c55e"/>
+  <text x="374" y="186" fill="#22c55e" font-family="Noto Sans TC" font-size="12" text-anchor="middle" font-weight="700">Richards</text>
+  <text x="374" y="222" fill="#8ba8c4" font-family="Noto Sans TC" font-size="10" text-anchor="middle">規範學習（為何）</text>
+</svg>
+<figcaption>圖四：三大理論在 J-Space 交會——Sussillo 給「形狀」，Anthropic J-Lens 給「因果」，Richards 給「為何」。</figcaption>
+</figure>
+
+<ul>
+  <li>🧭 <strong>Sussillo（幾何）：</strong>低維高速公路的<em>形狀</em>——定點是記憶、鞍點是決策、極限環是節律。這就是「慢流形 slow manifold」。</li>
+  <li>🔦 <strong>Anthropic J-Lens（因果）：</strong>公路上哪些方向才<em>真正決定</em>輸出——幾何告訴你形狀，透鏡告訴你哪裡有作用力。</li>
+  <li>🧠 <strong>Richards（規範）：</strong><em>為何</em>學習會建出這個結構——因為那正是信用分配（credit assignment）梯度能施力的通道。</li>
+</ul>
+
+<p>結果它們描述的，竟是<strong>同一間小房間</strong>，只是從三扇不同的門走進去。</p>
+
+<h2>誠實的界線：我們能說什麼、不能說什麼</h2>
+
+<p>寫到這裡，最重要的一節來了。任何漂亮的框架，價值都取決於它敢不敢說出自己的極限。以下逐項評級。</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead><tr><th>主張</th><th style="text-align:center">證據支持度</th><th>評注</th></tr></thead>
+  <tbody>
+    <tr><td>J-Lens 的多步雅可比與 ψₖ 公式在數學上成立、可計算</td><td style="text-align:center;color:var(--green);font-weight:700">✓ 強</td><td>純鏈鎖法則推導；Jupyter 筆記本可重現</td></tr>
+    <tr><td>在此模擬中，ψₖ 峰值領先輸出、且領先隨 k 增長</td><td style="text-align:center;color:var(--green);font-weight:700">✓ 強（限本設定）</td><td>為限速環上的<strong>一階</strong>結果；強混沌長程下 Jₖ 會放大，ψₖ 須以「標準化方向量」解讀</td></tr>
+    <tr><td>J-Space 與 Sussillo 慢流形對齊</td><td style="text-align:center;color:var(--gold);font-weight:700">~ 部分</td><td>在模擬中觀察到，<strong>非</strong>一般性證明</td></tr>
+    <tr><td>Anthropic 在真實 LLM 內找到低維 J-Space 瓶頸</td><td style="text-align:center;color:var(--gold);font-weight:700">~ 中等</td><td>因果換位介入成功率僅約 <strong>40–53%</strong>（非「確定性成功」）</td></tr>
+    <tr><td>ψₖ 的「語意勢能」等同大腦的準備電位</td><td style="text-align:center;color:var(--red);font-weight:700">✗ 過度延伸</td><td>只是形態類比；跨系統機制未經檢驗</td></tr>
+    <tr><td>本框架可用於臨床診斷</td><td style="text-align:center;color:var(--red);font-weight:700">✗ 否</td><td><strong>研究與教學示範，非診斷工具</strong></td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout gold">
+  <strong>一句話總括：</strong>把「網路在開口前就已預示輸出」<strong>當成一個誠實的、部分的、有待進一步驗證的觀察</strong>來對待——這是目前數學與模擬所能支撐的最準確描述，不多也不少。
+</div>
+
+<h2>動手玩，然後自己下判斷</h2>
+
+<p>科學最好的部分，是你可以親手驗證。上面每一步都已做成可執行的東西：一份純 NumPy 的 Jupyter 筆記本（完整推導與每張圖）、一個可拖動水平線 k 與增益 g 的即時模擬器，以及一個涵蓋 LIF 電生理、STN–GPe 巴金森氏症 DBS 與 FORCE 混沌穩定化的互動儀表板。</p>
+
+<p>循環網路並非把未來藏在「最大聲的神經元」裡——它把未來藏在一個<strong>方向</strong>上；而這個方向可量測、低維，而且<em>提早發生</em>。對準透鏡，看著勢能在輸出移動之前先爬升——然後，自己下判斷吧。🔦</p>
+
+<section class="references">
+<h2>參考文獻</h2>
+<ol>
+  <li>Anthropic Interpretability Team (2026). Verbalizable Representations Form a Global Workspace in Language Models. <em>Transformer Circuits Thread</em>.（J-lens / J-space；因果換位成功率約 40–53%。）</li>
+  <li>Sussillo, D., &amp; Abbott, L. F. (2009). Generating coherent patterns of activity from chaotic neural networks. <em>Neuron</em>, 63(4), 544–557. <a href="https://doi.org/10.1016/j.neuron.2009.07.018" target="_blank" rel="noopener">doi:10.1016/j.neuron.2009.07.018</a></li>
+  <li>Sussillo, D., &amp; Barak, O. (2013). Opening the black box: low-dimensional dynamics in high-dimensional recurrent neural networks. <em>Neural Computation</em>, 25(3), 626–649.</li>
+  <li>Mante, V., Sussillo, D., Shenoy, K. V., &amp; Newsome, W. T. (2013). Context-dependent computation by recurrent dynamics in prefrontal cortex. <em>Nature</em>, 503, 78–84.</li>
+  <li>Sussillo, D. (2014). Neural circuits as computational dynamical systems. <em>Current Opinion in Neurobiology</em>, 25, 156–163.</li>
+  <li>Vyas, S., Golub, M. D., Sussillo, D., &amp; Shenoy, K. V. (2020). Computation through neural population dynamics. <em>Annual Review of Neuroscience</em>, 43, 249–275.</li>
+  <li>Richards, B. A., et al. (2019). A deep learning framework for neuroscience. <em>Nature Neuroscience</em>, 22(11), 1761–1770.</li>
+  <li>Baars, B. J. (1988). <em>A Cognitive Theory of Consciousness</em>. Cambridge University Press.</li>
+  <li>Dehaene, S., &amp; Changeux, J.-P. (2011). Experimental and theoretical approaches to conscious processing. <em>Neuron</em>, 70(2), 200–227.</li>
+  <li>Strogatz, S. H. (2015). <em>Nonlinear Dynamics and Chaos</em> (2nd ed.). Westview Press.</li>
+</ol>
+</section>
+
+<div class="article-footer">
+  朱國大 醫師 · 腎臟科暨認知神經科學研究<br>
+  <span style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;">kidney-cognition-lab</span><br>
+  <span style="font-size:0.8rem;margin-top:6px;display:block;">本文數學推導與模擬蒸餾自作者的神經動力學模擬艙；互動圖為概念示範、一階近似，非真實神經激活資料，亦非診斷工具。</span>
+</div>
+</article>
+
+<script>
+/* =========================================================
+   概念圖（靜態，載入時一次生成）+ J-Lens 領先互動模擬器
+   ========================================================= */
+(function () {
+  "use strict";
+  var TAU = Math.PI * 2;
+
+  function setPath(id, d) { var el = document.getElementById(id); if (el) el.setAttribute('d', d); }
+  function poly(fn, n, x0, x1) {
+    var d = '', i, x, y;
+    for (i = 0; i <= n; i++) {
+      x = x0 + (x1 - x0) * i / n;
+      y = fn(i);
+      d += (i ? ' L ' : 'M ') + x.toFixed(1) + ' ' + y.toFixed(1);
+    }
+    return d;
+  }
+
+  /* ---- HERO 小圖 ---- */
+  // 混沌小螺旋
+  (function () {
+    var d = '', i, a, r, x, y;
+    for (i = 0; i <= 180; i++) {
+      a = i * 0.5; r = 12 + (i / 180) * 62;
+      x = 120 + Math.cos(a) * r * (0.6 + 0.4 * Math.sin(i * 0.3));
+      y = 190 + Math.sin(a) * r * 0.62 * (0.6 + 0.4 * Math.cos(i * 0.4));
+      d += (i ? ' L ' : 'M ') + x.toFixed(1) + ' ' + y.toFixed(1);
+    }
+    setPath('hero-chaos', d);
+  })();
+  // J-Space 內乾淨橢圓軌道
+  (function () {
+    var d = '', i, a;
+    for (i = 0; i <= 60; i++) { a = i / 60 * TAU; d += (i ? ' L ' : 'M ') + (430 + Math.cos(a) * 62).toFixed(1) + ' ' + (200 + Math.sin(a) * 34).toFixed(1); }
+    setPath('hero-orbit', d);
+  })();
+  // 輸出與 ψ（右側迷你）
+  setPath('hero-out', poly(function (i) { return 190 - Math.sin(i / 60 * TAU) * 40; }, 60, 690, 800));
+  setPath('hero-psi', poly(function (i) { return 190 - Math.sin((i + 10) / 60 * TAU) * 40; }, 60, 690, 800));
+
+  /* ---- 圖一：混沌 → 秩序 ---- */
+  setPath('fig-chaos', poly(function (i) {
+    return 110 + (Math.sin(i * 1.7) + Math.cos(i * 0.7) * Math.sin(i * 2.3) + Math.sin(i * 0.35)) * 42;
+  }, 60, 40, 330));
+  setPath('fig-order', poly(function (i) {
+    return 110 + Math.sin(i * 0.28) * 52 + Math.cos(i * 0.56) * 14;
+  }, 60, 430, 720));
+
+  /* ---- 圖二：散布的神經元點 ---- */
+  (function () {
+    var g = document.getElementById('fig-dots'), i, cx, cy, r, c;
+    if (!g) return;
+    for (i = 0; i < 22; i++) {
+      cx = 40 + ((i * 53) % 250); cy = 46 + ((i * 37) % 140); r = 2 + ((i * 7) % 3);
+      c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', r); c.setAttribute('fill', '#2a3f5f');
+      g.appendChild(c);
+    }
+  })();
+
+  /* ---- 圖三：混沌亂線 + 乾淨軌道 ---- */
+  (function () {
+    var g = document.getElementById('fig-scribbles'), k, i, a, x, y, d, p;
+    if (g) {
+      for (k = 0; k < 7; k++) {
+        d = '';
+        for (i = 0; i < 34; i++) {
+          a = i * 0.55 + k;
+          x = 200 + Math.sin(a * 1.3 + k) * 84 * Math.cos(a * 0.2);
+          y = 128 + Math.cos(a * 1.1 + k * 2) * 66 * Math.sin(a * 0.3 + 0.4);
+          d += (i ? ' L ' : 'M ') + x.toFixed(1) + ' ' + y.toFixed(1);
+        }
+        p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        p.setAttribute('d', d); p.setAttribute('fill', 'none');
+        p.setAttribute('stroke', '#3a516f'); p.setAttribute('stroke-width', '0.8'); p.setAttribute('opacity', '0.4');
+        g.appendChild(p);
+      }
+    }
+    var od = '';
+    for (i = 0; i <= 60; i++) { a = i / 60 * TAU; od += (i ? ' L ' : 'M ') + (200 + Math.cos(a) * 96).toFixed(1) + ' ' + (128 + Math.sin(a) * 58).toFixed(1); }
+    setPath('fig-orbit', od);
+    var dot = document.getElementById('fig-orbit-dot');
+    if (dot) { dot.setAttribute('cx', 296); dot.setAttribute('cy', 128); }
+  })();
+
+  /* ---- 互動模擬器 ---- */
+  var canvas = document.getElementById('jlens-canvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  var STEPS = 240, PAD = 64;
+  var horizon = 24, gain = 1.4, freqMul = 1.0, tick = 0;
+  var C = { grey: '#94a3b8', teal: '#4dd9cf', cyan: '#06b6d4', blue: '#3b82f6', pink: '#ec4899', gold: '#f4a261', dim: '#4a6580' };
+
+  function buildSeries() {
+    var z = [], t, w = (TAU / 62) * freqMul;
+    for (t = 0; t < STEPS + PAD; t++) z.push(Math.sin(w * t) + 0.4 * Math.cos(2 * w * t));
+    return z;
+  }
+  function sharpen(v) { return Math.tanh(gain * v) / Math.tanh(gain); }
+  function normalize(a) {
+    var m = 0, s = 0, i;
+    for (i = 0; i < a.length; i++) m += a[i]; m /= a.length;
+    for (i = 0; i < a.length; i++) s += (a[i] - m) * (a[i] - m); s = Math.sqrt(s / a.length) || 1;
+    return a.map(function (v) { return (v - m) / s; });
+  }
+  function psi(series, k) {
+    var arr = [], t;
+    for (t = 0; t < STEPS; t++) arr.push(sharpen(series[t + k]));
+    return normalize(arr);
+  }
+
+  var series, zNorm, pFixed, pCustom;
+  function recompute() {
+    series = buildSeries();
+    zNorm = normalize(series.slice(0, STEPS));
+    pFixed = { 8: psi(series, 8), 20: psi(series, 20), 40: psi(series, 40) };
+    pCustom = psi(series, horizon);
+  }
+
+  function tx(i) { return 24 + (i / STEPS) * (W - 48); }
+  function vy(v) { return H / 2 - (v / 3.2) * (H / 2 - 30); }
+  function line(arr, color, wdt, dash) {
+    ctx.beginPath(); ctx.setLineDash(dash || []);
+    for (var i = 0; i < arr.length; i++) { var X = tx(i), Y = vy(arr[i]); if (i === 0) ctx.moveTo(X, Y); else ctx.lineTo(X, Y); }
+    ctx.strokeStyle = color; ctx.lineWidth = wdt; ctx.stroke(); ctx.setLineDash([]);
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    // midline
+    ctx.strokeStyle = 'rgba(77,217,207,0.12)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, H / 2); ctx.lineTo(W, H / 2); ctx.stroke();
+    // fixed overlays (faint)
+    line(pFixed[8], 'rgba(6,182,212,0.5)', 1.4);
+    line(pFixed[20], 'rgba(59,130,246,0.5)', 1.4);
+    line(pFixed[40], 'rgba(236,72,153,0.55)', 1.4);
+    // output
+    line(zNorm, C.grey, 2.6, [6, 4]);
+    // custom psi (highlight)
+    line(pCustom, C.gold, 2.6);
+    // playhead
+    ctx.strokeStyle = 'rgba(139,92,246,0.5)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(tx(tick), 0); ctx.lineTo(tx(tick), H); ctx.stroke();
+    // legend
+    ctx.font = "11px 'Noto Sans TC', sans-serif"; ctx.textAlign = 'left';
+    var lx = W - 214, ly = 14;
+    ctx.fillStyle = 'rgba(2,6,23,0.8)'; ctx.fillRect(lx, ly, 200, 62);
+    ctx.strokeStyle = 'rgba(77,217,207,0.2)'; ctx.strokeRect(lx, ly, 200, 62);
+    function leg(y, col, dash, txt) {
+      ctx.strokeStyle = col; ctx.lineWidth = 2.4; ctx.setLineDash(dash || []);
+      ctx.beginPath(); ctx.moveTo(lx + 10, y); ctx.lineTo(lx + 30, y); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = '#cbd5e1'; ctx.fillText(txt, lx + 38, y + 4);
+    }
+    leg(ly + 15, C.grey, [6, 4], '輸出 z(t)');
+    leg(ly + 32, C.gold, null, 'ψₖ（k=' + horizon + '，越左越早）');
+    leg(ly + 49, C.pink, null, 'ψ₈ / ψ₂₀ / ψ₄₀ 疊圖');
+    tick = (tick + 1) % STEPS;
+    requestAnimationFrame(draw);
+  }
+
+  // controls
+  var hz = document.getElementById('horizon'), hzOut = document.getElementById('horizon-out');
+  var gn = document.getElementById('gain'), gnOut = document.getElementById('gain-out');
+  var pills = document.querySelectorAll('#status-row .status-pill');
+  function updatePills() {
+    if (pills[0]) pills[0].innerHTML = '<i class="fas fa-clock"></i> 領先 ≈ ' + horizon + ' 步';
+  }
+  hz.addEventListener('input', function () { horizon = parseInt(hz.value, 10); hzOut.textContent = horizon + ' 步'; recompute(); updatePills(); });
+  gn.addEventListener('input', function () { gain = parseFloat(gn.value); gnOut.textContent = gain.toFixed(1); recompute(); });
+  document.querySelectorAll('[data-freq]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('[data-freq]').forEach(function (x) { x.classList.remove('active'); });
+      b.classList.add('active'); freqMul = parseFloat(b.dataset.freq); recompute();
+    });
+  });
+
+  recompute(); updatePills(); draw();
+})();
+</script>
+</body>
+</html>
