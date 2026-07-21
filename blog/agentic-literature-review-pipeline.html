@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="怎麼讓 AI 幫你讀文獻，而不是只丟一堆摘要？一套「機械引擎＋判斷層」的代理式文獻回顧流程：MeSH 精準檢索、廣＋精合併找回漏網之魚、對照領域基準誠實解讀。以穿戴式裝置×高齡神經科學為實例。">
+<title>讓 AI 真的幫你讀文獻：從檢索到判斷的代理式文獻回顧流程｜朱國大醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0f1e;--card:#111d3c;--card2:#0c1429;--teal:#4dd9cf;--teal2:#7ee8e2;--purple:#8b5cf6;--purple2:#a78bfa;--gold:#f4a261;--red:#ef4444;--green:#22c55e;--text:#e8f4f8;--muted:#8ba8c4;--dim:#4a6580;--border:#24385d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:'Noto Sans TC','Inter',sans-serif;line-height:1.85}a{color:var(--teal);text-decoration:none}.top-bar{position:sticky;top:0;z-index:10;background:rgba(10,15,30,.94);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}.top-bar-inner{max-width:980px;margin:auto;padding:13px 22px;display:flex;justify-content:space-between;align-items:center}.top-bar-title{font:600 .8rem 'JetBrains Mono';color:var(--dim);letter-spacing:.08em}.article-header{max-width:980px;margin:auto;padding:70px 22px 40px}.meta{font:600 .78rem 'JetBrains Mono';color:var(--gold);letter-spacing:.08em;text-transform:uppercase}.article-title{font-size:clamp(2.2rem,6vw,4.6rem);line-height:1.14;margin:18px 0;background:linear-gradient(110deg,var(--teal2),#fff 48%,var(--purple2));-webkit-background-clip:text;color:transparent}.subtitle{max-width:790px;color:var(--muted);font-size:1.22rem}.author{margin-top:24px;color:var(--muted)}.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}.tag{padding:5px 10px;border:1px solid var(--border);border-radius:999px;font:600 .72rem 'JetBrains Mono';color:var(--teal2)}main{max-width:800px;margin:auto;padding:0 22px 80px}p{margin:1.05em 0;color:#d8e7ef}h2{font-size:1.75rem;margin:2.3em 0 .7em;padding-left:15px;border-left:4px solid var(--teal);line-height:1.4}h3{color:var(--teal2);font-size:1.25rem;margin-top:1.8em}.lead{font-size:1.18rem;color:#fff}.callout{margin:30px 0;padding:20px 22px;background:var(--card);border-left:4px solid var(--teal);border-radius:0 12px 12px 0}.callout.gold{border-left-color:var(--gold)}.callout.purple{border-left-color:var(--purple)}.hero{max-width:1120px;margin:0 auto 60px;padding:0 22px}.figure{background:var(--card2);border:1px solid var(--border);border-radius:18px;padding:18px;overflow:hidden}.figure svg{display:block;width:100%;height:auto}.caption{color:var(--muted);font-size:.84rem;margin-top:12px}.layers{display:grid;gap:10px;margin:24px 0}.layer{padding:16px 18px;border-radius:12px;border:1px solid var(--border);background:linear-gradient(90deg,rgba(77,217,207,.13),transparent)}.layer b{color:var(--teal2)}.dashboard-wide{max-width:1120px;margin:55px auto;padding:0 22px}.dashboard{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:18px}.dashboard-grid{display:grid;grid-template-columns:280px 1fr;gap:16px}.panel{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px}.panel h3{margin-top:0}.control label{display:block;color:var(--muted);margin-top:12px}.control input{width:100%;accent-color:var(--teal)}.metric{font:700 2rem 'JetBrains Mono';color:var(--gold)}canvas{width:100%;height:360px;display:block;background:#08101f;border-radius:9px}.seg{display:flex;gap:6px;margin-top:6px}.seg button{flex:1;padding:9px 4px;border:1px solid var(--border);background:var(--card2);color:var(--muted);border-radius:9px;font:600 .8rem 'JetBrains Mono';cursor:pointer}.seg button.on{background:var(--teal);color:#08101f;border-color:var(--teal)}.tbl-wrap{overflow-x:auto;margin:24px 0;border:1px solid var(--border);border-radius:12px}table{border-collapse:collapse;width:100%;font-size:.86rem;min-width:520px}th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}thead th{background:#0f1c3a;color:var(--teal2);font-size:.78rem}tbody tr:last-child td{border-bottom:0}.up{color:var(--green);font-weight:700}.warn{color:var(--gold);font-weight:700}.references{margin-top:60px;padding-top:32px;border-top:2px solid var(--teal)}.references li{margin:12px 0;color:var(--muted);font-size:.9rem}.article-footer{margin-top:55px;padding:24px;border:1px solid var(--border);border-radius:14px;color:var(--muted);text-align:center;font-size:.86rem}@media(max-width:760px){.dashboard-grid{grid-template-columns:1fr}.article-header{padding-top:45px}.article-title{font-size:2.35rem}.top-bar-title{display:none}canvas{height:320px}}
+</style>
+<style>
+body{line-height:1.9}
+html,body{max-width:100%;overflow-x:hidden}.article-title,.subtitle,p,.caption{overflow-wrap:anywhere;word-break:break-word}.top-bar-inner,.article-header,main,.hero,.dashboard-wide{min-width:0}
+.article-header{max-width:880px;padding:58px 24px 34px;border-bottom:1px solid var(--border)}
+.meta{font-size:.85rem;color:var(--teal)}
+.article-title{font-size:2.25rem;line-height:1.35}
+.subtitle{max-width:none;font-size:1.04rem}
+.author{margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:flex;gap:16px;align-items:center;font-size:.88rem}
+.author-avatar{width:48px;height:48px;flex:0 0 48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#2a9d8f,var(--purple));color:#fff;font-weight:700}
+.author strong{color:var(--text)}
+.tag{padding:3px 12px;background:rgba(77,217,207,.08);border-color:rgba(77,217,207,.2)}
+main{max-width:880px;padding-left:24px;padding-right:24px}
+p{margin:0 0 20px;color:#9bc4ee}
+h2{font-size:1.55rem;margin:54px 0 20px;padding:0 0 10px;border-left:0;border-bottom:2px solid var(--teal);display:inline-block}
+.lead{font-size:1.05rem;color:#d8e7ef}
+.hero,.dashboard-wide{max-width:880px;margin:34px auto 42px;padding:0 24px}
+.figure{width:100%;max-width:100%;padding:0;border-radius:12px;overflow:hidden}
+.figure svg{width:100%;max-width:100%;height:auto}
+.caption{margin:12px 12px 14px;text-align:center;line-height:1.7}
+.dashboard{overflow:hidden;border-radius:12px}.dashboard-grid{grid-template-columns:280px minmax(0,1fr)}
+@media(max-width:760px){.article-header{padding:40px 18px 30px}.article-title{font-size:1.75rem}.hero,.dashboard-wide,main{padding-left:18px;padding-right:18px}.figure svg{min-width:0}.author{align-items:flex-start}.dashboard-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="top-bar"><div class="top-bar-inner"><a href="../index.html#teaching">← 回到首頁</a><div class="top-bar-title">AGENTIC LITERATURE REVIEW · PKM LEVEL 3</div></div></div>
+<header class="article-header">
+  <div class="meta">2026-07-21 · AI × 研究方法 · Blog 全文 · 互動示範</div>
+  <h1 class="article-title">讓 AI 真的幫你讀文獻：從「檢索」到「判斷」的代理式文獻回顧</h1>
+  <p class="subtitle">大多數工具只做到「找得到」。但真正有用的文獻回顧，要能排序、解讀、對照領域基準，最後產出一份忙碌的研究者三分鐘能讀完、能行動的摘要。這篇記錄我如何把這件事做成一條可重跑的流程——並用一個實例，量出「精準」與「完整」之間那個逃不掉的取捨。</p>
+  <div class="author"><div class="author-avatar">朱</div><div><strong>朱國大醫師</strong><br>腎臟科暨認知神經科學研究・研究工具技術筆記</div></div>
+  <div class="tags"><span class="tag">代理式AI</span><span class="tag">文獻回顧</span><span class="tag">MeSH 檢索</span><span class="tag">召回率×精確率</span><span class="tag">PKM 第三層</span><span class="tag">數位生物標記</span></div>
+</header>
+
+<section class="hero"><div class="figure">
+<svg viewBox="0 0 1100 460" role="img" aria-labelledby="hero-t hero-d"><title id="hero-t">從檢索到判斷的文獻回顧流程</title><desc id="hero-d">左側三個來源（PubMed、arXiv、本地知識庫）流入機械引擎（去重、篩選、綜整、輸出），再由代理人提供判斷層（相關性評分、對照基準、產出三份成品）。</desc>
+<defs><radialGradient id="hg"><stop stop-color="#4dd9cf" stop-opacity=".28"/><stop offset="1" stop-color="#8b5cf6" stop-opacity=".03"/></radialGradient></defs>
+<rect width="1100" height="460" rx="18" fill="#08101f"/>
+<rect x="40" y="150" width="180" height="46" rx="10" fill="#0f1c3a" stroke="#24385d"/><text x="130" y="179" text-anchor="middle" fill="#7ee8e2" font-size="17">PubMed（MeSH）</text>
+<rect x="40" y="207" width="180" height="46" rx="10" fill="#0f1c3a" stroke="#24385d"/><text x="130" y="236" text-anchor="middle" fill="#7ee8e2" font-size="17">arXiv（純文字）</text>
+<rect x="40" y="264" width="180" height="46" rx="10" fill="#0f1c3a" stroke="#24385d"/><text x="130" y="293" text-anchor="middle" fill="#7ee8e2" font-size="17">本地知識庫</text>
+<rect x="270" y="120" width="470" height="220" rx="14" fill="url(#hg)" stroke="#4dd9cf" stroke-dasharray="7 7"/>
+<text x="290" y="150" fill="#4dd9cf" font-size="16" font-family="JetBrains Mono">機械引擎</text>
+<g font-family="Noto Sans TC" font-size="16" fill="#e8f4f8">
+<rect x="292" y="172" width="96" height="46" rx="9" fill="#111d3c" stroke="#24385d"/><text x="340" y="200" text-anchor="middle">去重</text>
+<rect x="400" y="172" width="96" height="46" rx="9" fill="#111d3c" stroke="#24385d"/><text x="448" y="200" text-anchor="middle">篩選</text>
+<rect x="508" y="172" width="96" height="46" rx="9" fill="#111d3c" stroke="#24385d"/><text x="556" y="200" text-anchor="middle">綜整</text>
+<rect x="616" y="172" width="96" height="46" rx="9" fill="#111d3c" stroke="#24385d"/><text x="664" y="200" text-anchor="middle">輸出</text>
+<rect x="360" y="256" width="290" height="56" rx="10" fill="#1a1330" stroke="#8b5cf6"/><text x="505" y="281" text-anchor="middle" fill="#a78bfa">合併（廣 + 精）</text><text x="505" y="301" text-anchor="middle" fill="#8ba8c4" font-size="13">同一套去重下取聯集</text>
+</g>
+<rect x="790" y="120" width="270" height="220" rx="14" fill="none" stroke="#f4a261" stroke-dasharray="7 7"/>
+<text x="810" y="150" fill="#f4a261" font-size="16" font-family="JetBrains Mono">判斷層</text>
+<g font-family="Noto Sans TC" font-size="16" fill="#e8f4f8">
+<rect x="808" y="170" width="234" height="46" rx="9" fill="#111d3c" stroke="#24385d"/><text x="925" y="198" text-anchor="middle">相關性 0–100</text>
+<rect x="808" y="226" width="234" height="46" rx="9" fill="#111d3c" stroke="#24385d"/><text x="925" y="254" text-anchor="middle">對照領域基準</text>
+<rect x="808" y="282" width="234" height="46" rx="9" fill="#111d3c" stroke="#24385d"/><text x="925" y="310" text-anchor="middle">三份成品</text>
+</g>
+<path d="M220 230 H266" stroke="#4dd9cf" stroke-width="2.5"/><path d="M740 230 H786" stroke="#f4a261" stroke-width="2.5"/>
+</svg>
+<div class="caption">圖 1｜機械引擎負責「找得到、去得掉、排得好」；代理人負責「判斷」。兩者分開，就能在不重新檢索的情況下，用不同標準重新評分同一批文獻。</div></div></section>
+
+<main>
+<p class="lead">如果你做過文獻回顧，一定懂那種感覺：關鍵字丟進資料庫，幾百筆結果湧出來，一半不相干，剩下的還得一篇篇看。工具幫你「找到」了，卻沒幫你「決定」什麼重要——而決定，才是研究者真正的工作。</p>
+<p>這篇是一份研究工具的技術筆記。我把文獻回顧拆成兩個問題：一個是<strong>機械問題</strong>（去哪找、怎麼去重、怎麼整理），一個是<strong>判斷問題</strong>（哪篇相關、跟領域基準比起來如何、到底哪個數字可信）。前者交給一支可重跑的命令列引擎，後者交給代理人。然後我用一個真實題目——「穿戴式裝置在高齡神經科學」——量出一件事：<strong>精準</strong>和<strong>完整</strong>這兩個目標，沒辦法用同一條查詢同時做滿。</p>
+
+<div class="callout gold"><b>先給結論：</b>沒有任何單一查詢是夠的。精準的 MeSH 查詢雜訊更少、還挖到更好的論文，卻因為條件太嚴漏掉一篇頂尖標記；只有「廣 + 精」合併，再加上一層誠實的判斷，才同時拿到精準與完整。</div>
+
+<h2>為什麼文獻回顧是「第三層」的任務</h2>
+<p>個人知識管理（PKM）有三個層次。<strong>第一層是儲存</strong>：筆記存下來是為了找得回。<strong>第二層是思考夥伴</strong>：筆記互相連結，激出內部的火花。<strong>第三層是修正模型</strong>：你把一個成品送進真實世界，而世界會回話。</p>
+<div class="layers"><div class="layer"><b>第一層｜儲存</b>：只有「找得到」，沒有回饋迴路。大多數文獻管理停在這。</div><div class="layer"><b>第二層｜思考夥伴</b>：想法互相參照，產生內部回饋。連結很多，卻沒送出任何東西。</div><div class="layer"><b>第三層｜修正模型</b>：真實輸出帶來外部回饋。出貨，逼你面對現實的回應。</div></div>
+<p>文獻回顧只有在<strong>終結於一份可行動的成品</strong>時，才真正到達第三層：一份排序過、解讀過、錨定在領域基準上的摘要，而不是一堆摘要的傾倒。這條流程就是繞著這個要求設計的——它逼迫每次回顧都要「出貨」。這篇文章與它的<a href="agentic-litreview-pipeline-paper.html">完整方法論論文</a>，本身就是那個被送出去、接受檢驗的成品。</p>
+
+<h2>兩種語言：MeSH 讓 PubMed 變精準</h2>
+<p>生醫資料庫和預印本伺服器講的不是同一種查詢語言。一條掛了 MeSH 標籤的布林查詢——例如 <code>"Wearable Electronic Devices"[MeSH] AND "Aged"[MeSH] AND ("Cognition"[MeSH] OR "Gait"[MeSH])</code>——在 PubMed 上非常精準，但丟到只吃自由文字的 arXiv 上，幾乎什麼都撈不到。</p>
+<p>所以引擎允許一個<strong>預設查詢</strong>加上<strong>各來源的覆寫</strong>：同一次去重的檢索裡，PubMed 用精準的 MeSH 查詢，arXiv 用白話關鍵字。實測差別很大：純關鍵字在 PubMed 撈回 60 筆、其中約 15 筆離題（早產兒、兒童腦性麻痺、與高齡無關的主題）；換成 MeSH 後撈回 70 筆、離題 <span class="up">0 筆</span>——而且挖到更多經過外部驗證、甚至有病理confirm的研究。</p>
+
+<h2>但精準會漏掉東西：合併的教訓</h2>
+<p>精準與完整往往互相拉扯。MeSH 查詢雖然乾淨，那條「高齡」條件卻誤殺了關鍵字版本裡的一篇頂尖論文：<i>ActiTect</i>——一套用手腕體動儀（actigraphy）篩檢「快速動眼期睡眠行為障礙（RBD）」的機器學習流程，而 RBD 是帕金森氏症的前驅標記；它在開發集 AUROC 0.95，在三個外部世代 0.84–0.94。它因為世代描述沒對上「高齡」標籤，就從精準版本裡消失了。</p>
+<p>解法不是二選一，而是<strong>取聯集</strong>：把廣（關鍵字，重召回）與精（MeSH，重品質）兩次檢索合併，在同一套去重下union。213 筆合併後去重成 179 筆——ActiTect 被找了回來，MeSH 挖到的好論文也都留著。代價是關鍵字版本那 11 筆離題又被帶進來——但這些由判斷層明確排除，不是悄悄丟掉。下面的互動示範就是這個取捨：</p>
+</main>
+
+<section class="dashboard-wide" aria-labelledby="dash-t"><div class="dashboard"><div class="dashboard-grid">
+<aside class="panel control">
+<h3 id="dash-t">互動：三種檢索策略</h3>
+<p class="caption" style="text-align:left;margin:6px 0 4px">切換策略，看你會拿到哪些文獻、離題多少、頂尖標記在不在。這是本次真實檢索的數字。</p>
+<div class="seg"><button data-m="kw" class="on">廣：關鍵字</button><button data-m="mesh">精：MeSH</button><button data-m="merge">合併</button></div>
+<label>唯一文獻（去重後）</label><div class="metric" id="m-uniq">94</div>
+<label>離題筆數（PubMed）</label><div class="metric" id="m-off" style="color:var(--red)">~15</div>
+<label>頂尖標記 ActiTect</label><div class="metric" id="m-act" style="font-size:1.15rem">✓ 有</div>
+<p class="caption" id="m-note" style="text-align:left">關鍵字重召回，但精準度低。</p>
+</aside>
+<div class="panel"><canvas id="venn" aria-label="關鍵字集合與 MeSH 集合的交疊，依所選策略高亮保留區域"></canvas></div>
+</div></div></section>
+
+<main>
+<h2>判斷層在做什麼：不是排序，是解讀</h2>
+<p>把文獻找齊、去重、篩過之後，代理人給每篇一個 0–100 的相關性分數，抽出關鍵數字，然後——最重要的——把每個數字放到領域基準旁邊，說它「高於／等於／低於」標準、差多少。基準是取自更廣文獻的<strong>近似參考值</strong>，而且一律標明是參考值；判斷層絕不捏造統計數字，缺的就標「未報告」並列為後續追蹤。</p>
+<div class="tbl-wrap"><table>
+<thead><tr><th>研究（設計，N）</th><th>關鍵結果</th><th>對照基準的解讀</th></tr></thead>
+<tbody>
+<tr><td>睡眠—清醒節律指標 → 預測失智（前瞻 ML；UK Biobank 103,278＋Whitehall II 4,267）</td><td>經外部驗證的額外預測力</td><td class="up">▲ 黃金標準設計：在第二個世代重現</td></tr>
+<tr><td>ActiTect：RBD／前驅帕金森篩檢（體動儀 ML；78＋201）</td><td>AUROC 0.95（開發）；0.84–0.94（外部）</td><td class="up">▲ 高於 ~0.80，且跨四個世代皆成立</td></tr>
+<tr><td>睡眠破碎 ↔ 類澱粉沉積（縱貫＋大腦病理；n=798）</td><td>破碎程度 ↔ 類澱粉密度</td><td>把「體動儀—阿茲海默」連結補上病理證據</td></tr>
+<tr><td>穿戴式 EEG/ERP＋MRI 偵測類澱粉確診 MCI（病例對照 ML；70＋140）</td><td>多模態 FAA＋MRI 分類器</td><td class="up">▲ 以類澱粉 PET 確診分組</td></tr>
+<tr><td>多模態深度學習跌倒風險（前導；n=120）</td><td>AUC 0.967（視窗 PPV 6.25%）</td><td class="warn">▲ 表面數字很高，但類別極不平衡使 AUC 失真</td></tr>
+</tbody>
+</table></div>
+<p>最後一列最能說明判斷層的價值。跌倒模型的 AUC 0.967 單看是全部語料裡最亮眼的數字；但基準解讀會標出：陽性預測值只有 6.25%、跌倒事件只有 6 筆，這個 AUC 是類別不平衡下的假象。反過來，真正高價值的研究（失智預測、ActiTect）贏的不是單一漂亮數字，而是<strong>外部驗證</strong>——這正是「對照基準」設計要獎勵的性質。</p>
+
+<h2>結語：把「跟上文獻」變成會出貨的習慣</h2>
+<p>用 PKM 的話說，這條流程是一台「往第三層推」的機器：它逼迫回顧終結於送得出去的成品，而成品的每個主張都要接受檢驗。基準層，就是讓「現實回話」發生在回顧內部的機制——一個打不過領域參考值、或在不平衡下崩掉的主張，會在離開流程之前就被標記出來。</p>
+<div class="callout purple"><b>可帶走的三點：</b><br>① 精準與完整是可以分開調的——用各來源查詢覆寫控制精準，用「廣＋精合併」補回召回。<br>② 沒有單一查詢夠用；合併＋明確判斷層是實用的預設。<br>③ 讓每個數字都對照基準，並誠實標出「未報告」與失真——這比多找十篇更有價值。</p></div>
+<p>方法、完整結果表與更多限制討論，見<a href="agentic-litreview-pipeline-paper.html">完整方法論論文（英文）</a>。</p>
+
+<section class="references"><h2 style="border-left:0;border-bottom:2px solid var(--teal);display:inline-block">延伸閱讀</h2><ol>
+<li>Volkov D. The Three Levels of PKM：儲存、思考夥伴、修正模型。2025.</li>
+<li>ActiTect: a generalizable machine-learning pipeline for REM sleep behavior disorder screening through standardized actigraphy. PubMed 42286243; 2026.</li>
+<li>Digital sleep-wake cycle metrics and dementia prediction in older adults（UK Biobank；Whitehall II）. PubMed 42149581; 2026.</li>
+<li>Sleep fragmentation correlates with amyloid-beta deposition at brain autopsy（Rush MAP）. PubMed 42340807; 2026.</li>
+<li>Combining wearable EEG/ERP and MRI biomarkers for detection of MCI: a machine-learning approach. PubMed 42143838; 2026.</li>
+<li>Intelligent fall-risk prediction based on multimodal deep learning and wearable sensor fusion. PubMed 42289546; 2026.</li>
+<li>朱國大醫師. A Benchmark-Aware Agentic Literature-Review Pipeline（本站完整論文）. 2026.</li>
+</ol></section>
+<footer class="article-footer">本文為研究工具的技術筆記與大眾科普轉譯，所引文獻結果用以示範流程，非系統性回顧，亦不構成醫療、診斷或治療建議（非診斷工具）。基準為近似的領域參考值，非由本文檢索推得。</footer>
+</main>
+
+<script>
+(()=>{
+const cv=document.getElementById('venn'),ctx=cv.getContext('2d');
+const data={
+  kw:{uniq:94,off:'~15',offc:'#ef4444',act:'✓ 有',actc:'#22c55e',note:'關鍵字重召回，但精準度低（PubMed 約 15/60 離題）。'},
+  mesh:{uniq:119,off:'0',offc:'#22c55e',act:'✗ 漏掉',actc:'#ef4444',note:'MeSH 精準（0/70 離題），卻因「高齡」條件漏掉 ActiTect。'},
+  merge:{uniq:179,off:'11→排除',offc:'#f4a261',act:'✓ 找回',actc:'#22c55e',note:'廣＋精聯集：找回 ActiTect，離題由判斷層明確排除。'}
+};
+let mode='kw';
+function set(m){mode=m;const d=data[m];
+  document.getElementById('m-uniq').textContent=d.uniq;
+  const off=document.getElementById('m-off');off.textContent=d.off;off.style.color=d.offc;
+  const act=document.getElementById('m-act');act.textContent=d.act;act.style.color=d.actc;
+  document.getElementById('m-note').textContent=d.note;
+  document.querySelectorAll('.seg button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));
+  draw();
+}
+function draw(){
+  const w=cv.clientWidth,h=cv.clientHeight;ctx.clearRect(0,0,w,h);
+  const cy=h*0.5,r=Math.min(h*0.34,w*0.22),cxK=w*0.40,cxM=w*0.60;
+  // fill retained region depending on mode
+  ctx.save();
+  ctx.beginPath();ctx.arc(cxK,cy,r,0,7);ctx.arc(cxM,cy,r,0,7);
+  // circles outlines
+  function circle(cx,color,fill){ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle=fill;ctx.fill();ctx.lineWidth=2;ctx.strokeStyle=color;ctx.stroke();}
+  const kwOn=mode!=='mesh',meshOn=mode!=='kw';
+  circle(cxK,'#4dd9cf',kwOn?'rgba(77,217,207,.20)':'rgba(77,217,207,.05)');
+  circle(cxM,'#8b5cf6',meshOn?'rgba(139,92,246,.22)':'rgba(139,92,246,.05)');
+  ctx.restore();
+  // labels
+  ctx.textAlign='center';ctx.fillStyle='#7ee8e2';ctx.font='600 15px "Noto Sans TC"';
+  ctx.fillText('關鍵字 94',cxK-r*0.5,cy-r-12);
+  ctx.fillStyle='#a78bfa';ctx.fillText('MeSH 119',cxM+r*0.5,cy-r-12);
+  ctx.fillStyle='#8ba8c4';ctx.font='13px "Noto Sans TC"';ctx.fillText('交集 34',(cxK+cxM)/2,cy+4);
+  // ActiTect marker (only in keyword-only region)
+  const ax=cxK-r*0.55,ay=cy+r*0.15;
+  const actKept=mode!=='mesh';
+  ctx.beginPath();ctx.arc(ax,ay,7,0,Math.PI*2);ctx.fillStyle=actKept?'#22c55e':'#ef4444';ctx.fill();
+  ctx.fillStyle=actKept?'#e8f4f8':'#8ba8c4';ctx.font='600 12px "Noto Sans TC"';ctx.textAlign='left';
+  ctx.fillText('ActiTect（僅在關鍵字集）',ax+12,ay+4);
+  // off-topic markers (keyword-only)
+  for(let i=0;i<6;i++){const ox=cxK-r*0.55+((i%3)*16),oy=cy-r*0.35+Math.floor(i/3)*16;ctx.beginPath();ctx.arc(ox,oy,3.5,0,Math.PI*2);ctx.fillStyle=(mode==='mesh')?'#2a3a55':(mode==='merge'?'#f4a261':'#ef4444');ctx.fill();}
+  ctx.textAlign='center';ctx.fillStyle='#8ba8c4';ctx.font='12px "Noto Sans TC"';
+  ctx.fillText(mode==='merge'?'保留＝聯集（179）；離題已標記排除':(mode==='mesh'?'保留＝MeSH 集（119）':'保留＝關鍵字集（94）'),w/2,h-14);
+}
+function resize(){const rect=cv.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);cv.width=rect.width*d;cv.height=rect.height*d;ctx.setTransform(d,0,0,d,0,0);draw();}
+document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>set(b.dataset.m)));
+addEventListener('resize',resize);resize();
+})();
+</script>
+</body></html>

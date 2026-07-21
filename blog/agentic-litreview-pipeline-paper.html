@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A methods paper on a benchmark-aware agentic literature-review pipeline: multi-source search, DOI/title de-duplication, per-source MeSH query overrides, a broad+precise merge for recall, a benchmark-aware judgment layer, and a demonstration on wearables in aging neuroscience.">
+<title>A Benchmark-Aware Agentic Literature-Review Pipeline (Paper) | Kuo-Ta Chu, MD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0f1e;--card:#111d3c;--card2:#0c1429;--teal:#4dd9cf;--teal2:#7ee8e2;--purple:#8b5cf6;--purple2:#a78bfa;--gold:#f4a261;--red:#ef4444;--green:#22c55e;--text:#e8f4f8;--muted:#8ba8c4;--dim:#4a6580;--border:#24385d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Noto Serif',Georgia,serif;line-height:1.75}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.top-bar{position:sticky;top:0;z-index:10;background:rgba(10,15,30,.94);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.top-bar-inner{max-width:900px;margin:auto;padding:13px 22px;display:flex;justify-content:space-between;align-items:center}
+.top-bar-title{font:600 .78rem 'JetBrains Mono';color:var(--dim);letter-spacing:.08em}
+.paper{max-width:820px;margin:auto;padding:56px 24px 90px}
+.eyebrow{font:600 .78rem 'JetBrains Mono';color:var(--gold);letter-spacing:.1em;text-transform:uppercase}
+h1.title{font-family:'Inter',sans-serif;font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.25;margin:16px 0 10px;color:#fff}
+.byline{color:var(--muted);font-size:.98rem;margin:14px 0 4px}
+.affil{color:var(--dim);font-size:.86rem;font-style:italic}
+.pubmeta{font:600 .74rem 'JetBrains Mono';color:var(--dim);margin-top:10px;letter-spacing:.04em}
+.abstract{margin:34px 0;padding:22px 24px;background:var(--card);border-left:4px solid var(--teal);border-radius:0 12px 12px 0}
+.abstract h2{font-family:'Inter',sans-serif;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal2);margin:0 0 10px}
+.abstract p{margin:.5em 0;font-size:.98rem;color:#d8e7ef}
+.keywords{margin-top:14px;font-size:.86rem;color:var(--muted)}.keywords b{color:var(--teal2)}
+h2.sec{font-family:'Inter',sans-serif;font-size:1.4rem;margin:2.4em 0 .6em;padding-bottom:8px;border-bottom:2px solid var(--teal);color:#fff}
+h3.sub{font-family:'Inter',sans-serif;color:var(--teal2);font-size:1.1rem;margin:1.6em 0 .4em}
+p{margin:1em 0;color:#d3e3ee}
+code{font:.86em 'JetBrains Mono';background:#0b152c;border:1px solid var(--border);border-radius:5px;padding:1px 6px;color:var(--teal2)}
+pre{background:#0b152c;border:1px solid var(--border);border-radius:12px;padding:16px 18px;overflow-x:auto;font:.82rem 'JetBrains Mono';color:#cfe4ee;line-height:1.6}
+.figure{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:18px;margin:30px 0;overflow:hidden}
+.figure svg{display:block;width:100%;max-width:100%;height:auto}
+.caption{color:var(--muted);font-size:.84rem;margin-top:12px;line-height:1.65}
+.tbl-wrap{overflow-x:auto;margin:26px 0;border:1px solid var(--border);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-family:'Inter',sans-serif;font-size:.86rem;min-width:520px}
+caption{caption-side:top;text-align:left;color:var(--muted);font-size:.84rem;padding:12px 14px;font-family:'Inter',sans-serif}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+thead th{background:#0f1c3a;color:var(--teal2);font-size:.78rem;letter-spacing:.03em;text-transform:uppercase}
+tbody tr:last-child td{border-bottom:0}
+td .up{color:var(--green);font-weight:600}td .warn{color:var(--gold);font-weight:600}
+.callout{margin:26px 0;padding:18px 22px;background:var(--card);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;font-size:.96rem;color:#e6eef5}
+.refs{margin-top:52px;padding-top:26px;border-top:2px solid var(--teal)}
+.refs h2{font-family:'Inter',sans-serif;font-size:1.2rem;color:#fff}
+.refs ol{padding-left:22px}.refs li{margin:9px 0;color:var(--muted);font-size:.86rem;line-height:1.6}
+.foot{margin-top:48px;padding:22px;border:1px solid var(--border);border-radius:14px;color:var(--muted);text-align:center;font-size:.83rem;line-height:1.7}
+.pill{display:inline-block;font:600 .7rem 'JetBrains Mono';color:var(--teal2);border:1px solid var(--border);border-radius:999px;padding:3px 10px;margin:2px}
+@media(max-width:760px){.paper{padding:38px 18px 70px}h1.title{font-size:1.7rem}.top-bar-title{display:none}}
+</style>
+</head>
+<body>
+<div class="top-bar"><div class="top-bar-inner"><a href="../index.html#teaching">← Back to homepage</a><div class="top-bar-title">METHODS PAPER · AGENTIC LITERATURE REVIEW</div></div></div>
+
+<article class="paper">
+  <div class="eyebrow">Methods · Research tooling · 2026-07-21</div>
+  <h1 class="title">A Benchmark-Aware Agentic Literature-Review Pipeline: Recall–Precision Trade-offs and a Demonstration on Wearables in Aging Neuroscience</h1>
+  <div class="byline">Kuo-Ta Chu, MD</div>
+  <div class="affil">Kidney–Cognition Lab · Nephrology & Cognitive Neuroscience</div>
+  <div class="pubmeta">PREPRINT / LAB TECHNICAL REPORT · v1 · 2026-07-21</div>
+
+  <div class="abstract">
+    <h2>Abstract</h2>
+    <p><b>Background.</b> Keeping up with the literature is a Level-3 knowledge task — it only creates value when it ends in a shipped, decision-changing output — yet most tooling stops at retrieval. We describe an agentic literature-review pipeline that couples a deterministic search-and-organize engine with a benchmark-aware judgment layer, and we quantify a recall–precision trade-off that any multi-source search must confront.</p>
+    <p><b>Methods.</b> The engine searches PubMed, arXiv, and a local knowledge vault; de-duplicates by DOI then normalized title; screens against explicit inclusion criteria; and exports a digest, a colour-coded workbook, a benchmark chart, and a citation bundle. Two methodological features are evaluated: (i) <i>per-source query overrides</i>, allowing a precise MeSH-tagged PubMed query alongside plain-text queries for preprint servers; and (ii) a <i>broad+precise merge</i> that unions a wide keyword run with a precise MeSH run under the same de-duplication.</p>
+    <p><b>Results.</b> On the topic "wearable devices in aging neuroscience," a keyword-only run returned 94 unique records but with ~15/60 off-topic PubMed hits; a MeSH run returned 119 records with 0/70 off-topic hits, and surfaced stronger, externally-validated studies the keyword run missed — but dropped a top prodromal-Parkinson's marker because its cohort framing failed the age clause. Merging the two runs (213→179 unique) recovered that marker while retaining the precise additions, at the cost of re-admitting 11 off-topic records that the judgment layer then excluded.</p>
+    <p><b>Conclusion.</b> Precision and recall are separately controllable in agentic review, and neither query alone is sufficient; a broad+precise merge with an explicit judgment layer is a practical operating point. We release the design and the worked example as a reproducible template.</p>
+    <div class="keywords"><b>Keywords:</b> literature review · agentic AI · MeSH · information retrieval · digital biomarkers · aging · personal knowledge management</div>
+  </div>
+
+  <h2 class="sec">1. Introduction</h2>
+  <p>Personal knowledge management (PKM) has three maturity levels [1]. Level 1 is storage: notes exist to be found again. Level 2 is a thinking partner: notes link and generate internal feedback. Level 3 is model revision: an output is shipped into the world, and reality answers back. Most literature-review workflows — and most tools that automate them — never leave Level 1. They retrieve; they do not force a decision, and so they do not change one.</p>
+  <p>A literature review reaches Level 3 only when it terminates in an artefact a busy investigator can act on: a ranked, interpreted, benchmark-anchored digest, not a wall of abstracts. This paper describes a pipeline built around that requirement, separating the <i>mechanical</i> problem (find, de-duplicate, organize) from the <i>judgment</i> problem (score relevance, compare to the field standard, decide what matters). We then use a concrete topic to measure a trade-off that governs any such system: the tension between recall (missing nothing) and precision (surfacing only what is relevant).</p>
+
+  <h2 class="sec">2. System design</h2>
+  <p>The pipeline is a small command-line engine (the mechanical layer) driven by an agent that supplies the judgment layer. The stages are:</p>
+  <pre>search  →  dedup  →  screen  →  synthesize  →  export
+(PubMed/arXiv/vault)  (DOI→title)  (criteria)  (digest)   (workbook, chart, citations)</pre>
+
+  <div class="figure">
+    <svg viewBox="0 0 1000 300" role="img" aria-labelledby="arch-t arch-d">
+      <title id="arch-t">Pipeline architecture</title>
+      <desc id="arch-d">Sources feed a mechanical engine (search, dedup, screen, synthesize, export); an agent supplies a benchmark-aware judgment layer that scores, compares to benchmarks, and produces deliverables.</desc>
+      <rect width="1000" height="300" rx="16" fill="#08101f"/>
+      <g font-family="Inter,sans-serif">
+        <!-- sources -->
+        <g>
+          <rect x="24" y="60" width="150" height="42" rx="9" fill="#0f1c3a" stroke="#24385d"/><text x="99" y="86" text-anchor="middle" fill="#7ee8e2" font-size="15">PubMed (MeSH)</text>
+          <rect x="24" y="126" width="150" height="42" rx="9" fill="#0f1c3a" stroke="#24385d"/><text x="99" y="152" text-anchor="middle" fill="#7ee8e2" font-size="15">arXiv (plain)</text>
+          <rect x="24" y="192" width="150" height="42" rx="9" fill="#0f1c3a" stroke="#24385d"/><text x="99" y="218" text-anchor="middle" fill="#7ee8e2" font-size="15">Local vault</text>
+        </g>
+        <!-- engine -->
+        <rect x="220" y="46" width="470" height="208" rx="12" fill="none" stroke="#4dd9cf" stroke-dasharray="6 6"/>
+        <text x="235" y="70" fill="#4dd9cf" font-size="13" font-family="JetBrains Mono">MECHANICAL ENGINE</text>
+        <g>
+          <rect x="238" y="92" width="98" height="48" rx="9" fill="#111d3c" stroke="#24385d"/><text x="287" y="121" text-anchor="middle" fill="#e8f4f8" font-size="14">dedup</text>
+          <rect x="350" y="92" width="98" height="48" rx="9" fill="#111d3c" stroke="#24385d"/><text x="399" y="121" text-anchor="middle" fill="#e8f4f8" font-size="14">screen</text>
+          <rect x="462" y="92" width="112" height="48" rx="9" fill="#111d3c" stroke="#24385d"/><text x="518" y="121" text-anchor="middle" fill="#e8f4f8" font-size="14">synthesize</text>
+          <rect x="588" y="92" width="88" height="48" rx="9" fill="#111d3c" stroke="#24385d"/><text x="632" y="121" text-anchor="middle" fill="#e8f4f8" font-size="14">export</text>
+          <rect x="300" y="176" width="310" height="52" rx="9" fill="#1a1330" stroke="#8b5cf6"/><text x="455" y="200" text-anchor="middle" fill="#a78bfa" font-size="14">merge (broad + precise)</text><text x="455" y="218" text-anchor="middle" fill="#8ba8c4" font-size="12">union under one dedup</text>
+        </g>
+        <!-- judgment -->
+        <rect x="736" y="46" width="240" height="208" rx="12" fill="none" stroke="#f4a261" stroke-dasharray="6 6"/>
+        <text x="750" y="70" fill="#f4a261" font-size="13" font-family="JetBrains Mono">JUDGMENT LAYER</text>
+        <rect x="752" y="88" width="208" height="44" rx="9" fill="#111d3c" stroke="#24385d"/><text x="856" y="115" text-anchor="middle" fill="#e8f4f8" font-size="14">relevance 0–100</text>
+        <rect x="752" y="140" width="208" height="44" rx="9" fill="#111d3c" stroke="#24385d"/><text x="856" y="167" text-anchor="middle" fill="#e8f4f8" font-size="14">vs. benchmark</text>
+        <rect x="752" y="192" width="208" height="44" rx="9" fill="#111d3c" stroke="#24385d"/><text x="856" y="219" text-anchor="middle" fill="#e8f4f8" font-size="14">deliverables</text>
+      </g>
+      <path d="M174 147 H214" stroke="#4dd9cf" stroke-width="2" marker-end="url(#a)"/>
+      <path d="M690 150 H732" stroke="#f4a261" stroke-width="2" marker-end="url(#a)"/>
+      <defs><marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#8ba8c4"/></marker></defs>
+    </svg>
+    <div class="caption">Figure 1. The engine is deterministic and reproducible; the agent supplies judgment. Separating the two lets the same corpus be re-scored under different criteria without re-querying.</div>
+  </div>
+
+  <h3 class="sub">2.1 The mechanical engine</h3>
+  <p>Each source implements a common interface returning a list of records; adding a source is a drop-in. De-duplication keys on DOI when present, else a normalized title hash, and prefers the richer record on collision. Screening marks each record <i>include</i>, <i>exclude</i>, or <i>needs-review</i>. Every network call has an explicit timeout, and a single source failing (a timeout, a parse error) never aborts the others — it is reported and its results are empty. This graceful-degradation rule is a hard design constraint: a missing API key or vault path silently disables that capability rather than crashing the run.</p>
+
+  <h3 class="sub">2.2 The judgment layer</h3>
+  <p>On top of the screened corpus, the agent assigns a 0–100 relevance score (High ≥85 / Medium 60–84 / Low &lt;60), extracts the headline quantitative result, and — critically — places every number next to a field-standard benchmark, stating whether it is above, at, or below and by how much. Benchmarks are approximate orientation values drawn from the wider literature and are always labelled as such; the layer never fabricates a statistic, marking absent values "not reported" and flagging them for follow-up.</p>
+
+  <h2 class="sec">3. Methodological contributions</h2>
+  <h3 class="sub">3.1 Per-source query overrides</h3>
+  <p>Bibliographic databases and preprint servers do not share a query language. A MeSH-tagged Boolean query — e.g. <code>"Wearable Electronic Devices"[MeSH] AND "Aged"[MeSH] AND ("Cognition"[MeSH] OR "Gait"[MeSH])</code> — is high-precision on PubMed but returns essentially nothing on arXiv, which expects free text. The engine therefore accepts a default query plus per-source overrides, so a single de-duplicated run can pair a precise PubMed query with a plain-text arXiv query.</p>
+  <h3 class="sub">3.2 Broad + precise merge</h3>
+  <p>Precision and recall pull in opposite directions, and — as Section 4 shows — a single query cannot maximize both. The engine can merge several prior runs into one de-duplicated corpus, enabling a deliberate strategy: run a wide keyword query for recall and a precise MeSH query for quality, then union them. Screening flags are preserved across the merge.</p>
+
+  <h2 class="sec">4. Demonstration: wearables in aging neuroscience</h2>
+  <p>We ran the pipeline on "wearable devices in aging neuroscience," restricted to 2022 onward, across PubMed and arXiv, under three configurations: a broad keyword query; a precise MeSH query (with a plain arXiv override); and a merge of the two. Precision was audited by a title-level off-topic detector (pediatric, non-aging, or clearly unrelated records) and confirmed manually.</p>
+
+  <div class="tbl-wrap">
+  <table>
+    <caption>Table 1. Corpus size and precision across the three configurations.</caption>
+    <thead><tr><th>Configuration</th><th>PubMed</th><th>arXiv</th><th>Unique (deduped)</th><th>Off-topic PubMed</th></tr></thead>
+    <tbody>
+      <tr><td>Broad keyword</td><td>60</td><td>34</td><td>94</td><td class="warn">~15 / 60</td></tr>
+      <tr><td>Precise MeSH</td><td>70</td><td>49</td><td>119</td><td class="up">0 / 70</td></tr>
+      <tr><td>Merge (union)</td><td>—</td><td>—</td><td>179 (from 213)</td><td>11 (re-admitted, then excluded)</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>The MeSH query eliminated off-topic PubMed noise (from ~15/60 to 0/70) and, more importantly, surfaced stronger studies the keyword run missed — including externally-validated and pathology-confirmed designs. However, the precise query's <code>"Aged"</code>/older-adult clause dropped a top result from the keyword run: <i>ActiTect</i>, an actigraphy pipeline for prodromal-Parkinson's screening (REM-sleep behavior disorder) with AUROC 0.95 in development and 0.84–0.94 across three external cohorts. The merge recovered it — full recall — while retaining the MeSH additions, at the cost of re-admitting the 11 keyword-only off-topic records, which the judgment layer excluded explicitly (no silent dropping).</p>
+
+  <div class="callout"><b>Key result.</b> No single query was sufficient. The MeSH query was more precise <i>and</i> found better papers, yet lost a top marker to an over-strict clause; only the broad+precise merge achieved both precision (via the judgment layer) and full recall.</div>
+
+  <div class="tbl-wrap">
+  <table>
+    <caption>Table 2. Selected high-relevance findings from the merged corpus, with benchmark reads. Field references (~0.80 AUC for digital MCI/neurodegeneration screening; ~0.10 m/s gait-speed MCID) are approximate orientation values from the wider literature, not derived from this search.</caption>
+    <thead><tr><th>Study (design, N)</th><th>Headline result</th><th>Read vs. benchmark</th></tr></thead>
+    <tbody>
+      <tr><td>Digital sleep-wake metrics → incident dementia (prospective ML; UK Biobank n=103,278 + Whitehall II n=4,267)</td><td>Externally-validated added predictive value</td><td class="up">▲ gold-standard design: replicated in a 2nd cohort</td></tr>
+      <tr><td>ActiTect — RBD/prodromal-PD screening (actigraphy ML; 78 + 201)</td><td>AUROC 0.95 dev; 0.84–0.94 external</td><td class="up">▲ above ~0.80 and generalizes across 4 cohorts</td></tr>
+      <tr><td>Sleep fragmentation ↔ amyloid (longitudinal + autopsy; n=798)</td><td>Fragmentation ↔ higher amyloid density</td><td>histopathologic confirmation of an actigraphy–AD link</td></tr>
+      <tr><td>Wearable EEG/ERP + MRI for amyloid-confirmed MCI (case-control ML; 70 + 140)</td><td>Multimodal FAA + MRI classifier</td><td class="up">▲ amyloid-PET-confirmed groups</td></tr>
+      <tr><td>Waist-IMU estimates of clinician scores in naturalistic MCI (cohort; n=44)</td><td>RMSE 3.68 MoCA</td><td>benchmarked to MDC/MCID; fairness-audited</td></tr>
+      <tr><td>Multi-domain gait MCI screening (field ML)</td><td>AUC 0.897</td><td class="up">▲ above ~0.80; single cohort — validate externally</td></tr>
+      <tr><td>EEG microstate framework, early neurodegeneration (preprint ML; 2 cohorts)</td><td>89% accuracy; +19.3% vs baseline</td><td class="up">▲ above; interpretable (SHAP)</td></tr>
+      <tr><td>Foot-mounted IMU for Parkinson's detection (case-control; n=89)</td><td>80.6–82.1% accuracy</td><td>≈ at ~0.80; needs free-living test</td></tr>
+      <tr><td>Multimodal fall-risk model (pilot; n=120)</td><td>AUC 0.967 (window PPV 6.25%)</td><td class="warn">▲ headline far above, but AUC misleads under class imbalance</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Table 2 illustrates the judgment layer's value beyond ranking. The fall-risk model's AUC of 0.967 is, in isolation, the most impressive number in the corpus; the benchmark read flags that with a positive predictive value of 6.25% and six fall events, the AUC is an artefact of class imbalance. Conversely, the highest-value studies (dementia prediction, ActiTect) win not on a single headline number but on external validation — precisely the property a benchmark-aware read is designed to reward.</p>
+
+  <h2 class="sec">5. Discussion</h2>
+  <p><b>A Level-3 machine.</b> The pipeline is, in PKM terms [1], an engine for reaching Level 3: it forces the review to terminate in shipped artefacts (this paper and its companion post among them) whose claims are exposed to scrutiny. The benchmark layer is the mechanism by which "reality answers back" inside the review itself — a claim that cannot beat its field reference, or that collapses under imbalance, is marked as such before it leaves the pipeline.</p>
+  <p><b>Recall–precision is an operating choice, not a fixed property.</b> The demonstration shows both failure modes concretely: keyword search over-recalls (noise), a strict MeSH clause under-recalls (a lost top marker). The merge is not a universal answer but a defensible default when recall matters, provided an explicit judgment layer absorbs the re-admitted noise.</p>
+  <p><b>Limitations.</b> (i) Benchmarks are approximate and hand-curated per topic; they orient interpretation but are not themselves systematically derived. (ii) Screening from titles and abstracts inherits their omissions — several headline statistics were "not reported" in the abstract and would require full-text retrieval. (iii) Results are a single-day snapshot of a moving literature; the pipeline is designed for scheduled re-runs, not one-shot completeness. (iv) The off-topic audit is heuristic and title-level. (v) This is a research-tooling report, not a systematic review conducted to PRISMA standards, and its findings about the wearables literature are illustrative rather than exhaustive.</p>
+
+  <h2 class="sec">6. Conclusion</h2>
+  <p>Agentic literature review benefits from separating a deterministic mechanical engine from a benchmark-aware judgment layer, and from treating precision and recall as independently controllable via per-source queries and a broad+precise merge. On wearables in aging neuroscience, this combination removed retrieval noise, surfaced stronger evidence, and — through the merge — avoided losing a top marker to an over-strict query, while keeping every interpretive claim anchored to a field reference. The design is offered as a reproducible template for turning literature monitoring into a Level-3, decision-changing practice.</p>
+
+  <div class="refs">
+    <h2>References</h2>
+    <ol>
+      <li>Volkov D. The Three Levels of PKM: storage, thinking partner, and model revision. Framework note; 2025.</li>
+      <li>Reddy S, et al. Long-term outcomes of deep brain stimulation for treatment-resistant depression: a meta-analysis. 2024. (Benchmark exemplar for the judgment layer.)</li>
+      <li>ActiTect: a generalizable machine-learning pipeline for REM sleep behavior disorder screening through standardized actigraphy. PubMed 42286243; 2026.</li>
+      <li>Digital sleep-wake cycle metrics and dementia prediction in older adults (UK Biobank; Whitehall II). PubMed 42149581; 2026.</li>
+      <li>Sleep fragmentation correlates with amyloid-beta deposition at brain autopsy (Rush MAP). PubMed 42340807; 2026.</li>
+      <li>Combining wearable EEG/ERP and MRI biomarkers for detection of mild cognitive impairment: a machine-learning approach. PubMed 42143838; 2026.</li>
+      <li>Wearable sensing for quantifying cognitive and balance functions in naturalistic movements of older adults with MCI. PubMed 42396303; 2026.</li>
+      <li>Wearable sensor-based MCI identification: a multi-domain gait analysis approach with association-rule mining. PubMed 42378146; 2026.</li>
+      <li>EEG-MSAF: an interpretable microstate framework uncovers default-mode decoherence in early neurodegeneration. arXiv:2509.02568; 2025.</li>
+      <li>A minimalist, foot-mounted IMU approach to Parkinson's disease detection in semi-controlled settings. PubMed 42308084; 2026.</li>
+      <li>Intelligent fall-risk prediction and real-time warning system for elderly care based on multimodal deep learning and wearable sensor fusion. PubMed 42289546; 2026.</li>
+      <li>Assessing cognitive function among older adults using machine learning and wearable device data: a feasibility study (NHANES). arXiv:2309.07133; 2023.</li>
+    </ol>
+  </div>
+
+  <footer class="foot">
+    This is a lab technical report / preprint on research tooling. Reported literature findings are illustrative of the pipeline, not a systematic review, and do not constitute clinical, diagnostic, or treatment advice（非診斷工具）. Benchmark values are approximate field references, not derived from the searches described here.
+  </footer>
+</article>
+</body></html>
