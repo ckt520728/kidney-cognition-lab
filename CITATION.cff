@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this portal or research work in your academic research, please cite it as below."
+authors:
+  - family-names: "Chu"
+    given-names: "Kwo-Ta"
+    name-particle: "MD, PhD"
+    affiliation: "Clinical Nephrologist & Cognitive Neuroscientist"
+title: "Kidney & Cognition Lab: Interactive Academic Portal & Research Hub"
+version: 1.0.0
+date-released: 2026-07-22
+url: "https://github.com/ckt520728/kidney-cognition-lab"
+license: MIT
