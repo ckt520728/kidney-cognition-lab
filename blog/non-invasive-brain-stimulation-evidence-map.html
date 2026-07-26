@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="比較 rTMS、theta-burst TMS、tDCS、tACS 在認知神經科學、憂鬱症、OCD、PTSD、思覺失調與 MCI/Alzheimer’s disease 的證據、機制與限制。">
+<title>四種腦刺激，一張證據地圖：rTMS、TBS、tDCS、tACS 到底能做什麼？ | 朱國大醫師</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--bg-primary:#0a0f1e;--bg-card:#111d3c;--bg-card2:#162248;--teal:#4dd9cf;--teal-light:#7ee8e2;--purple:#8b5cf6;--purple-light:#a78bfa;--gold:#f4a261;--red:#ef4444;--green:#22c55e;--text:#e8f4f8;--text-sec:#8ba8c4;--text-dim:#4a6580;--border:rgba(77,217,207,.15);--shadow:0 8px 32px rgba(0,0,0,.45);--radius:12px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'Noto Sans TC','Inter',sans-serif;background:var(--bg-primary);color:var(--text);line-height:1.9}a{color:var(--teal);text-decoration:none}a:hover{color:var(--teal-light)}.top-bar{position:sticky;top:0;z-index:100;background:rgba(10,15,30,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:14px 0}.top-bar-inner{max-width:980px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;gap:16px}.back-link{color:var(--text-sec);font-size:.9rem;display:inline-flex;gap:8px;align-items:center}.top-bar-title{font-size:.82rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace}.article{max-width:900px;margin:0 auto;padding:58px 24px 82px}.article-header{margin-bottom:44px;padding-bottom:34px;border-bottom:1px solid var(--border)}.article-meta{color:var(--teal);font-size:.85rem;font-family:'JetBrains Mono',monospace;margin-bottom:14px}.article-title{font-size:2.25rem;line-height:1.35;margin-bottom:18px;background:linear-gradient(135deg,var(--text),var(--teal-light));-webkit-background-clip:text;background-clip:text;color:transparent}.article-subtitle{color:var(--text-sec);font-size:1.04rem}.article-author{margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:flex;gap:16px;align-items:center;flex-wrap:wrap}.author-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#2a9d8f,var(--purple));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem}.author-info{color:var(--text-sec);font-size:.88rem;line-height:1.65}.author-info strong{color:var(--text)}.article-tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}.tag{font-size:.72rem;padding:3px 12px;border-radius:20px;background:rgba(77,217,207,.08);color:var(--teal);border:1px solid rgba(77,217,207,.2)}figure{margin:34px 0}.hero-figure{margin:34px 0 42px}figure svg,figure img{width:100%;display:block;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-card);box-shadow:var(--shadow)}figcaption{margin-top:12px;color:var(--text-sec);font-size:.85rem;text-align:center;line-height:1.7}h2{font-size:1.55rem;margin:54px 0 20px;padding-bottom:10px;border-bottom:2px solid var(--teal);display:inline-block}h3{font-size:1.18rem;color:var(--teal-light);margin:34px 0 14px}p{color:var(--text-sec);margin:0 0 20px}p strong,li strong{color:var(--text)}em{color:var(--teal-light);font-style:normal}ul,ol{color:var(--text-sec);padding-left:24px;margin:0 0 24px}li{margin-bottom:10px}li::marker{color:var(--teal)}.callout{margin:28px 0;padding:20px 24px;background:var(--bg-card);border-left:4px solid var(--teal);border-radius:8px;color:var(--text-sec)}.callout.purple{border-left-color:var(--purple)}.callout.gold{border-left-color:var(--gold)}.callout.red{border-left-color:var(--red)}.callout strong{color:var(--text)}.tbl-wrap{overflow-x:auto;margin:24px 0}table{width:100%;min-width:680px;border-collapse:collapse;background:var(--bg-card);border-radius:var(--radius);overflow:hidden;font-size:.9rem}th{text-align:left;color:var(--teal);background:rgba(77,217,207,.1);padding:12px 14px;border-bottom:1px solid var(--border)}td{padding:12px 14px;color:var(--text-sec);border-bottom:1px solid rgba(77,217,207,.08);vertical-align:top}tr:last-child td{border-bottom:none}.evidence-lab{margin:34px 0;padding:22px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}.toolbar{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}.tool{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:9px;padding:12px}.tool label{display:block;color:var(--text);font-size:.85rem;margin-bottom:7px}.tool select{width:100%;background:#0a1326;color:var(--text);border:1px solid var(--border);border-radius:7px;padding:9px;font:inherit}.mode-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.mode-button{border:1px solid var(--border);color:var(--text-sec);background:var(--bg-card2);border-radius:8px;padding:9px;cursor:pointer;font:500 .84rem inherit}.mode-button:hover,.mode-button:focus-visible{border-color:var(--teal);outline:none}.mode-button.active{border-color:var(--teal);color:var(--teal);background:rgba(77,217,207,.08)}.evidence-canvas{width:100%;height:340px;border:1px solid var(--border);border-radius:10px;background:#08101f;display:block}.readout{display:grid;grid-template-columns:1.25fr .75fr;gap:12px;margin-top:14px}.readout-card{padding:14px;border-radius:9px;background:#0a1326;border:1px solid var(--border)}.readout-card small{display:block;color:var(--text-dim);font-size:.73rem;text-transform:uppercase;letter-spacing:.04em}.readout-card strong{display:block;color:var(--teal-light);margin:4px 0}.readout-card p{font-size:.84rem;margin:0}.legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--text-dim);font-size:.78rem;margin-top:12px}.legend span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--c);margin-right:6px}.six-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}.six-card{padding:16px;background:var(--bg-card);border:1px solid var(--border);border-radius:9px}.six-card b{display:block;color:var(--teal-light);font:500 .82rem 'JetBrains Mono',monospace;margin-bottom:5px}.six-card span{color:var(--text-sec);font-size:.88rem}.certainty{display:inline-block;padding:2px 8px;border-radius:12px;font:500 .72rem 'JetBrains Mono',monospace}.high{color:#86efac;background:rgba(34,197,94,.1)}.mid{color:#fde68a;background:rgba(244,162,97,.1)}.low{color:#fca5a5;background:rgba(239,68,68,.1)}.refs{font-size:.86rem}.refs li{margin-bottom:12px}.article-footer{margin-top:58px;padding-top:28px;border-top:1px solid var(--border);color:var(--text-dim);font-size:.86rem}@media(max-width:760px){.article{padding:40px 18px 64px}.article-title{font-size:1.75rem}.toolbar,.readout,.six-grid{grid-template-columns:1fr}.mode-buttons{grid-template-columns:1fr 1fr}.top-bar-title{display:none}.evidence-canvas{height:300px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<nav class="top-bar"><div class="top-bar-inner"><a class="back-link" href="../index.html#teaching"><i class="fas fa-arrow-left"></i>回到演講與教學</a><div class="top-bar-title">非侵入性腦刺激 · 因果推論 · 臨床證據</div></div></nav>
+<main class="article">
+<header class="article-header">
+  <div class="article-meta">2026 / 07 / 26 · 證據邊界回顧 · 非侵入性腦刺激</div>
+  <h1 class="article-title">四種腦刺激，一張證據地圖：rTMS、TBS、tDCS、tACS 到底能做什麼？</h1>
+  <p class="article-subtitle">磁場、直流電與交流電都能影響大腦，但它們改變的層級、能回答的問題，以及臨床證據成熟度完全不同。真正要比較的不是技術名稱，而是完整的刺激參數、腦網路、腦狀態、評估終點與時間尺度。</p>
+  <div class="article-author"><div class="author-avatar">朱</div><div class="author-info"><strong>朱國大醫師</strong><br>腎臟病、糖尿病與複雜內科急症；認知神經科學博士。本文為研究整理與教學用途，不是醫療建議。</div></div>
+  <div class="article-tags"><span class="tag">重複經顱磁刺激</span><span class="tag">θ節律叢集刺激</span><span class="tag">經顱電刺激</span><span class="tag">認知神經科學</span><span class="tag">神經精神醫學</span></div>
+</header>
+<h2>閱讀前先看：常用名詞中英文對照</h2>
+<div class="tbl-wrap"><table><thead><tr><th>中文名稱</th><th>英文與縮寫</th><th>本文中的意思</th></tr></thead><tbody>
+<tr><td><strong>非侵入性腦刺激</strong></td><td>non-invasive brain stimulation（NIBS）</td><td>不需手術植入，從頭皮外調節腦活動的一組技術。</td></tr>
+<tr><td><strong>經顱磁刺激</strong></td><td>transcranial magnetic stimulation（TMS）</td><td>以磁場在腦內誘發電流；重複施作時稱為 rTMS。</td></tr>
+<tr><td><strong>重複經顱磁刺激</strong></td><td>repetitive transcranial magnetic stimulation（rTMS）</td><td>以重複磁脈衝誘發皮質電流。</td></tr>
+<tr><td><strong>θ節律叢集刺激</strong></td><td>theta-burst stimulation（TBS）</td><td>以θ節律排列磁脈衝；包含間歇型 iTBS 與連續型 cTBS。</td></tr>
+<tr><td><strong>經顱直流電刺激</strong></td><td>transcranial direct current stimulation（tDCS）</td><td>以弱直流電改變神經元對輸入的敏感度。</td></tr>
+<tr><td><strong>經顱交流電刺激</strong></td><td>transcranial alternating current stimulation（tACS）</td><td>以週期性弱電流影響神經振盪的相位與頻率。</td></tr>
+<tr><td><strong>背外側前額葉皮質</strong></td><td>dorsolateral prefrontal cortex（DLPFC）</td><td>常見的憂鬱症、認知與精神疾病刺激標靶。</td></tr>
+<tr><td><strong>假刺激</strong></td><td>sham stimulation</td><td>模擬聲音或皮膚感覺、但不給有效刺激的對照條件。</td></tr>
+<tr><td><strong>節律牽引</strong></td><td>neural entrainment</td><td>外加週期刺激使腦內振盪跟隨特定頻率或相位。</td></tr>
+<tr><td><strong>非劣性</strong></td><td>noninferiority</td><td>新療法不比既有療法差到超過預先設定界線；不代表更有效。</td></tr>
+<tr><td><strong>史丹佛神經調節療法</strong></td><td>Stanford Neuromodulation Therapy（SNT）</td><td>以個人化標靶與加速 iTBS 安排治療的特定方案。</td></tr>
+<tr><td><strong>經顱電刺激</strong></td><td>transcranial electrical stimulation（tES）</td><td>包含 tDCS、tACS 等以弱電流調節大腦的技術。</td></tr>
+<tr><td><strong>不良事件</strong></td><td>adverse event（AE）</td><td>治療期間發生的不利健康事件，不必然與治療具有因果關係。</td></tr>
+</tbody></table></div>
+
+<figure class="hero-figure">
+<svg viewBox="0 0 960 430" role="img" aria-label="四種非侵入性腦刺激從物理輸入到臨床終點的證據橋">
+<defs><linearGradient id="nibsGrad" x1="0" x2="1"><stop offset="0" stop-color="#4dd9cf"/><stop offset=".55" stop-color="#8b5cf6"/><stop offset="1" stop-color="#f4a261"/></linearGradient><filter id="nibsGlow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="960" height="430" fill="#0a0f1e"/>
+<path d="M85 215 H875" stroke="url(#nibsGrad)" stroke-width="7" stroke-linecap="round" filter="url(#nibsGlow)"/>
+<g font-family="Noto Sans TC, Inter" text-anchor="middle">
+<g><circle cx="100" cy="215" r="54" fill="#10213f" stroke="#4dd9cf" stroke-width="2"/><text x="100" y="207" fill="#e8f4f8" font-size="18">能量輸入</text><text x="100" y="232" fill="#8ba8c4" font-size="12">磁場／電流</text></g>
+<g><circle cx="290" cy="215" r="54" fill="#10213f" stroke="#4dd9cf" stroke-width="2"/><text x="290" y="207" fill="#e8f4f8" font-size="18">刺激標靶</text><text x="290" y="232" fill="#8ba8c4" font-size="12">電場／腦網路</text></g>
+<g><circle cx="480" cy="215" r="54" fill="#191d46" stroke="#8b5cf6" stroke-width="2"/><text x="480" y="207" fill="#e8f4f8" font-size="18">腦狀態</text><text x="480" y="232" fill="#8ba8c4" font-size="12">狀態／相位／任務</text></g>
+<g><circle cx="670" cy="215" r="54" fill="#2b2138" stroke="#f4a261" stroke-width="2"/><text x="670" y="207" fill="#e8f4f8" font-size="18">中介結果</text><text x="670" y="232" fill="#8ba8c4" font-size="12">腦波／任務／症狀</text></g>
+<g><circle cx="860" cy="215" r="54" fill="#2b2138" stroke="#f4a261" stroke-width="2"/><text x="860" y="207" fill="#e8f4f8" font-size="18">臨床功能</text><text x="860" y="232" fill="#8ba8c4" font-size="12">持久性／生活功能</text></g>
+</g>
+<g font-family="Noto Sans TC, Inter" font-size="14" text-anchor="middle"><text x="235" y="90" fill="#4dd9cf">rTMS · TBS</text><text x="480" y="90" fill="#a78bfa">tDCS</text><text x="725" y="90" fill="#f4a261">tACS</text><text x="480" y="350" fill="#ef4444">感覺混淆 · 假刺激可信度 · 研究異質性 · 過度推論</text></g>
+</svg>
+<figcaption>任何非侵入性腦刺激主張都要走完整條證據橋：刺激有進腦，不代表打到預期腦網路；腦波變了，不代表症狀改善；症狀短期改善，也不代表生活功能或疾病進程被改變。</figcaption>
+</figure>
+
+<div class="callout gold"><strong>先講結論：</strong>目前最成熟的臨床用途，是 rTMS／iTBS 治療重度憂鬱症。強迫症與戒菸有特定設備及刺激方案的證據。tDCS、tACS 用於輕度認知障礙、阿茲海默症、思覺失調症與創傷後壓力症候群，雖有值得研究的訊號，多數仍屬研究階段。至於「讓健康人普遍變聰明」，四種技術的平均效果都小、侷限於特定任務，而且很不穩定。</div>
+
+<h2>一、別先問哪一種最好：它們根本不是同一把工具</h2>
+<div class="tbl-wrap"><table><thead><tr><th>技術</th><th>它直接做什麼</th><th>最適合回答</th><th>最常見誤讀</th></tr></thead><tbody>
+<tr><td><strong>rTMS</strong></td><td>磁場誘發皮質電流，可直接引發神經放電</td><td>某個時間點、某個腦網路對行為是否具有因果關聯</td><td>把刺激點當成單一「功能中心」</td></tr>
+<tr><td><strong>iTBS／cTBS</strong></td><td>用θ節律叢集排列經顱磁刺激脈衝</td><td>快速誘發可塑性，以及縮短臨床療程</td><td>以為 iTBS 永遠興奮、cTBS 永遠抑制</td></tr>
+<tr><td><strong>tDCS</strong></td><td>弱直流電改變神經元對輸入的敏感度</td><td>改變輸入—輸出增益，搭配訓練或重複療程</td><td>以為陽極一定加速、陰極一定煞車</td></tr>
+<tr><td><strong>tACS</strong></td><td>週期性弱電流影響相位與頻率動態</td><td>測試神經振盪是否參與認知運算</td><td>把同頻腦波直接當成皮質節律牽引</td></tr>
+</tbody></table></div>
+
+<p>這裡最重要的觀念是：<strong>能量更強，不代表證據更強；腦訊號變化更漂亮，也不代表療效更好。</strong>證據強度來自隨機分派、假刺激對照、盲法、標靶作用證據、臨床終點、獨立重複與追蹤時間。</p>
+
+<h2>二、親手切換：同一技術，換一個疾病，證據位置就變了</h2>
+<section class="evidence-lab" aria-labelledby="evidence-title">
+<h3 id="evidence-title">互動式非侵入性腦刺激證據地圖</h3>
+<p>選擇應用，再點選技術。圖只使用預先定義的三階序位分類準則，不使用 0–100 分數，也不以圓圈大小暗示文獻量：<strong>M1</strong>＝理論或間接機制、<strong>M2</strong>＝人體生理量測或標靶作用證據、<strong>M3</strong>＝介入式因果證據；<strong>C1</strong>＝早期或小型研究訊號、<strong>C2</strong>＝已有多個對照研究或統合分析但仍具異質性、<strong>C3</strong>＝已有指引、法規許可或可重複的特定刺激方案證據。這是本文依來源作的教學分類，<strong>不是已驗證量表、統合分析或醫療選擇工具</strong>。</p>
+<div class="toolbar"><div class="tool"><label for="useCase">應用情境</label><select id="useCase"><option value="cognition">健康成人認知神經科學</option><option value="depression" selected>重度／難治性憂鬱症</option><option value="schizophrenia">思覺失調症</option><option value="ocd">強迫症</option><option value="ptsd">創傷後壓力症候群</option><option value="tobacco">菸草使用障礙</option><option value="ad">輕度認知障礙／阿茲海默症</option></select></div><div class="tool"><label>閱讀方法</label><p style="margin:0;font-size:.83rem">右上代表較高的序位類別；同格中的微小位移只為避免圓點重疊，不代表額外分數。</p></div></div>
+<div class="mode-buttons" role="group" aria-label="選擇腦刺激技術"><button class="mode-button active" data-mode="rTMS">rTMS</button><button class="mode-button" data-mode="TBS">TBS</button><button class="mode-button" data-mode="tDCS">tDCS</button><button class="mode-button" data-mode="tACS">tACS</button></div>
+<canvas id="evidenceCanvas" class="evidence-canvas" width="850" height="340" aria-label="各種腦刺激依 M1 到 M3 機制證據與 C1 到 C3 臨床成熟度分類的序位圖"></canvas>
+<div class="legend"><span style="--c:#4dd9cf">磁刺激</span><span style="--c:#8b5cf6">直流電刺激</span><span style="--c:#f4a261">交流電刺激</span></div>
+<div class="readout"><div class="readout-card"><small>所選證據結論</small><strong id="selectedTitle">rTMS × 重度／難治性憂鬱症</strong><p id="selectedText">左側背外側前額葉高頻 rTMS 具國際臨床神經生理學聯盟（IFCN）A 級證據；療效仍限於特定刺激方案，不代表每位患者都能緩解。</p></div><div class="readout-card"><small>證據確定性</small><strong id="selectedCertainty">較高</strong><p id="selectedBoundary">指引涵蓋的證據年代與個人風險仍需臨床判斷。</p></div></div>
+<noscript><p>若瀏覽器關閉互動功能，請參考下方靜態證據表。</p></noscript>
+</section>
+
+<h2>三、認知神經科學：最可靠的是「干擾後發生什麼」，不是「讓人變聰明」</h2>
+<p>經顱磁刺激（TMS）在認知神經科學的價值，是能在毫秒級時間窗干擾或改變腦網路活動。若行為隨之改變，我們得到的是介入式因果證據。但這不代表刺激點單獨「存放」該功能：TMS 會沿腦網路傳播，也伴隨聲音、皮膚感覺與期待效應。</p>
+<p>當研究目標改成「提升認知」，證據就弱很多。健康成人高頻 rTMS 的統合分析只看到小效應；iTBS 結果對刺激標靶、導航方法與離群值很敏感；tDCS 工作記憶文獻同時存在小幅正向訊號與證據價值批評；tACS 也常見侷限於特定任務的正向結果、反應時間未改善與非特定頻率效應。</p>
+<div class="callout purple"><strong>一句話分界：</strong>「擾動這個腦網路會改變任務表現」是合理的因果結論；「這台機器能全面提升認知」通常超過證據。</div>
+
+<h2>四、臨床證據：成熟、特定，和仍在研究中</h2>
+<div class="tbl-wrap"><table><thead><tr><th>情境</th><th>最符合證據邊界的結論</th><th>成熟度</th></tr></thead><tbody>
+<tr><td>重度／難治性憂鬱症（MDD／TRD）</td><td>左側背外側前額葉皮質（DLPFC）高頻 rTMS 為國際臨床神經生理學聯盟（IFCN）A 級證據；iTBS 對 10 Hz rTMS 達非劣性，優勢是療程較短。</td><td><span class="certainty high">較高</span></td></tr>
+<tr><td>強迫症</td><td>深部經顱磁刺激具有美國食品藥物管理局（FDA）針對特定設備與刺激方案的上市許可；不可泛化到所有 rTMS。</td><td><span class="certainty mid">中等</span></td></tr>
+<tr><td>創傷後壓力症候群</td><td>右側 DLPFC 高頻 rTMS 在 2020 年指引中為 B 級證據；2024 年考科藍回顧則認為短期症狀嚴重度可能幾乎沒有差異，而且刺激方案異質。</td><td><span class="certainty mid">中等但存在分歧</span></td></tr>
+<tr><td>菸草使用障礙</td><td>外側前額葉／島葉深部 rTMS 搭配誘發渴求線索的多中心隨機對照試驗中，第 18 週持續戒菸率為 19.4%，對照組為 8.7%。</td><td><span class="certainty mid">中等</span></td></tr>
+<tr><td>思覺失調症</td><td>rTMS／tDCS 對聽幻覺、負性症狀或認知可能有訊號，但跨研究結果不一致。</td><td><span class="certainty low">低—中</span></td></tr>
+<tr><td>輕度認知障礙／阿茲海默症（MCI／AD）</td><td>楔前葉 rTMS 第二期隨機對照試驗，以及 tDCS／tACS 研究出現值得追蹤的訊號；證據尚不足以納入常規照護。</td><td><span class="certainty low">低—中</span></td></tr>
+</tbody></table></div>
+
+<h3>非劣性不是「更有效」</h3>
+<p>THREE-D 試驗的重要結果，是 iTBS 對標準 10 Hz rTMS 的憂鬱症改善達非劣性，而且每次約 3 分鐘，相較標準療程約 37.5 分鐘。這回答的是「能否用更短時間得到不比標準差的結果」，不是證明 iTBS 優於假刺激，也不是證明所有加速刺激方案都一樣有效。</p>
+<p>加速個人化 iTBS／史丹佛神經調節療法（SNT）的假刺激對照隨機試驗只有 29 名接受治療者（主動刺激 14 名、假刺激 15 名）；4 週蒙哥馬利—艾斯伯格憂鬱量表（MADRS）降幅為 52.5%，對照組為 11.1%。早期約 90% 的緩解率來自開放標記世代，不能與此隨機試驗混算。</p>
+
+<h3>FDA 上市許可不是整個技術類別的通行證</h3>
+<p>FDA 對強迫症的紀錄指向特定深部 TMS 系統、線圈、刺激標靶與刺激方案。把它縮寫成「FDA 核准 TMS 治療強迫症」，雖然口語上常見，科學上卻會把特定設備的證據誇大成整個技術類別的效果。</p>
+
+<h3>阿茲海默症：最容易把生物標記寫成療效</h3>
+<p>楔前葉 rTMS 的 24 週第二期試驗（n=50）同時量測臨床失智評估量表總分（CDR-SB）、認知、日常功能與 TMS—腦波，是重要的臨床訊號；但它仍是小型、單中心第二期研究。至於 tACS、γ活動、腦灌流、類澱粉蛋白或連結性，這些可以是標靶作用生物標記，卻不能單獨證明疾病修飾。</p>
+<p>阿茲海默症／輕度認知障礙的成分網絡統合分析納入 27 個雙盲隨機對照試驗（n=1070）；短期整體認知方面，高頻 rTMS 的標準化平均差（SMD）為 1.08（95% 信賴區間 0.35–1.80），陽極 tDCS 的 SMD 為 0.56（0.03–1.09），但輕度認知障礙次群組未呈現相同正向效果。這些估計不包含 tACS，也不能證明疾病修飾。</p>
+
+<h2>五、tACS 最關鍵的考題：你看到的是腦，還是雜訊？</h2>
+<p>tACS 在刺激期間輸入交流電，而腦電圖／腦磁圖（EEG／MEG）也在量測電磁訊號。刺激雜訊可能遠大於真正的神經訊號，心跳與呼吸還會以非線性方式調變雜訊。視網膜受到刺激會產生光幻視，皮膚神經受到刺激也可能間接改變注意力與腦節律。</p>
+<p>因此，若要主張直接皮質節律牽引，至少需要四個條件：</p>
+<ol><li>頻率／相位特異的神經效應；</li><li>主動感覺與視網膜對照；</li><li>能辨識雜訊的同步記錄；</li><li>神經變化與預先指定的行為結果一致。</li></ol>
+<div class="callout red"><strong>離線功率增加不等於持續牽引。</strong> Vossen 等人的結果支持 α 頻段 tACS 的後效應可能更像突觸可塑性。若刺激結束後才看到變化，應稱為離線調節，除非另有證據證明節律牽引持續存在。</div>
+
+<h2>六、六個維度，才是一個完整的非侵入性腦刺激陳述</h2>
+<div class="six-grid">
+<div class="six-card"><b>1 · 刺激技術</b><span>磁刺激、節律化 TMS、直流或交流電刺激。</span></div>
+<div class="six-card"><b>2 · 刺激方案</b><span>頻率、強度、脈衝／電流劑量與療程密度。</span></div>
+<div class="six-card"><b>3 · 標靶／腦網路</b><span>不只有頭皮座標，還包括電場與腦網路連結性。</span></div>
+<div class="six-card"><b>4 · 腦狀態</b><span>休息／任務、相位、藥物、睡眠與疾病階段。</span></div>
+<div class="six-card"><b>5 · 評估終點</b><span>腦波、任務表現、症狀、日常功能或疾病進程。</span></div>
+<div class="six-card"><b>6 · 時間尺度</b><span>刺激中的毫秒效應，或持續數週／數月的效益。</span></div>
+</div>
+<p>只有六個維度條件相近的研究，才適合直接比較。這也是為什麼「rTMS、tDCS、tACS 哪個最好？」通常是一個條件不足的問題。</p>
+
+<h2>七、安全性：低風險不等於零風險，更不等於有效</h2>
+<p>TMS 常見頭皮不適與頭痛；癲癇發作是嚴重但罕見的風險。不能用單一通用發生率涵蓋所有線圈、頻率、強度、藥物與患者風險。電子／磁性植入物、癲癇風險、睡眠不足與藥物，都需要依現行指引篩檢。</p>
+<p>2026 年經顱電刺激（tES）安全性更新指出，逾 300,000 次療程中未通報與 tES 相關的嚴重不良事件；主要安全範圍是 ≤4 mA、每日 ≤60 分鐘。刺麻／灼熱感、頭痛與疲勞是常見且與刺激時間相關的不良事件（AE），但 AE 不等同已證實具有因果關係的副作用；更高劑量、監測品質與漏報仍限制推論。這支持規範參數下的安全性概況，不是自行腦刺激的背書，也不能取代療效證據。</p>
+
+<h2>八、重點整理</h2>
+<ul>
+<li><strong>憂鬱症是 rTMS／iTBS 證據最成熟的臨床領域。</strong></li>
+<li><strong>強迫症與戒菸的證據，必須連同設備、線圈、刺激標靶與刺激方案一起陳述。</strong></li>
+<li><strong>健康成人的認知提升多為小效應，而且異質性高。</strong></li>
+<li><strong>tDCS 的極性規則不是跨腦區通用定律。</strong></li>
+<li><strong>tACS 要先排除感覺混淆與記錄雜訊，才能討論皮質節律牽引。</strong></li>
+<li><strong>阿茲海默症／輕度認知障礙有值得研究的訊號，但尚未成為常規治療。</strong></li>
+</ul>
+<div class="callout gold"><strong>最後的判斷框架：</strong>不要問「這種刺激有效嗎？」要問「對誰、在什麼腦狀態、刺激哪個腦網路、使用什麼劑量、改變哪個評估終點、能維持多久，而且是否排除了假刺激、感覺效應與分析雜訊？」</div>
+
+<h2>參考文獻</h2>
+<ol class="refs">
+<li>Lefaucheur J-P, et al. Evidence-based guidelines on the therapeutic use of rTMS: An update (2014–2018). <em>Clinical Neurophysiology</em>. 2020. <a href="https://doi.org/10.1016/j.clinph.2019.11.002">doi:10.1016/j.clinph.2019.11.002</a></li>
+<li>Rossi S, et al. Safety and recommendations for TMS use in healthy subjects and patient populations. <em>Clinical Neurophysiology</em>. 2021. <a href="https://doi.org/10.1016/j.clinph.2020.10.003">doi:10.1016/j.clinph.2020.10.003</a></li>
+<li>Blumberger DM, et al. Effectiveness of theta burst versus high-frequency rTMS in depression (THREE-D). <em>The Lancet</em>. 2018. <a href="https://doi.org/10.1016/S0140-6736(18)30295-2">doi:10.1016/S0140-6736(18)30295-2</a></li>
+<li>Cole EJ, et al. Stanford Neuromodulation Therapy: A double-blind randomized controlled trial. <em>American Journal of Psychiatry</em>. 2022. <a href="https://doi.org/10.1176/appi.ajp.2021.20101429">doi:10.1176/appi.ajp.2021.20101429</a></li>
+<li>FDA. FDA permits marketing of transcranial magnetic stimulation for treatment of OCD. 2018. <a href="https://www.fda.gov/news-events/press-announcements/fda-permits-marketing-transcranial-magnetic-stimulation-treatment-obsessive-compulsive-disorder">Official record</a></li>
+<li>Zangen A, et al. rTMS for smoking cessation: A pivotal multicenter double-blind RCT. <em>World Psychiatry</em>. 2021. <a href="https://doi.org/10.1002/wps.20905">doi:10.1002/wps.20905</a></li>
+<li>Koch G, et al. Precuneus magnetic stimulation for Alzheimer’s disease: A randomized, sham-controlled trial. <em>Brain</em>. 2022. <a href="https://doi.org/10.1093/brain/awac285">doi:10.1093/brain/awac285</a></li>
+<li>Lefaucheur J-P, et al. Evidence-based guidelines on the therapeutic use of tDCS. <em>Clinical Neurophysiology</em>. 2017. <a href="https://doi.org/10.1016/j.clinph.2016.10.087">doi:10.1016/j.clinph.2016.10.087</a></li>
+<li>Brunoni AR, et al. Trial of electrical direct-current therapy versus escitalopram for depression. <em>NEJM</em>. 2017. <a href="https://doi.org/10.1056/NEJMoa1612999">doi:10.1056/NEJMoa1612999</a></li>
+<li>Brown R, et al. Repetitive transcranial magnetic stimulation for post-traumatic stress disorder in adults. <em>Cochrane Database of Systematic Reviews</em>. 2024. <a href="https://doi.org/10.1002/14651858.CD015040.pub2">doi:10.1002/14651858.CD015040.pub2</a></li>
+<li>Antal A, et al. Low intensity tES safety guidelines (2017–2025 update). <em>Clinical Neurophysiology</em>. 2026. <a href="https://doi.org/10.1016/j.clinph.2025.2111436">doi:10.1016/j.clinph.2025.2111436</a></li>
+<li>Huang Y, et al. Measurements and models of electric fields in the in vivo human brain during tES. <em>eLife</em>. 2017. <a href="https://doi.org/10.7554/eLife.18834">doi:10.7554/eLife.18834</a></li>
+<li>Jacobson L, Koslowsky M, Lavidor M. tDCS polarity effects in motor and cognitive domains: A meta-analytical review. <em>Experimental Brain Research</em>. 2012. <a href="https://doi.org/10.1007/s00221-011-2891-9">doi:10.1007/s00221-011-2891-9</a></li>
+<li>Helfrich RF, et al. Entrainment of brain oscillations by tACS. <em>Current Biology</em>. 2014. <a href="https://doi.org/10.1016/j.cub.2013.12.041">doi:10.1016/j.cub.2013.12.041</a></li>
+<li>Vossen A, et al. Alpha power increase after tACS reflects plastic changes rather than entrainment. <em>Brain Stimulation</em>. 2015. <a href="https://doi.org/10.1016/j.brs.2014.12.004">doi:10.1016/j.brs.2014.12.004</a></li>
+<li>Schutter DJLG. Cutaneous retinal activation and neural entrainment in tACS. <em>NeuroImage</em>. 2016. <a href="https://doi.org/10.1016/j.neuroimage.2015.09.067">doi:10.1016/j.neuroimage.2015.09.067</a></li>
+<li>Noury N, et al. Physiological processes non-linearly affect electrophysiological recordings during tES. <em>NeuroImage</em>. 2016. <a href="https://doi.org/10.1016/j.neuroimage.2016.03.065">doi:10.1016/j.neuroimage.2016.03.065</a></li>
+<li>Parkin BL, Ekhtiari H, Walsh VF. Non-invasive human brain stimulation in cognitive neuroscience: A primer. <em>Neuron</em>. 2015. <a href="https://doi.org/10.1016/j.neuron.2015.07.032">doi:10.1016/j.neuron.2015.07.032</a></li>
+<li>Hobot J, et al. Causal inferences in repetitive transcranial magnetic stimulation research: Challenges and perspectives. <em>Frontiers in Human Neuroscience</em>. 2021. <a href="https://doi.org/10.3389/fnhum.2020.586448">doi:10.3389/fnhum.2020.586448</a></li>
+<li>Lee TL, Lee H, Kang N. A meta-analysis showing improved cognitive performance in healthy young adults with tACS. <em>npj Science of Learning</em>. 2023. <a href="https://doi.org/10.1038/s41539-022-00152-9">doi:10.1038/s41539-022-00152-9</a></li>
+<li>Lee ARYB, et al. tACS effects on cognition and the treatment of psychiatric disorders: A systematic review and meta-analysis. <em>Therapeutic Advances in Chronic Disease</em>. 2022. <a href="https://doi.org/10.1177/20406223221140390">doi:10.1177/20406223221140390</a></li>
+</ol>
+
+<footer class="article-footer">本文為以證據邊界為核心的教學回顧，不構成醫療建議。研究與臨床判斷需依個別患者、最新臨床指引、設備標示與專業評估。本文由人工智慧（AI）協助整理，請自行驗證。</footer>
+</main>
+<script>
+(function(){
+const data={
+cognition:{rTMS:[3,2,"TMS 可在特定時間與位置進行因果干擾；健康成人的認知提升平均效應很小。","中等","腦網路傳播與感覺效應，限制把結果簡化為單一腦區功能。"],TBS:[3,2,"iTBS／cTBS 可測試神經可塑性，但認知結果受刺激標靶、導航方法與腦狀態影響。","中等","運動皮質的刺激方向不能直接外推至所有前額葉任務。"],tDCS:[2,1,"工作記憶研究有正向訊號，也有證據價值批評。","低—中","極性、劑量與皮質幾何形狀使結果不穩定。"],tACS:[2,1,"可測試相位與頻率動態；行為效益通常很小且侷限於特定任務。","低—中","視網膜／皮膚感覺混淆與記錄雜訊是核心限制。"]},
+depression:{rTMS:[3,3,"左側 DLPFC 高頻 rTMS 具 IFCN A 級證據；療效仍限於特定刺激方案。","較高","指引涵蓋的證據年代與個人風險仍需臨床判斷。"],TBS:[3,3,"iTBS 對 10 Hz rTMS 達非劣性，主要優勢是單次療程較短。","較高","非劣性不等於優於假刺激；不同加速刺激方案不可互相替代。"],tDCS:[2,2,"部分試驗優於安慰劑，但 ELECT-TDCS 未證實不劣於艾司西酞普蘭。","中等","不能宣稱可取代第一線抗憂鬱治療。"],tACS:[2,1,"早期隨機試驗與統合分析出現訊號，但試驗少、估計不穩。","偏低","證據成熟度尚未達 rTMS／iTBS 的程度。"]},
+schizophrenia:{rTMS:[3,2,"聽幻覺、負性症狀與認知結果會隨刺激標靶與頻率而異。","低—中","2020 年指引未達 A／B 級證據。"],TBS:[3,1,"TBS 研究仍少，刺激方案尚未標準化。","偏低","樣本小且評估終點不一致。"],tDCS:[2,2,"較新隨機試驗報告工作記憶與神經認知改善。","低—中","需要獨立重複、生活功能與持久性證據。"],tACS:[2,1,"小型試驗有症狀與認知訊號。","偏低","證據基礎小且結果不一。"]},
+ocd:{rTMS:[3,3,"深部 TMS 具有 FDA 針對特定設備與刺激方案的上市許可。","中等","不可泛化為所有 rTMS；並非每位患者都會出現臨床反應。"],TBS:[3,1,"TBS 的刺激標靶仍在研究。","偏低","缺乏足夠的重複驗證試驗。"],tDCS:[2,1,"輔助運動區前部 tDCS 有小型假刺激對照隨機試驗。","偏低","仍屬研究階段。"],tACS:[2,1,"針對強迫症的 tACS 證據很有限。","低","不能只由神經振盪機制推論療效。"]},
+ptsd:{rTMS:[3,2,"2020 年 IFCN 指引列為 B 級證據；2024 年考科藍回顧認為短期嚴重度可能幾乎沒有差異。","中等但存在分歧","證據涵蓋年代不同；刺激方案、參與者與評估結果皆具異質性。"],TBS:[3,1,"iTBS 有早期隨機試驗訊號，而且療程較短。","低—中","需要更大樣本與最佳參數研究。"],tDCS:[2,1,"tDCS 搭配暴露治療／虛擬實境的試驗有早期訊號。","偏低","無法清楚歸因各組成部分的效果。"],tACS:[2,1,"針對創傷後壓力症候群的 tACS 證據仍很早期。","低","機制合理不等於臨床有效。"]},
+tobacco:{rTMS:[3,2,"深部 rTMS 搭配誘發渴求線索的隨機試驗，提高第 18 週持續戒菸率。","中等","只適用於菸草使用障礙，以及特定線圈、刺激標靶與線索誘發方案。"],TBS:[3,1,"TBS 用於菸草使用障礙的證據尚早。","低","不能從憂鬱症刺激方案外推。"],tDCS:[2,1,"渴求相關研究有早期訊號。","低","臨床戒菸終點與持久性證據不足。"],tACS:[2,1,"針對菸草使用障礙的 tACS 證據很有限。","低","神經振盪機制不等於戒菸療效。"]},
+ad:{rTMS:[3,2,"楔前葉 rTMS 第二期隨機試驗顯示 24 週臨床訊號。","低—中","n=50、單中心；尚不足以納入常規照護。"],TBS:[3,1,"輕度認知障礙／阿茲海默症的 TBS 人體證據仍少。","偏低","不得從憂鬱症或運動皮質研究外推。"],tDCS:[2,2,"統合分析與小型隨機試驗有認知訊號。","低—中","輕度認知障礙次群組、電極配置、訓練與評估結果皆具異質性。"],tACS:[2,1,"γ頻段與其他頻率研究有記憶與生理訊號。","低—中","生物標記或神經振盪變化不等於疾病修飾。"]}
+};
+const colors={rTMS:"#4dd9cf",TBS:"#7ee8e2",tDCS:"#8b5cf6",tACS:"#f4a261"};
+const canvas=document.getElementById("evidenceCanvas"),ctx=canvas.getContext("2d"),useCase=document.getElementById("useCase"),buttons=[...document.querySelectorAll(".mode-button")],title=document.getElementById("selectedTitle"),text=document.getElementById("selectedText"),certainty=document.getElementById("selectedCertainty"),boundary=document.getElementById("selectedBoundary");let selected="rTMS";
+function resize(){const dpr=Math.max(1,window.devicePixelRatio||1),rect=canvas.getBoundingClientRect();canvas.width=Math.max(1,Math.round(rect.width*dpr));canvas.height=Math.max(1,Math.round(rect.height*dpr));ctx.setTransform(dpr,0,0,dpr,0,0);draw()}
+function draw(){const w=Math.max(1,canvas.clientWidth),h=Math.max(1,canvas.clientHeight),left=70,right=62,top=48,bottom=62,offsets={rTMS:[-16,-13],TBS:[16,-13],tDCS:[-16,13],tACS:[16,13]};ctx.clearRect(0,0,w,h);ctx.fillStyle="#08101f";ctx.fillRect(0,0,w,h);ctx.strokeStyle="rgba(77,217,207,.13)";ctx.lineWidth=1;ctx.font="11px JetBrains Mono, monospace";ctx.fillStyle="#4a6580";for(let level=1;level<=3;level++){const x=left+(w-left-right)*(level-1)/2,y=h-bottom-(h-top-bottom)*(level-1)/2;ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,h-bottom);ctx.stroke();ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(w-right,y);ctx.stroke();ctx.fillText("M"+level,x-8,h-bottom+20);ctx.fillText("C"+level,30,y+4)}ctx.fillStyle="#8ba8c4";ctx.fillText("機制證據 M1 → M3",Math.max(left,w/2-105),h-14);ctx.save();ctx.translate(18,h/2+82);ctx.rotate(-Math.PI/2);ctx.fillText("臨床證據 C1 → C3",0,0);ctx.restore();const group=data[useCase.value];Object.entries(group).forEach(([mode,v])=>{const baseX=left+(w-left-right)*(v[0]-1)/2,baseY=h-bottom-(h-top-bottom)*(v[1]-1)/2,x=baseX+offsets[mode][0],y=baseY+offsets[mode][1],r=12;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=colors[mode]+(mode===selected?"dd":"77");ctx.fill();ctx.strokeStyle=mode===selected?"#e8f4f8":colors[mode];ctx.lineWidth=mode===selected?3:1;ctx.stroke();ctx.fillStyle="#e8f4f8";ctx.font=(mode===selected?"600 ":"")+"11px JetBrains Mono, monospace";const labelX=mode==="rTMS"||mode==="tDCS"?x-34:x+5,labelY=mode==="rTMS"||mode==="TBS"?y-17:y+24;ctx.fillText(mode,labelX,labelY)});const v=group[selected];title.textContent=selected+" × "+useCase.options[useCase.selectedIndex].text+" · M"+v[0]+"/C"+v[1];text.textContent=v[2];certainty.textContent=v[3];boundary.textContent=v[4]}
+function select(mode){selected=mode;buttons.forEach(b=>b.classList.toggle("active",b.dataset.mode===mode));draw()}
+buttons.forEach(b=>b.addEventListener("click",()=>select(b.dataset.mode)));useCase.addEventListener("change",()=>select(selected));window.addEventListener("resize",resize);resize();
+})();
+</script>
+</body>
+</html>
