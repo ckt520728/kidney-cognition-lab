@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="傳統頻譜看得到腦波「有多強」，卻看不到腦波「強弱起伏得多快」。全息希爾伯特光譜分析（HHSA）把這個被丟掉的維度找回來，並且在阿茲海默症、帕金森氏症與難治型憂鬱症中都帶來了單靠功率讀不出的訊息。">
+<title>藏在腦波底下的第二個節奏：調幅率、疾病標記，與閉迴路 tACS | 朱國大 醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg-primary:#0a0f1e;
+  --bg-card:#111d3c;
+  --bg-card2:#162248;
+  --teal:#4dd9cf;
+  --teal-light:#7ee8e2;
+  --purple:#8b5cf6;
+  --purple-light:#a78bfa;
+  --gold:#f4a261;
+  --red:#ef4444;
+  --green:#22c55e;
+  --text:#e8f4f8;
+  --text-sec:#8ba8c4;
+  --text-dim:#4a6580;
+  --border:rgba(77,217,207,0.15);
+  --shadow:0 8px 32px rgba(0,0,0,0.45);
+  --radius:12px;
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family:'Noto Sans TC','Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text);
+  line-height:1.9;
+}
+a { color:var(--teal); text-decoration:none; }
+a:hover { color:var(--teal-light); }
+.top-bar {
+  position:sticky; top:0; z-index:100;
+  background:rgba(10,15,30,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;
+}
+.top-bar-inner {
+  max-width:980px; margin:0 auto; padding:0 24px;
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+}
+.back-link { color:var(--text-sec); font-size:0.9rem; display:inline-flex; gap:8px; align-items:center; }
+.top-bar-title { font-size:0.82rem; color:var(--text-dim); font-family:'JetBrains Mono',monospace; }
+.article { max-width:860px; margin:0 auto; padding:58px 24px 82px; }
+.article-header {
+  margin-bottom:44px; padding-bottom:34px;
+  border-bottom:1px solid var(--border);
+}
+.article-meta {
+  color:var(--teal); font-size:0.85rem;
+  font-family:'JetBrains Mono',monospace; margin-bottom:14px;
+}
+.article-title {
+  font-size:2.25rem; line-height:1.35; margin-bottom:18px;
+  background:linear-gradient(135deg,var(--text),var(--teal-light));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.article-subtitle { color:var(--text-sec); font-size:1.04rem; }
+.article-author {
+  margin-top:24px; padding-top:20px; border-top:1px solid var(--border);
+  display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+}
+.author-avatar {
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,#2a9d8f,var(--purple));
+  display:flex; align-items:center; justify-content:center; font-weight:700;
+  font-size:1.1rem;
+}
+.author-info { color:var(--text-sec); font-size:0.88rem; line-height:1.65; }
+.author-info strong { color:var(--text); }
+.article-tags { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; }
+.tag {
+  font-size:0.72rem; padding:3px 12px; border-radius:20px;
+  background:rgba(77,217,207,0.08); color:var(--teal);
+  border:1px solid rgba(77,217,207,0.2);
+}
+figure { margin:34px 0; }
+.hero-figure { margin:34px 0 42px; }
+figure svg { width:100%; display:block; border:1px solid var(--border); border-radius:var(--radius); background:var(--bg-card); box-shadow:var(--shadow); }
+figcaption { margin-top:12px; color:var(--text-sec); font-size:0.85rem; text-align:center; line-height:1.7; }
+h2 {
+  font-size:1.55rem; margin:54px 0 20px; padding-bottom:10px;
+  border-bottom:2px solid var(--teal); display:inline-block;
+}
+h3 { font-size:1.18rem; color:var(--teal-light); margin:34px 0 14px; }
+p { color:var(--text-sec); margin:0 0 20px; }
+p strong, li strong { color:var(--text); }
+em { color:var(--teal-light); font-style:normal; }
+ul,ol { color:var(--text-sec); padding-left:24px; margin:0 0 24px; }
+li { margin-bottom:10px; }
+li::marker { color:var(--teal); }
+.callout {
+  margin:28px 0; padding:20px 24px; background:var(--bg-card);
+  border-left:4px solid var(--teal); border-radius:8px; color:var(--text-sec);
+}
+.callout.purple { border-left-color:var(--purple); }
+.callout.gold { border-left-color:var(--gold); }
+.callout.red { border-left-color:var(--red); }
+.callout strong { color:var(--text); }
+.formula {
+  margin:24px 0; padding:18px 24px; background:rgba(77,217,207,0.06);
+  border-left:3px solid var(--teal); border-radius:8px;
+  font-family:'JetBrains Mono',monospace; color:var(--teal-light); font-size:1.05rem;
+}
+.formula small { display:block; margin-top:8px; font-size:0.78rem; color:var(--text-dim); font-family:'Noto Sans TC',sans-serif; }
+.tbl-wrap { overflow-x:auto; margin:24px 0; }
+table {
+  width:100%; border-collapse:collapse; background:var(--bg-card);
+  border-radius:var(--radius); overflow:hidden; font-size:0.92rem;
+}
+th {
+  text-align:left; color:var(--teal); background:rgba(77,217,207,0.1);
+  padding:12px 14px; border-bottom:1px solid var(--border);
+}
+td { padding:12px 14px; color:var(--text-sec); border-bottom:1px solid rgba(77,217,207,0.08); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+blockquote {
+  margin:34px 0; padding:24px 28px;
+  background:linear-gradient(135deg,rgba(77,217,207,0.06),rgba(139,92,246,0.06));
+  border-left:4px solid var(--teal); border-radius:8px;
+  color:var(--text); font-size:1.05rem;
+}
+.references { margin-top:60px; padding-top:34px; border-top:2px solid var(--teal); }
+.references h2 { border:none; margin-top:0; padding:0; }
+.references ol { list-style:none; counter-reset:ref; padding-left:0; }
+.references li {
+  counter-increment:ref; position:relative; padding-left:42px;
+  font-size:0.88rem; color:var(--text-sec); margin-bottom:14px;
+}
+.references li::before {
+  content:counter(ref); position:absolute; left:0; top:2px;
+  width:26px; height:26px; border-radius:50%;
+  background:rgba(77,217,207,0.12); color:var(--teal);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:0.75rem;
+}
+.article-footer {
+  margin-top:54px; padding-top:28px; border-top:1px solid var(--border);
+  color:var(--text-dim); font-size:0.88rem; text-align:center;
+}
+/* ---- dashboard ---- */
+.article-wide { max-width:1180px; margin:0 auto; padding:0 24px; }
+.dashboard { background:#0c1429; border:1px solid var(--border); border-radius:16px; overflow:hidden; margin:34px 0; }
+.dashboard-head { padding:16px 20px 0; }
+.dashboard-head h3 { margin:0 0 4px; color:var(--teal-light); font-size:1.05rem; }
+.dashboard-head p { margin:0; font-size:.85rem; }
+.dashboard-grid { display:grid; grid-template-columns:290px minmax(0,1fr); gap:14px; padding:16px; }
+.dashboard-panel { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:14px; }
+.dashboard-panel h4 { color:var(--teal-light); margin:0 0 12px; font-size:.95rem; }
+.dashboard canvas { width:100%; display:block; border-radius:8px; background:#08101f; }
+.control-row { margin-bottom:14px; }
+.control-row label { display:flex; justify-content:space-between; color:var(--text-sec); font-size:.82rem; }
+.control-row output { color:var(--teal-light); font-family:'JetBrains Mono',monospace; }
+.control-row input[type="range"] { width:100%; accent-color:var(--teal); margin-top:4px; }
+.preset-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px; }
+.preset-button { border:1px solid var(--border); color:var(--text); background:var(--bg-card2); border-radius:8px; padding:9px; cursor:pointer; font-family:inherit; font-size:.8rem; }
+.preset-button:hover { border-color:var(--teal); }
+.preset-button.active { border-color:var(--teal); color:var(--teal); }
+.metric-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:14px; }
+.metric-card { background:#0a1326; border-radius:8px; padding:10px; }
+.metric-card span { color:var(--text-sec); font-size:.74rem; display:block; }
+.metric-value { color:var(--teal-light); font:600 1.05rem 'JetBrains Mono',monospace; margin-top:4px; }
+.metric-value.good { color:var(--green); }
+.metric-value.warn { color:var(--gold); }
+.metric-value.bad { color:var(--red); }
+.verdict { margin-top:12px; padding:10px 12px; border-radius:8px; font-size:.84rem; }
+.verdict.ok { background:rgba(34,197,94,.08); border-left:3px solid var(--green); color:var(--text-sec); }
+.verdict.no { background:rgba(239,68,68,.08); border-left:3px solid var(--red); color:var(--text-sec); }
+@media (max-width:980px) {
+  .dashboard-grid { grid-template-columns:1fr; }
+}
+@media(max-width:640px) {
+  .article { padding:42px 18px 64px; }
+  .article-title { font-size:1.65rem; }
+  .top-bar-title { display:none; }
+  table { font-size:0.84rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="../index.html#teaching" class="back-link"><i class="fas fa-arrow-left"></i> 返回首頁</a>
+    <div class="top-bar-title">HHSA · AMPLITUDE MODULATION · CLOSED-LOOP tACS</div>
+  </div>
+</div>
+
+<article class="article">
+<header class="article-header">
+  <div class="article-meta">2026 / 08 / 06 · 非線性腦波分析與精準神經調控</div>
+  <h1 class="article-title">藏在腦波底下的第二個節奏：一個被頻譜丟掉的維度，如何同時說明失智、巴金森與難治型憂鬱</h1>
+  <p class="article-subtitle">我們習慣問「這段腦波有多強」，卻很少問「它的強弱，起伏得多快」。全息希爾伯特光譜分析（HHSA）把後面這個問題變成一個可以量化的頻率軸——而它在三種疾病裡，都讀出了單靠功率讀不出來的東西。文末並附一套可操作的閉迴路刺激延遲預算模型。</p>
+  <div class="article-author">
+    <div class="author-avatar">朱</div>
+    <div class="author-info">
+      <strong>朱國大 醫師</strong><br>
+      腎臟科暨認知神經科學研究 · 本文含作者團隊 2023 年 Frontiers in Aging Neuroscience 之第一作者研究
+    </div>
+  </div>
+  <div class="article-tags">
+    <span class="tag">Holo-Hilbert Spectral Analysis</span>
+    <span class="tag">Amplitude Modulation</span>
+    <span class="tag">Cross-frequency Coupling</span>
+    <span class="tag">Alzheimer's Disease</span>
+    <span class="tag">Parkinson's Disease</span>
+    <span class="tag">Treatment-resistant Depression</span>
+    <span class="tag">Closed-loop tACS</span>
+  </div>
+</header>
+
+<h2>一、一個頻譜看不見的東西</h2>
+
+<p>請先想像一段最普通的腦波：後腦杓的 alpha 節律，一秒鐘振盪十次。這是腦電圖裡最有名的訊號。</p>
+
+<p>但真實的 alpha 很少是穩定的。它會<strong>忽強忽弱</strong>——假設一秒鐘漲落兩次，像一種緩慢的呼吸。</p>
+
+<p>描述這件事需要兩個數字：波本身跑在 <em>10 Hz</em>；它的強度起伏在 <em>2 Hz</em>。</p>
+
+<p>問題來了。你做一次傅立葉轉換，會拿回第一個數字，然後<strong>失去第二個</strong>——不是變模糊，是失去。因為 10 Hz 的波乘上 2 Hz 的包絡，數學上會產生 8 Hz 與 12 Hz 兩個旁頻帶（sideband）。頻譜於是告訴你「這裡有兩個額外的振盪」，而那兩個振盪並不存在。那個 2 Hz 的呼吸節奏，被轉換成了一個會誤導人的形式。</p>
+
+<div class="callout gold">
+  <strong>這不是吹毛求疵。</strong>越來越多證據指出，大腦是<em>用調變在做事</em>的：快波嵌套在慢波裡，是工作記憶的儲存機制、是皮質閘控、是長距離協調的基礎。如果訊息寫在調變上，那麼一個看不見調變速率的方法，就是看不見那個現象本身。
+</div>
+
+<h2>二、解法：拆兩次</h2>
+
+<p>全息希爾伯特光譜分析（Holo-Hilbert Spectral Analysis, HHSA）是黃鍔院士團隊提出的答案<sup>[1]</sup>，概念說破了幾乎理所當然：<strong>如果包絡線帶有訊息，那就把包絡線本身當成一個訊號，再分析一次。</strong></p>
+
+<p>具體來說：先用經驗模態分解（EMD）把腦波拆成自然的振盪成分；取出每個成分的振幅包絡線；然後<strong>把那條包絡線再拆一次</strong>。最後得到一張二維的圖——橫軸是載波頻率 <em>f<sub>c</sub></em>，縱軸是調幅頻率 <em>f<sub>am</sub></em>。前面那個 10 Hz 呼吸在 2 Hz 的 alpha，就會乾乾淨淨地落在 (10, 2) 這個點上。</p>
+
+<figure class="hero-figure">
+<svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="兩層 EMD 分解流程圖">
+  <defs>
+    <linearGradient id="gA" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4dd9cf"/><stop offset="100%" stop-color="#7ee8e2"/>
+    </linearGradient>
+    <linearGradient id="gB" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3.2" orient="auto">
+      <path d="M0,0 L0,6.4 L7.5,3.2 z" fill="#4a6580"/>
+    </marker>
+  </defs>
+  <rect width="900" height="380" fill="#111d3c"/>
+
+  <text x="30" y="34" fill="#7ee8e2" font-size="15" font-family="JetBrains Mono, monospace">第一層 EMD ── 找出「載波」</text>
+  <rect x="30" y="48" width="240" height="76" rx="10" fill="#0a1326" stroke="#4dd9cf" stroke-opacity=".35"/>
+  <text x="46" y="72" fill="#8ba8c4" font-size="12.5">原始腦波 x(t)</text>
+  <path d="M46,102 Q66,80 86,102 T126,102 T166,102 T206,102 T246,102" fill="none" stroke="url(#gA)" stroke-width="2"/>
+  <line x1="278" y1="86" x2="330" y2="86" stroke="#4a6580" stroke-width="1.6" marker-end="url(#ar)"/>
+
+  <rect x="338" y="48" width="240" height="76" rx="10" fill="#0a1326" stroke="#4dd9cf" stroke-opacity=".35"/>
+  <text x="354" y="72" fill="#8ba8c4" font-size="12.5">IMF：快速載波（f<tspan font-size="9" dy="3">c</tspan><tspan dy="-3"></tspan>）</text>
+  <path d="M354,104 q6,-16 12,0 t12,0 t12,0 t12,0 t12,0 t12,0 t12,0 t12,0 t12,0 t12,0 t12,0 t12,0 t12,0 t12,0 t12,0 t12,0 t12,0 t12,0" fill="none" stroke="#4dd9cf" stroke-width="1.8"/>
+  <line x1="586" y1="86" x2="638" y2="86" stroke="#4a6580" stroke-width="1.6" marker-end="url(#ar)"/>
+
+  <rect x="646" y="48" width="224" height="76" rx="10" fill="#0a1326" stroke="#f4a261" stroke-opacity=".45"/>
+  <text x="662" y="72" fill="#f4a261" font-size="12.5">取「包絡線」a(t)</text>
+  <path d="M662,110 Q700,78 738,110 T814,110 T854,96" fill="none" stroke="#f4a261" stroke-width="2.2"/>
+  <path d="M662,110 q5,-9 10,0 t10,0 t10,0 t10,0 t10,0 t10,0 t10,0 t10,0 t10,0 t10,0 t10,0 t10,0 t10,0 t10,0 t10,0 t10,0 t10,0 t10,0 t10,0" fill="none" stroke="#4dd9cf" stroke-width="1" stroke-opacity=".45"/>
+
+  <line x1="758" y1="132" x2="758" y2="176" stroke="#4a6580" stroke-width="1.6" marker-end="url(#ar)"/>
+
+  <text x="30" y="212" fill="#a78bfa" font-size="15" font-family="JetBrains Mono, monospace">第二層 EMD ── 把「起伏速率」變成頻率</text>
+  <rect x="596" y="186" width="274" height="72" rx="10" fill="#0a1326" stroke="#8b5cf6" stroke-opacity=".45"/>
+  <text x="612" y="210" fill="#a78bfa" font-size="12.5">對包絡線再做一次 EMD → f<tspan font-size="9" dy="3">am</tspan></text>
+  <path d="M612,238 Q650,214 688,238 T764,238 T840,238" fill="none" stroke="url(#gB)" stroke-width="2.2"/>
+
+  <rect x="30" y="228" width="530" height="128" rx="12" fill="#0a1326" stroke="#4dd9cf" stroke-opacity=".3"/>
+  <text x="50" y="252" fill="#7ee8e2" font-size="13">全息光譜：一個點，兩個頻率</text>
+  <line x1="92" y1="336" x2="330" y2="336" stroke="#4a6580" stroke-width="1.4"/>
+  <line x1="92" y1="336" x2="92" y2="266" stroke="#4a6580" stroke-width="1.4"/>
+  <text x="196" y="352" fill="#8ba8c4" font-size="11">載波頻率 f_c</text>
+  <text x="46" y="300" fill="#8ba8c4" font-size="11" transform="rotate(-90 46 300)">f_am</text>
+  <line x1="92" y1="336" x2="270" y2="272" stroke="#4a6580" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="214" y="286" fill="#4a6580" font-size="9.5">f_am 必須小於 f_c</text>
+  <circle cx="238" cy="312" r="9" fill="#4dd9cf" opacity=".85"/>
+  <circle cx="238" cy="312" r="17" fill="#4dd9cf" opacity=".18"/>
+  <text x="256" y="316" fill="#e8f4f8" font-size="11.5">(10 Hz, 2 Hz)</text>
+  <text x="352" y="300" fill="#8ba8c4" font-size="11.5">傳統頻譜在這裡</text>
+  <text x="352" y="320" fill="#8ba8c4" font-size="11.5">只會看到 8 與 12 Hz</text>
+  <text x="352" y="340" fill="#ef4444" font-size="11.5">兩個不存在的波</text>
+</svg>
+<figcaption>兩層嵌套式 EMD：第一層取出載波，第二層把「載波強弱的起伏速率」轉譯成一條獨立的頻率軸。右下角的虛線是物理限制——包絡線不可能比它包住的波動得更快。</figcaption>
+</figure>
+
+<h3>一個很容易做錯、而且做錯了看不出來的細節</h3>
+
+<p>第二層要吃的，必須是<strong>對 |IMF| 的極大值做三次樣條擬合</strong>所得到的包絡線，而不是希爾伯特振幅。在乾淨的正弦波上，兩者差距約萬分之一——所以偷換看起來毫無代價。但在鋸齒狀、不對稱的波形上（也就是病理性運動皮質 beta 波真正長的樣子），兩者的中位數差距約 5%，極端處差到 4.5 倍。</p>
+
+<p>而這正是整件事的關鍵。傳統跨頻耦合分析用帶通濾波器；濾波器會與非正弦波的諧波共振；於是你得到一張漂亮的耦合圖，顯示某個節律與<em>它自己的波形失真</em>耦合在一起。那不是大腦機制，那是濾波器的產物穿上了白袍。</p>
+
+<h2>二之二、親手轉一次：頻譜到底丟掉了什麼</h2>
+
+<p>下面這個面板可以直接操作。左邊調整載波與調幅頻率，右上是時域波形，右下同時畫出「傳統頻譜看到的」與「HHSA 看到的」。請注意當你改變<strong>調幅頻率</strong>時，傳統頻譜的兩根旁頻帶會左右分開，但<em>沒有任何一根柱子落在調幅頻率上</em>。</p>
+
+<div class="dashboard">
+  <div class="dashboard-head">
+    <h3>互動模型 1 · 調幅訊號的兩種讀法</h3>
+    <p>示意用的合成訊號，非真實腦波；用途是說明兩種頻譜表示法的差異。</p>
+  </div>
+  <div class="dashboard-grid">
+    <div class="dashboard-panel">
+      <h4>參數</h4>
+      <div class="preset-grid">
+        <button class="preset-button active" data-preset="alpha">枕葉 alpha</button>
+        <button class="preset-button" data-preset="beta">運動區 beta</button>
+        <button class="preset-button" data-preset="gamma">gamma／theta</button>
+        <button class="preset-button" data-preset="none">無調幅</button>
+      </div>
+      <div class="control-row">
+        <label>載波頻率 f<sub>c</sub><output id="o-fc">10 Hz</output></label>
+        <input type="range" id="s-fc" min="6" max="60" step="1" value="10">
+      </div>
+      <div class="control-row">
+        <label>調幅頻率 f<sub>am</sub><output id="o-fam">2.0 Hz</output></label>
+        <input type="range" id="s-fam" min="0" max="12" step="0.5" value="2">
+      </div>
+      <div class="control-row">
+        <label>調幅深度<output id="o-dep">0.60</output></label>
+        <input type="range" id="s-dep" min="0" max="1" step="0.05" value="0.6">
+      </div>
+      <div class="metric-grid">
+        <div class="metric-card"><span>傳統頻譜峰值</span><div class="metric-value" id="m-fft">—</div></div>
+        <div class="metric-card"><span>HHSA 峰值</span><div class="metric-value" id="m-hhsa">—</div></div>
+      </div>
+      <div class="verdict no" id="v-read">傳統頻譜無法直接讀出調幅頻率。</div>
+    </div>
+    <div class="dashboard-panel">
+      <h4>時域波形與兩種頻譜</h4>
+      <canvas id="cv1" height="150" aria-label="調幅訊號時域波形"></canvas>
+      <canvas id="cv2" height="230" style="margin-top:12px" aria-label="傳統頻譜與全息光譜比較"></canvas>
+    </div>
+  </div>
+</div>
+
+<h2>三、看見了什麼：三個疾病，同一條軸</h2>
+
+<h3>阿茲海默症：一段可以看著它失效的代償</h3>
+
+<p>這一段是我們自己的研究<sup>[2]</sup>。在一個涵蓋認知正常到重度失智、共 <strong>205 人</strong>的世代（正常 51、輕度認知障礙 42、輕度 AD 61、中度 35、重度 16）中，HHSA 呈現的不是單純的「腦波變慢」，而是一個有三個部分的蹺蹺板：</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead><tr><th>頻段的調幅能量</th><th>輕度認知障礙（MCI）期</th><th>進展到中重度 AD</th></tr></thead>
+  <tbody>
+    <tr><td><strong>低頻（δ 1–4、θ 4–8 Hz）</strong></td><td>後部腦區增強（O1、O2、T5、T6）</td><td>向前擴散，變成全腦增強</td></tr>
+    <tr><td><strong>高頻（β 16–32、γ 32–100 Hz）</strong></td><td><strong>幾乎全腦已顯著衰減</strong></td><td>持續且加深的衰減</td></tr>
+    <tr><td><strong>Alpha（8–16 Hz）</strong></td><td><strong>雙向：後部增強、前部衰減</strong></td><td>代償崩潰，轉為全腦衰減</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Alpha 那一列最值得玩味。早期後部的增強，可以讀成視丘-皮質系統正在<strong>代償</strong>；它後來的全面崩潰，等於是在看一份儲備被花完。這與臨床上乙醯膽鹼酯酶抑制劑能部分逆轉腦波慢化的觀察是相容的。</p>
+
+<p>但真正有臨床意義的是預後。72 位 MCI 患者追蹤三年，36 位維持穩定、36 位轉化為 AD（一年內轉化 16.6%、兩年 36.1%、三年 44.4%）。<strong>在基線</strong>，未來會轉化的人，alpha 與 beta 的調幅能量就已經偏低了。</p>
+
+<div class="callout">
+  <strong>而最能說明「為什麼要多算這一層」的，是同一份資料的方法比較。</strong>用同一個決策樹分類器預測三年內是否轉化：
+  <ul style="margin:12px 0 0">
+    <li><strong>HHSA（含調幅頻率）：準確度 75%</strong></li>
+    <li>加窗傅立葉（windowed FFT）：70%</li>
+    <li>傳統希爾伯特-黃轉換（HHT）：60%</li>
+  </ul>
+  <p style="margin:12px 0 0">請注意排在最後的是 HHT。HHT 完全能處理非平穩訊號——它只是<em>無法把調變表達成一個頻率</em>。可見光有自適應分解並不夠，做工的是第二層。（SVM 則達到 90% 敏感度。）</p>
+</div>
+
+<h3>帕金森氏症：一個沒人在找的相關性</h3>
+
+<p>另一項研究收了 99 位患者與 59 位對照<sup>[3]</sup>。預期中的蹺蹺板出現了：beta 與 gamma 的調幅能量下降，theta 與 delta 上升並擴散，晚期患者在後中央區有進一步的 beta 流失。</p>
+
+<p>然後臨床相關性跑出來，落點完全出乎意料：</p>
+
+<blockquote>
+調幅能量與<strong>憂鬱</strong>量表分數呈正相關（θ 至 β 頻段，全腦區）。與運動嚴重度（UPDRS、Hoehn &amp; Yahr）——沒有顯著相關。與認知篩檢（MMSE、MoCA）——沒有。在健康對照組——什麼都沒有。
+</blockquote>
+
+<p>巴金森氏症被當作動作障礙來診斷與治療。而巴金森氏症的憂鬱既常見、又致殘，卻相對被忽略。如果這個結果站得住腳，這個調幅特徵標記的，正好是現行治療最少著力的那一塊。</p>
+
+<h3>難治型憂鬱症：這個結果替方法本身辯護</h3>
+
+<p>這一段最乾淨，所以我要說得很小心。61 位難治型憂鬱症患者接受 rTMS 或假刺激<sup>[4]</sup>。基線靜息腦波用兩種方式分析——一次 HHSA、一次傳統 FFT——<strong>同一批紀錄、同一個 gamma 頻段</strong>。</p>
+
+<p>問題：基線 gamma 能不能預測誰會對 rTMS 有反應？</p>
+
+<div class="callout purple">
+  <strong>傳統 FFT：</strong> <em>t</em>(35) = −1.92，<strong><em>p</em> = 0.06</strong>。不顯著。<br>
+  <strong>HHSA：</strong> <em>t</em>(34) = −2.11，<strong><em>p</em> &lt; 0.05</strong>。顯著。
+</div>
+
+<p>差別只在於，HHSA 多問了一句「這些 gamma 能量，是<em>以什麼速率</em>被調變的」——並且specifically 分離出受 alpha 至 beta 速率調變的高頻 gamma。把調幅這個軸解出來，讓一個原本的虛無結果變成了顯著結果。如果要用一句話說明這個方法為何值得多花計算量，就是這一句。</p>
+
+<p>方向則相當違反直覺：<strong>有反應的人，基線調幅 gamma 比較低。</strong>解釋是皮質尚未飽和、還有被推動的餘裕，rTMS 才有空間誘發可塑性。</p>
+
+<p>一個必須誠實講的但書：治療後 gamma 的<em>變化量</em>與症狀改善並不相關（<em>r</em> = −0.2，<em>p</em> = 0.13）。所以這是一個用來<strong>挑病人</strong>的標記，不是用來追蹤療效的替代終點。</p>
+
+<h3>認知：機制從哪裡來</h3>
+
+<p>沒有這一塊，上面三個疾病發現都只是相關性的奇聞。</p>
+
+<p>20 位受試者、一個記憶作業，以及一個三十年前的理論<sup>[5]</sup>。Lisman 與 Idiart 主張我們是靠把快波週期一個個塞進慢的 theta 週期裡，來同時記住多個項目——塞得下越多，記得越多。</p>
+
+<p>如果為真，那麼<strong>快波被調變的速率</strong>應該可以預測記憶容量。結果確實可以，而且是反向的：</p>
+
+<div class="tbl-wrap">
+<table>
+  <thead><tr><th>組別</th><th>額中線 theta 範圍 f<sub>am</sub>：維持期 → 提取期</th><th>統計</th></tr></thead>
+  <tbody>
+    <tr><td><strong>高容量（K ≈ 4.6 項）</strong></td><td><strong>4.4 → 3.3 Hz</strong></td><td><em>p</em> = 0.037</td></tr>
+    <tr><td>低容量（K ≈ 2.3 項）</td><td>5.2 → 4.7 Hz</td><td><em>p</em> = 0.24（不顯著）</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>包絡越慢，波包越長，每個 theta 週期塞得下的快波週期越多，記得的項目就越多（全體相關 <em>r</em> = −0.511）。表現好的人會<strong>隨著提取需求主動把調變放慢</strong>，表現差的人不會。</p>
+
+<div class="callout">
+  這才是關鍵：調幅速率不是附帶現象，而是健康大腦<strong>正在使用中的一個控制旋鈕</strong>。也因此，疾病在調幅維度上的特徵，可以被讀成「一個原本有功能的參數退化了」——這讓「介入它」變成一個合理的想法，而不只是相關性的延伸。
+</div>
+
+<h2>四、從「量它」到「打它」</h2>
+
+<p>如果跨尺度調變是壞掉的東西，那它就該是被瞄準的東西。這裡有兩條獨立的理由，而它們指向同一個結論。</p>
+
+<h3>理由一：神經元鎖的是包絡，不是載波</h3>
+
+<p>有一個設計得很漂亮的實驗<sup>[6]</sup>。給予經顱交流電刺激會讓人看到光幻視（phosphene）。在一般正弦刺激下，感知到的閃爍速率會跟著刺激頻率走，完全符合直覺。</p>
+
+<p>接著把電流加上一個慢速包絡。那個關係<strong>消失了</strong>：受試者報告的是符合 2 Hz 或 4 Hz 包絡的緩慢閃爍，<em>不管載波是 10 還是 22 Hz</em>（調幅頻率主效應 <em>F</em>(2,14) = 11.7，<em>p</em> = 0.001）。而且把強度調高並不會讓閃爍變快，排除了「只是跨過閾值」的解釋。</p>
+
+<p>神經元鎖的是包絡。那麼閉迴路系統該對準的，就是包絡。</p>
+
+<h3>理由二：包絡剛好是打得到的那一個</h3>
+
+<p>閉迴路腦刺激有個延遲問題。軟體堆疊的每一層都要花掉毫秒：串流中介軟體約 6–12 ms、TCP/IP 可達 50–100 ms。做載波相位鎖定的研究團隊因此紛紛轉向 FPGA 硬體、直接讀類比腦波<sup>[8]</sup>，因為軟體追不上。</p>
+
+<p>但同樣的延遲，代價完全取決於你在追什麼——這正是下面這個面板要說的事。</p>
+
+<div class="dashboard">
+  <div class="dashboard-head">
+    <h3>互動模型 2 · 閉迴路延遲預算</h3>
+    <p>把系統抖動換算成相位誤差。這是決定「一套系統到底做不做得到」的那個數字。</p>
+  </div>
+  <div class="dashboard-grid">
+    <div class="dashboard-panel">
+      <h4>參數</h4>
+      <div class="preset-grid">
+        <button class="preset-button active" data-lat="am">調幅包絡 3 Hz</button>
+        <button class="preset-button" data-lat="theta">theta 6 Hz</button>
+        <button class="preset-button" data-lat="alpha">alpha 10 Hz</button>
+        <button class="preset-button" data-lat="beta">beta 載波 20 Hz</button>
+      </div>
+      <div class="control-row">
+        <label>目標節律頻率<output id="o-tf">3.0 Hz</output></label>
+        <input type="range" id="s-tf" min="1" max="40" step="0.5" value="3">
+      </div>
+      <div class="control-row">
+        <label>系統抖動（jitter）<output id="o-jit">12 ms</output></label>
+        <input type="range" id="s-jit" min="1" max="60" step="1" value="12">
+      </div>
+      <div class="metric-grid">
+        <div class="metric-card"><span>一個週期</span><div class="metric-value" id="m-per">333 ms</div></div>
+        <div class="metric-card"><span>相位誤差</span><div class="metric-value" id="m-deg">13°</div></div>
+      </div>
+      <div class="verdict ok" id="v-lat">可行：誤差遠小於半週期。</div>
+      <p style="font-size:.78rem;color:var(--text-dim);margin:10px 0 0">中位延遲是固定偏移、可以補償；真正不能補償的是抖動。此處計算的是抖動。</p>
+    </div>
+    <div class="dashboard-panel">
+      <h4>同一個抖動，落在不同週期上</h4>
+      <canvas id="cv3" height="300" aria-label="延遲抖動造成的相位誤差比較"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="callout gold">
+  <strong>把數字擺在一起：</strong>同樣 12 ms 的抖動，落在 3 Hz 的調幅包絡上約是 <strong>13°</strong>，落在 20 Hz 的 beta 載波上是 <strong>86°</strong>。同一套硬體，兩個相反的結論。<br><br>
+  換句話說——<em>生物學叫你瞄準的那個東西，剛好也是工程上打得到的那個東西。</em>這是本文最實際的一個論點。它<strong>不是</strong>在說串流中介軟體足以應付所有閉迴路刺激；對 beta 載波相位鎖定而言，它並不足夠。
+</div>
+
+<figure>
+<svg viewBox="0 0 900 285" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="閉迴路控制器的快慢雙迴路架構圖">
+  <defs>
+    <linearGradient id="loopFast" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4dd9cf"/><stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+    <linearGradient id="loopSlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#f4a261"/>
+    </linearGradient>
+    <marker id="arrowTeal" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4dd9cf"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#a78bfa"/>
+    </marker>
+  </defs>
+  <rect x="18" y="18" width="864" height="249" rx="18" fill="#08101f" stroke="#24365e"/>
+  <text x="42" y="52" fill="#e8f4f8" font-size="18" font-weight="700">同一條閉迴路，拆成兩個速度</text>
+
+  <rect x="42" y="78" width="190" height="65" rx="12" fill="#111d3c" stroke="#4dd9cf"/>
+  <text x="137" y="104" fill="#7ee8e2" font-size="14" font-weight="700" text-anchor="middle">連續 EEG</text>
+  <text x="137" y="126" fill="#8ba8c4" font-size="12" text-anchor="middle">512 Hz · 每樣本 1.95 ms</text>
+
+  <path d="M232 110 H286" stroke="#4dd9cf" stroke-width="3" marker-end="url(#arrowTeal)"/>
+  <rect x="292" y="72" width="290" height="78" rx="12" fill="#0e2a32" stroke="url(#loopFast)" stroke-width="2"/>
+  <text x="437" y="99" fill="#4dd9cf" font-size="15" font-weight="700" text-anchor="middle">快迴路 · 約 40 µs／樣本</text>
+  <text x="437" y="123" fill="#e8f4f8" font-size="12.5" text-anchor="middle">濾波 → 包絡追蹤 → 相位預測 → 觸發</text>
+
+  <path d="M582 110 H640" stroke="#4dd9cf" stroke-width="3" marker-end="url(#arrowTeal)"/>
+  <rect x="646" y="78" width="204" height="65" rx="12" fill="#111d3c" stroke="#22c55e"/>
+  <text x="748" y="104" fill="#22c55e" font-size="14" font-weight="700" text-anchor="middle">刺激時機</text>
+  <text x="748" y="126" fill="#8ba8c4" font-size="12" text-anchor="middle">追得上每一次包絡波谷</text>
+
+  <path d="M137 143 V205 H286" stroke="#a78bfa" stroke-width="3" fill="none" marker-end="url(#arrowPurple)"/>
+  <rect x="292" y="174" width="290" height="70" rx="12" fill="#21183e" stroke="url(#loopSlow)" stroke-width="2"/>
+  <text x="437" y="201" fill="#a78bfa" font-size="15" font-weight="700" text-anchor="middle">慢迴路 · 約 1 Hz</text>
+  <text x="437" y="225" fill="#e8f4f8" font-size="12.5" text-anchor="middle">完整 HHSA → 選頻帶 → 校準強度</text>
+
+  <path d="M582 209 H748 V151" stroke="#a78bfa" stroke-width="3" fill="none" stroke-dasharray="7 6" marker-end="url(#arrowPurple)"/>
+  <text x="675" y="232" fill="#8ba8c4" font-size="11.5" text-anchor="middle">更新策略，不負責即時觸發</text>
+</svg>
+<figcaption>完整 HHSA 留在慢迴路做目標選擇；快迴路只執行能在每個樣本預算內完成的運算。把兩者硬塞進同一速度，才是真正的架構錯誤。</figcaption>
+</figure>
+
+<h3>做出來之後才會知道的三件事</h3>
+
+<p>我實作了一套參考控制器來看看哪裡會壞。架構被迫分成兩個速率：完整的 HHSA 每個 4 秒視窗要約 32 ms，而 512 Hz 取樣的每個樣本只有 1.95 ms 預算——它<strong>不可能</strong>放進快迴路。於是快迴路（每樣本約 40 µs）負責空間濾波、濾波器組、包絡追蹤、調幅相位偵測與觸發；慢迴路（約 1 Hz）跑真正的 HHSA，決定要瞄準哪個頻帶、以及強度。</p>
+
+<p>對合成訊號，它可以打在調幅波谷 <strong>−8.5° ± 5.1</strong>，端對端中位延遲 2.5 ms。但比這些數字更有價值的，是三個「壞掉的時候看起來很正常」的錯誤：</p>
+
+<div class="callout red">
+  <strong>1. 那個把一切都擋掉的閘門。</strong>我用訊號振幅來閘控刺激——標準做法。但我瞄準的是包絡的<em>波谷</em>，而波谷依定義就是低振幅的那一段。閘門把它正要瞄準的東西整批擋掉了。六十秒內零次觸發，而日誌裡滿是看起來很有自信的統計數字。<br><br>
+  <strong>2. 那個把自己吃掉的消隱。</strong>刺激期間必須把放大器輸入消隱。我採用「保持最後一個乾淨樣本」。保持產生的平台段兩端是陡峭的階梯，階梯是寬頻的，於是頻譜估計高估了 <strong>38%</strong>。而高估會調高刺激強度，強度又拉長消隱時間——一個由一連串合理決定組成的正回饋。<br><br>
+  <strong>3. 那個會發明波峰的濾波器。</strong>二階的包絡濾波器留下殘餘漣波，而漣波在包絡<em>極大值</em>附近最大。於是它製造了 253 個假波峰（真實只有 89 個）——但把波谷留得乾乾淨淨。一個「在某個相位可靠、在相反相位壞掉」的偵測器，比一個均勻有噪的偵測器更危險，因為除非你剛好兩個方向都測，否則永遠不會發現。
+</div>
+
+<div class="callout">
+  <strong>【評估】必要的但書，講白一點：</strong>這套控制器<strong>從未驅動過任何刺激器，也從未看過真人的腦波</strong>。它測試用的「大腦」是一個參數任意的玩具振盪器。上面那些數字是<em>時序可行性</em>的結果——它們說時鐘夠準，對於這個療法有沒有效，它們什麼都沒說。
+</div>
+
+<h2>五、那我實際上會怎麼設計</h2>
+
+<div class="tbl-wrap">
+<table>
+  <thead><tr><th>族群</th><th>設計取向</th><th>最大的疑慮</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>MCI／阿茲海默症</strong></td>
+      <td>趁 alpha 代償視窗<em>還在</em>的時候介入；載波取個體 alpha，包絡取其 θ–δ2（2–4 Hz）調幅率，同相位以求恢復調幅深度。</td>
+      <td>依分期分層。本設計預測它在中重度會失效——這至少是個可以被否證的預測。</td>
+    </tr>
+    <tr>
+      <td><strong>帕金森氏症</strong></td>
+      <td>兩種其實不同的介入共用一個名字。運動症狀用反相 beta（沿用既有工作）；憂鬱共病則有更乾淨的理由，因為調幅特徵真正追蹤到的是憂鬱分數。</td>
+      <td>在健康受試者身上，反相刺激<em>損害</em>了抑制控制。患者身上的治療方向必須被建立，不能假設。</td>
+    </tr>
+    <tr>
+      <td><strong>難治型憂鬱症</strong></td>
+      <td>第一個應用根本不是刺激，而是<strong>篩選</strong>：用基線調幅 gamma 去富集可能有反應的病人。</td>
+      <td>從「預後標記」推到「治療標的」是整條推論鏈最弱的一環。</td>
+    </tr>
+    <tr>
+      <td><strong>認知增強</strong></td>
+      <td>目標最明確：高容量者的調幅率會從 4.4 Hz 降到 3.3 Hz。所以刺激不該是固定頻率，而該是一段<strong>跟著下降的斜坡</strong>。</td>
+      <td>這個操作只有在調幅框架下才講得出來，也因此是理論本身的一次尖銳檢驗。</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>六、誠實的帳本</h2>
+
+<p>研究規模都不大，且多為單一中心。巴金森世代的患者維持服用左旋多巴，而左旋多巴會急性改變皮質 beta——這是 beta 發現的直接干擾因子。憂鬱症研究中，感興趣的頻率範圍是在同一份資料上界定的。頭皮腦波無法告訴你訊號來自哪個深部結構。巴金森研究摘要報告的分類準確度 0.90 是最樂觀的那個數字；在獨立測試集上約為 0.8。</p>
+
+<p>而最大的缺口是觀念上的，不是技術上的：<strong>一個能預測結果的標記，不會自動等於一個值得去改變的量。</strong>上面每一個設計都跨了這一步，而沒有一個已經賺到這一步。</p>
+
+<p>刺激偽跡仍然是尚未解決的實務難題。這個領域裡最嚴謹的一次閉迴路驗證，是<em>在完全不發射刺激的情況下</em>完成的<sup>[8]</sup>——正是為了不讓偽跡污染測量。這件事本身就告訴你這個領域實際走到哪裡。</p>
+
+<div class="callout purple">
+  <h3 style="margin-top:0">Take-home Messages</h3>
+  <ul style="margin-bottom:0">
+    <li>一百年來我們用「每個頻率上有多少能量」描述腦波，而這個描述<strong>丟掉了能量如何起伏</strong>。</li>
+    <li>被丟掉的那一半，是好幾個疾病所在之處：它預測 MCI 是否會轉化為 AD（75% vs. FFT 70%、HHT 60%）；在巴金森氏症中追蹤憂鬱而非運動；並在傳統頻譜做不到時，辨識出誰會對 rTMS 有反應（<em>p</em> &lt; 0.05 vs. <em>p</em> = 0.06）。</li>
+    <li>它同時<strong>是個慢訊號</strong>——因此不像快速載波，我們有辦法建造穩定命中它的閉迴路刺激。</li>
+    <li>命中它是否對任何病人有幫助，是下一個問題，也是唯一真正重要的問題。<strong>目前沒有答案。</strong></li>
+    <li>本文的控制器為研究原型，僅模擬與訊號記錄，<strong>非診斷工具、非治療方案</strong>。</li>
+  </ul>
+</div>
+
+<h2>延伸閱讀（本站）</h2>
+<ul>
+  <li><a href="oscillatory-entrainment-brain-stimulation.html">用節律牽引大腦：從腦波同步到精準腦刺激</a>——本文的上游，談 entrainment 的基本機制與 target engagement 問題。</li>
+  <li><a href="non-invasive-brain-stimulation-evidence-map.html">四種腦刺激，一張證據地圖：rTMS、TBS、tDCS、tACS 到底能做什麼？</a>——把本文的 tACS 主張放回整體證據強度中檢視。</li>
+  <li><a href="gamma-operator-vs-epiphenomenon.html">大腦的節拍器，還是引擎的噪音？γ 波是「運算子」還是副現象</a>——本文假設 γ 調幅有功能意義，那個假設在這篇被質疑。</li>
+  <li><a href="vstm-binding-ad-mci.html">視覺工作記憶與阿茲海默症：從綁定問題到 MCI/AD 的鑑別任務</a>——第三節認知段落的臨床對應。</li>
+</ul>
+
+<section class="references">
+<h2>參考資料</h2>
+<ol>
+  <li><strong>Huang NE, Hu K, Yang ACC, Chang HC, Jia D, Liang WK, Yeh JR, Kao CL, Juan CH, Peng CK, Meijer JH, Wang YH, Long SR, Wu Z.</strong> On Holo-Hilbert spectral analysis: a full informational spectral representation for nonlinear and non-stationary data. <em>Philosophical Transactions of the Royal Society A</em>. 2016;374(2065):20150206. <a href="https://doi.org/10.1098/rsta.2015.0206" target="_blank" rel="noopener">doi:10.1098/rsta.2015.0206</a></li>
+  <li><strong>Chu KT, Lei WC, Wu MH, Fuh JL, Wang SJ, French IT, Chang WS, Chang CF, Huang NE, Liang WK, Juan CH.</strong> A holo-spectral EEG analysis provides an early detection of cognitive decline and predicts the progression to Alzheimer's disease. <em>Frontiers in Aging Neuroscience</em>. 2023;15:1195424. <a href="https://doi.org/10.3389/fnagi.2023.1195424" target="_blank" rel="noopener">doi:10.3389/fnagi.2023.1195424</a>（本文作者為第一作者）</li>
+  <li><strong>Chang KH, French IT, Liang WK, Lo YS, Wang YR, Cheng ML, Huang NE, Wu HC, Lim SN, Chen CM, Juan CH.</strong> Evaluating the different stages of Parkinson's disease using electroencephalography with Holo-Hilbert spectral analysis. <em>Frontiers in Aging Neuroscience</em>. 2022;14:832637. <a href="https://doi.org/10.3389/fnagi.2022.832637" target="_blank" rel="noopener">doi:10.3389/fnagi.2022.832637</a></li>
+  <li><strong>Tsai YC, Li CT, Liang WK, Cheng CM, Jeng JS, Juan CH.</strong> Amplitude modulated gamma oscillations as electrophysiological markers for repetitive transcranial magnetic stimulation efficacy in treatment-resistant depression: a randomized sham-controlled study. <em>International Journal of Clinical and Health Psychology</em>. 2025;25(3):100593. <a href="https://doi.org/10.1016/j.ijchp.2025.100593" target="_blank" rel="noopener">doi:10.1016/j.ijchp.2025.100593</a></li>
+  <li><strong>Liang WK, Tseng P, Yeh JR, Huang NE, Juan CH.</strong> Frontoparietal beta amplitude modulation and its interareal cross-frequency coupling in visual working memory. <em>Neuroscience</em>. 2021;460:69–87. <a href="https://doi.org/10.1016/j.neuroscience.2021.02.013" target="_blank" rel="noopener">doi:10.1016/j.neuroscience.2021.02.013</a></li>
+  <li><strong>Hsu CY, Liu TL, Lee DH, Yeh DR, Chen YH, Liang WK, Juan CH.</strong> Amplitude modulating frequency overrides carrier frequency in tACS-induced phosphene percept. <em>Human Brain Mapping</em>. 2023;44(3):914–926. <a href="https://doi.org/10.1002/hbm.26111" target="_blank" rel="noopener">doi:10.1002/hbm.26111</a></li>
+  <li><strong>Fang Z, Sack AT, Leunissen I.</strong> Closed-loop phase-locked EEG-tACS enables adaptive control of cortical beta synchrony and motor control. Maastricht University, 2025.（預印本／投稿中；引用之參數與結果依作者提供之全文）</li>
+  <li><strong>Güth MR, Headley DB, Baker TE.</strong> Precision phase targeting of event-related oscillations using real-time closed-loop TMS-EEG. 2026.（預印本／投稿中；引用之參數與結果依作者提供之全文）</li>
+  <li><strong>Juan CH, Nguyen KT, Liang WK, Quinn AJ, Chen YH, Muggleton NG, Yeh JR, Woolrich MW, Nobre AC, Huang NE.</strong> Revealing the dynamic nature of amplitude modulated neural entrainment with Holo-Hilbert spectral analysis. <em>Frontiers in Neuroscience</em>. 2021;15:673369. <a href="https://doi.org/10.3389/fnins.2021.673369" target="_blank" rel="noopener">doi:10.3389/fnins.2021.673369</a></li>
+</ol>
+<p style="font-size:.8rem;color:var(--text-dim);margin-top:18px">參考文獻 1–6、9 之期刊、卷期與 DOI 已於發表前逐筆對照原始出處確認；7、8 為尚未正式出版之預印本，故不列卷期。</p>
+</section>
+
+<footer class="article-footer">
+  本文為科普改寫，依據上列已發表文獻與作者團隊之研究整理；文中比喻僅為輔助理解，數值與結論以原始論文為準。兩個互動面板為<strong>示意用的合成模型</strong>，呈現的是方法學與工程上的內部一致性，不是生理效度。<br><br>
+  <strong>本文所述之閉迴路 tACS 方案為研究構想，尚未在人體驗證，亦非已證實之臨床療法。經顱電刺激用於阿茲海默症、帕金森氏症或憂鬱症目前皆不屬於常規治療；請勿依本文自行嘗試或購買相關裝置。任何腦刺激研究皆須經人體試驗倫理委員會核准並使用合格設備。本文不構成醫療建議，非診斷工具。</strong><br><br>
+  <a href="../index.html#teaching">← 回到演講教學列表</a>
+</footer>
+</article>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- panel 1 : AM signal, FFT vs HHSA ---------- */
+  var cv1=document.getElementById('cv1'), c1=cv1.getContext('2d');
+  var cv2=document.getElementById('cv2'), c2=cv2.getContext('2d');
+  var sFc=document.getElementById('s-fc'), sFam=document.getElementById('s-fam'), sDep=document.getElementById('s-dep');
+  var oFc=document.getElementById('o-fc'), oFam=document.getElementById('o-fam'), oDep=document.getElementById('o-dep');
+  var mFft=document.getElementById('m-fft'), mHhsa=document.getElementById('m-hhsa'), vRead=document.getElementById('v-read');
+
+  var presets={alpha:[10,2,.6],beta:[20,3,.6],gamma:[40,6,.7],none:[10,0,0]};
+  document.querySelectorAll('[data-preset]').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('[data-preset]').forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active');
+      var p=presets[b.dataset.preset];
+      sFc.value=p[0]; sFam.value=p[1]; sDep.value=p[2]; draw1();
+    });
+  });
+
+  function fit(cv,ctx){
+    var dpr=Math.max(1,window.devicePixelRatio||1);
+    var r=cv.getBoundingClientRect();
+    if(r.width===0) return false;
+    cv.width=Math.round(r.width*dpr); cv.height=Math.round(cv.clientHeight*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0); return true;
+  }
+
+  function draw1(){
+    var fc=+sFc.value, fam=+sFam.value, dep=+sDep.value;
+    oFc.textContent=fc+' Hz'; oFam.textContent=fam.toFixed(1)+' Hz'; oDep.textContent=dep.toFixed(2);
+
+    /* --- time domain --- */
+    if(fit(cv1,c1)){
+      var w=cv1.clientWidth,h=cv1.clientHeight;
+      c1.clearRect(0,0,w,h); c1.fillStyle='#08101f'; c1.fillRect(0,0,w,h);
+      c1.strokeStyle='rgba(77,217,207,.10)'; c1.lineWidth=1;
+      for(var i=1;i<4;i++){c1.beginPath();c1.moveTo(0,h*i/4);c1.lineTo(w,h*i/4);c1.stroke();}
+      var dur=2.0, mid=h/2, amp=h*0.32;
+      /* envelope */
+      c1.beginPath();
+      for(var x=0;x<=w;x++){ var t=x/w*dur; var e=1+dep*Math.cos(2*Math.PI*fam*t);
+        var y=mid-e*amp/(1+dep); if(x===0)c1.moveTo(x,y); else c1.lineTo(x,y);}
+      c1.strokeStyle='#f4a261'; c1.lineWidth=1.6; c1.stroke();
+      c1.beginPath();
+      for(var x2=0;x2<=w;x2++){ var t2=x2/w*dur; var e2=1+dep*Math.cos(2*Math.PI*fam*t2);
+        var y2=mid+e2*amp/(1+dep); if(x2===0)c1.moveTo(x2,y2); else c1.lineTo(x2,y2);}
+      c1.strokeStyle='#f4a261'; c1.stroke();
+      /* carrier */
+      c1.beginPath();
+      for(var x3=0;x3<=w;x3++){ var t3=x3/w*dur;
+        var v=(1+dep*Math.cos(2*Math.PI*fam*t3))/(1+dep)*Math.cos(2*Math.PI*fc*t3);
+        var y3=mid-v*amp; if(x3===0)c1.moveTo(x3,y3); else c1.lineTo(x3,y3);}
+      c1.strokeStyle='#4dd9cf'; c1.lineWidth=1.5; c1.stroke();
+      c1.fillStyle='#8ba8c4'; c1.font='11px JetBrains Mono, monospace';
+      c1.fillText('時域：載波（青）與包絡（橘）', 12, 18);
+      c1.fillText('2 秒', w-38, h-10);
+    }
+
+    /* --- spectra --- */
+    if(fit(cv2,c2)){
+      var W=cv2.clientWidth,H=cv2.clientHeight;
+      c2.clearRect(0,0,W,H); c2.fillStyle='#08101f'; c2.fillRect(0,0,W,H);
+      var padL=44, padR=14, half=(W-padL-padR)/2, topPad=30, botPad=34;
+      var plotH=H-topPad-botPad, fmax=70;
+
+      /* left: conventional spectrum */
+      c2.fillStyle='#8ba8c4'; c2.font='11.5px Noto Sans TC, sans-serif';
+      c2.fillText('傳統頻譜（只有一條頻率軸）', padL, 18);
+      c2.strokeStyle='#4a6580'; c2.lineWidth=1;
+      c2.beginPath(); c2.moveTo(padL,topPad+plotH); c2.lineTo(padL+half-16,topPad+plotH); c2.stroke();
+      function bar(fq,hgt,col){
+        if(fq<=0||fq>fmax) return;
+        var bx=padL+(fq/fmax)*(half-16);
+        c2.fillStyle=col; c2.fillRect(bx-3,topPad+plotH-hgt,6,hgt);
+      }
+      if(fam>0.01 && dep>0.01){
+        bar(fc,plotH*0.78,'#4dd9cf');
+        bar(fc-fam,plotH*0.78*dep/2/(1+dep)*2.2,'#a78bfa');
+        bar(fc+fam,plotH*0.78*dep/2/(1+dep)*2.2,'#a78bfa');
+        mFft.textContent=(fc-fam).toFixed(1)+' / '+fc+' / '+(fc+fam).toFixed(1)+' Hz';
+      } else {
+        bar(fc,plotH*0.78,'#4dd9cf');
+        mFft.textContent=fc+' Hz（單峰）';
+      }
+      c2.fillStyle='#4a6580'; c2.font='10px JetBrains Mono, monospace';
+      c2.fillText('0',padL-4,topPad+plotH+14);
+      c2.fillText(fmax+' Hz',padL+half-46,topPad+plotH+14);
+      if(fam>0.01&&dep>0.01){
+        c2.fillStyle='#a78bfa'; c2.font='10.5px Noto Sans TC, sans-serif';
+        c2.fillText('紫色＝旁頻帶（並非真實振盪）',padL,topPad+plotH+30);
+      }
+
+      /* right: holo plane */
+      var ox=padL+half+16;
+      c2.fillStyle='#8ba8c4'; c2.font='11.5px Noto Sans TC, sans-serif';
+      c2.fillText('HHSA 全息平面（兩條頻率軸）', ox, 18);
+      var pw=W-padR-ox, ph=plotH;
+      c2.strokeStyle='#4a6580'; c2.lineWidth=1;
+      c2.beginPath(); c2.moveTo(ox,topPad+ph); c2.lineTo(ox+pw,topPad+ph); c2.stroke();
+      c2.beginPath(); c2.moveTo(ox,topPad+ph); c2.lineTo(ox,topPad); c2.stroke();
+      /* diagonal constraint */
+      c2.setLineDash([4,4]); c2.strokeStyle='rgba(74,101,128,.8)';
+      c2.beginPath(); c2.moveTo(ox,topPad+ph); c2.lineTo(ox+pw*(20/fmax)*3.0,topPad); c2.stroke();
+      c2.setLineDash([]);
+      var famMax=14;
+      if(fam>0.01 && dep>0.01){
+        var px=ox+(fc/fmax)*pw, py=topPad+ph-(fam/famMax)*ph;
+        py=Math.max(topPad+6,py);
+        c2.fillStyle='rgba(77,217,207,.20)'; c2.beginPath(); c2.arc(px,py,15,0,6.2832); c2.fill();
+        c2.fillStyle='#4dd9cf'; c2.beginPath(); c2.arc(px,py,6.5,0,6.2832); c2.fill();
+        c2.fillStyle='#e8f4f8'; c2.font='10.5px JetBrains Mono, monospace';
+        c2.fillText('('+fc+', '+fam.toFixed(1)+')',Math.min(px+12,ox+pw-70),py-10);
+        mHhsa.textContent='f_c '+fc+' · f_am '+fam.toFixed(1);
+        vRead.className='verdict no';
+        vRead.innerHTML='傳統頻譜的三根柱子裡，<strong>沒有一根落在 '+fam.toFixed(1)+' Hz</strong>。調幅頻率只在右圖出現。';
+      } else {
+        c2.fillStyle='#4a6580'; c2.font='11px Noto Sans TC, sans-serif';
+        c2.fillText('無調幅 → 全息平面上無 AM 能量',ox+10,topPad+ph/2);
+        mHhsa.textContent='無 AM 成分';
+        vRead.className='verdict ok';
+        vRead.innerHTML='沒有調幅時，兩種方法給出一樣的答案——差異只在有調幅時才出現。';
+      }
+      c2.fillStyle='#4a6580'; c2.font='10px JetBrains Mono, monospace';
+      c2.fillText('f_c →',ox+pw-40,topPad+ph+14);
+      c2.save(); c2.translate(ox-10,topPad+ph/2); c2.rotate(-Math.PI/2);
+      c2.fillText('f_am',0,0); c2.restore();
+    }
+  }
+  [sFc,sFam,sDep].forEach(function(el){el.addEventListener('input',draw1);});
+
+  /* ---------- panel 2 : latency budget ---------- */
+  var cv3=document.getElementById('cv3'), c3=cv3.getContext('2d');
+  var sTf=document.getElementById('s-tf'), sJit=document.getElementById('s-jit');
+  var oTf=document.getElementById('o-tf'), oJit=document.getElementById('o-jit');
+  var mPer=document.getElementById('m-per'), mDeg=document.getElementById('m-deg'), vLat=document.getElementById('v-lat');
+  var latPresets={am:3,theta:6,alpha:10,beta:20};
+  document.querySelectorAll('[data-lat]').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('[data-lat]').forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active'); sTf.value=latPresets[b.dataset.lat]; draw2();
+    });
+  });
+
+  function draw2(){
+    var f=Math.max(0.1,+sTf.value), j=+sJit.value;
+    var period=1000/f, deg=360*j/period;
+    oTf.textContent=f.toFixed(1)+' Hz'; oJit.textContent=j+' ms';
+    mPer.textContent=Math.round(period)+' ms';
+    mDeg.textContent=Math.round(deg)+'°';
+    mDeg.className='metric-value '+(deg<30?'good':deg<60?'warn':'bad');
+    if(deg<30){ vLat.className='verdict ok'; vLat.innerHTML='<strong>可行</strong>：誤差遠小於半週期，軟體堆疊足以命中。'; }
+    else if(deg<60){ vLat.className='verdict ok'; vLat.innerHTML='<strong>勉強</strong>：需要謹慎的延遲補償與較短的輪詢間隔。'; }
+    else { vLat.className='verdict no'; vLat.innerHTML='<strong>不可行</strong>：抖動已接近或超過四分之一週期，需要 FPGA 等硬體方案。'; }
+
+    if(!fit(cv3,c3)) return;
+    var w=cv3.clientWidth,h=cv3.clientHeight;
+    c3.clearRect(0,0,w,h); c3.fillStyle='#08101f'; c3.fillRect(0,0,w,h);
+
+    var rows=[{n:'調幅包絡',f:3,c:'#4dd9cf'},{n:'theta',f:6,c:'#7ee8e2'},{n:'alpha',f:10,c:'#a78bfa'},{n:'beta 載波',f:20,c:'#f4a261'}];
+    var top=54, rh=(h-top-24)/rows.length, maxDeg=180;
+    c3.fillStyle='#8ba8c4'; c3.font='12px Noto Sans TC, sans-serif';
+    c3.fillText('同樣 '+j+' ms 抖動，換算成各節律的相位誤差', 14, 24);
+    c3.strokeStyle='rgba(239,68,68,.5)'; c3.setLineDash([5,4]);
+    var xz=110, bw=w-xz-70, x90=xz+bw*(90/maxDeg);
+    c3.beginPath(); c3.moveTo(x90,top-14); c3.lineTo(x90,h-16); c3.stroke(); c3.setLineDash([]);
+    c3.fillStyle='#ef4444'; c3.font='10px JetBrains Mono, monospace'; c3.fillText('90°',x90-9,top-20);
+
+    rows.forEach(function(r,i){
+      var y=top+i*rh, d=Math.min(maxDeg,360*j/(1000/r.f));
+      c3.fillStyle=(Math.abs(r.f-f)<0.26)?'#e8f4f8':'#8ba8c4';
+      c3.font=(Math.abs(r.f-f)<0.26?'600 ':'')+'12px Noto Sans TC, sans-serif';
+      c3.fillText(r.n+' '+r.f+' Hz', 14, y+rh/2+4);
+      c3.fillStyle='rgba(255,255,255,.05)'; c3.fillRect(xz,y+rh/2-9,bw,18);
+      c3.fillStyle=d<30?'#22c55e':d<60?'#f4a261':'#ef4444';
+      c3.fillRect(xz,y+rh/2-9,Math.max(2,bw*(d/maxDeg)),18);
+      c3.fillStyle='#e8f4f8'; c3.font='11px JetBrains Mono, monospace';
+      c3.fillText(Math.round(d)+'°', xz+bw*(d/maxDeg)+8, y+rh/2+4);
+    });
+    c3.fillStyle='#4a6580'; c3.font='10.5px Noto Sans TC, sans-serif';
+    c3.fillText('綠 < 30°　橙 30–60°　紅 > 60°', 14, h-4);
+  }
+  [sTf,sJit].forEach(function(el){el.addEventListener('input',draw2);});
+
+  function redraw(){ draw1(); draw2(); }
+  window.addEventListener('resize',redraw);
+  if(document.readyState==='complete') redraw();
+  else window.addEventListener('load',redraw);
+  redraw();
+})();
+</script>
+</body>
+</html>
