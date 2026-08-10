@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="母鼠找回失散幼鼠時，會先用舊習慣、再學會用聲音。2026 年 Science Advances 的一項研究發現：關掉前額葉，動物學得更快。這篇文章談聽覺皮質如何用「安靜」而不是「大聲」來標記重要的聲音，以及為什麼「兩個因果實驗」還不等於「一條迴路」。">
+<title>把前額葉關掉，牠學得更快：一個社會行為裡的策略競爭 | 朱國大 醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg-primary:#0a0f1e;
+  --bg-card:#111d3c;
+  --bg-card2:#162248;
+  --teal:#4dd9cf;
+  --teal-light:#7ee8e2;
+  --purple:#8b5cf6;
+  --purple-light:#a78bfa;
+  --gold:#f4a261;
+  --red:#ef4444;
+  --green:#22c55e;
+  --text:#e8f4f8;
+  --text-sec:#8ba8c4;
+  --text-dim:#4a6580;
+  --border:rgba(77,217,207,0.15);
+  --shadow:0 8px 32px rgba(0,0,0,0.45);
+  --radius:12px;
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family:'Noto Sans TC','Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text);
+  line-height:1.9;
+}
+a { color:var(--teal); text-decoration:none; }
+a:hover { color:var(--teal-light); }
+.top-bar {
+  position:sticky; top:0; z-index:100;
+  background:rgba(10,15,30,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;
+}
+.top-bar-inner {
+  max-width:980px; margin:0 auto; padding:0 24px;
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+}
+.back-link { color:var(--text-sec); font-size:0.9rem; display:inline-flex; gap:8px; align-items:center; }
+.top-bar-title { font-size:0.82rem; color:var(--text-dim); font-family:'JetBrains Mono',monospace; }
+.article { max-width:860px; margin:0 auto; padding:58px 24px 82px; }
+.article-header {
+  margin-bottom:44px; padding-bottom:34px;
+  border-bottom:1px solid var(--border);
+}
+.article-meta {
+  color:var(--teal); font-size:0.85rem;
+  font-family:'JetBrains Mono',monospace; margin-bottom:14px;
+}
+.article-title {
+  font-size:2.25rem; line-height:1.35; margin-bottom:18px;
+  background:linear-gradient(135deg,var(--text),var(--teal-light));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.article-subtitle { color:var(--text-sec); font-size:1.04rem; }
+.article-author {
+  margin-top:24px; padding-top:20px; border-top:1px solid var(--border);
+  display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+}
+.author-avatar {
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,#2a9d8f,var(--purple));
+  display:flex; align-items:center; justify-content:center; font-weight:700;
+  font-size:1.1rem;
+}
+.author-info { color:var(--text-sec); font-size:0.88rem; line-height:1.65; }
+.author-info strong { color:var(--text); }
+.article-tags { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; }
+.tag {
+  font-size:0.72rem; padding:3px 12px; border-radius:20px;
+  background:rgba(77,217,207,0.08); color:var(--teal);
+  border:1px solid rgba(77,217,207,0.2);
+}
+figure { margin:34px 0; }
+.hero-figure { margin:34px 0 42px; }
+figure svg { width:100%; display:block; border:1px solid var(--border); border-radius:var(--radius); background:var(--bg-card); box-shadow:var(--shadow); }
+figcaption { margin-top:12px; color:var(--text-sec); font-size:0.85rem; text-align:center; line-height:1.7; }
+h2 {
+  font-size:1.55rem; margin:54px 0 20px; padding-bottom:10px;
+  border-bottom:2px solid var(--teal); display:inline-block;
+}
+h3 { font-size:1.18rem; color:var(--teal-light); margin:34px 0 14px; }
+p { color:var(--text-sec); margin:0 0 20px; }
+p strong, li strong { color:var(--text); }
+em { color:var(--teal-light); font-style:normal; }
+ul,ol { color:var(--text-sec); padding-left:24px; margin:0 0 24px; }
+li { margin-bottom:10px; }
+li::marker { color:var(--teal); }
+.callout {
+  margin:28px 0; padding:20px 24px; background:var(--bg-card);
+  border-left:4px solid var(--teal); border-radius:8px; color:var(--text-sec);
+}
+.callout.purple { border-left-color:var(--purple); }
+.callout.gold { border-left-color:var(--gold); }
+.callout.red { border-left-color:var(--red); }
+.callout strong { color:var(--text); }
+.formula {
+  margin:24px 0; padding:18px 24px; background:rgba(77,217,207,0.06);
+  border-left:3px solid var(--teal); border-radius:8px;
+  font-family:'JetBrains Mono',monospace; color:var(--teal-light); font-size:1.05rem;
+}
+.formula small { display:block; margin-top:8px; font-size:0.78rem; color:var(--text-dim); font-family:'Noto Sans TC',sans-serif; }
+.tbl-wrap { overflow-x:auto; margin:24px 0; }
+table {
+  width:100%; border-collapse:collapse; background:var(--bg-card);
+  border-radius:var(--radius); overflow:hidden; font-size:0.92rem;
+}
+th {
+  text-align:left; color:var(--teal); background:rgba(77,217,207,0.1);
+  padding:12px 14px; border-bottom:1px solid var(--border);
+}
+td { padding:12px 14px; color:var(--text-sec); border-bottom:1px solid rgba(77,217,207,0.08); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+blockquote {
+  margin:34px 0; padding:24px 28px;
+  background:linear-gradient(135deg,rgba(77,217,207,0.06),rgba(139,92,246,0.06));
+  border-left:4px solid var(--teal); border-radius:8px;
+  color:var(--text); font-size:1.05rem;
+}
+.references { margin-top:60px; padding-top:34px; border-top:2px solid var(--teal); }
+.references h2 { border:none; margin-top:0; padding:0; }
+.references ol { list-style:none; counter-reset:ref; padding-left:0; }
+.references li {
+  counter-increment:ref; position:relative; padding-left:42px;
+  font-size:0.88rem; color:var(--text-sec); margin-bottom:14px;
+}
+.references li::before {
+  content:counter(ref); position:absolute; left:0; top:2px;
+  width:26px; height:26px; border-radius:50%;
+  background:rgba(77,217,207,0.12); color:var(--teal);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:0.75rem;
+}
+.article-footer {
+  margin-top:54px; padding-top:28px; border-top:1px solid var(--border);
+  color:var(--text-dim); font-size:0.88rem; text-align:center;
+}
+/* ---- dashboard ---- */
+.dashboard { background:#0c1429; border:1px solid var(--border); border-radius:16px; overflow:hidden; margin:34px 0; }
+.dashboard-head { padding:16px 20px 0; }
+.dashboard-head h3 { margin:0 0 4px; color:var(--teal-light); font-size:1.05rem; }
+.dashboard-head p { margin:0; font-size:.85rem; }
+.dashboard-grid { display:grid; grid-template-columns:290px minmax(0,1fr); gap:14px; padding:16px; }
+.dashboard-panel { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:14px; }
+.dashboard-panel h4 { color:var(--teal-light); margin:0 0 12px; font-size:.95rem; }
+.dashboard canvas { width:100%; display:block; border-radius:8px; background:#08101f; }
+/* pin the CSS height: without it, setting canvas.height for devicePixelRatio
+   feeds back into layout height and the canvas grows on every redraw */
+#cvA { height:230px; }
+#cvB { height:190px; }
+.control-row { margin-bottom:14px; }
+.control-row label { display:flex; justify-content:space-between; color:var(--text-sec); font-size:.82rem; }
+.control-row output { color:var(--teal-light); font-family:'JetBrains Mono',monospace; }
+.control-row input[type="range"] { width:100%; accent-color:var(--teal); margin-top:4px; }
+.preset-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px; }
+.preset-button { border:1px solid var(--border); color:var(--text); background:var(--bg-card2); border-radius:8px; padding:9px; cursor:pointer; font-family:inherit; font-size:.8rem; }
+.preset-button:hover { border-color:var(--teal); }
+.preset-button.active { border-color:var(--teal); color:var(--teal); }
+.metric-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:14px; }
+.metric-card { background:#0a1326; border-radius:8px; padding:10px; }
+.metric-card span { color:var(--text-sec); font-size:.74rem; display:block; }
+.metric-value { color:var(--teal-light); font:600 1.05rem 'JetBrains Mono',monospace; margin-top:4px; }
+.metric-value.good { color:var(--green); }
+.metric-value.warn { color:var(--gold); }
+.metric-value.bad { color:var(--red); }
+.verdict { margin-top:12px; padding:10px 12px; border-radius:8px; font-size:.84rem; }
+.verdict.ok { background:rgba(34,197,94,.08); border-left:3px solid var(--green); color:var(--text-sec); }
+.verdict.no { background:rgba(239,68,68,.08); border-left:3px solid var(--red); color:var(--text-sec); }
+.evgrade { font-family:'JetBrains Mono',monospace; font-size:.7rem; padding:1px 7px; border-radius:5px; margin-left:6px; vertical-align:middle; }
+.evgrade.e { background:rgba(34,197,94,.14); color:#22c55e; border:1px solid rgba(34,197,94,.3); }
+.evgrade.p { background:rgba(244,162,97,.14); color:#f4a261; border:1px solid rgba(244,162,97,.3); }
+.evgrade.u { background:rgba(239,68,68,.14); color:#ef4444; border:1px solid rgba(239,68,68,.3); }
+.evgrade.i { background:rgba(139,92,246,.16); color:#a78bfa; border:1px solid rgba(139,92,246,.32); }
+@media (max-width:980px) {
+  .dashboard-grid { grid-template-columns:1fr; }
+}
+@media(max-width:640px) {
+  .article { padding:42px 18px 64px; }
+  .article-title { font-size:1.65rem; }
+  .top-bar-title { display:none; }
+  table { font-size:0.84rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="../index.html#teaching" class="back-link"><i class="fas fa-arrow-left"></i> 返回首頁</a>
+    <div class="top-bar-title">AUDITORY CORTEX · mPFC · STRATEGY COMPETITION</div>
+  </div>
+</div>
+
+<article class="article">
+<header class="article-header">
+  <div class="article-meta">2026 / 08 / 10 · 聽覺認知 × 前額葉執行控制</div>
+  <h1 class="article-title">把前額葉關掉，牠學得更快：一個社會行為裡，舊策略與新策略的神經競爭</h1>
+  <p class="article-subtitle">母鼠找回走失的幼鼠時，會先用一個舊習慣——回到上次撿到幼鼠的地方。牠也可以學會改用聲音。2026 年 8 月的一篇研究做了一件反直覺的事：把前額葉皮質關掉，動物<em>更快</em>學會用聲音。這篇文章談三件事：聽覺皮質為什麼用「安靜」而不是「大聲」來標記重要的聲音；前額葉為什麼比較像守成者而不是指揮官；以及為什麼兩個漂亮的因果實驗，還<strong>不足以</strong>構成一條迴路。</p>
+  <div class="article-author">
+    <div class="author-avatar">朱</div>
+    <div class="author-info">
+      <strong>朱國大 醫師</strong><br>
+      腎臟科暨認知神經科學研究 · 本文整理自 Liu RC 教授 2026 年來台演講與其同期發表之 <em>Science Advances</em> 論文，並對照該領域另一支獨立文獻
+    </div>
+  </div>
+  <div class="article-tags">
+    <span class="tag">Auditory Cortex</span>
+    <span class="tag">Medial Prefrontal Cortex</span>
+    <span class="tag">Social Behavior</span>
+    <span class="tag">Pup Retrieval</span>
+    <span class="tag">Lateral-band Suppression</span>
+    <span class="tag">Win-stay Strategy</span>
+    <span class="tag">Chemogenetics</span>
+    <span class="tag">Executive Control</span>
+  </div>
+</header>
+
+<h2>一、先說結論，因為它違反直覺</h2>
+
+<p>如果你把一隻母鼠的<strong>內側前額葉皮質</strong>（medial prefrontal cortex, mPFC）用化學遺傳學方法安靜下來，牠學會一個新的、更好的策略的速度，會<em>變快</em>，不是變慢<span class="evgrade e">已證實</span>。</p>
+
+<p>而且這個好處不是永久的。等你停藥、讓前額葉回來上班，牠的表現會<strong>掉回去</strong>——掉到「如果一開始就沒關過前額葉、正常訓練到今天應該有的水準」<span class="evgrade e">已證實</span>。</p>
+
+<p>這是 Lu 等人 2026 年 8 月 7 日發表於 <em>Science Advances</em> 的結果<sup>[1]</sup>。它之所以值得寫一篇文章，不只因為結論反直覺，而是因為它反的是<strong>我們每個人腦中那個關於前額葉的預設圖像</strong>：前額葉是那個踩煞車的、負責彈性、負責克制衝動、負責「想清楚再做」的執行長。</p>
+
+<p>在這個作業裡，它比較像是那個<strong>不肯放手的前任</strong>。</p>
+
+<div class="callout gold">
+  <strong>先講清楚本文的證據標記。</strong>因為這篇文章的重點之一，正是「哪些話說得太滿」，所以我沿用原始知識庫的分級，把每一個主張的證據等級直接標在句子後面：<span class="evgrade e">已證實</span>直接測量到、可重複；<span class="evgrade p">提出</span>原作者的詮釋，與資料相容但未被證明；<span class="evgrade u">未測試</span>公開的缺口，通常是原作者自己承認的；<span class="evgrade i">我的推論</span>跨文獻的連結，出自我，不是任何一位作者。<br><br>
+  <strong>這個分級不是裝飾。</strong>本文第五節整節的內容，就是把一個常被寫成<span class="evgrade e">已證實</span>的說法，退回它應得的等級。
+</div>
+
+<h2>二、一個幾乎不需要訓練的社會行為</h2>
+
+<p>先講作業本身，因為它的設計是整件事的關鍵。</p>
+
+<p>幼鼠走失時會發出超音波叫聲；成年母鼠聽到，會離巢、找到牠、叼回巢裡。這是自然的育幼行為，<strong>不需要訓練</strong>——但它<strong>是學來的</strong>。一隻沒生育過的處女鼠並不偏好幼鼠叫聲；讓牠和母鼠與幼崽同住幾天，牠就會開始像母鼠一樣反應<span class="evgrade e">已證實</span>。</p>
+
+<p>這個「動機是天生的、聲音的意義是後天的」組合非常罕見，也非常好用。動物一進實驗室就知道要做什麼、也想做，只是還不知道該聽什麼。</p>
+
+<p>Liu 實驗室把這件事搬進 T 型迷宮，並且做了一個關鍵的取捨：他們<strong>不用</strong>真正的幼鼠叫聲，改用一個合成的、非生態的聲音——30 到 50 kHz 的帶通雜訊，用 5 Hz 做振幅調變。</p>
+
+<p>為什麼要故意用一個「不自然」的聲音？因為小鼠的下丘對高頻有先天的過度表徵<sup>[2]</sup>，真正的超音波叫聲在牠的聽覺系統裡享有特權待遇。要研究「學會一個新聲音」，你就必須確保這個聲音<em>真的是新的</em>。（順帶一提，5 Hz 這個調變率不是隨便挑的——它來自同一個實驗室 2006 年的發現：幼鼠叫聲的自然叢發率就是 5 Hz<sup>[3]</sup>。）</p>
+
+<figure class="hero-figure">
+<svg viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="T型迷宮中兩種策略的示意圖">
+  <defs>
+    <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f4a261"/><stop offset="100%" stop-color="#f7c08a"/>
+    </linearGradient>
+    <linearGradient id="gTeal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4dd9cf"/><stop offset="100%" stop-color="#7ee8e2"/>
+    </linearGradient>
+    <marker id="arG" markerWidth="10" markerHeight="10" refX="7.5" refY="3.4" orient="auto">
+      <path d="M0,0 L0,6.8 L8,3.4 z" fill="#f4a261"/>
+    </marker>
+    <marker id="arT" markerWidth="10" markerHeight="10" refX="7.5" refY="3.4" orient="auto">
+      <path d="M0,0 L0,6.8 L8,3.4 z" fill="#4dd9cf"/>
+    </marker>
+  </defs>
+  <rect width="900" height="400" fill="#111d3c"/>
+
+  <text x="30" y="34" fill="#f4a261" font-size="15" font-family="JetBrains Mono, monospace">預設策略：win-stay（回到上次撿到幼鼠的那一臂）</text>
+  <text x="470" y="34" fill="#4dd9cf" font-size="15" font-family="JetBrains Mono, monospace">習得策略：跟著聲音走</text>
+
+  <!-- left maze -->
+  <g transform="translate(40,60)">
+    <rect x="150" y="0" width="46" height="150" rx="6" fill="#0a1326" stroke="#4a6580" stroke-opacity=".5"/>
+    <rect x="30" y="150" width="286" height="44" rx="6" fill="#0a1326" stroke="#4a6580" stroke-opacity=".5"/>
+    <text x="163" y="222" fill="#4a6580" font-size="11">左臂</text>
+    <text x="286" y="222" fill="#4a6580" font-size="11">右臂</text>
+    <circle cx="173" cy="132" r="13" fill="#8b5cf6" opacity=".8"/>
+    <text x="163" y="136" fill="#e8f4f8" font-size="11">巢</text>
+    <!-- prior trial marker -->
+    <circle cx="52" cy="172" r="10" fill="#f4a261" opacity=".28"/>
+    <text x="24" y="146" fill="#f4a261" font-size="10.5">上一回合</text>
+    <text x="30" y="132" fill="#f4a261" font-size="10.5">在這裡</text>
+    <!-- sound now on right -->
+    <path d="M300,163 q10,9 0,18 M308,157 q16,15 0,30" fill="none" stroke="#4dd9cf" stroke-width="2" opacity=".85"/>
+    <text x="268" y="132" fill="#4dd9cf" font-size="10.5">聲音在這裡</text>
+    <!-- path -->
+    <path d="M173,120 L173,172 L80,172" fill="none" stroke="url(#gGold)" stroke-width="3.4" marker-end="url(#arG)" stroke-linecap="round"/>
+    <text x="60" y="252" fill="#ef4444" font-size="12">✕ 錯誤——但沒有懲罰</text>
+    <text x="60" y="272" fill="#8ba8c4" font-size="11">牠會再走去對的那臂，仍然拿到幼鼠</text>
+  </g>
+
+  <!-- right maze -->
+  <g transform="translate(500,60)">
+    <rect x="150" y="0" width="46" height="150" rx="6" fill="#0a1326" stroke="#4a6580" stroke-opacity=".5"/>
+    <rect x="30" y="150" width="286" height="44" rx="6" fill="#0a1326" stroke="#4a6580" stroke-opacity=".5"/>
+    <circle cx="173" cy="132" r="13" fill="#8b5cf6" opacity=".8"/>
+    <text x="163" y="136" fill="#e8f4f8" font-size="11">巢</text>
+    <circle cx="52" cy="172" r="10" fill="#f4a261" opacity=".28"/>
+    <text x="24" y="146" fill="#f4a261" font-size="10.5">上一回合</text>
+    <path d="M300,163 q10,9 0,18 M308,157 q16,15 0,30" fill="none" stroke="#4dd9cf" stroke-width="2" opacity=".85"/>
+    <text x="268" y="132" fill="#4dd9cf" font-size="10.5">聲音在這裡</text>
+    <path d="M173,120 L173,172 L292,172" fill="none" stroke="url(#gTeal)" stroke-width="3.4" marker-end="url(#arT)" stroke-linecap="round"/>
+    <text x="60" y="252" fill="#22c55e" font-size="12">✓ 正確——而且更快</text>
+    <text x="60" y="272" fill="#8ba8c4" font-size="11">兩條路都能拿到幼鼠，差別只在效率</text>
+  </g>
+
+  <line x1="40" y1="352" x2="860" y2="352" stroke="#4a6580" stroke-opacity=".35" stroke-width="1"/>
+  <text x="40" y="378" fill="#8ba8c4" font-size="12">關鍵設計：<tspan fill="#e8f4f8">兩種策略都會被獎勵</tspan>，聲音只是比較有效率。沒有懲罰，也沒有逼牠換。牠是<tspan fill="#e8f4f8">自願</tspan>換的。</text>
+</svg>
+<figcaption>T 型迷宮的幼鼠搜尋作業。左：第一天，動物用預設的 win-stay 策略，聲音卻在另一臂——牠走錯了，但沒有任何懲罰，繞過去仍然拿得到幼鼠。右：訓練後，牠改成跟著聲音走。八天、每天約 150 個回合之後，win-stay 的使用率掉到接近隨機，聲音策略上升到約 74–80%。</figcaption>
+</figure>
+
+<div class="callout">
+  <strong>為什麼「兩種策略都會被獎勵」這麼重要？</strong>絕大多數實驗室的決策作業會嚴格規定「刺激—反應—結果」的關係，逼動物改變行為：做錯就沒有獎賞。真實世界不是這樣運作的。真實世界裡通常有好幾條路都走得通，只是有一條比較划算——而你要自己發現那一條，同時你原本那條路<em>還是有效的</em>。這個差別，正是這個作業能看到「策略競爭」而傳統反轉學習作業看不到的原因。
+</div>
+
+<h2>三、聽覺皮質的答案：不是變大聲，是變安靜</h2>
+
+<p>直覺上，如果大腦學會了「這個聲音很重要」，聽覺皮質對它的反應應該<strong>變強</strong>。</p>
+
+<p>十九年、四種實驗準備、五組互相獨立的測量，全部指向相反的方向<span class="evgrade e">已證實</span>。</p>
+
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>年份／來源</th><th>實驗準備</th><th>「重要」在皮質裡長什麼樣子</th></tr></thead>
+<tbody>
+<tr><td>2006<sup>[3]</sup></td><td>麻醉、多單元</td><td>母鼠的優勢其實是<strong>從抑制中恢復得更快</strong>（雖然當年是用「興奮」的語言寫的）</td></tr>
+<tr><td>2009<sup>[4]</sup></td><td>清醒、被動聆聽</td><td>興奮反應<strong>沒有</strong>組間差異；抑制來得更早、更久、更深——而且發生在<em>側帶</em></td></tr>
+<tr><td>2013<sup>[5]</sup></td><td>回顧</td><td>Liu 自己把它寫成原則：顯著性是靠「<strong>壓低背景活動，而不是增強聽覺前景</strong>」</td></tr>
+<tr><td>2025<sup>[6]</sup></td><td>回顧</td><td>Off 反應：神經元在聲音<em>期間</em>被壓抑，在聲音<em>結束時</em>才發放</td></tr>
+<tr><td>2026<sup>[1]</sup></td><td>清醒、<strong>自由行為中</strong></td><td><strong>72% 的單元在答對的回合裡放電比較少</strong>；壓抑的強度可以預測牠等一下會不會答對</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>2013 年那一列的份量比看起來重。它證明這條主線是<strong>這個實驗室早就宣告過的論點</strong>，而不是後人回頭替它整理出來的敘事。</p>
+
+<h3>而且被壓抑的，是「不對的那些」神經元</h3>
+
+<p>這裡是我認為整個故事最漂亮的一段。</p>
+
+<p>被壓抑的不是所有神經元，而是那些<strong>最佳頻率落在目標聲音旁邊</strong>的神經元——距離 40 kHz 中心 0.3 到 2 個八度的那一群。剛好調在目標頻率上的那些，反而沒有顯著變化<span class="evgrade e">已證實</span>。</p>
+
+<p>這叫<strong>側帶抑制</strong>（lateral-band suppression），2009 年在被動聆聽的動物身上被發現<sup>[4]</sup>，2026 年第一次在<em>行為中</em>的動物身上被確認<sup>[1]</sup>。</p>
+
+<p>Liu 在演講中給的直覺是：想像你和你的孩子在森林裡，孩子在叫，而森林裡有幾百種其他動物在發出聲音。你需要的不是把孩子的聲音放大——你需要的是<strong>把其他東西壓下去</strong>。而且不能一律壓，要針對「不是你要找的那些頻率」壓。</p>
+
+<figure>
+<svg viewBox="0 0 900 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="側帶抑制示意圖">
+  <rect width="900" height="330" fill="#111d3c"/>
+  <text x="30" y="32" fill="#7ee8e2" font-size="14" font-family="JetBrains Mono, monospace">側帶抑制：被壓下去的，是「調錯頻道」的那些神經元</text>
+
+  <!-- axis -->
+  <line x1="70" y1="250" x2="850" y2="250" stroke="#4a6580" stroke-width="1.4"/>
+  <line x1="70" y1="250" x2="70" y2="70" stroke="#4a6580" stroke-width="1.4"/>
+  <text x="404" y="286" fill="#8ba8c4" font-size="12">神經元的最佳頻率 (kHz)</text>
+  <text x="40" y="176" fill="#8ba8c4" font-size="11.5" transform="rotate(-90 40 176)">放電變化</text>
+  <line x1="70" y1="160" x2="850" y2="160" stroke="#4a6580" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="856" y="164" fill="#4a6580" font-size="10">0</text>
+
+  <!-- target band -->
+  <rect x="392" y="70" width="120" height="180" fill="#4dd9cf" opacity=".09"/>
+  <text x="398" y="90" fill="#4dd9cf" font-size="11.5">目標聲音</text>
+  <text x="398" y="106" fill="#4dd9cf" font-size="11.5">30–50 kHz</text>
+
+  <!-- lateral bands -->
+  <rect x="196" y="70" width="196" height="180" fill="#ef4444" opacity=".07"/>
+  <rect x="512" y="70" width="196" height="180" fill="#ef4444" opacity=".07"/>
+  <text x="216" y="90" fill="#ef4444" font-size="11.5">側帶（低）</text>
+  <text x="606" y="90" fill="#ef4444" font-size="11.5">側帶（高）</text>
+
+  <!-- bars: suppression profile -->
+  <g>
+    <rect x="120" y="156" width="30" height="8" rx="3" fill="#8ba8c4" opacity=".55"/>
+    <rect x="164" y="160" width="30" height="26" rx="3" fill="#ef4444" opacity=".7"/>
+    <rect x="214" y="160" width="30" height="48" rx="3" fill="#ef4444" opacity=".8"/>
+    <rect x="264" y="160" width="30" height="62" rx="3" fill="#ef4444" opacity=".9"/>
+    <rect x="314" y="160" width="30" height="54" rx="3" fill="#ef4444" opacity=".8"/>
+    <rect x="364" y="160" width="30" height="30" rx="3" fill="#ef4444" opacity=".6"/>
+    <rect x="414" y="150" width="30" height="14" rx="3" fill="#4dd9cf" opacity=".55"/>
+    <rect x="464" y="152" width="30" height="12" rx="3" fill="#4dd9cf" opacity=".55"/>
+    <rect x="514" y="160" width="30" height="34" rx="3" fill="#ef4444" opacity=".65"/>
+    <rect x="564" y="160" width="30" height="58" rx="3" fill="#ef4444" opacity=".88"/>
+    <rect x="614" y="160" width="30" height="50" rx="3" fill="#ef4444" opacity=".8"/>
+    <rect x="664" y="160" width="30" height="34" rx="3" fill="#ef4444" opacity=".65"/>
+    <rect x="714" y="158" width="30" height="16" rx="3" fill="#8ba8c4" opacity=".5"/>
+    <rect x="764" y="156" width="30" height="9" rx="3" fill="#8ba8c4" opacity=".5"/>
+  </g>
+
+  <text x="120" y="308" fill="#4a6580" font-size="10">5</text>
+  <text x="270" y="308" fill="#4a6580" font-size="10">15</text>
+  <text x="430" y="308" fill="#4a6580" font-size="10">40</text>
+  <text x="590" y="308" fill="#4a6580" font-size="10">60</text>
+  <text x="760" y="308" fill="#4a6580" font-size="10">80</text>
+
+  <text x="530" y="122" fill="#8ba8c4" font-size="11.5">向下 = 答對的回合裡放電<tspan fill="#e8f4f8">比較少</tspan></text>
+  <text x="530" y="140" fill="#4a6580" font-size="10.5">（示意圖：形狀依原文敘述繪製，非原始資料重繪）</text>
+</svg>
+<figcaption>側帶抑制的示意。目標聲音落在 30–50 kHz；被顯著壓抑的是最佳頻率落在它<em>兩側</em>的神經元，而不是正對著它的那些。提出的功能是提高族群層次的訊噪比——讓該被聽見的訊號，從一個被壓低的背景裡浮出來。</figcaption>
+</figure>
+
+<div class="callout red">
+  <strong>但這個「訊噪比」的解釋，被提出了五次，只被測量過一次，而且是相關。</strong><span class="evgrade u">未測試</span><br><br>
+  2009 年的論文給的是一張<em>示意圖</em>，明說建立在「假設下游是一對一整合」上，沒有測試任何下游讀出。2025 年的回顧文章，作者自己寫下：抑制的可塑性與 Off 反應的可塑性同時出現，「但一個直接檢驗其因果關係的實驗<strong>尚未被執行</strong>」<sup>[6]</sup>。<br><br>
+  2026 年的論文往前推了一步：每個訓練節次的平均壓抑強度，<em>與</em>該節次「解碼聲音來自哪一臂」的正確率相關<span class="evgrade e">已證實·相關性</span>。這是這條研究線缺了十七年的族群層次讀出。<br><br>
+  但兩個測量值之間的跨節次相關，<strong>不等於</strong>壓抑<em>造成</em>了辨別度提升——兩者都可能反映第三個變數（例如投入程度或學習階段）。原作者也很小心，用的動詞是「我們<em>推測</em>」。這條因果鏈到今天仍然開著。
+</div>
+
+<h2>四、前額葉的答案：它守著舊的那個</h2>
+
+<p>研究團隊把電極放進 mPFC 時，預期會看到「彈性」的神經相關物。第一個結果讀起來像失敗：<strong>只有 4.4% 的 mPFC 單元對訓練聲音有反應</strong>——和 5% 的型一錯誤率沒有分別<span class="evgrade e">已證實</span>。前額葉在這個作業裡根本沒在聽。</p>
+
+<p>訊號在<strong>回程</strong>——聲音已經關掉、動物叼著幼鼠往巢裡走的時候。約三分之一的 mPFC 單元，會對「剛剛是從哪一臂撿到幼鼠的」維持一個持續的偏好，而且是沿著<em>整條</em>回程路徑維持，不是綁在某個地點上。這不是位置細胞，是記憶<span class="evgrade e">已證實</span>。</p>
+
+<p>族群解碼「上一隻幼鼠在哪一臂」的正確率，第一天是 <strong>78.4 ± 8%</strong>。然後它會衰減——到第八天掉到約 60%，而且衰減的軌跡<strong>跟著該動物 win-stay 使用率一起下降</strong><span class="evgrade e">已證實</span>。聽覺皮質完全解碼不出這個資訊<span class="evgrade e">已證實</span>。</p>
+
+<blockquote>
+所以 mPFC 在這裡代表的是<strong>那個舊策略</strong>。而且這個表徵是會消退的——它隨著它所支持的策略被棄用而淡出。它不是一個指揮官，它是一個<strong>在位者</strong>。
+</blockquote>
+
+<h3>然後是那個關鍵實驗</h3>
+
+<p>用化學遺傳學（hM4D(Gi) + CNO）雙側安靜 mPFC：</p>
+
+<ul>
+  <li>win-stay 的使用率<strong>下降</strong>——這符合前面的生理紀錄，第一天的使用率掉到對照組的 <strong>56%</strong><span class="evgrade e">已證實</span>。</li>
+  <li>然後，意料之外：聲音策略的學習<strong>加速</strong>。學習曲線變陡，多數動物在 <strong>2 到 3 天</strong>內達標，而不是 4 天以上<span class="evgrade e">已證實</span>。</li>
+  <li>停藥、讓 mPFC 回來：win-stay 爬回來，聲音策略的表現<strong>顯著下滑</strong>——掉到「正常訓練到這個經驗量該有的水準」<span class="evgrade e">已證實</span>。</li>
+</ul>
+
+<p>最後那一點是整篇論文最有力的一擊。它說明：<strong>聽覺那邊的學習其實一直在進行</strong>，關掉前額葉並沒有「加速」它，而是<em>讓它得以表現出來</em><span class="evgrade p">提出</span>。前額葉一回來，那個被壓著的舊策略又開始爭奪控制權，成績就退回它「應該」在的位置。</p>
+
+<p>相對地，安靜<strong>聽覺</strong>皮質的效果剛好相反：聲音策略學習受損、達標時間拉長，而 win-stay 反而<strong>賴著不走</strong>，維持在顯著高於隨機、也高於對照組的水準<span class="evgrade e">已證實</span>。</p>
+
+<h2>五、動手玩：這個競爭模型只有三個參數</h2>
+
+<p>作者提出的模型出乎意料地簡單，而且它的核心主張是一句話：<strong>大腦選的是「策略」，不是「哪一邊」。</strong></p>
+
+<div class="formula">
+P(用聲音策略) = AW / (AW + SW)
+<small>AW = 聽覺策略權重；SW = win-stay 策略權重。每個回合擲一次加權硬幣決定用哪個策略，然後依結果更新權重。整個模型只有三個自由參數。</small>
+</div>
+
+<p>下面的面板是這個模型的一個<strong>簡化重寫版</strong>，直接在你的瀏覽器裡跑。你可以調整初始的 win-stay 權重、兩個學習率，以及最重要的那個滑桿——<strong>把 SW「銬」在原值的百分之幾</strong>。</p>
+
+<p>把它拉到 <strong>56%</strong>，就是論文實際測到的數值。原作者做的正是這件事：拿 39 隻對照組動物各自擬合好的模型，把 SW 乘以 0.56、並凍結它的更新，<strong>不多擬合任何一個新參數</strong>，然後看模型能不能預測真實的抑制組與恢復組資料。它可以<span class="evgrade e">已證實·模型內</span>。</p>
+
+<div class="dashboard">
+  <div class="dashboard-head">
+    <h3>互動模型 · 策略競爭與「把前額葉銬起來」</h3>
+    <p>依原文所述之競爭模型（CMP／多專家版本）重寫的簡化版；為說明機制用的示意模擬，非原始資料重現。</p>
+  </div>
+  <div class="dashboard-grid">
+    <div class="dashboard-panel">
+      <h4>參數</h4>
+      <div class="preset-grid">
+        <button class="preset-button active" data-preset="control">對照組</button>
+        <button class="preset-button" data-preset="silenced">mPFC 抑制</button>
+        <button class="preset-button" data-preset="restore">抑制後恢復</button>
+        <button class="preset-button" data-preset="stubborn">頑固的預設</button>
+      </div>
+      <div class="control-row">
+        <label><span>初始 win-stay 權重 SW<sub>0</sub></span><output id="o-sw">2.00</output></label>
+        <input type="range" id="s-sw" min="0.8" max="3.5" step="0.05" value="2">
+      </div>
+      <div class="control-row">
+        <label><span>答對時的增益 Δ<sub>1</sub></span><output id="o-d1">0.0012</output></label>
+        <input type="range" id="s-d1" min="0.0002" max="0.003" step="0.0001" value="0.0012">
+      </div>
+      <div class="control-row">
+        <label><span>答錯時的增益 Δ<sub>2</sub></span><output id="o-d2">0.0004</output></label>
+        <input type="range" id="s-d2" min="0" max="0.0015" step="0.0001" value="0.0004">
+      </div>
+      <div class="control-row">
+        <label><span>SW 被銬住在原值的</span><output id="o-inh">100%</output></label>
+        <input type="range" id="s-inh" min="20" max="100" step="1" value="100">
+      </div>
+      <div class="control-row">
+        <label><span>第幾天恢復 mPFC</span><output id="o-res">不恢復</output></label>
+        <input type="range" id="s-res" min="4" max="9" step="1" value="9">
+      </div>
+      <div class="metric-grid">
+        <div class="metric-card"><span>達標日（&gt;50%）</span><div class="metric-value" id="m-day">—</div></div>
+        <div class="metric-card"><span>第 8 天聲音策略</span><div class="metric-value" id="m-final">—</div></div>
+        <div class="metric-card"><span>第 8 天 win-stay</span><div class="metric-value" id="m-ws">—</div></div>
+        <div class="metric-card"><span>SW 被銬住在</span><div class="metric-value" id="m-cuff">—</div></div>
+      </div>
+      <div class="verdict ok" id="v-out">拉動「mPFC 抑制程度」，觀察達標日的變化。</div>
+    </div>
+    <div class="dashboard-panel">
+      <h4>模擬結果</h4>
+      <canvas id="cvA" height="230"></canvas>
+      <div style="height:12px"></div>
+      <canvas id="cvB" height="190"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="callout purple">
+  <strong>模型裡有一個容易錯過、但概念上很重要的細節。</strong>在這個模型裡，<em>不管動物這一回合選了哪個策略</em>，聽覺權重 AW 都會增加——因為那個可靠的聲音<strong>一直都在播</strong>，即使動物這次選擇不理它。<br><br>
+  Liu 在演講中把這件事列為這個作業能成立的三個條件之一：可靠的線索始終存在，所以即使動物正在用低效率的舊策略，牠<em>仍然在不知不覺中</em>學到那個線索有用。這也正是為什麼關掉前額葉之後，成績能「立刻」變好——那個學習早就存到一半了，只是表現不出來。
+</div>
+
+<h2>六、現在講最重要的一件事：兩個因果實驗，不等於一條迴路</h2>
+
+<p>到目前為止，這篇文章的標題和多數二手報導會這樣寫：「前額葉與聽覺皮質<strong>互相競爭</strong>」、「前額葉<strong>阻擋</strong>學習」。</p>
+
+<p>這兩句話都比證據走得遠。我把理由列清楚，因為這一節才是我認為這篇論文最值得學的地方——不是它發現了什麼，而是<strong>它的設計能支持什麼</strong>。</p>
+
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>主張</th><th>證據狀態</th></tr></thead>
+<tbody>
+<tr><td>聽覺皮質活動是正常習得聲音策略所必需</td><td><span class="evgrade e">已證實</span></td></tr>
+<tr><td>聽覺皮質參與的是<em>學習</em>，不只是<em>聽見</em></td><td><span class="evgrade e">已證實</span>（見下段）</td></tr>
+<tr><td>mPFC 活動是正常表現 win-stay 策略所必需</td><td><span class="evgrade e">已證實</span></td></tr>
+<tr><td>抑制 mPFC 會加速習得聲音策略，且可逆</td><td><span class="evgrade e">已證實</span></td></tr>
+<tr><td>兩個策略在競爭行為的控制權</td><td><span class="evgrade e">已證實</span>——但這是<strong>行為模型層次</strong>的競爭</td></tr>
+<tr><td>在這個作業裡，mPFC 作用於聽覺皮質（或反之）</td><td><span class="evgrade u">未測試</span>——<strong>從未被測量</strong></td></tr>
+<tr><td>有一個位於 mPFC 之外的裁決者在權衡兩個權重</td><td><span class="evgrade p">提出</span>——模型需要它，但沒人知道它在哪</td></tr>
+<tr><td>mPFC「阻擋」聽覺學習</td><td><strong>不被支持</strong>——見下方</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>為什麼「未測量」？四個具體理由：</p>
+
+<ol>
+  <li><strong>兩群神經元從來不在同一隻動物身上。</strong>聽覺皮質錄了 6 隻，前額葉錄了<em>另外</em> 6 隻。所謂「競爭」，是兩群<strong>分開記錄</strong>、時間軌跡剛好反向的族群，所產生的一個詮釋。</li>
+  <li><strong>沒有測量任何交互作用。</strong>沒有同步雙區記錄、沒有同調性、沒有任何有方向性的分析。</li>
+  <li><strong>沒有連結性資料。</strong>沒有順行或逆行追蹤、沒有路徑特異性的操弄。</li>
+  <li><strong>裁決者沒有被定位。</strong>勝出的那個模型<em>要求</em>有一個下游區域接收兩個權重並做出裁決；它的存在是從模型比較推出來的，它的身分是作者自己列出的未來工作<span class="evgrade u">未測試</span>。</li>
+</ol>
+
+<h3>「阻擋」這個字，作者自己在演講現場退了一步</h3>
+
+<p>這一點我認為值得記錄。演講的問答時間，有聽眾直接挑戰：你的資料顯示的是前額葉<em>代表另一個策略</em>、而且它的權重變小了；這跟「阻擋」不一樣，後者聽起來像一個主動的作用。</p>
+
+<p>Liu 的回答很坦白：他同意模型呈現的是「一個蹺蹺板……一個被機率加權的擲硬幣」，並說他認為「限制」（constraining）這個詞比較站得住腳，理由是那個預設<em>使得</em>本來就存在的可靠資訊無法被使用。</p>
+
+<p>這個讓步應該規範我們的用字。這些資料<strong>沒有</strong>顯示前額葉作用<em>於</em>聽覺皮質；顯示的是拿掉一個權重之後，另一個權重更早表現出來。<strong>「競爭」「限制」可以用；「阻擋」「抑制」請留給被實際測量到的機制。</strong></p>
+
+<h3>該給的credit也要給：這個設計比多數「雙病灶」研究強</h3>
+
+<p>把界線劃清楚之後，也不該低估它。有三件事讓它遠比一般的損傷研究有力：</p>
+
+<ul>
+  <li><strong>雙向雙分離。</strong>關聽覺皮質：新策略受損 <em>且</em> 舊策略賴著；關前額葉：舊策略受損 <em>且</em> 新策略加速。單一的混淆因素（不舒服、動機下降、運動障礙）沒辦法在兩個行為指標上同時做出<em>符號相反</em>的雙分離<span class="evgrade i">我的推論</span>。</li>
+  <li><strong>恢復實驗。</strong>可逆性排除掉一大類替代解釋。如果關前額葉只是讓動物變得比較愛探索，或是破壞了 win-stay 的記憶，那麼恢復活性不會這麼精準地把<em>行為的平衡</em>也一起還原。</li>
+  <li><strong>零自由參數的預測。</strong>用實驗量到的 56%、不擬合任何新參數，去預測一組沒被用來擬合的因果操弄資料——這個門檻比「曲線擬合得很漂亮」高得多。</li>
+</ul>
+
+<p>順帶一提第二列那個「參與學習而非只是聽見」是怎麼證的：明顯的反駁是「動物只是聽不到了」。作者在模型裡加入一個「追蹤聲音失誤率」參數，然後問：有沒有<em>任何一個</em>失誤率，能同時解釋「學會之後才抑制」與「學習期間抑制」這兩組資料？答案是沒有，實測值遠在模擬範圍之外<span class="evgrade e">已證實</span>。</p>
+
+<h2>七、真的有一條下行通路——但可能不是這一條</h2>
+
+<p>這個作業裡沒測到的迴路，在<strong>另一支文獻</strong>裡有。而且那支文獻和 Liu 這條線<strong>互相不引用</strong>。</p>
+
+<p>解剖上：從聽覺皮質做逆行追蹤，標記到的前額葉細胞落在<strong>前扣帶皮質（ACC）的前段</strong>，而 prelimbic（PL）與 infralimbic（IL）的投射很有限<sup>[7]</sup><span class="evgrade e">已證實</span>。另外還有兩條間接路徑：經由外側嗅周皮質，以及 mPFC→視丘網狀核→內側膝狀體。</p>
+
+<p>因果上：用光遺傳學抑制 mPFC 的輸出，會<strong>降低初級聽覺皮質各層的預測誤差訊號</strong>，而且只針對偏差刺激、不影響重複抑制<sup>[8]</sup><span class="evgrade e">已證實</span>。</p>
+
+<p>這是這個領域最接近「前額葉因果地調控聽覺皮質」的結果。但三個限制必須一起帶走：它是<strong>烏拉坦麻醉</strong>下做的（而 Liu 自己這條線在 2009 年就留下警告：清醒的資料「無法從麻醉的研究預測出來」）；抑制是<strong>全 mPFC</strong>，分不出是哪一條路；而且用的是<strong>偏差偵測</strong>作業，不是生態行為。</p>
+
+<div class="callout purple">
+  <h3 style="margin-top:0">【我的判斷】一個沒有人寫出來的結構性錯位<span class="evgrade i">我的推論</span></h3>
+  <p style="margin-bottom:12px">把 2026 年的一個小結果，跟上面那支解剖文獻並排，會得到一件兩邊都沒說的事。</p>
+  <ul style="margin-bottom:12px">
+    <li>攜帶<strong>舊策略</strong>的前額葉細胞，在 <strong>PL 與 IL</strong>——這是 2026 年論文的資料：對「上一隻幼鼠在哪一臂」有選擇性的單元，在 PL 與 IL 顯著多於 ACC<span class="evgrade e">已證實</span>。</li>
+    <li>而<strong>投射到聽覺皮質</strong>的前額葉細胞，在 <strong>前段 ACC</strong>，PL 與 IL 的貢獻有限<sup>[7]</sup><span class="evgrade e">已證實</span>。</li>
+  </ul>
+  <p style="margin-bottom:12px">如果兩件事都成立，那麼這個「競爭」<strong>就不可能經由那條直接的下行通路實現</strong>——因為握著舊策略的細胞，大致上不是那些會跟聽覺皮質講話的細胞。</p>
+  <p style="margin-bottom:0">這正好是模型比較從<em>行為</em>面得到的結論：裁決者在 mPFC <strong>之外</strong>。兩條互不相干的證據線——一條解剖、一條計算——指向同一個架構。<br><br>
+  <strong>誠實的但書：</strong>解剖證據來自一篇回顧所整理的大鼠／小鼠研究，Lu 等人自己沒做追蹤，這兩件事是<em>我</em>接起來的，不是任何作者接的。而且「不經由直接路徑」不排除經由嗅周皮質或視丘網狀核的間接路徑——那兩條在這個行為裡都還沒被測試過。</p>
+</div>
+
+<h2>八、如果前額葉是系統一，而不是系統二</h2>
+
+<p>最後回到最容易被誤引的那一點。</p>
+
+<p>在 Kahneman 的通俗架構裡，系統一快速、自動、靠聯想、容易有偏誤；系統二緩慢、費力、負責審慎推理。很多書把系統二安在前額葉頭上。</p>
+
+<p>Liu 在演講裡的說法是：在他們的齧齒類研究中，「如果真要說的話，mPFC 偏向的是<strong>預設策略的執行</strong>——也就是那個比較本能、比較快的東西。」</p>
+
+<p>兩個必要的但書。第一，這是關於<strong>這個作業</strong>的主張：這裡的預設是一個<em>空間記憶</em>，而空間記憶本來就是前額葉獨立已知會保存的內容。第二，作者自己列了邊界條件<span class="evgrade u">未測試</span>：如果聲音在中途就停掉、變成需要聽覺工作記憶，抑制前額葉可能就不再有幫助；如果獎賞變得不確定，前額葉可能反而是學習所必需的。</p>
+
+<h3>人類這邊，方向一致</h3>
+
+<p>有兩項人類病灶研究指向同一個方向（兩篇都是我在寫作時回頭核對原始文獻確認過的，因為它們只出現在演講中）：</p>
+
+<ul>
+  <li><strong>Manohar 等人，2021，<em>Cortex</em></strong><sup>[9]</sup>：一位罕見的雙側腹內側前額葉（vmPFC）病灶患者，下注變得<em>更有策略</em>、受前一回合的影響<em>更小</em>，「弔詭地整體表現更好」。17 位單側內側前額葉病灶患者的偏誤也降低，決策更理性。</li>
+  <li><strong>Holton 等人，2024，<em>Nature Human Behaviour</em></strong><sup>[10]</sup>：一個「把網子裝滿同一種海產」的漸進式目標追求作業，換目標就得放棄已累積的東西。vmPFC 受損患者的<strong>目標承諾偏誤較低</strong>，表現顯著<em>優於</em>其他部位病灶的患者，而且不比同齡健康對照差。</li>
+</ul>
+
+<p>兩者的共同結構，都是「過去的結果偏誤了當下的決定」——和 win-stay 是同一個形狀<span class="evgrade i">我的推論</span>。</p>
+
+<div class="callout red">
+  <strong>但這裡有一個不能省略的錯位：</strong>兩項人類研究講的都是<strong>vmPFC</strong>，而齧齒類的效應在 <strong>PL／IL</strong>。齧齒類與人類的前額葉同源性本身就有爭議，把 PL／IL 對應到 vmPFC 是一個<em>假設</em>，不是一個發現。<br><br>
+  同樣要標清楚的是 Liu 在演講最後的推想——他提到，也許可以藉由讓前額葉安靜下來（他用冥想當日常類比），讓可靠的新訊號有機會穿透進來。<strong>這是明確標示的推測，不是證據</strong><span class="evgrade u">未測試</span>。齧齒類的操弄是整個腦區的化學遺傳學抑制，人類沒有對等的非侵入性做法；人類的病灶證據是永久損傷，不是可調控的調節。<br><br>
+  誠實的講法是：現在存在一個<strong>可檢驗的假說</strong>，它有明確的行為特徵（過去結果會偏誤當下選擇的作業）、明確的預測方向（承諾偏誤下降、更快改用更好的策略），以及明確的失敗條件（當更好的策略需要工作記憶而非即時追蹤時，同樣的操弄應該<em>損害</em>表現）。
+</div>
+
+<div class="callout purple">
+  <h3 style="margin-top:0">Take-home Messages</h3>
+  <ul style="margin-bottom:0">
+    <li>在這個社會行為裡，聽覺皮質標記「這個聲音重要」的方式<strong>不是變大聲，是變安靜</strong>——而且是壓抑那些<em>調錯頻道</em>的神經元。十九年、五組獨立測量都指向這裡<span class="evgrade e">已證實</span>。</li>
+    <li>它為什麼有用（提升族群訊噪比）被提出五次，只被<strong>相關性地</strong>測到一次；因果鏈仍然開著<span class="evgrade u">未測試</span>。</li>
+    <li>前額葉在這裡是<strong>在位者</strong>，不是執行長。抑制它會<em>加速</em>學習新策略，而且一恢復就退回去——這是可逆的競爭，不是永久的改變<span class="evgrade e">已證實</span>。</li>
+    <li><strong>兩個因果實驗不等於一條迴路。</strong>兩群神經元在不同動物身上、沒有交互作用測量、沒有連結性資料、裁決者未定位。「競爭」目前是<em>行為模型層次</em>的說法。</li>
+    <li>握著舊策略的細胞（PL／IL）看起來<strong>不是</strong>投射到聽覺皮質的那些細胞（前段 ACC）——這獨立支持了「裁決者在 mPFC 之外」<span class="evgrade i">我的推論</span>。</li>
+    <li>人類 vmPFC 病灶讓人下注更理性、目標承諾偏誤更低、表現更好——方向一致，但<strong>腦區對應是假設不是發現</strong>。</li>
+    <li>本文所有臨床／轉譯延伸皆為假說。<strong>非診斷工具、非治療建議。</strong></li>
+  </ul>
+</div>
+
+<h2>延伸閱讀（本站）</h2>
+<ul>
+  <li><a href="oscillatory-entrainment-brain-stimulation.html">用節律牽引大腦：從腦波同步到精準腦刺激</a>——本文第八節那個「讓前額葉安靜下來」的推想，若要變成可操作的介入，會落在這篇談的 target engagement 問題上。</li>
+  <li><a href="non-invasive-brain-stimulation-evidence-map.html">四種腦刺激，一張證據地圖</a>——在把任何動物研究推向人體之前，先看清楚現有證據的強度分布。</li>
+  <li><a href="vstm-binding-ad-mci.html">視覺工作記憶與阿茲海默症</a>——第八節的邊界條件（「如果新策略需要工作記憶呢？」）對應的人類認知層面。</li>
+  <li><a href="gamma-operator-vs-epiphenomenon.html">大腦的節拍器，還是引擎的噪音？</a>——本文第六節的態度（區分「測到的」與「推論的」）在那篇是同一件事的另一個案例。</li>
+</ul>
+
+<section class="references">
+<h2>參考資料</h2>
+<ol>
+  <li><strong>Lu K, Wong KT, Yang CJ, Zhou LN, Shi YT, Costello ML, Liu RC.</strong> Neural competition between prefrontal and auditory cortex constrains novel sound strategy learning. <em>Science Advances</em>. 2026;12:eaeb3005. <a href="https://doi.org/10.1126/sciadv.aeb3005" target="_blank" rel="noopener">doi:10.1126/sciadv.aeb3005</a>（2026 年 8 月 7 日發表；本文之主要來源）</li>
+  <li><strong>Garcia-Lazaro JA, Shepard KN, Miranda JA, Liu RC, Lesica NA.</strong> An overrepresentation of high frequencies in the mouse inferior colliculus supports the processing of ultrasonic vocalizations. <em>PLoS ONE</em>. 2015;10(8):e0133251. <a href="https://doi.org/10.1371/journal.pone.0133251" target="_blank" rel="noopener">doi:10.1371/journal.pone.0133251</a></li>
+  <li><strong>Liu RC, Linden JF, Schreiner CE.</strong> Improved cortical entrainment to infant communication calls in mothers compared with virgin mice. <em>European Journal of Neuroscience</em>. 2006;23(11):3087–3097. <a href="https://doi.org/10.1111/j.1460-9568.2006.04840.x" target="_blank" rel="noopener">doi:10.1111/j.1460-9568.2006.04840.x</a></li>
+  <li><strong>Galindo-Leon EE, Lin FG, Liu RC.</strong> Inhibitory plasticity in a lateral band improves cortical detection of natural vocalizations. <em>Neuron</em>. 2009;62(5):705–716. <a href="https://doi.org/10.1016/j.neuron.2009.05.001" target="_blank" rel="noopener">doi:10.1016/j.neuron.2009.05.001</a></li>
+  <li><strong>Shepard KN, Kilgard MP, Liu RC.</strong> Experience-dependent plasticity and auditory cortex. In: <em>Neural Correlates of Auditory Cognition</em> (Springer Handbook of Auditory Research, Vol. 45), Ch. 10. 2013. <a href="https://doi.org/10.1007/978-1-4614-2350-8_10" target="_blank" rel="noopener">doi:10.1007/978-1-4614-2350-8_10</a></li>
+  <li><strong>Edeline JM, Liu RC.</strong> Off responses in the auditory system (Topical Review). <em>The Journal of Physiology</em>. 2025. <a href="https://doi.org/10.1113/JP289100" target="_blank" rel="noopener">doi:10.1113/JP289100</a></li>
+  <li><strong>Hockley A, Malmierca MS.</strong> Auditory processing control by the medial prefrontal cortex: a review of the rodent functional organisation. <em>Hearing Research</em>. 2024;443:108954. <a href="https://doi.org/10.1016/j.heares.2024.108954" target="_blank" rel="noopener">doi:10.1016/j.heares.2024.108954</a></li>
+  <li><strong>Hockley A, Bohórquez LH, Malmierca MS.</strong> Top-down prediction signals from the medial prefrontal cortex modulate auditory cortex prediction error. <em>Cell Reports</em>. 2025;44:115538. <a href="https://doi.org/10.1016/j.celrep.2025.115538" target="_blank" rel="noopener">doi:10.1016/j.celrep.2025.115538</a></li>
+  <li><strong>Manohar S, Lockwood P, Drew D, Fallon SJ, Chong TTJ, Jeyaretna DS, Baker I, Husain M.</strong> Reduced decision bias and more rational decision making following ventromedial prefrontal cortex damage. <em>Cortex</em>. 2021;138:24–37. <a href="https://doi.org/10.1016/j.cortex.2021.01.015" target="_blank" rel="noopener">doi:10.1016/j.cortex.2021.01.015</a></li>
+  <li><strong>Holton E, Grohn J, Ward H, Manohar SG, O'Reilly JX, Kolling N.</strong> Goal commitment is supported by vmPFC through selective attention. <em>Nature Human Behaviour</em>. 2024;8(7):1351–1365. <a href="https://doi.org/10.1038/s41562-024-01844-5" target="_blank" rel="noopener">doi:10.1038/s41562-024-01844-5</a></li>
+  <li><strong>Murugan M, Jang HJ, Park M, et al., Witten IB.</strong> Combined social and spatial coding in a descending projection from the prefrontal cortex. <em>Cell</em>. 2017;171(7):1663–1677.e16. <a href="https://doi.org/10.1016/j.cell.2017.11.002" target="_blank" rel="noopener">doi:10.1016/j.cell.2017.11.002</a></li>
+</ol>
+<p style="font-size:.8rem;color:var(--text-dim);margin-top:18px">全部 11 筆之作者、年份、期刊、卷期與 DOI 均於發表前逐筆對照原始出處確認。文中標示為「演講內容」者，出自 Liu RC 教授 2026 年來台演講之錄音，屬作者口頭評論，證據位階低於論文，未用於支持任何結果。</p>
+</section>
+
+<footer class="article-footer">
+  本文為科普改寫，依據上列已發表文獻整理；文中比喻僅為輔助理解，數值與結論以原始論文為準。互動面板為<strong>依原文所述重寫的簡化示意模型</strong>，呈現的是該模型的內部邏輯，不是原始資料的重現，亦不具生理效度。<br><br>
+  <strong>本文所述之一切臨床與轉譯延伸（包含「降低前額葉活性以克服既有偏誤」）皆為研究假說，尚未在人體驗證，亦非已證實之治療方法。相關動物實驗使用化學遺傳學技術，人體並無對等做法。本文不構成醫療建議，非診斷工具。</strong><br><br>
+  <a href="../index.html#teaching">← 回到演講教學列表</a>
+</footer>
+</article>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var cvA=document.getElementById('cvA'), ca=cvA.getContext('2d');
+  var cvB=document.getElementById('cvB'), cb=cvB.getContext('2d');
+  var sSW=document.getElementById('s-sw'), sD1=document.getElementById('s-d1'),
+      sD2=document.getElementById('s-d2'), sInh=document.getElementById('s-inh'),
+      sRes=document.getElementById('s-res');
+  var oSW=document.getElementById('o-sw'), oD1=document.getElementById('o-d1'),
+      oD2=document.getElementById('o-d2'), oInh=document.getElementById('o-inh'),
+      oRes=document.getElementById('o-res');
+  var mDay=document.getElementById('m-day'), mFinal=document.getElementById('m-final'),
+      mWs=document.getElementById('m-ws'), mCuff=document.getElementById('m-cuff'),
+      vOut=document.getElementById('v-out');
+
+  var DAYS=8, TRIALS=150, RUNS=14, P_SAME=0.38;
+
+  function fit(cv,ctx){
+    var dpr=Math.max(1,window.devicePixelRatio||1);
+    var r=cv.getBoundingClientRect();
+    var w=r.width, h=r.height;
+    if(!w||!h) return false;
+    var bw=Math.round(w*dpr), bh=Math.round(h*dpr);
+    if(cv.width!==bw||cv.height!==bh){ cv.width=bw; cv.height=bh; }
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    return true;
+  }
+
+  /* one simulated animal -> per-day auditory% and winstay%
+     cuff = fraction of SW0 the win-stay weight is held at (1 = no cuff, 0.56 = the paper's value) */
+  function runAnimal(sw0,d1,d2,cuff,resDay){
+    var cuffed = cuff<1;
+    var SW = cuffed ? sw0*cuff : sw0;
+    var AW = 0.18;              /* tuned so day 1 reproduces ~90% win-stay use, below-chance sound use */
+    var SW_RATE = 2.5;          /* win-stay weight moves faster than the auditory one */
+    var aud=[], ws=[];
+    for(var day=1; day<=DAYS; day++){
+      /* restoration: release the handcuff, SW returns to its original starting value */
+      if(cuffed && day===resDay){ cuffed=false; SW=sw0; }
+      var nAud=0, nWin=0;
+      for(var t=0;t<TRIALS;t++){
+        var denom = AW+SW;
+        var p = denom>1e-9 ? AW/denom : 0.5;
+        var useAud = Math.random() < p;
+        var soundSameArm = Math.random() < P_SAME;
+        var correct = useAud ? true : soundSameArm;
+        if(correct) nAud++;
+        if(!useAud) nWin++;
+        else if(soundSameArm) nWin++;   /* the two strategies pointed the same way */
+        /* auditory weight grows on every trial: the reliable cue is always present */
+        AW += correct ? d1 : d2;
+        if(AW>3) AW=3;
+        /* win-stay weight only updates while mPFC is online */
+        if(!cuffed){
+          SW += SW_RATE*(soundSameArm ? d1 : -d1);
+          if(SW<0.05) SW=0.05;
+          if(SW>4) SW=4;
+        }
+      }
+      aud.push(100*nAud/TRIALS);
+      ws.push(100*nWin/TRIALS);
+    }
+    return {aud:aud, ws:ws};
+  }
+
+  function simulate(){
+    var sw0=parseFloat(sSW.value), d1=parseFloat(sD1.value),
+        d2=parseFloat(sD2.value), cuff=parseFloat(sInh.value)/100,
+        resDay=parseInt(sRes.value,10);
+    var aud=new Array(DAYS).fill(0), ws=new Array(DAYS).fill(0);
+    for(var r=0;r<RUNS;r++){
+      var out=runAnimal(sw0,d1,d2,cuff,resDay);
+      for(var i=0;i<DAYS;i++){ aud[i]+=out.aud[i]/RUNS; ws[i]+=out.ws[i]/RUNS; }
+    }
+    return {aud:aud, ws:ws, cuff:cuff, sw0:sw0, resDay:resDay};
+  }
+
+  function axes(ctx,w,h,pad,title){
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle='#08101f'; ctx.fillRect(0,0,w,h);
+    ctx.fillStyle='#8ba8c4'; ctx.font='12px Noto Sans TC, sans-serif';
+    ctx.fillText(title,12,20);
+    ctx.strokeStyle='#4a6580'; ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.moveTo(pad.l,pad.t); ctx.lineTo(pad.l,h-pad.b); ctx.lineTo(w-pad.r,h-pad.b);
+    ctx.stroke();
+    /* 50% chance line */
+    var y50 = pad.t+(h-pad.t-pad.b)*(1-(50-25)/(100-25));
+    ctx.strokeStyle='rgba(74,101,128,.7)'; ctx.setLineDash([5,4]);
+    ctx.beginPath(); ctx.moveTo(pad.l,y50); ctx.lineTo(w-pad.r,y50); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#4a6580'; ctx.font='10px JetBrains Mono, monospace';
+    ctx.fillText('50%',w-pad.r+4,y50+3);
+    return y50;
+  }
+
+  function plot(ctx,w,h,pad,series,color,fill){
+    var iw=w-pad.l-pad.r, ih=h-pad.t-pad.b;
+    ctx.beginPath();
+    for(var i=0;i<series.length;i++){
+      var x=pad.l+iw*(i/(series.length-1||1));
+      var v=Math.max(25,Math.min(100,series[i]));
+      var y=pad.t+ih*(1-(v-25)/75);
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle=color; ctx.lineWidth=2.4; ctx.lineJoin='round'; ctx.stroke();
+    for(var j=0;j<series.length;j++){
+      var xx=pad.l+iw*(j/(series.length-1||1));
+      var vv=Math.max(25,Math.min(100,series[j]));
+      var yy=pad.t+ih*(1-(vv-25)/75);
+      ctx.beginPath(); ctx.arc(xx,yy,3.2,0,6.2832); ctx.fillStyle=fill; ctx.fill();
+    }
+  }
+
+  function dayTicks(ctx,w,h,pad,n){
+    var iw=w-pad.l-pad.r;
+    ctx.fillStyle='#4a6580'; ctx.font='10px JetBrains Mono, monospace';
+    for(var i=0;i<n;i++){
+      var x=pad.l+iw*(i/(n-1||1));
+      ctx.fillText(String(i+1),x-3,h-pad.b+15);
+    }
+    ctx.fillStyle='#4a6580'; ctx.font='10.5px Noto Sans TC, sans-serif';
+    ctx.fillText('訓練天數',w/2-24,h-4);
+  }
+
+  function draw(){
+    var s=simulate();
+
+    /* ---- panel A : strategy usage ---- */
+    if(fit(cvA,ca)){
+      var w=cvA.clientWidth,h=cvA.clientHeight,pad={l:44,r:34,t:30,b:26};
+      axes(ca,w,h,pad,'每日策略使用率（模擬 '+RUNS+' 隻動物平均）');
+      plot(ca,w,h,pad,s.ws,'#f4a261','#f7c08a');
+      plot(ca,w,h,pad,s.aud,'#4dd9cf','#7ee8e2');
+      dayTicks(ca,w,h,pad,DAYS);
+      /* y labels */
+      ca.fillStyle='#4a6580'; ca.font='10px JetBrains Mono, monospace';
+      var ih=h-pad.t-pad.b;
+      [25,50,75,100].forEach(function(v){
+        var y=pad.t+ih*(1-(v-25)/75);
+        ca.fillText(String(v),14,y+3);
+      });
+      /* restoration marker */
+      if(s.cuff<1 && s.resDay<=DAYS){
+        var iw=w-pad.l-pad.r, xr=pad.l+iw*((s.resDay-1)/(DAYS-1));
+        ca.strokeStyle='rgba(139,92,246,.75)'; ca.setLineDash([4,4]); ca.lineWidth=1.4;
+        ca.beginPath(); ca.moveTo(xr,pad.t); ca.lineTo(xr,h-pad.b); ca.stroke(); ca.setLineDash([]);
+        ca.fillStyle='#a78bfa'; ca.font='10px Noto Sans TC, sans-serif';
+        ca.fillText('mPFC 恢復', xr+4, pad.t+12);
+      }
+      /* legend */
+      ca.fillStyle='#4dd9cf'; ca.fillRect(w-150,10,12,3);
+      ca.fillStyle='#8ba8c4'; ca.font='11px Noto Sans TC, sans-serif';
+      ca.fillText('聲音策略',w-132,15);
+      ca.fillStyle='#f4a261'; ca.fillRect(w-72,10,12,3);
+      ca.fillStyle='#8ba8c4'; ca.fillText('win-stay',w-54,15);
+    }
+
+    /* ---- panel B : comparison against an un-silenced control ---- */
+    if(fit(cvB,cb)){
+      var w2=cvB.clientWidth,h2=cvB.clientHeight,pad2={l:44,r:34,t:30,b:26};
+      axes(cb,w2,h2,pad2,'與「完全不抑制」的對照組相比');
+      var ctrl=(function(){
+        var a=new Array(DAYS).fill(0);
+        for(var r=0;r<RUNS;r++){
+          var o=runAnimal(parseFloat(sSW.value),parseFloat(sD1.value),parseFloat(sD2.value),1,99);
+          for(var i=0;i<DAYS;i++) a[i]+=o.aud[i]/RUNS;
+        }
+        return a;
+      })();
+      plot(cb,w2,h2,pad2,ctrl,'#4a6580','#4a6580');
+      plot(cb,w2,h2,pad2,s.aud,'#4dd9cf','#7ee8e2');
+      dayTicks(cb,w2,h2,pad2,DAYS);
+      cb.fillStyle='#4a6580'; cb.fillRect(w2-166,10,12,3);
+      cb.fillStyle='#8ba8c4'; cb.font='11px Noto Sans TC, sans-serif';
+      cb.fillText('對照（不抑制）',w2-148,15);
+      cb.fillStyle='#4dd9cf'; cb.fillRect(w2-58,10,12,3);
+      cb.fillStyle='#8ba8c4'; cb.fillText('目前',w2-40,15);
+    }
+
+    /* ---- metrics ---- */
+    var day=0;
+    for(var i=0;i<DAYS;i++){ if(s.aud[i]>50){ day=i+1; break; } }
+    mDay.textContent = day? ('第 '+day+' 天') : '未達標';
+    mDay.className='metric-value '+(day===0?'bad':day<=3?'good':day<=5?'warn':'bad');
+    mFinal.textContent = s.aud[DAYS-1].toFixed(1)+'%';
+    mFinal.className='metric-value '+(s.aud[DAYS-1]>70?'good':s.aud[DAYS-1]>55?'warn':'bad');
+    mWs.textContent = s.ws[DAYS-1].toFixed(1)+'%';
+    mCuff.textContent = s.cuff<1 ? (100*s.cuff).toFixed(0)+'%' : '未銬';
+    mCuff.className='metric-value '+(s.cuff<1?'warn':'');
+
+    var restored = s.cuff<1 && s.resDay<=DAYS;
+    if(s.cuff>=1){
+      vOut.className='verdict ok';
+      vOut.innerHTML='<strong>對照組</strong>：win-stay 慢慢衰減，聲音策略慢慢上升。這是正常的學習軌跡。';
+    } else if(restored && s.aud[DAYS-1] < s.aud[Math.max(0,s.resDay-2)]){
+      vOut.className='verdict no';
+      vOut.innerHTML='<strong>恢復後掉下來了</strong>：這正是原論文的關鍵觀察——好處不是永久的。舊策略一回來，就重新搶走控制權。';
+    } else if(day && day<=3){
+      vOut.className='verdict ok';
+      vOut.innerHTML='<strong>加速</strong>：達標日提前到第 '+day+' 天。注意學習<em>本身</em>沒有變快——是舊策略讓開了。';
+    } else {
+      vOut.className='verdict ok';
+      vOut.innerHTML='把「SW 被銬住在原值的」拉到 <strong>56%</strong>，就是論文實際採用的數值。';
+    }
+  }
+
+  var presets={
+    control:  {sw:2.0, d1:0.0012, d2:0.0004, inh:100, res:9},
+    silenced: {sw:2.0, d1:0.0012, d2:0.0004, inh:56,  res:9},
+    restore:  {sw:2.0, d1:0.0012, d2:0.0004, inh:56,  res:5},
+    stubborn: {sw:3.2, d1:0.0008, d2:0.0002, inh:100, res:9}
+  };
+
+  Array.prototype.forEach.call(document.querySelectorAll('.preset-button'),function(btn){
+    btn.addEventListener('click',function(){
+      var p=presets[btn.getAttribute('data-preset')];
+      if(!p) return;
+      Array.prototype.forEach.call(document.querySelectorAll('.preset-button'),function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+      sSW.value=p.sw; sD1.value=p.d1; sD2.value=p.d2; sInh.value=p.inh; sRes.value=p.res;
+      sync(); draw();
+    });
+  });
+
+  function sync(){
+    oSW.textContent=parseFloat(sSW.value).toFixed(2);
+    oD1.textContent=parseFloat(sD1.value).toFixed(4);
+    oD2.textContent=parseFloat(sD2.value).toFixed(4);
+    oInh.textContent=sInh.value+'%';
+    oRes.textContent=(parseInt(sRes.value,10)>DAYS)?'不恢復':('第 '+sRes.value+' 天');
+  }
+
+  [sSW,sD1,sD2,sInh,sRes].forEach(function(el){
+    el.addEventListener('input',function(){
+      Array.prototype.forEach.call(document.querySelectorAll('.preset-button'),function(b){b.classList.remove('active');});
+      sync(); draw();
+    });
+  });
+
+  var rt=null;
+  window.addEventListener('resize',function(){
+    if(rt) clearTimeout(rt);
+    rt=setTimeout(function(){ rt=null; draw(); }, reduce?400:150);
+  });
+
+  sync();
+  draw();                                     /* no-ops safely if layout is not ready yet */
+  if(document.readyState!=='complete') window.addEventListener('load',draw);
+})();
+</script>
+</body>
+</html>
