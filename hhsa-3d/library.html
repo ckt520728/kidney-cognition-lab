@@ -127,8 +127,12 @@
         </div>
 
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
-          <a href="../slides/hhsa-body-signals-deck.html" class="btn btn-primary btn-sm">
+          <!-- Repo layout: slides/; local Output folder layout: deck/ (data-alt, resolved by the script below) -->
+          <a href="../slides/hhsa-body-signals-deck.html" data-alt="../deck/HHSA_body_signals_deck.html" class="btn btn-primary btn-sm">
             <span>🖥️ 開啟 20 頁 SOIL 學術簡報 (Interactive Slide Deck)</span>
+          </a>
+          <a href="../slides/hhsa-body-signals-deck.pptx" data-alt="../deck/HHSA_body_signals_deck.pptx" class="btn btn-secondary btn-sm" download>
+            <span>⬇️ 下載 PowerPoint 簡報 (PPTX)</span>
           </a>
           <a href="../blog/hhsa-body-signals-physiological-secrets.html" class="btn btn-secondary btn-sm">
             <span>📖 閱讀繁體中文生理密碼深度導讀專文</span>
@@ -407,6 +411,14 @@
         nav.style.borderBottom = '1px solid var(--border)';
       });
     }
+  </script>
+  <script>
+    // Deck links point to the homepage-repo layout (slides/); fall back to deck/ when browsing the Output folder
+    document.querySelectorAll('a[data-alt]').forEach(function (a) {
+      fetch(a.getAttribute('href'), { method: 'HEAD' })
+        .then(function (r) { if (!r.ok) a.setAttribute('href', a.dataset.alt); })
+        .catch(function () { a.setAttribute('href', a.dataset.alt); });
+    });
   </script>
 </body>
 </html>
