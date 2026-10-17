@@ -4,9 +4,11 @@
  * Kidney & Cognition Lab (ckt520728/kidney-cognition-lab)
  */
 
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
-import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
+// 'three' and 'three/addons/' resolve through the import map in each host page: the addon
+// modules import the bare specifier 'three', so a page without the map fails to load.
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 // ============================================================================
 // IEEE 754 Float16 Decoder
@@ -82,10 +84,10 @@ export const DATASET_CONFIGS = {
     badgeClass: 'badge-gold',
     units: { f: 'Hz', t: 's' },
     guide: [
-      'Pure synthetic test signal: x(t) = [1 + 0.7 cos(φ_AM(t))] · cos(φ_c(t)).',
-      'Ground truth: carrier fc ~ 0.50 Hz modulated by slower rhythm f_AM ~ 0.05 Hz.',
-      'Recovers 100% of instantaneous frequency and modulation coordinates in 3-D.',
-      'Demonstrates clean separation of carrier vs amplitude modulation axes.'
+      'Synthetic test signal: x(t) = [1 + 0.7 cos(φ_AM(t))] · cos(φ_c(t)), 300 s at 4 Hz.',
+      'Ground truth: f_c(t) swings 0.35–0.65 Hz; f_AM(t) swings 0.03–0.07 Hz (gold ridge).',
+      'Recovered within ±1 bin in 25 of 30 windows (83.3%, below the 90% target); all misses are on the AM axis, mostly at the record edges (EMD end effect).',
+      '1.9% of the energy leaks to f_AM ≥ f_c; switch on the admissibility filter to hide it.'
     ]
   },
   cgm: {
@@ -98,9 +100,9 @@ export const DATASET_CONFIGS = {
     units: { f: 'cph', t: 'h' },
     guide: [
       'De-identified continuous glucose monitor (CGM) record sampled at 5-min intervals over 312 hours.',
-      'Circadian rhythm (24 h / 0.042 c/h) acts as an amplitude envelope modulating faster ultradian and postprandial swings.',
-      'Clear energy concentrations in the Circadian (0.04-0.12 c/h) and Meal-related (0.25-0.5 c/h) bands.',
-      'HHSA preserves both the 24-h metabolic baseline and rapid postprandial excursions simultaneously.'
+      'Carrier energy: Circadian 28.5%, Ultradian 18.5%, Meal-related 16.3%, Postprandial 23.6%, Fast metabolic 13.0%.',
+      'For Ultradian, Meal-related and Postprandial carriers the strongest AM band is Circadian — descriptive, n = 1.',
+      '19.8% of the energy lies at f_AM ≥ f_c and is not interpretable as modulation; use the admissibility filter.'
     ]
   },
   hrv_sessionA: {
@@ -112,10 +114,10 @@ export const DATASET_CONFIGS = {
     badgeClass: 'badge-purple',
     units: { f: 'Hz', t: 's' },
     guide: [
-      'Real Garmin wearable optical beat-to-beat PPG session (~7.1 min, 714 beats, mean HR 101 bpm).',
-      'Respiratory Sinus Arrhythmia (HF ~0.25 Hz) clearly resolved and modulated by LF (~0.10 Hz) vasomotor waves.',
-      'Unresolvable zone: frequencies below 3/T (< 0.007 Hz, VLF) are grey-hatched because record duration is under 15 minutes.',
-      'Time-domain validation: RMSSD 24.3 ms, SDNN 42.7 ms.'
+      'Real Garmin wearable session (~7.1 min, 718 recovered beats, median HR 102 bpm; beat-count error 0.51%).',
+      'Carrier energy is LF-dominant (43.8%; marginal peak ≈ 0.14 Hz), then HF (30.4%).',
+      'About a fifth of the energy sits in bins below 3/T (< 0.007 Hz), grey-hatched as unresolvable in a 7-min record.',
+      'Time domain: RMSSD 18.3 ms, SDNN 36.6 ms, pNN50 1.5%.'
     ]
   },
   hrv_sessionB: {
@@ -127,25 +129,25 @@ export const DATASET_CONFIGS = {
     badgeClass: 'badge-purple',
     units: { f: 'Hz', t: 's' },
     guide: [
-      'Second Garmin wearable recording (~7.4 min, 695 beats, median HR 94 bpm).',
-      'Elevated parasympathetic modulation visible in the High Frequency (HF 0.15-0.40 Hz) respiratory band.',
-      'VLF bins below 0.0068 Hz grey-hatched as below the 3-cycle resolvable bound (3/T).',
-      'Time-domain validation: RMSSD 26.8 ms, SDNN 48.2 ms.'
+      'Second Garmin wearable recording (~7.4 min, 694 recovered beats, median HR 94 bpm; beat-count error 0.37%).',
+      'Carrier energy is LF-dominant (47.5%), then HF (25.3%) — structure very similar to session A.',
+      'VLF bins below 0.0068 Hz are grey-hatched as below the 3-cycle resolvable bound (3/T).',
+      'Time domain: RMSSD 16.5 ms, SDNN 34.8 ms, pNN50 0.4%.'
     ]
   },
   hrv_synthetic: {
     id: 'hrv_synthetic',
     name: 'Synthetic HRV (K4 Benchmark)',
     filename: 'hrv_synthetic_cube.json',
-    glbModel: 'cube_synthetic.glb',
+    glbModel: null, // no Blender model is built for this benchmark
     badge: 'Synthetic HRV Benchmark (K4 Model: LF 0.1 Hz, HF 0.25 Hz)',
     badgeClass: 'badge-dim',
     units: { f: 'Hz', t: 's' },
     guide: [
       'Synthetic cardiac benchmark generated from dual respiratory and sympathetic oscillators.',
-      'Known LF carrier (0.10 Hz) and HF carrier (0.25 Hz) with slow autonomous AM modulation.',
-      'Enables exact validation of cross-frequency coupling recovery without noise artifacts.',
-      'Demonstrates ideal HHSA reconstruction on heart rate variability dynamics.'
+      'Known LF carrier (0.10 Hz) and HF carrier (0.25 Hz); carrier marginal peaks recovered at 0.094 and 0.257 Hz.',
+      'Its true AM rates (0.001–0.002 Hz) are below its own 3/T floor (0.005 Hz), so it cannot validate the AM axis.',
+      'Use it to check the carrier axis only.'
     ]
   }
 };
@@ -176,8 +178,10 @@ export class HhsaCube {
     this.maxVal = 0.001;
 
     // Populate tensor
-    if (rawData.H_b64) {
-      const decoded = decodeFloat16Base64(rawData.H_b64);
+    // Dense cube: 'H' is the T07 contract key (writing_plan.md 4.3); 'H_b64' kept for older files
+    const denseB64 = rawData.H || rawData.H_b64;
+    if (denseB64) {
+      const decoded = decodeFloat16Base64(denseB64);
       this.tensor.set(decoded);
     } else if (rawData.H_sparse) {
       for (let i = 0; i < rawData.H_sparse.length; i++) {
@@ -297,8 +301,9 @@ export class ExplorerApp {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0x060a14);
 
-    const w = this.canvas3D.clientWidth || 800;
-    const h = this.canvas3D.clientHeight || 500;
+    const box = this.canvas3D.parentElement || this.canvas3D;
+    const w = box.clientWidth || 800;
+    const h = box.clientHeight || 500;
 
     this.camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 1000);
     this.setCameraPreset('oblique');
@@ -309,8 +314,8 @@ export class ExplorerApp {
       alpha: true,
       powerPreference: 'high-performance'
     });
-    this.renderer.setSize(w, h);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.setSize(w, h, false); // CSS sizes the canvas; only the drawing buffer is set here
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.enableDamping = true;
@@ -352,8 +357,9 @@ export class ExplorerApp {
 
     this.buildBoundingBox();
 
-    // Resize Handler
+    // Resize Handler: follow the canvas container (sidebar drawer, dock and window changes)
     window.addEventListener('resize', () => this.onResize());
+    if (window.ResizeObserver) new ResizeObserver(() => this.onResize()).observe(box);
 
     // Animation Loop
     this.animate = this.animate.bind(this);
@@ -406,11 +412,13 @@ export class ExplorerApp {
 
   onResize() {
     if (!this.canvas3D || !this.renderer || !this.camera) return;
-    const w = this.canvas3D.clientWidth;
-    const h = this.canvas3D.clientHeight;
+    const box = this.canvas3D.parentElement || this.canvas3D;
+    const w = box.clientWidth;
+    const h = box.clientHeight;
+    if (!w || !h) return;
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(w, h);
+    this.renderer.setSize(w, h, false);
   }
 
   animate() {
@@ -451,7 +459,9 @@ export class ExplorerApp {
       } catch (err) {
         res = await fetch(`../phase2/cube/${config.filename}`);
       }
+      if (!res.ok) throw new Error(`HTTP ${res.status} for ${config.filename}`);
       const json = await res.json();
+      if (this.currentDatasetId !== datasetId) return; // a later click superseded this load
       this.cube = new HhsaCube(json);
       this.cache[datasetId] = this.cube;
 
@@ -459,6 +469,13 @@ export class ExplorerApp {
       console.log(`Loaded and decoded ${datasetId} in ${(performance.now() - startTime).toFixed(1)} ms`);
     } catch (err) {
       console.error(`Failed to load dataset ${datasetId}:`, err);
+      const guideList = document.getElementById('dataset-guide-list');
+      if (guideList) {
+        const hint = location.protocol === 'file:'
+          ? '此頁以 file:// 開啟，瀏覽器會阻擋資料載入。請在 site/ 資料夾執行 python -m http.server 8000，再開 http://localhost:8000/explorer.html'
+          : `無法載入資料集 (${err.message})`;
+        guideList.innerHTML = `<li style="color:#f87171">${hint}</li>`;
+      }
     }
   }
 
@@ -482,6 +499,8 @@ export class ExplorerApp {
 
   loadGlbModel(modelName) {
     this.glbGroup.clear();
+    this.currentModel = modelName;
+    if (!modelName) return;
     const paths = [`./assets/models/${modelName}`, `../assets/models/${modelName}`];
     
     const tryLoad = (idx) => {
@@ -489,7 +508,17 @@ export class ExplorerApp {
       this.gltfLoader.load(
         paths[idx],
         (gltf) => {
-          gltf.scene.scale.set(5, 5, 5);
+          if (this.currentModel !== modelName) return; // dataset changed while loading
+          // Blender builds the cube in [0, 10]^3 with x = f_c, y = f_AM, z = t (Z-up); the glTF
+          // export turns that into (x, t, -f_AM). Rotate +90 deg about X to get back to this
+          // scene's (x = f_c, y = f_AM, z = t), then shift the corner to match the [-5, 5] box.
+          gltf.scene.rotation.x = Math.PI / 2;
+          gltf.scene.position.set(-5, -5, -5);
+          // The browser draws the energy cloud itself (threshold-aware); keep the Blender
+          // axes, band labels and ground-truth ridge, hide its static copies of the data.
+          gltf.scene.traverse((o) => {
+            if (/EnergyLobes|BandLandscape/.test(o.name)) o.visible = false;
+          });
           this.glbGroup.add(gltf.scene);
         },
         undefined,
@@ -662,7 +691,8 @@ export class ExplorerApp {
 
   buildBandPlanes() {
     this.bandsGroup.clear();
-    if (!this.cube || !this.bandPlanesVisible || !this.cube.bands) return;
+    this.bandsGroup.visible = this.bandPlanesVisible;
+    if (!this.cube || !this.cube.bands) return;
 
     const nFc = this.cube.nFc;
     const colors = [0x4dd9cf, 0x8b5cf6, 0xf4a261, 0x22c55e, 0xef4444];
@@ -995,7 +1025,7 @@ export class ExplorerApp {
     if (playBtn) {
       playBtn.addEventListener('click', () => {
         this.isPlaying = !this.isPlaying;
-        playBtn.innerHTML = this.isPlaying ? '❚❚ Pause' : '▶ Play';
+        playBtn.innerHTML = this.isPlaying ? '❚❚ 暫停' : '▶ 播放';
       });
     }
 

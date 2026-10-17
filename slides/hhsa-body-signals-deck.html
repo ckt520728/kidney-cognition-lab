@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HHSA Body Signals: Nested Rhythms Across Brain, Heart, and Metabolism</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧊</text></svg>">
   <meta name="description" content="20-slide interactive HTML slide deck on Holo-Hilbert Spectral Analysis (HHSA) across brain, heart, and metabolic body signals. Built following the SOIL framework.">
 
   <!-- Google Fonts -->
@@ -791,7 +792,7 @@
 
     <!-- Top Deck Header -->
     <header class="deck-header">
-      <a href="../site/index.html" class="deck-brand">
+      <a href="../hhsa-3d/index.html" class="deck-brand">
         <span class="deck-brand-pill">HHSA 3-D</span>
         <div class="deck-brand-text">
           <span>Kidney &amp; Cognition Lab</span>
@@ -811,7 +812,7 @@
         <button id="btn-fullscreen-toggle" class="btn-icon" title="Toggle Fullscreen [F]">
           <span>⛶ Fullscreen</span>
         </button>
-        <a href="../site/explorer.html" class="btn-icon" title="Open Full 3-D Interactive Web Explorer">
+        <a href="../hhsa-3d/explorer.html" class="btn-icon" title="Open Full 3-D Interactive Web Explorer">
           <span>🚀 3-D Web Explorer ↗</span>
         </a>
       </div>
@@ -963,7 +964,7 @@
             </div>
 
             <div class="slide-figure-container">
-              <img src="../paper/figures/F1_concept_cube.png" data-img="F1_concept_cube.png" class="slide-img" alt="Nested Oscillation vs 3D Cube Concept" onerror="this.onerror=null; this.src='../hhsa-3d/assets/img/' + this.dataset.img;">
+              <img src="../hhsa-3d/assets/img/F1_concept_cube.png" data-img="F1_concept_cube.png" class="slide-img" alt="Nested Oscillation vs 3D Cube Concept" onerror="this.onerror=null; this.src='../hhsa-3d/assets/img/' + this.dataset.img;">
               <div class="slide-img-caption">Figure F1: 1-D collapsing vs. 3-D Holo-Hilbert expansion (t, f_carrier, f_AM).</div>
             </div>
           </div>
@@ -1095,7 +1096,7 @@
             </div>
 
             <div class="slide-figure-container">
-              <img src="../paper/figures/F2_hhsa_pipeline.png" data-img="F2_hhsa_pipeline.png" class="slide-img" alt="HHSA Pipeline Schematic" onerror="this.onerror=null; this.src='../hhsa-3d/assets/img/' + this.dataset.img;">
+              <img src="../hhsa-3d/assets/img/F2_hhsa_pipeline.png" data-img="F2_hhsa_pipeline.png" class="slide-img" alt="HHSA Pipeline Schematic" onerror="this.onerror=null; this.src='../hhsa-3d/assets/img/' + this.dataset.img;">
               <div class="slide-img-caption">Figure F2: Two-layer sifting pipeline mapping raw signal to the 3-D Holo-Hilbert continuum.</div>
             </div>
           </div>
@@ -1243,14 +1244,14 @@
               <canvas id="slide8-canvas"></canvas>
               <div class="webgl-hud">
                 <span>Dataset: <strong>Synthetic Ground Truth</strong></span>
-                <span>Carrier Peak: <strong>f_c &asymp; 0.50 Hz</strong> (2.0 s)</span>
-                <span>Modulation Peak: <strong>f_AM &asymp; 0.05 Hz</strong> (20.0 s)</span>
-                <span>Recovery Accuracy: <strong>100% within 1 bin</strong></span>
+                <span>Carrier: <strong>f_c(t) 0.35&ndash;0.65 Hz</strong></span>
+                <span>Modulation: <strong>f_AM(t) 0.03&ndash;0.07 Hz</strong></span>
+                <span>Recovery: <strong>25 / 30 windows (83.3%) within 1 bin</strong></span>
               </div>
               <div class="webgl-controls-overlay">
                 <button id="btn-webgl-autorotate" class="btn-webgl">⏸ Pause</button>
                 <button id="btn-webgl-reset" class="btn-webgl">↺ Reset Camera</button>
-                <a href="../site/explorer.html?dataset=synthetic" target="_blank" class="btn-webgl" style="text-decoration:none;">Fullscreen App ↗</a>
+                <a href="../hhsa-3d/explorer.html?dataset=synthetic" target="_blank" class="btn-webgl" style="text-decoration:none;">Fullscreen App ↗</a>
               </div>
             </div>
 
@@ -1258,16 +1259,16 @@
               <div class="card-block">
                 <div class="card-block-title">Synthetic Specification</div>
                 <p style="font-size:13px;">Benchmark equation evaluated at 4 Hz over 300 seconds:</p>
-                <div class="formula-block" style="font-size:11.5px;">x(t) = [1 + 0.7 cos(2&pi; 0.05 t)] &middot; cos(2&pi; 0.50 t)</div>
-                <p style="font-size:12.5px;">Known ground truth: f<sub>c</sub> = 0.50 Hz, f<sub>AM</sub> = 0.05 Hz.</p>
+                <div class="formula-block" style="font-size:11.5px;">x(t) = [1 + 0.7 cos &phi;<sub>AM</sub>(t)] &middot; cos &phi;<sub>c</sub>(t)</div>
+                <p style="font-size:12.5px;">Known ground truth: f<sub>c</sub>(t) = 0.50 + 0.15 cos(2&pi;t/300) Hz, f<sub>AM</sub>(t) = 0.05 + 0.02 sin(2&pi;t/300) Hz.</p>
               </div>
 
               <div class="card-block">
                 <div class="card-block-title">Verification Results</div>
                 <ul style="font-size:12.5px;">
-                  <li><strong>Recovery:</strong> 30 / 30 windows within 1 bin (100.0% pass rate).</li>
-                  <li><strong>Admissibility:</strong> f<sub>AM</sub> (0.05 Hz) &lt; f<sub>c</sub> (0.50 Hz) satisfied.</li>
-                  <li><strong>Projection Error:</strong> &lt; 10<sup>-6</sup> relative error.</li>
+                  <li><strong>Recovery:</strong> 25 / 30 windows within 1 bin (83.3%; target 90% not met). All 5 misses are AM-axis underestimates, 3 at the record edges.</li>
+                  <li><strong>Admissibility:</strong> 1.9% of cube energy leaks to f<sub>AM</sub> &ge; f<sub>c</sub> (baseline for real data).</li>
+                  <li><strong>Projection consistency:</strong> &asymp; 10<sup>-16</sup> (holds by construction).</li>
                 </ul>
               </div>
 
@@ -1282,7 +1283,7 @@
 
         <!-- Speaker Notes -->
         <div class="notes-content" style="display:none;" data-word-count="110">
-          Here on slide eight, we examine our synthetic ground truth benchmark embedded directly in WebGL. We synthesized an explicit test signal where a point five zero Hertz carrier wave is modulated by a point zero five Hertz amplitude rhythm. Our automated Python pipeline extracted the Holo-Hilbert cube and successfully recovered both carrier and modulation coordinates within a single grid bin across one hundred percent of thirty evaluated time windows. You can rotate this 3-D volume in real time using your mouse or touch gestures, inspect the energy ridge, or navigate to our dedicated interactive web explorer to explore the slices and band planes in full detail.
+          Here on slide eight, we examine our synthetic ground truth benchmark embedded directly in WebGL. We synthesized a test signal whose carrier drifts between point three five and point six five Hertz while its amplitude rhythm drifts between point zero three and point zero seven Hertz. The pipeline recovered both coordinates within one grid bin in twenty-five of thirty windows, eighty-three percent, short of our ninety percent target. Every miss underestimated the modulation frequency, mostly at the edges of the record: the classic EMD end effect, and the reason to validate before interpreting real data. You can rotate this 3-D volume in real time using your mouse or touch gestures, inspect the energy ridge, or navigate to our dedicated interactive web explorer to explore the slices and band planes in full detail.
         </div>
       </section>
 
@@ -1324,7 +1325,7 @@
             </div>
 
             <div class="slide-figure-container">
-              <img src="../paper/figures/F7_evidence_map.png" data-img="F7_evidence_map.png" class="slide-img" alt="Evidence Map Across Systems" onerror="this.onerror=null; this.src='../hhsa-3d/assets/img/' + this.dataset.img;">
+              <img src="../hhsa-3d/assets/img/F7_evidence_map.png" data-img="F7_evidence_map.png" class="slide-img" alt="Evidence Map Across Systems" onerror="this.onerror=null; this.src='../hhsa-3d/assets/img/' + this.dataset.img;">
               <div class="slide-img-caption">Figure F7: Evidence map cross-tabulating physiological domain vs. decomposition method class.</div>
             </div>
           </div>
@@ -1565,15 +1566,15 @@
 
               <div class="card-block">
                 <div class="card-block-title">What the 3-D Holo-Hilbert Cube Shows</div>
-                <p style="font-size:13px;">Prominent energy ridge at carrier f<sub>c</sub> &asymp; 0.042 c/h (circadian, 24 h period) acting as an amplitude envelope modulating ultradian and meal-related oscillations (f<sub>AM</sub> 0.25–0.50 c/h).</p>
+                <p style="font-size:13px;">Carrier energy: Circadian 28.5%, Ultradian 18.5%, Meal-related 16.3%, Postprandial 23.6%, Fast 13.0%. For Ultradian, Meal-related and Postprandial carriers the strongest AM band is Circadian (72.9%, 49.0%, 33.7%).</p>
                 <div class="formula-block" style="font-size:12px;">
-                  Slices prove postprandial excursions are strictly phase-locked to circadian amplitude crests.
+                  Descriptive, n = 1: consistent with day-scale gating of faster swings. 19.8% of energy sits at f<sub>AM</sub> &ge; f<sub>c</sub> and must be masked.
                 </div>
               </div>
             </div>
 
             <div class="slide-figure-container">
-              <img src="../paper/figures/F5_cgm_cube_projections.png" data-img="F5_cgm_cube_projections.png" class="slide-img" alt="CGM Cube and Projections" onerror="this.onerror=null; this.src='../hhsa-3d/assets/img/' + this.dataset.img;">
+              <img src="../hhsa-3d/assets/img/F5_cgm_cube_projections.png" data-img="F5_cgm_cube_projections.png" class="slide-img" alt="CGM Cube and Projections" onerror="this.onerror=null; this.src='../hhsa-3d/assets/img/' + this.dataset.img;">
               <div class="slide-img-caption">Figure F5: CGM 3-D Holo-Hilbert cube and its three marginal projections S(t,f), C(fc,fam), M(t,fam).</div>
             </div>
           </div>
@@ -1581,7 +1582,7 @@
 
         <!-- Speaker Notes -->
         <div class="notes-content" style="display:none;" data-word-count="113">
-          Slide thirteen illustrates our empirical continuous glucose monitoring cube from a de-identified individual recorded over thirteen continuous days, comprising three thousand seven hundred forty-four samples at five-minute intervals. The Nyquist frequency is six cycles per hour. Standard consensus statistics reveal a mean glucose of eight point zero eight millimoles per liter, coefficient of variation of thirty-six point eight percent, and a time in range of sixty-one point seven percent. In the resulting Holo-Hilbert spectrum, we observe a pronounced energy ridge where the circadian carrier, between point zero four and point one two cycles per hour, systematically modulates the amplitude of postprandial fluctuations between point two five and point five zero cycles per hour.
+          Slide thirteen illustrates our empirical continuous glucose monitoring cube from a de-identified individual recorded over thirteen continuous days, comprising three thousand seven hundred forty-four samples at five-minute intervals. The Nyquist frequency is six cycles per hour. Standard consensus statistics reveal a mean glucose of eight point zero eight millimoles per liter, coefficient of variation of thirty-six point eight percent, and a time in range of sixty-one point seven percent. In the Holo-Hilbert cube, carrier energy is spread across all five bands, and for the ultradian, meal-related and postprandial carriers the strongest modulation band is the circadian one. That is a descriptive observation for one person, and about a fifth of the energy falls in the inadmissible zone, so it has to be masked before any band metric is computed.
         </div>
       </section>
 
@@ -1624,32 +1625,32 @@
                     </tr>
                     <tr>
                       <td><strong>Recovered Beats</strong></td>
-                      <td>714 beats</td>
-                      <td>695 beats</td>
+                      <td>718 beats</td>
+                      <td>694 beats</td>
                       <td>Within &plusmn;2% expected</td>
                     </tr>
                     <tr>
                       <td><strong>Count Error %</strong></td>
-                      <td><span style="color:var(--green); font-weight:700;">0.081%</span></td>
-                      <td><span style="color:var(--green); font-weight:700;">0.225%</span></td>
+                      <td><span style="color:var(--green); font-weight:700;">0.51%</span></td>
+                      <td><span style="color:var(--green); font-weight:700;">0.37%</span></td>
                       <td>&le; 2.0% (PASS)</td>
                     </tr>
                     <tr>
                       <td><strong>MeanNN / Median HR</strong></td>
-                      <td>594.5 ms / 101 bpm</td>
-                      <td>639.1 ms / 94 bpm</td>
+                      <td>591.0 ms / 102 bpm</td>
+                      <td>640.7 ms / 94 bpm</td>
                       <td>Standard physiological</td>
                     </tr>
                     <tr>
                       <td><strong>RMSSD / SDNN</strong></td>
-                      <td>24.3 ms / 42.7 ms</td>
-                      <td>26.8 ms / 48.2 ms</td>
-                      <td>Vagal parasympathetic</td>
+                      <td>18.3 ms / 36.6 ms</td>
+                      <td>16.5 ms / 34.8 ms</td>
+                      <td>Same-method comparison only</td>
                     </tr>
                     <tr>
                       <td><strong>pNN50 %</strong></td>
-                      <td>4.82%</td>
-                      <td>6.18%</td>
+                      <td>1.54%</td>
+                      <td>0.43%</td>
                       <td>Beat-to-beat variance</td>
                     </tr>
                     <tr>
@@ -1663,12 +1664,12 @@
               </div>
 
               <div class="card-block" style="padding:12px 18px;">
-                <p style="font-size:13px;"><strong>Methodological Discipline:</strong> Bins below 3/T Hz are grey-hatched in both cubes, preventing over-interpretation of VLF power from short 7-minute wearable snapshots.</p>
+                <p style="font-size:13px;"><strong>Methodological Discipline:</strong> Bins below 3/T Hz are grey-hatched in both cubes, preventing over-interpretation of VLF power from short 7-minute wearable snapshots. Carrier energy is LF-dominant in both sessions (43.8% / 47.5%), HF second (30.4% / 25.3%); about a fifth sits below 3/T.</p>
               </div>
             </div>
 
             <div class="slide-figure-container">
-              <img src="../paper/figures/F6_garmin_hrv_sessions.png" data-img="F6_garmin_hrv_sessions.png" class="slide-img" alt="Garmin HRV Cubes Sessions A and B" onerror="this.onerror=null; this.src='../hhsa-3d/assets/img/' + this.dataset.img;">
+              <img src="../hhsa-3d/assets/img/F6_garmin_hrv_sessions.png" data-img="F6_garmin_hrv_sessions.png" class="slide-img" alt="Garmin HRV Cubes Sessions A and B" onerror="this.onerror=null; this.src='../hhsa-3d/assets/img/' + this.dataset.img;">
               <div class="slide-img-caption">Figure F6: Garmin wearable HRV cubes (Sessions A and B) with 3/T greyed unresolvable zones.</div>
             </div>
           </div>
@@ -1676,7 +1677,7 @@
 
         <!-- Speaker Notes -->
         <div class="notes-content" style="display:none;" data-word-count="111">
-          On slide fourteen, we examine two real Garmin optical heart rate variability recordings from a single individual, each lasting approximately seven minutes. Using fifty Hertz heart rate integration, our preprocessing recovered seven hundred fourteen beats in Session A and six hundred ninety-five beats in Session B, with beat count errors under point two five percent against expected counts. Standard time-domain features showed an RMSSD of twenty-four point three milliseconds in Session A and twenty-six point eight milliseconds in Session B. The 3-D Holo-Hilbert cubes capture clear high-frequency respiratory carrier modulation, while the lowest three frequency bins below point zero zero seven Hertz are greyed out to reflect duration constraints.
+          On slide fourteen, we examine two real Garmin optical heart rate variability recordings from a single individual, each lasting approximately seven minutes. Using fifty Hertz heart rate integration, our preprocessing recovered seven hundred eighteen beats in Session A and six hundred ninety-four in Session B, within about half a percent of the expected counts. RMSSD was eighteen point three milliseconds in Session A and sixteen point five in Session B. In both cubes the carrier energy is dominated by the low-frequency band rather than the respiratory band, and about a fifth of the energy falls below three over T, greyed out because seven minutes cannot resolve it. The two sessions look very similar, so we do not read physiology into their differences.
         </div>
       </section>
 
@@ -2047,11 +2048,11 @@
             <div class="card-block" style="justify-content:center; gap:14px;">
               <div class="card-block-title" style="color:var(--purple-light); font-size:18px;">Project Ecosystem &amp; Links</div>
               
-              <a href="../site/explorer.html" target="_blank" class="btn-icon" style="padding:10px 14px; border-color:var(--teal); color:var(--teal-light);">
+              <a href="../hhsa-3d/explorer.html" target="_blank" class="btn-icon" style="padding:10px 14px; border-color:var(--teal); color:var(--teal-light);">
                 <span>🚀 3-D Holo-Hilbert Interactive Web Explorer</span>
               </a>
 
-              <a href="../site/index.html" target="_blank" class="btn-icon" style="padding:10px 14px; border-color:var(--border);">
+              <a href="../hhsa-3d/index.html" target="_blank" class="btn-icon" style="padding:10px 14px; border-color:var(--border);">
                 <span>🏠 Kidney &amp; Cognition Lab Project Portal</span>
               </a>
 
@@ -2348,51 +2349,40 @@
       const planeMesh = new THREE.Mesh(planeGeo, planeMat);
       scene.add(planeMesh);
 
-      // Synthetic Ground Truth Point Cloud
-      // Known signal: fc = 0.50 Hz, f_AM = 0.05 Hz across 30 time steps
-      const nPoints = 400;
-      const positions = new Float32Array(nPoints * 3);
-      const colors = new Float32Array(nPoints * 3);
-
-      const colorTeal = new THREE.Color(0x4dd9cf);
-      const colorPurple = new THREE.Color(0x8b5cf6);
-      const colorGold = new THREE.Color(0xf4a261);
-
-      let idx = 0;
-      for (let t = 0; t < 30; t++) {
-        const normT = (t / 29) * 1.8 - 0.9;
-        // Carrier ~0.50 Hz maps to normalized 0.15
-        // AM ~0.05 Hz maps to normalized -0.45
-        for (let k = 0; k < 12; k++) {
-          const jitterX = (Math.random() - 0.5) * 0.12;
-          const jitterY = (Math.random() - 0.5) * 0.08;
-          const jitterZ = (Math.random() - 0.5) * 0.05;
-
-          positions[idx * 3]     = 0.15 + jitterX; // fc axis
-          positions[idx * 3 + 1] = -0.45 + jitterY; // f_AM axis
-          positions[idx * 3 + 2] = normT + jitterZ; // time axis
-
-          const pColor = k === 0 ? colorGold : (k % 2 === 0 ? colorTeal : colorPurple);
-          colors[idx * 3]     = pColor.r;
-          colors[idx * 3 + 1] = pColor.g;
-          colors[idx * 3 + 2] = pColor.b;
-          idx++;
-        }
-      }
-
+      // Synthetic ground-truth cube computed by phase2/cube/run_cubes.py (strongest sparse cells).
+      // The deck sits next to site/ locally and next to hhsa-3d/ once staged in the homepage repo.
       const pointsGeo = new THREE.BufferGeometry();
-      pointsGeo.setAttribute('position', new THREE.BufferAttribute(positions.subarray(0, idx * 3), 3));
-      pointsGeo.setAttribute('color', new THREE.BufferAttribute(colors.subarray(0, idx * 3), 3));
-
-      const pointsMat = new THREE.PointsMaterial({
-        size: 0.07,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.85
-      });
-
+      const pointsMat = new THREE.PointsMaterial({ size: 0.06, vertexColors: true, transparent: true, opacity: 0.9 });
       pointsMesh = new THREE.Points(pointsGeo, pointsMat);
       scene.add(pointsMesh);
+
+      const cubeUrls = ['../hhsa-3d/assets/data/synthetic_cube.json'];
+      (async () => {
+        for (const url of cubeUrls) {
+          try {
+            const res = await fetch(url);
+            if (!res.ok) continue;
+            const cube = await res.json();
+            const [nT, nF, nW] = cube.shape;
+            const cells = cube.H_sparse.slice().sort((a, b) => b[3] - a[3]).slice(0, 900);
+            const eMax = cells.length ? cells[0][3] : 1;
+            const pos = new Float32Array(cells.length * 3);
+            const col = new Float32Array(cells.length * 3);
+            const lo = new THREE.Color(0x8b5cf6), hi = new THREE.Color(0xf4a261), c = new THREE.Color();
+            cells.forEach(([t, f, w, e], i) => {
+              pos[i * 3] = (f / (nF - 1)) * 1.8 - 0.9;     // carrier axis (log grid)
+              pos[i * 3 + 1] = (w / (nW - 1)) * 1.8 - 0.9; // AM axis (log grid)
+              pos[i * 3 + 2] = (t / (nT - 1)) * 1.8 - 0.9; // time axis
+              c.copy(lo).lerp(hi, Math.sqrt(e / eMax));
+              col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
+            });
+            pointsGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            pointsGeo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+            return;
+          } catch (err) { /* try the next location */ }
+        }
+        console.warn('Slide 8: synthetic_cube.json not found; serve the deck over http next to site/ or hhsa-3d/');
+      })();
 
       // WebGL Controls Bindings
       document.getElementById('btn-webgl-autorotate')?.addEventListener('click', (e) => {

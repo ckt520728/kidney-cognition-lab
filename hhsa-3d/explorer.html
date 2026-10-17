@@ -11,6 +11,27 @@
   
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧊</text></svg>">
+  <!-- Three.js r160 via import map: the addons import the bare specifier 'three' -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <!-- ES modules and fetch() are blocked on file:// - tell the reader instead of failing silently -->
+  <script>
+    if (location.protocol === 'file:') {
+      document.addEventListener('DOMContentLoaded', function () {
+        var d = document.createElement('div');
+        d.setAttribute('role', 'alert');
+        d.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;padding:14px 16px;border-radius:10px;background:#7f1d1d;color:#fff;font:14px/1.5 system-ui,sans-serif';
+        d.innerHTML = '3-D 互動功能需經由網頁伺服器開啟（file:// 會被瀏覽器阻擋）。請在 <code>site/</code> 資料夾執行 <code>python -m http.server 8000</code>，再開啟 <code>http://localhost:8000/</code>。或直接雙擊 <code>start_local_server.bat</code>。';
+        document.body.appendChild(d);
+      });
+    }
+  </script>
 </head>
 <body style="overflow: hidden;">
 

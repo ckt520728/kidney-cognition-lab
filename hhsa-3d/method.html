@@ -404,25 +404,25 @@
             <tr>
               <td><strong>網格極值還原率 (Recovery Rate)</strong></td>
               <td>$\ge 90\%$ 評估時間窗位於 $\pm 1$ 網格箱內</td>
-              <td><strong>100.0% (30 / 30 窗口精準落入)</strong></td>
-              <td><span class="badge badge-teal">PASS</span></td>
+              <td><strong>83.3% (25 / 30 窗口；5 個失誤皆在調幅軸，3 個位於紀錄首尾)</strong></td>
+              <td><span class="badge badge-red">FAIL</span></td>
             </tr>
             <tr>
               <td><strong>共調圖投影相對誤差 ($C(f_c, f_{\text{AM}})$ Error)</strong></td>
               <td>$< 10^{-6}$ 相對差異</td>
-              <td><strong>0.000000 (完全嚴格重現)</strong></td>
+              <td><strong>≈ 10<sup>-16</sup>（同一批樣本累加，構造上必然一致）</strong></td>
               <td><span class="badge badge-teal">PASS</span></td>
             </tr>
             <tr>
               <td><strong>時頻譜邊際投影誤差 ($S(t, f_c)$ Error)</strong></td>
               <td>$< 10^{-6}$ 相對差異</td>
-              <td><strong>0.000000 (無數值流失)</strong></td>
+              <td><strong>≈ 10<sup>-16</sup></strong></td>
               <td><span class="badge badge-teal">PASS</span></td>
             </tr>
             <tr>
               <td><strong>時間調幅譜邊際誤差 ($M(t, f_{\text{AM}})$ Error)</strong></td>
               <td>$< 10^{-6}$ 相對差異</td>
-              <td><strong>0.000000 (精確對應)</strong></td>
+              <td><strong>≈ 10<sup>-16</sup></strong></td>
               <td><span class="badge badge-teal">PASS</span></td>
             </tr>
           </tbody>

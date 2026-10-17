@@ -11,6 +11,27 @@
   
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+  <!-- Three.js r160 via import map: the addons import the bare specifier 'three' -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <!-- ES modules and fetch() are blocked on file:// - tell the reader instead of failing silently -->
+  <script>
+    if (location.protocol === 'file:') {
+      document.addEventListener('DOMContentLoaded', function () {
+        var d = document.createElement('div');
+        d.setAttribute('role', 'alert');
+        d.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;padding:14px 16px;border-radius:10px;background:#7f1d1d;color:#fff;font:14px/1.5 system-ui,sans-serif';
+        d.innerHTML = '3-D 互動功能需經由網頁伺服器開啟（file:// 會被瀏覽器阻擋）。請在 <code>site/</code> 資料夾執行 <code>python -m http.server 8000</code>，再開啟 <code>http://localhost:8000/</code>。或直接雙擊 <code>start_local_server.bat</code>。';
+        document.body.appendChild(d);
+      });
+    }
+  </script>
 </head>
 <body>
 
@@ -181,7 +202,7 @@
             <td><span class="badge badge-gold">derived 自主衍生</span></td>
             <td>經由開源演算法在開源或去識別資料集上實際運算之可重現成果。</td>
             <td>
-              合成 AM-FM 訊號立方體達到 100% 座標精準回收；13 天 CGM 去識別資料成功分離 Circadian (24 h)、Ultradian (8 h) 與 Meal (3 h) 之多層級三維能量塊；Garmin HRV 實測立方體準確分離呼吸竇性心律不整與血管舒縮調幅。
+              合成 AM-FM 訊號：30 個時間窗中 25 個 (83.3%) 在 ±1 格內回收真值，失誤集中於紀錄邊界的調幅軸；13 天 CGM：載波能量分布於五個生理頻帶，較快波動的主要調幅帶為 Circadian；Garmin HRV：載波以 LF 為主、約五分之一能量低於 3/T 不可解析。
             </td>
           </tr>
           <tr>
@@ -238,10 +259,10 @@
           <span class="badge badge-purple">~7 min 穿戴紀錄</span>
         </div>
         <p class="card-text">
-          高精準 PPG 逐拍間期序列 (714 beats)。解析度邊界 &lt; 0.007 Hz (VLF) 標註斜線盲區，嚴格遵守 3/T 物理極限。
+          穿戴式逐拍間期序列 (718 beats，計數誤差 0.51%)。解析度邊界 &lt; 0.007 Hz (VLF) 標註斜線盲區，嚴格遵守 3/T 物理極限。
         </p>
         <div class="card-meta">
-          <span>RMSSD 24.3 ms · VLF 灰階排除</span>
+          <span>RMSSD 18.3 ms · VLF 灰階排除</span>
           <a href="explorer.html?dataset=hrv_sessionA" class="btn btn-primary btn-sm">開啟立方體 ↗</a>
         </div>
       </div>
@@ -252,10 +273,10 @@
           <span class="badge badge-purple">~7 min 穿戴紀錄</span>
         </div>
         <p class="card-text">
-          第二段獨立穿戴紀錄 (695 beats)。展示迷走神經張力上升與呼吸性竇性心律不整 (HF 0.25 Hz) 在三維空間中顯著增強之動態。
+          第二段獨立穿戴紀錄 (694 beats，計數誤差 0.37%)。載波–調幅結構與 Session A 非常相似；短紀錄的差異不作生理解讀。
         </p>
         <div class="card-meta">
-          <span>RMSSD 26.8 ms · 迷走調控對比</span>
+          <span>RMSSD 16.5 ms · 與 A 對照</span>
           <a href="explorer.html?dataset=hrv_sessionB" class="btn btn-primary btn-sm">開啟立方體 ↗</a>
         </div>
       </div>

@@ -148,20 +148,20 @@
         </p>
 
         <div style="background: var(--bg-card2); border: 1px solid var(--border); padding: 14px; border-radius: var(--radius-sm); margin: 16px 0; font-family: var(--font-mono); font-size: 13px; color: var(--teal);">
-          x(t) = [1 + 0.70 · cos(2π · 0.05 · t)] · cos(2π · 0.50 · t), &nbsp; t ∈ [0, 300 s], &nbsp; fs = 4.0 Hz (N = 1,200)
+          x(t) = [1 + 0.70 · cos φ<sub>AM</sub>(t)] · cos φ<sub>c</sub>(t), &nbsp; f<sub>c</sub>(t) = 0.50 + 0.15·cos(2πt/300), &nbsp; f<sub>AM</sub>(t) = 0.05 + 0.02·sin(2πt/300), &nbsp; t ∈ [0, 300 s], &nbsp; fs = 4.0 Hz (N = 1,200)
         </div>
 
         <ul style="color: var(--text-sec); font-size: 14px; margin-left: 20px; line-height: 1.7;">
-          <li><strong>真值載波頻率：</strong> $f_c = 0.50\text{ Hz}$（網格評估範圍：$0.35\text{--}0.65\text{ Hz}$）</li>
-          <li><strong>真值調幅頻率：</strong> $f_{\text{AM}} = 0.05\text{ Hz}$（網格評估範圍：$0.03\text{--}0.07\text{ Hz}$）</li>
-          <li><strong>品管驗證成果：</strong> 30 個移動時間評估窗中，100.0% (30/30) 均在 $\pm 1$ 個網格箱內精確命中能量極值；對應之三大正交投影 $C(f_c, f_{\text{AM}}), S(t, f_c), M(t, f_{\text{AM}})$ 相對誤差為 $0.000000$。</li>
+          <li><strong>真值載波頻率：</strong> 隨時間在 $0.35\text{--}0.65\text{ Hz}$ 之間變化</li>
+          <li><strong>真值調幅頻率：</strong> 隨時間在 $0.03\text{--}0.07\text{ Hz}$ 之間變化</li>
+          <li><strong>品管驗證成果：</strong> 30 個 10 秒時間窗中，25 個 (83.3%) 的能量極值落在真值 $\pm 1$ 個網格箱內，<strong>未達預先設定的 90% 目標</strong>。載波軸全部命中；5 個失誤都在調幅軸（低估 2–4 格），其中 3 個位於紀錄首尾 — 典型的 EMD 邊界效應。三大投影與立方體的一致性誤差約 $10^{-16}$（兩者由同一批樣本累加，屬構造上必然）；另有 1.9% 能量落在 $f_{\text{AM}} \ge f_c$ 的不容許區。</li>
         </ul>
 
         <div class="boundary-box">
           <div class="can-claim">
             <h4 style="color: var(--green); font-size: 14px; margin-bottom: 8px;">✅ 本示範證明之事實 (Can Claim)</h4>
             <p style="font-size: 13px; color: var(--text-sec);">
-              數學上證明 HHSA 之二階 EMD 與正規化希爾伯特變換能夠在無需預設帶通濾波器情況下，自適應且完全無串擾地將緊密耦合之載波 (0.50 Hz) 與慢包絡調幅 (0.05 Hz) 解耦到正確的三維空間坐標。
+              在已知真值的訊號上，本流程（EEMD + EMD、解析訊號包絡）能正確追蹤時變載波，並在紀錄中段大致追蹤時變調幅；同時具體展示了邊界效應會讓調幅估計偏低 — 這正是解讀真實資料前必須先做合成驗證的理由。
             </p>
           </div>
           <div class="cannot-claim">
@@ -310,7 +310,7 @@
           <div class="can-claim">
             <h4 style="color: var(--green); font-size: 14px; margin-bottom: 8px;">✅ 本示範證明之事實 (Can Claim)</h4>
             <p style="font-size: 13px; color: var(--text-sec);">
-              HHSA 成功在單一視覺體中同時捕捉長程晝夜節律（24 小時外包絡）如何動態調控急性進食震盪（2-4 小時載波）之振幅幅度；在國際連續血糖共識標準 (<a href="https://doi.org/10.1016/S2213-8587(23)00119-9" target="_blank" rel="noopener">Battelino et al., 2023</a>) 所關注之目標範圍時間 (TIR 61.7%) 之外，提供了前所未見的跨尺度振幅調變架構。
+              描述性觀察：載波能量分布於五個頻帶（Circadian 28.5%、Ultradian 18.5%、Meal-related 16.3%、Postprandial 23.6%、Fast metabolic 13.0%）；Ultradian、Meal-related 與 Postprandial 載波的主要調幅帶都是最慢的 Circadian 帶（分別占 72.9%、49.0%、33.7%），與「日節律調控較快血糖波動幅度」相容，但單一案例無法證明。另有 19.8% 能量落在 $f_{\text{AM}} \ge f_c$ 的不容許區，計算頻帶指標前應先遮罩；在國際連續血糖共識標準 (<a href="https://doi.org/10.1016/S2213-8587(23)00119-9" target="_blank" rel="noopener">Battelino et al., 2023</a>) 所關注之目標範圍時間 (TIR 61.7%) 之外，提供一張可檢視的載波–調幅分布圖。
             </p>
           </div>
           <div class="cannot-claim">
@@ -346,8 +346,8 @@
             <thead>
               <tr>
                 <th>分析維度 / 特徵項目</th>
-                <th>HRV Session A (安靜狀態)</th>
-                <th>HRV Session B (迷走神經重置)</th>
+                <th>HRV Session A</th>
+                <th>HRV Session B</th>
                 <th>品管標準與意義</th>
               </tr>
             </thead>
@@ -366,44 +366,44 @@
               </tr>
               <tr>
                 <td><strong>保留 / 剔除 IBI 數量</strong></td>
-                <td>21,223 保留 / 1 點剔除</td>
+                <td>20,530 保留 / 694 點剔除</td>
                 <td>22,232 保留 / 1 點剔除</td>
                 <td>異常間期過濾 (< 300 ms 或 > 2000 ms)</td>
               </tr>
               <tr>
                 <td><strong>還原心跳 vs 理論期望心跳</strong></td>
-                <td>714 跳 vs 714.58 期望</td>
-                <td>695 跳 vs 696.57 期望</td>
+                <td>718 跳 vs 721.65 期望</td>
+                <td>694 跳 vs 696.57 期望</td>
                 <td>積分觸發演算法精準重建</td>
               </tr>
               <tr>
                 <td><strong>心跳計數相對誤差 (Error %)</strong></td>
-                <td><strong>0.0812%</strong> <span class="qc-badge-pass">PASS ≤ 2%</span></td>
-                <td><strong>0.2254%</strong> <span class="qc-badge-pass">PASS ≤ 2%</span></td>
+                <td><strong>0.51%</strong> <span class="qc-badge-pass">PASS ≤ 2%</span></td>
+                <td><strong>0.37%</strong> <span class="qc-badge-pass">PASS ≤ 2%</span></td>
                 <td>嚴格滿足 |recovered - expected| / expected ≤ 2%</td>
               </tr>
               <tr>
                 <td><strong>平均正常心跳間隔 (MeanNN)</strong></td>
-                <td>594.52 ms (中位數 594.0 ms)</td>
-                <td>639.14 ms (中位數 638.0 ms)</td>
-                <td>Session B 基準心率較慢 (副交感神經優勢)</td>
+                <td>590.95 ms (中位數 589.8 ms)</td>
+                <td>640.71 ms (中位數 640.2 ms)</td>
+                <td>Session B 心率較慢（中位數 94 vs 102 bpm）</td>
               </tr>
               <tr>
                 <td><strong>間隔標準差 (SDNN)</strong></td>
-                <td>42.65 ms</td>
-                <td>48.21 ms</td>
+                <td>36.62 ms</td>
+                <td>34.79 ms</td>
                 <td>整體自主神經調節幅度</td>
               </tr>
               <tr>
                 <td><strong>相鄰間隔差均方根 (RMSSD)</strong></td>
-                <td>24.32 ms</td>
-                <td>26.84 ms</td>
-                <td>迷走神經副交感張力（Session B 較高）</td>
+                <td>18.34 ms</td>
+                <td>16.50 ms</td>
+                <td>短時（逐拍）變異；兩段皆偏低，Session B 略低</td>
               </tr>
               <tr>
                 <td><strong>大於 50ms 差值比例 (pNN50)</strong></td>
-                <td>4.82%</td>
-                <td>6.18%</td>
+                <td>1.54%</td>
+                <td>0.43%</td>
                 <td>副交感迷走神經瞬時調控活躍度</td>
               </tr>
               <tr>
@@ -425,7 +425,7 @@
           <div class="can-claim">
             <h4 style="color: var(--green); font-size: 14px; margin-bottom: 8px;">✅ 本示範證明之事實 (Can Claim)</h4>
             <p style="font-size: 13px; color: var(--text-sec);">
-              證實 HHSA 可在非平穩短時穿戴 PPG 訊號中，清晰分離出副交感呼吸性竇性心律不整 (HF 載波 0.20–0.35 Hz) 與血管舒縮邁爾波 (LF 調幅 0.05–0.12 Hz) 的動態耦合關係，且積分觸發演算法的心跳計數誤差嚴格低於 0.23%。
+              積分觸發演算法還原的心跳數與期望值相差 0.51%（A）與 0.37%（B），驗證的是心跳「數目」而非每一拍的時間。兩段紀錄的載波能量都以 LF 為主（A 43.8%、B 47.5%；載波邊際峰值約 0.14 Hz），HF 次之（30.4%、25.3%）；約五分之一能量落在 3/T 以下不可解析的頻箱，另約 10% 落在 $f_{\text{AM}} \ge f_c$ 不容許區。兩段的結構非常相似，短紀錄的慢調幅軸最不可信，因此不對 A、B 差異作生理解讀。
             </p>
           </div>
           <div class="cannot-claim">
@@ -455,7 +455,7 @@
           <div class="can-claim">
             <h4 style="color: var(--green); font-size: 14px; margin-bottom: 8px;">✅ 本示範證明之事實 (Can Claim)</h4>
             <p style="font-size: 13px; color: var(--text-sec);">
-              在已知自律神經參數的生理生成模型中，HHSA 能準確重現 LF 對 HF 的振幅調變深度，且各項時域統計指標（MeanNN, SDNN, RMSSD）均精確相符。
+              載波軸驗證：載波邊際的兩個局部峰值在 0.094 Hz 與 0.257 Hz，皆在真值（0.10、0.25 Hz）一格之內。但模型的真值調幅頻率（0.001–0.002 Hz）低於其本身 3/T 下限（0.005 Hz），所以<strong>此基準無法驗證調幅軸</strong>；需要調幅可解析的新基準。
             </p>
           </div>
           <div class="cannot-claim">
