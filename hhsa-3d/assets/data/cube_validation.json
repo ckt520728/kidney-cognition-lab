@@ -1,0 +1,98 @@
+{
+  "task_id": "T07-hhsa-cube",
+  "timestamp": "2026-10-17T21:11:26Z",
+  "criteria_checks": {
+    "synthetic_argmax_recovery": {
+      "recovery_rate_pct": 83.33333333333334,
+      "target_threshold_pct": 90.0,
+      "status": "FAIL"
+    },
+    "projection_consistency": {
+      "synthetic": {
+        "C_fw_rel_error": 2.2634589951564563e-16,
+        "C_fw_max_abs_error": 2.1316282072803006e-14,
+        "S_tf_binned_rel_error": 1.8716006173686213e-16,
+        "S_tf_binned_max_abs_error": 2.1316282072803006e-14,
+        "M_tw_binned_rel_error": 1.691581145722403e-16,
+        "M_tw_binned_max_abs_error": 1.4210854715202004e-14,
+        "consistency_pass": true
+      },
+      "cgm": {
+        "C_fw_rel_error": 2.51704410373583e-16,
+        "C_fw_max_abs_error": 4.263256414560601e-14,
+        "S_tf_binned_rel_error": 1.5184595974362512e-16,
+        "S_tf_binned_max_abs_error": 1.4210854715202004e-14,
+        "M_tw_binned_rel_error": 1.477466772989246e-16,
+        "M_tw_binned_max_abs_error": 7.105427357601002e-15,
+        "consistency_pass": true
+      },
+      "hrv_sessionA": {
+        "C_fw_rel_error": 4.2201783590175927e-16,
+        "C_fw_max_abs_error": 2.2737367544323206e-12,
+        "S_tf_binned_rel_error": 1.6964775966178093e-16,
+        "S_tf_binned_max_abs_error": 4.547473508864641e-13,
+        "M_tw_binned_rel_error": 2.233284901657912e-16,
+        "M_tw_binned_max_abs_error": 4.547473508864641e-13,
+        "consistency_pass": true
+      },
+      "hrv_sessionB": {
+        "C_fw_rel_error": 3.400890904510512e-16,
+        "C_fw_max_abs_error": 1.1368683772161603e-12,
+        "S_tf_binned_rel_error": 1.4013166757977796e-16,
+        "S_tf_binned_max_abs_error": 2.2737367544323206e-13,
+        "M_tw_binned_rel_error": 2.236328353079189e-16,
+        "M_tw_binned_max_abs_error": 3.410605131648481e-13,
+        "consistency_pass": true
+      },
+      "hrv_synthetic": {
+        "C_fw_rel_error": 5.31117025022047e-16,
+        "C_fw_max_abs_error": 9.094947017729282e-13,
+        "S_tf_binned_rel_error": 1.4603598869219923e-16,
+        "S_tf_binned_max_abs_error": 1.1368683772161603e-13,
+        "M_tw_binned_rel_error": 1.8381655336798777e-16,
+        "M_tw_binned_max_abs_error": 1.1368683772161603e-13,
+        "consistency_pass": true
+      },
+      "threshold_relative_error": 1e-06,
+      "status": "PASS"
+    },
+    "garmin_qc_beat_recovery": {
+      "sessionA": {
+        "session": "HRV session A",
+        "duration_seconds": 424.5,
+        "raw_samples": 21224,
+        "ibis_kept": 20530,
+        "ibis_rejected": 694,
+        "recovered_beats": 718,
+        "median_hr_bpm": 102.0,
+        "expected_beats": 721.65,
+        "beat_count_relative_error_pct": 0.5058,
+        "beat_count_acceptance_pass": true
+      },
+      "sessionB": {
+        "session": "HRV session B",
+        "duration_seconds": 444.62,
+        "raw_samples": 22233,
+        "ibis_kept": 22232,
+        "ibis_rejected": 1,
+        "recovered_beats": 694,
+        "median_hr_bpm": 94.0,
+        "expected_beats": 696.57,
+        "beat_count_relative_error_pct": 0.3689,
+        "beat_count_acceptance_pass": true
+      },
+      "threshold_error_pct": 2.0,
+      "status": "PASS"
+    },
+    "json_file_sizes": {
+      "synthetic_cube_mb": 0.41008472442626953,
+      "cgm_cube_mb": 1.2728166580200195,
+      "hrv_sessionA_cube_mb": 0.7523326873779297,
+      "hrv_sessionB_cube_mb": 0.760981559753418,
+      "hrv_synthetic_cube_mb": 0.827122688293457,
+      "max_allowed_mb": 4.0,
+      "status": "PASS"
+    }
+  },
+  "overall_status": "PASS"
+}

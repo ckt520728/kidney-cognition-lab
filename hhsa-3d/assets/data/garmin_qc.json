@@ -1,0 +1,66 @@
+{
+  "HRV session A": {
+    "qc": {
+      "session": "HRV session A",
+      "duration_seconds": 424.5,
+      "raw_samples": 21224,
+      "ibis_kept": 20530,
+      "ibis_rejected": 694,
+      "recovered_beats": 718,
+      "median_hr_bpm": 102.0,
+      "expected_beats": 721.65,
+      "beat_count_relative_error_pct": 0.5058,
+      "beat_count_acceptance_pass": true
+    },
+    "time_domain_features": {
+      "MeanNN_ms": 590.952,
+      "SDNN_ms": 36.616,
+      "RMSSD_ms": 18.336,
+      "SDSD_ms": 18.348,
+      "CVNN": 0.061962,
+      "CVSD": 0.031027,
+      "MedianNN_ms": 589.824,
+      "MadNN_ms": 22.298,
+      "MCVNN": 0.037805,
+      "IQRNN_ms": 43.957,
+      "MinNN_ms": 485.0,
+      "MaxNN_ms": 727.669,
+      "Prc20NN_ms": 562.641,
+      "Prc80NN_ms": 618.752,
+      "pNN50_pct": 1.536,
+      "pNN20_pct": 25.838
+    }
+  },
+  "HRV session B": {
+    "qc": {
+      "session": "HRV session B",
+      "duration_seconds": 444.62,
+      "raw_samples": 22233,
+      "ibis_kept": 22232,
+      "ibis_rejected": 1,
+      "recovered_beats": 694,
+      "median_hr_bpm": 94.0,
+      "expected_beats": 696.57,
+      "beat_count_relative_error_pct": 0.3689,
+      "beat_count_acceptance_pass": true
+    },
+    "time_domain_features": {
+      "MeanNN_ms": 640.708,
+      "SDNN_ms": 34.794,
+      "RMSSD_ms": 16.503,
+      "SDSD_ms": 16.515,
+      "CVNN": 0.054306,
+      "CVSD": 0.025758,
+      "MedianNN_ms": 640.196,
+      "MadNN_ms": 24.804,
+      "MCVNN": 0.038745,
+      "IQRNN_ms": 49.081,
+      "MinNN_ms": 537.272,
+      "MaxNN_ms": 732.67,
+      "Prc20NN_ms": 611.226,
+      "Prc80NN_ms": 671.385,
+      "pNN50_pct": 0.434,
+      "pNN20_pct": 21.821
+    }
+  }
+}

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>方法學 Primer: 全息希爾伯特頻譜分析 (HHSA) 五步解析 | Kidney & Cognition Lab</title>
+  <meta name="description" content="全息希爾伯特頻譜分析 (HHSA) 數學原理與五大步驟：從非線性訊號、第一層 EEMD 分解、包絡線解調、第二層調幅分解，到三維立體能量體 H(t, fc, fAM) 與投影邊界。">
+  
+  <!-- CSS Design System -->
+  <link rel="stylesheet" href="assets/css/site.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+
+  <!-- MathJax for Mathematical Formulae -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    .math-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin: 24px 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      background: var(--teal-dim);
+      color: var(--teal);
+      border: 1px solid var(--teal);
+      font-weight: 700;
+      font-size: 14px;
+      margin-right: 12px;
+    }
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .diagram-container {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+    .diagram-container svg {
+      max-width: 100%;
+      height: auto;
+    }
+    .param-pill {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      margin: 2px 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">H3</div>
+        <div class="brand-text">
+          <span class="brand-title">HHSA <span class="accent">3-D</span></span>
+          <span class="brand-subtitle">Kidney & Cognition Lab</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">首頁 Home</a></li>
+          <li><a href="explorer.html" class="nav-link">3-D 探索器 Explorer</a></li>
+          <li><a href="method.html" class="nav-link active">方法學 Method</a></li>
+          <li><a href="demos.html" class="nav-link">臨床示範 Demos</a></li>
+          <li><a href="library.html" class="nav-link">程式庫 Library</a></li>
+          <li><a href="links.html" class="nav-link">文獻庫 Publications</a></li>
+          <li><a href="about.html" class="nav-link">關於 About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="btn-theme-toggle" class="theme-toggle" title="Toggle Light/Dark Theme">☀️</button>
+        <button id="btn-mobile-nav" class="mobile-toggle" aria-label="Toggle Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="section" style="padding-bottom: 20px;">
+    <div style="max-width: 1000px; margin: 0 auto;">
+      <div style="margin-bottom: 12px;">
+        <span class="badge badge-teal">Rigorous Mathematical Formulation</span>
+        <span class="badge badge-gold">Two-Layer Adaptive Sifting</span>
+      </div>
+      <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 12px;">
+        全息希爾伯特頻譜分析 (HHSA) 方法學入門
+      </h1>
+      <p style="font-size: 16px; color: var(--text-sec); line-height: 1.7;">
+        生理訊號（腦電波、心率變異、血糖波動）具有本質上的<strong>非平穩性 (Non-stationarity)</strong> 與<strong>非線性 (Nonlinearity)</strong>。傳統傅立葉或小波變換依賴預先設定的基底函數，無法捕捉跨頻率調幅。全息希爾伯特頻譜 (Holo-Hilbert Spectral Analysis, HHSA; <a href="https://doi.org/10.1098/rsta.2015.0206" target="_blank" rel="noopener">Huang et al., 2016</a>) 透過<strong>二階經驗模態分解</strong>，建立同時解析載波頻率、調幅頻率與時間的三維全息能量體。
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 1: Classical Tools vs HHSA -->
+  <section class="section" style="padding-top: 0;">
+    <div style="max-width: 1000px; margin: 0 auto;">
+      <h2 style="font-size: 24px; margin-bottom: 16px; color: var(--teal-light);">
+        1. 傳統時頻分析的理論局限與 HHSA 之突破
+      </h2>
+      
+      <p style="color: var(--text-sec); margin-bottom: 20px;">
+        傳統訊號處理工具在分析人體複合震盪時面臨根本性的假設衝突：
+      </p>
+
+      <div class="comparison-grid">
+        <div class="card">
+          <h3 class="card-title" style="color: var(--red); font-size: 16px;">❌ 傅立葉變換 (FFT)</h3>
+          <p class="card-text" style="font-size: 13px;">
+            假設訊號在整個時間區間內由嚴格平穩的正弦波線性疊加而成。當訊號存在頻率調變 (FM) 或振幅調變 (AM) 時，FFT 會產生無窮的虛假諧波 (Spurious Harmonics)，完全抹煞了非平穩的動態特徵。
+          </p>
+          <div class="card-meta"><span>無時間解析度</span><span>無調幅維度</span></div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title" style="color: var(--gold); font-size: 16px;">⚠️ 短時傅立葉 / 小波 (STFT / CWT)</h3>
+          <p class="card-text" style="font-size: 13px;">
+            受限於海森堡-加博不確定性原理 ($\Delta t \cdot \Delta f \ge \frac{1}{4\pi}$)，窗寬越窄頻率越模糊。更致命的是，Morlet 等預設母小波強加正弦波形於高度不對稱的人體脈衝上。
+          </p>
+          <div class="card-meta"><span>測不準折衷</span><span>預設幾何形狀</span></div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title" style="color: var(--purple); font-size: 16px;">⚠️ 相位-振幅耦合 (PAC / Bispectrum)</h3>
+          <p class="card-text" style="font-size: 13px;">
+            傳統 PAC (Canolty & Knight) 僅給出單一純量指數或頻段交叉調幅圖，需預先帶通濾波，易受波形不對稱導致的偽耦合污染；雙譜 (Bispectrum) 則受限於三階統計量，難以追蹤隨時間變異的瞬時包絡。
+          </p>
+          <div class="card-meta"><span>濾波頻寬偏差</span><span>無法逐點定位</span></div>
+        </div>
+
+        <div class="card" style="border-color: var(--teal); background: rgba(77,217,207,0.05);">
+          <h3 class="card-title" style="color: var(--teal); font-size: 16px;">✅ 全息希爾伯特頻譜 (HHSA)</h3>
+          <p class="card-text" style="font-size: 13px;">
+            以完全數據驅動 (Data-driven) 的雙層自適應篩選，逐點分離物理載波 $f_c(t)$ 與調節包絡 $f_{\text{AM}}(t)$，直接建構三維能量體 $H(t, f_c, f_{\text{AM}})$，無窗長妥協，且滿足因果律與解析度極限。
+          </p>
+          <div class="card-meta"><span>自適應雙層</span><span>三維全息分解</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Five Steps of HHSA -->
+  <section class="section" style="border-top: 1px solid var(--border);">
+    <div style="max-width: 1000px; margin: 0 auto;">
+      <h2 style="font-size: 24px; margin-bottom: 20px; color: var(--teal-light);">
+        2. 全息希爾伯特頻譜的五大核心運算步驟
+      </h2>
+
+      <!-- Pipeline Embedded Image & Schematic -->
+      <div class="diagram-container">
+        <img src="assets/img/F2_hhsa_pipeline.png" alt="HHSA Five-Step Pipeline Architecture" style="max-height: 280px; width: auto; border-radius: var(--radius-sm);" onerror="this.style.display='none'; document.getElementById('pipeline-svg-fallback').style.display='block';">
+        
+        <!-- SVG Fallback Schematic -->
+        <div id="pipeline-svg-fallback" style="display:none;">
+          <svg viewBox="0 0 900 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="900" height="240" rx="8" fill="#111d3c"/>
+            <!-- Step 1 -->
+            <rect x="20" y="40" width="140" height="150" rx="6" fill="#162248" stroke="#4dd9cf" stroke-width="1.5"/>
+            <text x="90" y="70" fill="#4dd9cf" font-weight="700" font-size="14" text-anchor="middle">Step 1: 原始訊號</text>
+            <text x="90" y="100" fill="#8ba8c4" font-size="12" text-anchor="middle">x(t) 非線性時間序列</text>
+            <path d="M 40 140 Q 65 110, 90 140 T 140 140" stroke="#f4a261" stroke-width="2" fill="none"/>
+            <text x="90" y="170" fill="#4a6580" font-size="11" text-anchor="middle">EEG / HRV / CGM</text>
+            
+            <!-- Arrow 1-2 -->
+            <path d="M 165 115 L 190 115 M 185 110 L 190 115 L 185 120" stroke="#4dd9cf" stroke-width="2" stroke-linecap="round"/>
+
+            <!-- Step 2 -->
+            <rect x="195" y="40" width="150" height="150" rx="6" fill="#162248" stroke="#4dd9cf" stroke-width="1.5"/>
+            <text x="270" y="70" fill="#4dd9cf" font-weight="700" font-size="14" text-anchor="middle">Step 2: 第一層 EMD</text>
+            <text x="270" y="100" fill="#8ba8c4" font-size="12" text-anchor="middle">載波 IMF c_j(t)</text>
+            <text x="270" y="125" fill="#f4a261" font-size="11" text-anchor="middle">瞬時載波頻率 fc(t)</text>
+            <text x="270" y="165" fill="#4a6580" font-size="11" text-anchor="middle">EEMD / CEEMDAN</text>
+
+            <!-- Arrow 2-3 -->
+            <path d="M 350 115 L 375 115 M 370 110 L 375 115 L 370 120" stroke="#4dd9cf" stroke-width="2" stroke-linecap="round"/>
+
+            <!-- Step 3 -->
+            <rect x="380" y="40" width="150" height="150" rx="6" fill="#162248" stroke="#4dd9cf" stroke-width="1.5"/>
+            <text x="455" y="70" fill="#4dd9cf" font-weight="700" font-size="14" text-anchor="middle">Step 3: 包絡萃取</text>
+            <text x="455" y="100" fill="#8ba8c4" font-size="12" text-anchor="middle">振幅包絡 a_j(t)</text>
+            <text x="455" y="125" fill="#a78bfa" font-size="11" text-anchor="middle">正規化希爾伯特變換</text>
+            <text x="455" y="165" fill="#4a6580" font-size="11" text-anchor="middle">符合 Bedrosian 定理</text>
+
+            <!-- Arrow 3-4 -->
+            <path d="M 535 115 L 560 115 M 555 110 L 560 115 L 555 120" stroke="#4dd9cf" stroke-width="2" stroke-linecap="round"/>
+
+            <!-- Step 4 -->
+            <rect x="565" y="40" width="150" height="150" rx="6" fill="#162248" stroke="#4dd9cf" stroke-width="1.5"/>
+            <text x="640" y="70" fill="#4dd9cf" font-weight="700" font-size="14" text-anchor="middle">Step 4: 第二層 EMD</text>
+            <text x="640" y="100" fill="#8ba8c4" font-size="12" text-anchor="middle">調幅 IMF c_jk(t)</text>
+            <text x="640" y="125" fill="#f4a261" font-size="11" text-anchor="middle">調幅頻率 fAM(t)</text>
+            <text x="640" y="165" fill="#4a6580" font-size="11" text-anchor="middle">調幅深度 b_jk(t)</text>
+
+            <!-- Arrow 4-5 -->
+            <path d="M 720 115 L 745 115 M 740 110 L 745 115 L 740 120" stroke="#4dd9cf" stroke-width="2" stroke-linecap="round"/>
+
+            <!-- Step 5 -->
+            <rect x="750" y="40" width="130" height="150" rx="6" fill="#162248" stroke="#4dd9cf" stroke-width="1.5"/>
+            <text x="815" y="70" fill="#4dd9cf" font-weight="700" font-size="14" text-anchor="middle">Step 5: 3-D 立方體</text>
+            <text x="815" y="100" fill="#7ee8e2" font-size="12" text-anchor="middle">H(t, fc, fAM)</text>
+            <text x="815" y="125" fill="#8ba8c4" font-size="11" text-anchor="middle">S(t,f) · C(f,w) · M(t,w)</text>
+            <text x="815" y="165" fill="#f87171" font-size="11" text-anchor="middle">fAM &lt; fc 因果邊界</text>
+          </svg>
+        </div>
+        <p style="font-size: 12px; color: var(--text-dim); margin-top: 10px;">
+          圖 1：HHSA 雙層自適應篩選架構流程圖（引自 Huang et al., 2016 原理建構）。
+        </p>
+      </div>
+
+      <!-- Step 1 Detail -->
+      <div class="math-card">
+        <div style="display:flex; align-items:center; margin-bottom:12px;">
+          <span class="step-badge">1</span>
+          <h3 style="font-size: 18px; color: var(--text);">步驟一：原始非線性與非平穩生理輸入訊號 $x(t)$</h3>
+        </div>
+        <p style="color: var(--text-sec); margin-bottom: 12px;">
+          輸入時序資料 $x(t)$ 為連續記錄之生理訊號，如去識別連續血糖記錄 (CGM, 5 分鐘取樣)、穿戴式逐拍間期序列 (Garmin HRV BBI) 或多頻道腦電圖 (EEG)。此類訊號普遍包含緩慢漂移的基線與突發式的不規則波動。
+        </p>
+        <div style="background: var(--bg-card2); padding: 12px; border-radius: var(--radius-sm); font-size: 13px;">
+          <strong>資料前處理規範：</strong> 嚴格檢查異常斷點與偽影；對於穿戴間期資料，採用積分觸發法 (Integrate-and-Fire) 精確還原心跳時間點，不依賴有損之均勻重取樣插值。
+        </div>
+      </div>
+
+      <!-- Step 2 Detail -->
+      <div class="math-card">
+        <div style="display:flex; align-items:center; margin-bottom:12px;">
+          <span class="step-badge">2</span>
+          <h3 style="font-size: 18px; color: var(--text);">步驟二：第一層自適應篩選分離物理載波模態 $c_j(t)$ 與瞬時載波頻率 $f_c(t)$</h3>
+        </div>
+        <p style="color: var(--text-sec); margin-bottom: 12px;">
+          應用經驗模態分解 (EMD; <a href="https://doi.org/10.1098/rspa.1998.0193" target="_blank" rel="noopener">Huang et al., 1998</a>) 或其抗模態混疊延伸版（EEMD; <a href="https://doi.org/10.1142/S1793536909000047" target="_blank" rel="noopener">Wu & Huang, 2009</a>；CEEMDAN; <a href="https://doi.org/10.1109/ICASSP.2011.5947265" target="_blank" rel="noopener">Torres et al., 2011</a>；Masking EMD; <a href="https://doi.org/10.1109/ICASSP.2005.1416051" target="_blank" rel="noopener">Deering & Kaiser, 2005</a>），將 $x(t)$ 分解為 $J$ 個固有模態函數 (Intrinsic Mode Functions, IMFs)：
+        </p>
+        <div style="text-align: center; margin: 16px 0;">
+          $$x(t) = \sum_{j=1}^{J} c_j(t) + r(t)$$
+        </div>
+        <p style="color: var(--text-sec); margin-bottom: 12px;">
+          每個模態 $c_j(t)$ 必須嚴格滿足：（1）在整個數據集中，極值點數量與過零點數量最多相差一個；（2）由局部極大值與局部極小值樣條曲線所定義之上、下包絡線的局部平均值處處為零。
+        </p>
+        <p style="color: var(--text-sec);">
+          透過正規化希爾伯特變換 (Normalized Hilbert Transform; <a href="https://doi.org/10.1142/S1793536909000096" target="_blank" rel="noopener">Huang et al., 2009</a>)，求得單元調制之瞬時載波頻率：
+        </p>
+        <div style="text-align: center; margin: 16px 0;">
+          $$f_{c,j}(t) = \frac{1}{2\pi} \frac{d}{dt} \left[ \arctan \left( \frac{\mathcal{H}[c_j(t)]}{c_j(t)} \right) \right]$$
+        </div>
+      </div>
+
+      <!-- Step 3 Detail -->
+      <div class="math-card">
+        <div style="display:flex; align-items:center; margin-bottom:12px;">
+          <span class="step-badge">3</span>
+          <h3 style="font-size: 18px; color: var(--text);">步驟三：振幅包絡線萃取 $a_j(t)$ 與貝德羅西安定理約束</h3>
+        </div>
+        <p style="color: var(--text-sec); margin-bottom: 12px;">
+          每個載波 IMF 均可表示為隨時間變異的振幅包絡 $a_j(t)$ 與頻率調變載波之乘積：$c_j(t) = a_j(t) \cos \theta_j(t)$。包絡線可透過希爾伯特解析訊號求得：
+        </p>
+        <div style="text-align: center; margin: 16px 0;">
+          $$a_j(t) = \sqrt{c_j^2(t) + \mathcal{H}[c_j(t)]^2}$$
+        </div>
+        <div style="background: rgba(244,162,97,0.08); border-left: 3px solid var(--gold); padding: 12px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 13px;">
+          <strong>貝德羅西安定理 (Bedrosian Theorem) 物理條件：</strong> 希爾伯特乘積恆等式 $\mathcal{H}[a(t) \cos \theta(t)] = a(t) \mathcal{H}[\cos \theta(t)]$ 成立的充分必要條件為：包絡線 $a(t)$ 之頻譜必須嚴格位於載波 $\cos \theta(t)$ 頻譜之左側（即包絡頻率低於載波頻率）。此數學定理為 HHSA 設立了根本性的物理可實現邊界。
+        </div>
+      </div>
+
+      <!-- Step 4 Detail -->
+      <div class="math-card">
+        <div style="display:flex; align-items:center; margin-bottom:12px;">
+          <span class="step-badge">4</span>
+          <h3 style="font-size: 18px; color: var(--text);">步驟四：第二層自適應篩選解構調幅模態 $c_{j,k}(t)$ 與調幅頻率 $f_{\text{AM}}(t)$</h3>
+        </div>
+        <p style="color: var(--text-sec); margin-bottom: 12px;">
+          傳統方法將包絡線 $a_j(t)$ 視為緩慢的常數或僅計算其能量；HHSA 的關鍵創新在於對每一個載波包絡線 $a_j(t)$ 實施<strong>第二層 EMD 篩選</strong>：
+        </p>
+        <div style="text-align: center; margin: 16px 0;">
+          $$a_j(t) = \sum_{k=1}^{K_j} c_{j,k}(t) + r_j(t)$$
+        </div>
+        <p style="color: var(--text-sec); margin-bottom: 12px;">
+          對第二層調幅模態 $c_{j,k}(t)$ 再次執行希爾伯特變換，提取瞬時調幅頻率 $f_{\text{AM}, j, k}(t)$ 與第二層振幅（調幅深度）$b_{j,k}(t)$：
+        </p>
+        <div style="text-align: center; margin: 16px 0;">
+          $$c_{j,k}(t) = b_{j,k}(t) \cos \phi_{j,k}(t), \quad f_{\text{AM}, j, k}(t) = \frac{1}{2\pi} \frac{d\phi_{j,k}(t)}{dt}$$
+        </div>
+        <p style="color: var(--text-sec); font-size: 13px;">
+          透過雙層分解，原始時序被精確解構為雙重瞬時參數對：$[f_{c,j}(t), f_{\text{AM},j,k}(t)]$ 與對應之能量權重 $b_{j,k}^2(t)$。
+        </p>
+      </div>
+
+      <!-- Step 5 Detail -->
+      <div class="math-card">
+        <div style="display:flex; align-items:center; margin-bottom:12px;">
+          <span class="step-badge">5</span>
+          <h3 style="font-size: 18px; color: var(--text);">步驟五：合成三維全息立方體 $H(t, f_c, f_{\text{AM}})$ 與三大正交投影</h3>
+        </div>
+        <p style="color: var(--text-sec); margin-bottom: 12px;">
+          將所有時間點 $t$ 上各載波模態與調幅模態的能量匯總於離散的三維網格中，形成完整的全息希爾伯特頻譜：
+        </p>
+        <div style="text-align: center; margin: 16px 0;">
+          $$H(t, f_c, f_{\text{AM}}) = \sum_{j} \sum_{k} b_{j,k}^2(t) \, \delta\left(f_c - f_{c,j}(t)\right) \, \delta\left(f_{\text{AM}} - f_{\text{AM}, j, k}(t)\right)$$
+        </div>
+
+        <h4 style="font-size: 15px; margin: 20px 0 10px; color: var(--teal);">三大二維正交投影與邊界條件</h4>
+        <div class="comparison-grid">
+          <div style="background: var(--bg-card2); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+            <strong style="color: var(--teal);">1. 時頻投影 $S(t, f_c)$</strong>
+            <p style="font-size: 12px; color: var(--text-sec); margin-top: 6px;">
+              $$S(t, f_c) = \int H(t, f_c, f_{\text{AM}}) \, df_{\text{AM}}$$
+              邊際化調幅軸，還原傳統希爾伯特-黃時頻譜，觀察載波隨時間的演變。
+            </p>
+          </div>
+
+          <div style="background: var(--bg-card2); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+            <strong style="color: var(--purple-light);">2. 載波-調幅共調圖 $C(f_c, f_{\text{AM}})$</strong>
+            <p style="font-size: 12px; color: var(--text-sec); margin-top: 6px;">
+              $$C(f_c, f_{\text{AM}}) = \int H(t, f_c, f_{\text{AM}}) \, dt$$
+              邊際化時間軸，展現全紀錄中哪一個調幅慢節律在主控哪一個載波快節律。
+            </p>
+          </div>
+
+          <div style="background: var(--bg-card2); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+            <strong style="color: var(--gold);">3. 時間調幅譜 $M(t, f_{\text{AM}})$</strong>
+            <p style="font-size: 12px; color: var(--text-sec); margin-top: 6px;">
+              $$M(t, f_{\text{AM}}) = \int H(t, f_c, f_{\text{AM}}) \, df_c$$
+              邊際化載波軸，揭示全系統整體調幅強度與包絡節奏隨時間的動態起伏。
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div style="background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.3); padding: 12px; border-radius: var(--radius-sm); font-size: 13px;">
+            <strong style="color: #f87171;">🚫 物理可實現邊界 (Admissibility)</strong><br>
+            嚴格要求 $f_{\text{AM}}(t) < f_c(t)$。包絡震盪速度在物理上不可能快於載波自身。在三維立方體中，位於 $f_{\text{AM}} \ge f_c$ 區域之數值為數學偽影，探索器中提供遮罩即時剔除。
+          </div>
+          <div style="background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.3); padding: 12px; border-radius: var(--radius-sm); font-size: 13px;">
+            <strong style="color: var(--purple-light);">📐 有限長度可解析下限 (3/T Floor)</strong><br>
+            任何週期震盪在時間長度 $T$ 內至少需包含 3 個完整週期方能穩定閉合：$f \ge \frac{3}{T}$。在 ~7 分鐘的短時穿戴 HRV 紀錄中，$f < 0.007\text{ Hz}$ 之頻段在物理上無法解析，以灰色盲區醒目標註。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Synthetic AM-FM Benchmark -->
+  <section class="section" style="border-top: 1px solid var(--border); background: var(--bg-card);">
+    <div style="max-width: 1000px; margin: 0 auto;">
+      <h2 style="font-size: 24px; margin-bottom: 16px; color: var(--teal-light);">
+        3. 嚴謹演算法基準驗證：合成 AM-FM 訊號測試
+      </h2>
+      <p style="color: var(--text-sec); margin-bottom: 20px;">
+        為驗證本平台立方體演算法之精確度，依據經典基準 (<a href="https://doi.org/10.1038/s41598-019-48861-1" target="_blank" rel="noopener">Nguyen et al., 2019</a>; <a href="https://doi.org/10.1016/j.neuroimage.2021.118182" target="_blank" rel="noopener">Juan et al., 2021</a>) 設計具有已知解析解的合成測試訊號：
+      </p>
+
+      <div style="text-align: center; margin: 16px 0; background: var(--bg-card2); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+        $$x_{\text{synth}}(t) = [1 + 0.70 \cos(2\pi \cdot 0.05 \cdot t)] \cdot \cos(2\pi \cdot 0.50 \cdot t)$$
+        <div style="font-size: 13px; color: var(--text-sec); margin-top: 8px;">
+          取樣頻率 $f_s = 4.0\text{ Hz}$，時長 $T = 300\text{ s}$ ($N = 1,200\text{ 點}$)。已知載波頻率 $f_c = 0.50\text{ Hz}$，調幅頻率 $f_{\text{AM}} = 0.05\text{ Hz}$。
+        </div>
+      </div>
+
+      <div class="claims-table-wrap">
+        <table class="claims-table">
+          <thead>
+            <tr>
+              <th>驗證指標 (Validation Metric)</th>
+              <th>理論目標值</th>
+              <th>實際計算成果</th>
+              <th>判定 Verdict</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>網格極值還原率 (Recovery Rate)</strong></td>
+              <td>$\ge 90\%$ 評估時間窗位於 $\pm 1$ 網格箱內</td>
+              <td><strong>83.3% (25 / 30 窗口；5 個失誤皆在調幅軸，3 個位於紀錄首尾)</strong></td>
+              <td><span class="badge badge-red">FAIL</span></td>
+            </tr>
+            <tr>
+              <td><strong>共調圖投影相對誤差 ($C(f_c, f_{\text{AM}})$ Error)</strong></td>
+              <td>$< 10^{-6}$ 相對差異</td>
+              <td><strong>≈ 10<sup>-16</sup>（同一批樣本累加，構造上必然一致）</strong></td>
+              <td><span class="badge badge-teal">PASS</span></td>
+            </tr>
+            <tr>
+              <td><strong>時頻譜邊際投影誤差 ($S(t, f_c)$ Error)</strong></td>
+              <td>$< 10^{-6}$ 相對差異</td>
+              <td><strong>≈ 10<sup>-16</sup></strong></td>
+              <td><span class="badge badge-teal">PASS</span></td>
+            </tr>
+            <tr>
+              <td><strong>時間調幅譜邊際誤差 ($M(t, f_{\text{AM}})$ Error)</strong></td>
+              <td>$< 10^{-6}$ 相對差異</td>
+              <td><strong>≈ 10<sup>-16</sup></strong></td>
+              <td><span class="badge badge-teal">PASS</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top: 24px; text-align: center;">
+        <a href="explorer.html?dataset=synthetic" class="btn btn-primary">
+          <span>🚀 在 3-D 探索器中檢視此合成基準立方體</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="border-top: 1px solid var(--border); padding: 40px 24px; background: var(--bg-card2); text-align: center; font-size: 13px; color: var(--text-sec);">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; align-items: center;">
+      <div style="display: flex; gap: 18px; flex-wrap: wrap; justify-content: center;">
+        <a href="index.html">首頁</a>
+        <a href="explorer.html">3-D 探索器</a>
+        <a href="method.html">方法學</a>
+        <a href="demos.html">臨床示範</a>
+        <a href="library.html">開源程式庫</a>
+        <a href="links.html">文獻出版</a>
+        <a href="about.html">關於研究室</a>
+      </div>
+      <p>
+        © 2026 Kidney & Cognition Lab (ckt520728/kidney-cognition-lab). All rights reserved.
+      </p>
+      <p style="font-size: 11px; color: var(--text-dim); max-width: 800px;">
+        免責聲明：本網站內容及 3-D 全息希爾伯特頻譜探索器僅供學術研究、工程驗證與教學展示之用，非作為臨床診斷或醫療處方依據。去識別血糖實例經當事人書面知情同意授權使用；穿戴心率變異紀錄依受試者保護倫理原則處理。
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    // Theme toggle
+    const themeBtn = document.getElementById('btn-theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        themeBtn.textContent = next === 'light' ? '🌙' : '☀️';
+      });
+    }
+
+    // Mobile Menu Toggle
+    const mobileBtn = document.getElementById('btn-mobile-nav');
+    const nav = document.querySelector('.nav-links');
+    if (mobileBtn && nav) {
+      mobileBtn.addEventListener('click', () => {
+        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        nav.style.flexDirection = 'column';
+        nav.style.position = 'absolute';
+        nav.style.top = '64px';
+        nav.style.left = '0';
+        nav.style.right = '0';
+        nav.style.background = 'var(--bg-card)';
+        nav.style.padding = '16px';
+        nav.style.borderBottom = '1px solid var(--border)';
+      });
+    }
+  </script>
+</body>
+</html>

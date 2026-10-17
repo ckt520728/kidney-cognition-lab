@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>開源程式庫、論文庫與研究資源 | Library & Reproducibility | Kidney & Cognition Lab</title>
+  <meta name="description" content="全息希爾伯特頻譜 (HHSA) 演算法程式庫、同儕審查文獻庫、可重現 Python 腳本、實驗室部落格導覽與互動式分析產物。">
+  
+  <!-- CSS Design System -->
+  <link rel="stylesheet" href="assets/css/site.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+
+  <style>
+    .library-hero {
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-primary) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 24px;
+    }
+    .resource-section {
+      max-width: 1100px;
+      margin: 0 auto 48px;
+    }
+    .resource-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .resource-card:hover {
+      border-color: var(--teal);
+      transform: translateY(-2px);
+    }
+    .code-pill {
+      font-family: var(--font-mono);
+      background: rgba(77, 217, 207, 0.1);
+      color: var(--teal-light);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">H3</div>
+        <div class="brand-text">
+          <span class="brand-title">HHSA <span class="accent">3-D</span></span>
+          <span class="brand-subtitle">Kidney & Cognition Lab</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">首頁 Home</a></li>
+          <li><a href="explorer.html" class="nav-link">3-D 探索器 Explorer</a></li>
+          <li><a href="method.html" class="nav-link">方法學 Method</a></li>
+          <li><a href="demos.html" class="nav-link">臨床示範 Demos</a></li>
+          <li><a href="library.html" class="nav-link active">程式庫 Library</a></li>
+          <li><a href="links.html" class="nav-link">文獻庫 Publications</a></li>
+          <li><a href="about.html" class="nav-link">關於 About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="btn-theme-toggle" class="theme-toggle" title="Toggle Light/Dark Theme">☀️</button>
+        <button id="btn-mobile-nav" class="mobile-toggle" aria-label="Toggle Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <section class="library-hero">
+    <div style="max-width: 1100px; margin: 0 auto;">
+      <div style="margin-bottom: 12px;">
+        <span class="badge badge-teal">Open Science & Reproducibility</span>
+        <span class="badge badge-gold">Peer-Reviewed Papers & Code</span>
+      </div>
+      <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 14px;">
+        開源程式庫、研究產物與同儕審查文獻
+      </h1>
+      <p style="font-size: 16px; color: var(--text-sec); line-height: 1.7; max-width: 900px;">
+        Kidney & Cognition Lab 致力於實踐開放科學原則。本頁彙整朱國大醫師團隊已發表之同儕審查文獻、籌備中之系統回顧綜述架構、實驗室代表性主題專文、開源 Python 演算法實作核心，以及互動式分析研究產物。
+      </p>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="section">
+    
+    <!-- 1. Review Paper in Preparation -->
+    <div class="resource-section">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+        <h2 style="font-size: 22px; color: var(--teal-light);">1. 最新籌備中論文 (Manuscript in Preparation)</h2>
+        <span class="badge badge-gold">In Preparation</span>
+      </div>
+
+      <div class="resource-card" style="border-left: 4px solid var(--gold);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+          <div>
+            <span class="badge badge-dim" style="margin-bottom:6px;">Target Venue: Frontiers in Aging Neuroscience</span>
+            <h3 style="font-size: 18px; color: var(--text); font-weight: 600;">
+              Using Holo-Hilbert Spectral Analysis to Unravel Nested Amplitude Modulation in Brain, Autonomic, and Metabolic Body Signals: A Scoping Review and Methodological Blueprint
+            </h3>
+            <p style="font-size: 13px; color: var(--text-dim); margin-top: 4px;">
+              Kwo-Ta Chu, et al. (In preparation for <em>Frontiers in Aging Neuroscience</em>)
+            </p>
+          </div>
+          <span class="badge badge-purple">Executive Summary Only</span>
+        </div>
+
+        <p style="color: var(--text-sec); font-size: 14px; line-height: 1.7; margin-bottom: 16px;">
+          <strong>論文內容執行摘要 (Executive Summary)：</strong><br>
+          本論文為針對全息希爾伯特頻譜分析 (HHSA) 應用於人體生理訊號所進行之全面範圍綜述 (Scoping Review) 與方法學藍圖。文章整合了 130 篇經同儕審查之關鍵文獻，橫跨大腦神經震盪（阿茲海默症、巴金森氏症、憂鬱症 rTMS 療效標記與閉迴路 tACS）、心臟自律神經系統（穿戴式短時 HRV 之邁爾波與呼吸性竇性心律不整調幅）以及周邊代謝動態（連續血糖監測之多尺度晝夜節律外包絡與餐後爆發）。本文明確指出傳統傅立葉與小波工具因忽略振幅調變 (AM) 維度而導致之臨床資訊遺失，並提出標準化品管指引（包含 50 Hz 積分觸發心跳還原法與 3/T 有限長度可解析下限），為高齡神經科學之非侵入性多模態監測提供可重現之三維全息計算框架。
+        </p>
+
+        <div style="background: var(--bg-card2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 16px; font-size: 13px; color: var(--text-sec);">
+          <strong>公開政策說明：</strong> 依據學術發表規範，在同儕審查正式通過前，本站僅發布論文摘要與概念框架，<strong>不提供全文或 DOCX 稿件下載</strong>。隨附之公開簡報與中文深度導讀專文可於下方取得。
+        </div>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <!-- Repo layout: slides/; local Output folder layout: deck/ (data-alt, resolved by the script below) -->
+          <a href="../slides/hhsa-body-signals-deck.html" data-alt="../deck/HHSA_body_signals_deck.html" class="btn btn-primary btn-sm">
+            <span>🖥️ 開啟 20 頁 SOIL 學術簡報 (Interactive Slide Deck)</span>
+          </a>
+          <a href="../slides/hhsa-body-signals-deck.pptx" data-alt="../deck/HHSA_body_signals_deck.pptx" class="btn btn-secondary btn-sm" download>
+            <span>⬇️ 下載 PowerPoint 簡報 (PPTX)</span>
+          </a>
+          <a href="../blog/hhsa-body-signals-physiological-secrets.html" class="btn btn-secondary btn-sm">
+            <span>📖 閱讀繁體中文生理密碼深度導讀專文</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Dr. Chu's Published Work -->
+    <div class="resource-section">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+        <h2 style="font-size: 22px; color: var(--teal-light);">2. 朱國大醫師已發表之 HHSA 代表性論文</h2>
+        <span class="badge badge-teal">Peer-Reviewed Article</span>
+      </div>
+
+      <div class="resource-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+          <div>
+            <span class="badge badge-teal" style="margin-bottom:6px;">Frontiers in Aging Neuroscience (2023)</span>
+            <h3 style="font-size: 18px; color: var(--text); font-weight: 600;">
+              Revealing the dynamic nature of amplitude-modulated neural entrainment and cognitive impairment in Alzheimer's disease using Holo-Hilbert Spectral Analysis
+            </h3>
+            <p style="font-size: 13px; color: var(--text-dim); margin-top: 4px;">
+              Chu KT, Chang HC, Yang AC, Juan CH, Huang NE, Liang WK. <em>Frontiers in Aging Neuroscience</em>. 2023; 15:1195424.
+            </p>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <a href="https://doi.org/10.3389/fnagi.2023.1195424" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+              <span>DOI 連結 ↗</span>
+            </a>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/37674782/" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">
+              <span>PubMed (37674782) ↗</span>
+            </a>
+          </div>
+        </div>
+
+        <p style="color: var(--text-sec); font-size: 14px; line-height: 1.7; margin-bottom: 12px;">
+          <strong>核心研究貢獻：</strong><br>
+          本研究首次將 HHSA 技術應用於探討阿茲海默症 (AD) 及失憶型輕度認知障礙 (aMCI) 患者在視聽神經夾帶 (Neural Entrainment) 過程中的跨頻率振幅調變動態。研究發現，相較於健康對照組，aMCI 及輕度 AD 患者在額葉-頂葉皮質網絡中，調幅 Theta-Gamma 耦合能力顯著受損。此成果證實 HHSA 能有效偵測出傳統頻譜完全忽略的深層巢狀節律病理，為阿茲海默症超早期電生理診斷提供了劃時代之生物標記。
+        </p>
+
+        <div style="font-size: 12px; color: var(--text-dim);">
+          關聯附錄資源：包含方法學補充資料 (Supplement 2023) 與專題演講投影片分析，均以開放取用 (Open Access) DOI 形式永久索引。
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Laboratory Blog Articles (W2 - W5) -->
+    <div class="resource-section">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+        <h2 style="font-size: 22px; color: var(--teal-light);">3. 實驗室專題探討專文 (Laboratory Research Posts)</h2>
+        <span class="badge badge-purple">Lab Web Series W2–W5</span>
+      </div>
+
+      <div class="cards-grid">
+        <div class="card">
+          <div style="margin-bottom:8px;">
+            <span class="badge badge-teal">W2 · 2026-08-06</span>
+          </div>
+          <h3 class="card-title" style="font-size: 16px;">
+            <a href="https://ckt520728.github.io/kidney-cognition-lab/blog/hhsa-amplitude-modulation-closed-loop-tacs.html" target="_blank" rel="noopener">
+              藏在腦波底下的第二個節奏：調幅率、疾病標記，與閉迴路 tACS ↗
+            </a>
+          </h3>
+          <p class="card-text" style="font-size: 13px;">
+            探討大腦神經元群體的振幅調變節奏如何反映神經血管退化，以及如何透過 HHSA 提取瞬時調幅率來驅動高精準的閉迴路經顱交流電刺激 (tACS)。
+          </p>
+          <div class="card-meta">
+            <span>神經調控 · 閉迴路系統</span>
+            <a href="https://ckt520728.github.io/kidney-cognition-lab/blog/hhsa-amplitude-modulation-closed-loop-tacs.html" target="_blank" rel="noopener">閱讀全文 ↗</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="margin-bottom:8px;">
+            <span class="badge badge-purple">W3 · 2026-07-18</span>
+          </div>
+          <h3 class="card-title" style="font-size: 16px;">
+            <a href="https://ckt520728.github.io/kidney-cognition-lab/blog/rseeg-neurovascular-oscillations.html" target="_blank" rel="noopener">
+              靜息態腦電與神經血管震盪的非線性分析 ↗
+            </a>
+          </h3>
+          <p class="card-text" style="font-size: 13px;">
+            解構靜息態腦電圖 (rsEEG) 中隱含的神經血管微震盪，結合經驗模態分解消除體表微動偽影，解析大腦衰老過程中的自發性非線性演化。
+          </p>
+          <div class="card-meta">
+            <span>靜息態腦電 · 神經血管耦合</span>
+            <a href="https://ckt520728.github.io/kidney-cognition-lab/blog/rseeg-neurovascular-oscillations.html" target="_blank" rel="noopener">閱讀全文 ↗</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="margin-bottom:8px;">
+            <span class="badge badge-gold">W4 · 2026-05-14</span>
+          </div>
+          <h3 class="card-title" style="font-size: 16px;">
+            <a href="https://ckt520728.github.io/kidney-cognition-lab/blog/neuro-metabolic-interface.html" target="_blank" rel="noopener">
+              海馬迴尖波漣波與周邊血糖調節的神經代謝界面 ↗
+            </a>
+          </h3>
+          <p class="card-text" style="font-size: 13px;">
+            從海馬迴尖波漣波 (SWR) 對自主神經核的下行調控出發，探討睡眠期間中樞記憶鞏固與周邊肝臟糖質新生之即時雙向介面假說。
+          </p>
+          <div class="card-meta">
+            <span>海馬迴 SWR · 血糖調控</span>
+            <a href="https://ckt520728.github.io/kidney-cognition-lab/blog/neuro-metabolic-interface.html" target="_blank" rel="noopener">閱讀全文 ↗</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="margin-bottom:8px;">
+            <span class="badge badge-dim">W5 · 2026-07-16</span>
+          </div>
+          <h3 class="card-title" style="font-size: 16px;">
+            <a href="https://ckt520728.github.io/kidney-cognition-lab/blog/wearable-devices-aging-neuroscience.html" target="_blank" rel="noopener">
+              穿戴式裝置於高齡神經科學之應用與極限 ↗
+            </a>
+          </h3>
+          <p class="card-text" style="font-size: 13px;">
+            客觀評估消費級穿戴裝置（Garmin, Apple Watch 等）於連續心率變異度監測之訊噪比極限，探討超短時記錄中的 3/T 物理截斷規範。
+          </p>
+          <div class="card-meta">
+            <span>穿戴監測 · 3/T 極限規範</span>
+            <a href="https://ckt520728.github.io/kidney-cognition-lab/blog/wearable-devices-aging-neuroscience.html" target="_blank" rel="noopener">閱讀全文 ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Interactive Artifacts (W6 & W7) -->
+    <div class="resource-section">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+        <h2 style="font-size: 22px; color: var(--teal-light);">4. 互動式研究產物 (Interactive Artifacts W6 & W7)</h2>
+        <span class="badge badge-gold">Cloud Interactive Artifacts</span>
+      </div>
+
+      <div class="resource-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+          <div>
+            <div style="margin-bottom:6px;">
+              <span class="badge badge-gold">Private page — opens only when shared</span>
+              <span class="badge badge-dim">Artifact W6</span>
+            </div>
+            <h3 style="font-size: 17px; color: var(--text);">Study A 互動式訊號篩選探索產物 (Study A Interactive Explorer)</h3>
+            <p style="font-size: 13px; color: var(--text-sec); margin-top: 4px;">
+              提供多頻段神經與代謝篩選動態測試的工作台，支援即時參數微調與多尺度包絡交互視覺化。
+            </p>
+          </div>
+          <a href="https://claude.ai/code/artifact/ea7a5ecb-9323-499a-9c82-7158cf09019d" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">
+            <span>開啟雲端產物 W6 ↗</span>
+          </a>
+        </div>
+        <div style="font-size: 12px; color: var(--text-dim); background: rgba(255,255,255,0.03); padding: 8px 12px; border-radius: var(--radius-sm);">
+          🔒 隱私與存取提醒：此產物目前為私有狀態，需經由研究者授權分享權限後方可瀏覽完整互動內容。
+        </div>
+      </div>
+
+      <div class="resource-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+          <div>
+            <div style="margin-bottom:6px;">
+              <span class="badge badge-gold">Private page — opens only when shared</span>
+              <span class="badge badge-dim">Artifact W7</span>
+            </div>
+            <h3 style="font-size: 17px; color: var(--text);">全息希爾伯特頻譜圖解閱讀指南 (HHSA Figure-Reading Pedagogical Guide)</h3>
+            <p style="font-size: 13px; color: var(--text-sec); margin-top: 4px;">
+              針對臨床醫師與神經科學家設計的圖解教學產物，詳解三維立方體視角、三大正交投影與邊界條件之閱讀方法。
+            </p>
+          </div>
+          <a href="https://claude.ai/code/artifact/ab2117ec-6ab9-4be2-a7b9-ec1fff861c90" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">
+            <span>開啟雲端產物 W7 ↗</span>
+          </a>
+        </div>
+        <div style="font-size: 12px; color: var(--text-dim); background: rgba(255,255,255,0.03); padding: 8px 12px; border-radius: var(--radius-sm);">
+          🔒 隱私與存取提醒：此產物目前為私有狀態，需經由研究者授權分享權限後方可瀏覽完整互動內容。
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Open-Source Python Reproducibility Scripts -->
+    <div class="resource-section">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+        <h2 style="font-size: 22px; color: var(--teal-light);">5. 開源 Python 核心演算法與重現腳本</h2>
+        <span class="badge badge-teal">Pure Python / NumPy / SciPy</span>
+      </div>
+
+      <div class="claims-table-wrap">
+        <table class="claims-table">
+          <thead>
+            <tr>
+              <th style="width: 220px;">腳本檔案 (Artifact / Module)</th>
+              <th style="width: 140px;">核心相依套件</th>
+              <th>主要運算功能與科學驗證規範</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="code-pill">hhsa.py</span> (K1)</td>
+              <td>NumPy, SciPy</td>
+              <td>經典二維時間邊際化全息希爾伯特頻譜核心引擎，提供穩定的二階 EMD 與包絡解調基底。</td>
+            </tr>
+            <tr>
+              <td><span class="code-pill">hhsa_banded.py</span> (K2)</td>
+              <td>NumPy, SciPy</td>
+              <td>具備時間解析能力之帶通 HHSA 運算模組；直接輸出三大正交投影 $S(t,f), C(f,w), M(t,w)$。</td>
+            </tr>
+            <tr>
+              <td><span class="code-pill">hhsa_cube.py</span> (T07)</td>
+              <td>NumPy, SciPy, Base64</td>
+              <td>完整三維全息立方體 $H(t, f_c, f_{\text{AM}})$ 建構引擎，內建 IEEE 754 float16 壓縮編碼，確保各資料集 JSON 大小嚴格低於 4 MB。</td>
+            </tr>
+            <tr>
+              <td><span class="code-pill">garmin_preprocess.py</span></td>
+              <td>NumPy, SciPy</td>
+              <td>穿戴式 ~50 Hz IBI 積分觸發還原器 (Integrate-and-Fire)，精確還原連續相同間期，兩段紀錄心跳計數誤差分別為 0.51% 與 0.37%（驗收標準 $\le 2\%$）。</td>
+            </tr>
+            <tr>
+              <td><span class="code-pill">hhsa_wearable_hrv.py</span> (K4)</td>
+              <td>NumPy, SciPy</td>
+              <td>穿戴式資料轉接介面（支援 Garmin 與 Apple HealthKit），內建自主神經生理生成基準測試 (Synthetic HRV)。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Footer -->
+  <footer style="border-top: 1px solid var(--border); padding: 40px 24px; background: var(--bg-card2); text-align: center; font-size: 13px; color: var(--text-sec);">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; align-items: center;">
+      <div style="display: flex; gap: 18px; flex-wrap: wrap; justify-content: center;">
+        <a href="index.html">首頁</a>
+        <a href="explorer.html">3-D 探索器</a>
+        <a href="method.html">方法學</a>
+        <a href="demos.html">臨床示範</a>
+        <a href="library.html">開源程式庫</a>
+        <a href="links.html">文獻出版</a>
+        <a href="about.html">關於研究室</a>
+      </div>
+      <p>
+        © 2026 Kidney & Cognition Lab (ckt520728/kidney-cognition-lab). All rights reserved.
+      </p>
+      <p style="font-size: 11px; color: var(--text-dim); max-width: 800px;">
+        免責聲明：本網站內容及 3-D 全息希爾伯特頻譜探索器僅供學術研究、工程驗證與教學展示之用，非作為臨床診斷或醫療處方依據。去識別血糖實例經當事人書面知情同意授權使用；穿戴心率變異紀錄依受試者保護倫理原則處理。
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    // Theme toggle
+    const themeBtn = document.getElementById('btn-theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        themeBtn.textContent = next === 'light' ? '🌙' : '☀️';
+      });
+    }
+
+    // Mobile Menu Toggle
+    const mobileBtn = document.getElementById('btn-mobile-nav');
+    const nav = document.querySelector('.nav-links');
+    if (mobileBtn && nav) {
+      mobileBtn.addEventListener('click', () => {
+        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        nav.style.flexDirection = 'column';
+        nav.style.position = 'absolute';
+        nav.style.top = '64px';
+        nav.style.left = '0';
+        nav.style.right = '0';
+        nav.style.background = 'var(--bg-card)';
+        nav.style.padding = '16px';
+        nav.style.borderBottom = '1px solid var(--border)';
+      });
+    }
+  </script>
+  <script>
+    // Deck links point to the homepage-repo layout (slides/); fall back to deck/ when browsing the Output folder
+    document.querySelectorAll('a[data-alt]').forEach(function (a) {
+      fetch(a.getAttribute('href'), { method: 'HEAD' })
+        .then(function (r) { if (!r.ok) a.setAttribute('href', a.dataset.alt); })
+        .catch(function () { a.setAttribute('href', a.dataset.alt); });
+    });
+  </script>
+</body>
+</html>

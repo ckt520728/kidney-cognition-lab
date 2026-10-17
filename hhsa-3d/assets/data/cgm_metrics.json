@@ -1,0 +1,20 @@
+{
+  "source": "Working/BandedHHSA_20260904/data/cgm_5min.csv (de-identified, n = 1)",
+  "computed_by": "scratch/cgm_metrics_check.py (parent host, 2026-10-17)",
+  "n_samples": 3744,
+  "sampling_interval_min": 5,
+  "duration_days": 13.0,
+  "units": "mmol/L",
+  "mean_mmol_L": 8.08,
+  "mean_mg_dL": 145.5,
+  "sd_mmol_L": 2.97,
+  "cv_pct": 36.77,
+  "tir_3p9_to_10p0_pct": 61.7,
+  "tar_gt_10p0_pct": 27.2,
+  "tar_gt_13p9_pct": 2.5,
+  "tbr_lt_3p9_pct": 11.1,
+  "tbr_lt_3p0_pct": 5.6,
+  "min_mmol_L": 2.0,
+  "max_mmol_L": 17.6,
+  "note": "TAR >10.0 includes the >13.9 fraction (consensus convention). Always name the threshold when quoting TBR: 11.1% is <3.9 mmol/L; 5.6% is <3.0 mmol/L."
+}
