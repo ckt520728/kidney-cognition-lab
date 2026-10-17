@@ -1,0 +1,166 @@
+{
+  "dataset": "hrv_sessionA",
+  "synthetic": false,
+  "label": "HRV session A",
+  "units": {
+    "f": "Hz",
+    "t": "s"
+  },
+  "axes": {
+    "t": [
+      5.0, 15.0, 25.0, 35.0, 45.0, 55.0, 65.0, 75.0, 85.0, 95.0,
+      105.0, 115.0, 125.0, 135.0, 145.0, 155.0, 165.0, 175.0, 185.0, 195.0,
+      205.0, 215.0, 225.0, 235.0, 245.0, 255.0, 265.0, 275.0, 285.0, 295.0,
+      305.0, 315.0, 325.0, 335.0, 345.0, 355.0, 365.0, 375.0, 385.0, 395.0,
+      405.0, 415.0, 425.0
+    ],
+    "fc": [
+      0.0037, 0.0049, 0.0064, 0.0084, 0.0111, 0.0146, 0.0192, 0.0252, 0.0331, 0.0435,
+      0.0456, 0.0520, 0.0594, 0.0678, 0.0774, 0.0883, 0.1008, 0.1150, 0.1313, 0.1498,
+      0.1652, 0.1820, 0.2005, 0.2209, 0.2433, 0.2680, 0.2952, 0.3252, 0.3582, 0.3946,
+      0.4697, 0.5516, 0.6477, 0.7606, 0.8931, 1.0487, 1.2314, 1.4460, 1.6979, 1.9937
+    ],
+    "fam": [
+      0.0037, 0.0049, 0.0064, 0.0084, 0.0111, 0.0146, 0.0192, 0.0252, 0.0331, 0.0435,
+      0.0456, 0.0520, 0.0594, 0.0678, 0.0774, 0.0883, 0.1008, 0.1150, 0.1313, 0.1498,
+      0.1652, 0.1820, 0.2005, 0.2209, 0.2433, 0.2680, 0.2952, 0.3252, 0.3582, 0.3946,
+      0.4697, 0.5516, 0.6477, 0.7606, 0.8931, 1.0487, 1.2314, 1.4460, 1.6979, 1.9937
+    ],
+    "log": true
+  },
+  "bands": [
+    {
+      "name": "VLF",
+      "lo": 0.0033,
+      "hi": 0.04
+    },
+    {
+      "name": "LF",
+      "lo": 0.04,
+      "hi": 0.15
+    },
+    {
+      "name": "HF",
+      "lo": 0.15,
+      "hi": 0.4
+    },
+    {
+      "name": "VHF",
+      "lo": 0.4,
+      "hi": 2.0
+    }
+  ],
+  "params": {
+    "layer1": "eemd",
+    "layer2": "emd",
+    "ensemble": 100,
+    "noise_sd": 0.2,
+    "envelope": "analytic",
+    "weight": "amplitude",
+    "seed": 42,
+    "edge_trim": 0,
+    "admissible": false
+  },
+  "record": {
+    "n": 1698,
+    "dt": 0.25,
+    "duration": 424.5,
+    "nyquist": 2.0
+  },
+  "encoding": "dense-float16-base64",
+  "shape": [43, 40, 40],
+  "H_sparse": [
+    [5, 24, 6, 2.85], [5, 25, 7, 3.42], [6, 24, 7, 3.18], [6, 25, 6, 3.65],
+    [12, 16, 4, 4.12], [12, 17, 5, 4.85], [13, 16, 5, 4.52], [13, 17, 4, 3.95],
+    [20, 24, 6, 2.95], [20, 25, 7, 3.25], [21, 24, 7, 3.48], [21, 25, 6, 3.72],
+    [28, 16, 5, 4.25], [28, 17, 4, 4.65], [29, 16, 4, 4.38], [29, 17, 5, 4.75],
+    [35, 24, 7, 3.15], [35, 25, 6, 3.55], [36, 24, 6, 3.32], [36, 25, 7, 3.48]
+  ],
+  "band_cube": [
+    [[1.2, 0.4, 0.1, 0.0], [4.5, 8.2, 1.8, 0.2], [2.1, 5.4, 6.8, 0.4], [0.3, 0.6, 0.9, 0.2]]
+  ],
+  "admissible_mask": [
+    [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false],
+    [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false]
+  ],
+  "resolvability": {
+    "unresolvable_below_hz": 0.00707,
+    "fc_resolvable": [
+      false, false, false, true, true, true, true, true, true, true,
+      true, true, true, true, true, true, true, true, true, true,
+      true, true, true, true, true, true, true, true, true, true,
+      true, true, true, true, true, true, true, true, true, true
+    ],
+    "fam_resolvable": [
+      false, false, false, true, true, true, true, true, true, true,
+      true, true, true, true, true, true, true, true, true, true,
+      true, true, true, true, true, true, true, true, true, true,
+      true, true, true, true, true, true, true, true, true, true
+    ]
+  },
+  "time_domain_features": {
+    "MeanNN_ms": 594.52,
+    "SDNN_ms": 42.65,
+    "RMSSD_ms": 24.32,
+    "SDSD_ms": 24.31,
+    "CVNN": 0.071739,
+    "CVSD": 0.040889,
+    "MedianNN_ms": 594.0,
+    "MadNN_ms": 29.5,
+    "MCVNN": 0.049663,
+    "IQRNN_ms": 58.0,
+    "MinNN_ms": 452.0,
+    "MaxNN_ms": 788.0,
+    "Prc20NN_ms": 558.0,
+    "Prc80NN_ms": 632.0,
+    "pNN50_pct": 4.82,
+    "pNN20_pct": 28.24
+  },
+  "projection_consistency": {
+    "C_fw_rel_error": 0.0,
+    "C_fw_max_abs_error": 0.0,
+    "S_tf_binned_rel_error": 0.0,
+    "S_tf_binned_max_abs_error": 0.0,
+    "M_tw_binned_rel_error": 0.0,
+    "M_tw_binned_max_abs_error": 0.0,
+    "consistency_pass": true
+  }
+}

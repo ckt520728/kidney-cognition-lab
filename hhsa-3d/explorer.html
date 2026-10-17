@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3-D Holo-Hilbert Spectrum Explorer | Kidney & Cognition Lab</title>
+  <meta name="description" content="Interactive 3-D WebGL cube explorer for Holo-Hilbert Spectral Analysis (HHSA), featuring live 2-D linked projections S(t,f), C(f,w), M(t,w), admissibility masking, and resolvability overlays.">
+  
+  <!-- CSS Design System -->
+  <link rel="stylesheet" href="assets/css/site.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧊</text></svg>">
+</head>
+<body style="overflow: hidden;">
+
+  <!-- Top Navigation Bar -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">H3</div>
+        <div class="brand-text">
+          <span class="brand-title">HHSA <span class="accent">3-D Explorer</span></span>
+          <span class="brand-subtitle">Kidney & Cognition Lab</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">首頁 Home</a></li>
+          <li><a href="explorer.html" class="nav-link active">3-D 探索器 Explorer</a></li>
+          <li><a href="method.html" class="nav-link">方法學 Method</a></li>
+          <li><a href="demos.html" class="nav-link">臨床示範 Demos</a></li>
+          <li><a href="library.html" class="nav-link">程式庫 Library</a></li>
+          <li><a href="links.html" class="nav-link">文獻庫 Publications</a></li>
+          <li><a href="about.html" class="nav-link">關於 About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="btn-theme-toggle" class="theme-toggle" title="Toggle Theme">☀️</button>
+        <button id="btn-mobile-nav" class="mobile-toggle" aria-label="Toggle Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Explorer Main Workspace -->
+  <div class="explorer-layout">
+    
+    <!-- Explorer Subheader Toolbar -->
+    <div class="explorer-bar">
+      <!-- Dataset Switcher -->
+      <div class="dataset-switcher-group">
+        <span style="font-size: 12px; font-weight: 600; color: var(--text-sec); margin-right: 4px;">資料集 Dataset:</span>
+        <button class="dataset-pill active" data-dataset="synthetic">
+          <span>🎯 合成驗證 Ground Truth</span>
+        </button>
+        <button class="dataset-pill" data-dataset="cgm">
+          <span>🩸 連續血糖 CGM (13天)</span>
+        </button>
+        <button class="dataset-pill" data-dataset="hrv_sessionA">
+          <span>❤️ Garmin 心率 A (~7分)</span>
+        </button>
+        <button class="dataset-pill" data-dataset="hrv_sessionB">
+          <span>❤️ Garmin 心率 B (~7分)</span>
+        </button>
+        <button class="dataset-pill" data-dataset="hrv_synthetic">
+          <span>🧪 合成心率 HRV Benchmark</span>
+        </button>
+      </div>
+
+      <!-- Active Dataset Visible Badge (Required Acceptance Criteria) -->
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span id="dataset-badge" class="badge badge-gold">
+          Synthetic Ground Truth (Known fc(t), f_AM(t))
+        </span>
+
+        <!-- View Mode Switcher -->
+        <div class="btn-group">
+          <button class="btn-tab active" data-view-mode="scatter" title="3-D Scatter / Volumetric Points">立體點雲</button>
+          <button class="btn-tab" data-view-mode="slices" title="Three Orthogonal Draggable Slice Planes">正交三截面</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Workspace Split (3D Viewport + Controls Sidebar) -->
+    <div class="explorer-main">
+      
+      <!-- 3D WebGL Canvas Viewport -->
+      <div class="viewport-container">
+        <canvas id="explorer-3d-canvas"></canvas>
+
+        <!-- Live HUD Overlay -->
+        <div class="hud-overlay">
+          <div class="hud-card">
+            <div style="font-weight: 600; color: var(--text); margin-bottom: 4px;" id="dataset-title">
+              Synthetic AM-FM Ground Truth
+            </div>
+            <div class="readout-table">
+              <span class="readout-label">時間 Time (t):</span>
+              <span class="readout-val" id="hud-t">5.0 s</span>
+
+              <span class="readout-label">載波頻率 (fc):</span>
+              <span class="readout-val" id="hud-fc">0.500 Hz · 2.0 s</span>
+
+              <span class="readout-label">調幅頻率 (f_AM):</span>
+              <span class="readout-val" id="hud-fam">0.050 Hz · 20.0 s</span>
+
+              <span class="readout-label">瞬時能量 (Energy):</span>
+              <span class="readout-val" id="hud-energy">0.700</span>
+
+              <span class="readout-label">生理頻帶 (Band):</span>
+              <span class="readout-val" id="hud-band" style="color: var(--teal-light);">Carrier / Modulation</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Camera Presets Floating Bar -->
+        <div class="camera-presets-bar">
+          <button class="btn btn-secondary btn-sm" data-camera-preset="oblique" title="3D Perspective">透視 Oblique</button>
+          <button class="btn btn-secondary btn-sm" data-camera-preset="top" title="Top: C(fc, fam) Plane">頂視 Top C(f,w)</button>
+          <button class="btn btn-secondary btn-sm" data-camera-preset="side" title="Side: S(t, fc) Plane">側視 Side S(t,f)</button>
+          <button class="btn btn-secondary btn-sm" data-camera-preset="front" title="Front: M(t, fam) Plane">前視 Front M(t,w)</button>
+          <button class="btn btn-secondary btn-sm" data-camera-preset="reset" title="Reset Camera">重置</button>
+        </div>
+
+        <!-- Floating Drawer Toggle Button for Mobile Responsive (< 768px and <= 375px) -->
+        <button id="btn-toggle-drawer" class="drawer-toggle-btn" aria-label="Toggle Controls Drawer" title="展開控制面板">
+          ⚙️
+        </button>
+      </div>
+
+      <!-- Controls & Parameters Sidebar (Collapsible Drawer on Mobile) -->
+      <aside class="explorer-sidebar">
+        <div class="sidebar-header">
+          <span class="sidebar-title">
+            <span>⚙️ 參數控制與切片</span>
+          </span>
+          <button class="btn btn-secondary btn-sm" id="btn-play-pause">▶ 播放</button>
+        </div>
+
+        <div class="sidebar-content">
+
+          <!-- Time Scrubber Slider -->
+          <div class="control-block">
+            <div class="control-label-row">
+              <span class="control-label">⏳ 時間軸切片 (t-slice)</span>
+              <span class="control-val-badge" id="val-t">5.0 s</span>
+            </div>
+            <div class="slider-container">
+              <input type="range" id="slider-t" min="0" max="29" value="0">
+            </div>
+          </div>
+
+          <!-- Carrier Frequency Slider -->
+          <div class="control-block">
+            <div class="control-label-row">
+              <span class="control-label">⚡ 載波頻率 (f<sub>carrier</sub>-slice)</span>
+              <span class="control-val-badge" id="val-fc">0.500 Hz · 2.0 s</span>
+            </div>
+            <div class="slider-container">
+              <input type="range" id="slider-fc" min="0" max="39" value="20">
+            </div>
+          </div>
+
+          <!-- AM Modulation Frequency Slider -->
+          <div class="control-block">
+            <div class="control-label-row">
+              <span class="control-label">🌊 調幅頻率 (f<sub>AM</sub>-slice)</span>
+              <span class="control-val-badge" id="val-fam">0.050 Hz · 20.0 s</span>
+            </div>
+            <div class="slider-container">
+              <input type="range" id="slider-fam" min="0" max="39" value="12">
+            </div>
+          </div>
+
+          <!-- Energy Threshold Slider -->
+          <div class="control-block">
+            <div class="control-label-row">
+              <span class="control-label">📊 能量閾值 (Energy Gate)</span>
+              <span class="control-val-badge" id="val-thresh">5%</span>
+            </div>
+            <div class="slider-container">
+              <input type="range" id="slider-thresh" min="0" max="0.5" step="0.01" value="0.05">
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid var(--border);">
+
+          <!-- Physiological & Physical Toggles -->
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <!-- Admissibility Mask Toggle -->
+            <div class="toggle-row">
+              <div class="toggle-label">
+                <span>因果調幅篩選 (f<sub>AM</sub> &lt; f<sub>carrier</sub>)</span>
+                <span class="toggle-desc">隱藏違反物理因果律之超頻調幅點</span>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="toggle-admissibility">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+
+            <!-- Unresolvable Frequency Overlay Toggle -->
+            <div class="toggle-row">
+              <div class="toggle-label">
+                <span>可解析極限遮罩 (&lt; 3/T 灰階)</span>
+                <span class="toggle-desc">依時長標註無法解析之超低頻 (VLF)</span>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="toggle-unresolvable" checked>
+                <span class="slider-round"></span>
+              </label>
+            </div>
+
+            <!-- Band Planes Toggle -->
+            <div class="toggle-row">
+              <div class="toggle-label">
+                <span>生理頻帶板塊 (Band Slabs)</span>
+                <span class="toggle-desc">顯示 Circadian/Ultradian 或 LF/HF 區域</span>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="toggle-bands" checked>
+                <span class="slider-round"></span>
+              </label>
+            </div>
+
+            <!-- Turntable Rotate Toggle -->
+            <div class="toggle-row">
+              <div class="toggle-label">
+                <span>自動轉盤旋轉 (Auto Turntable)</span>
+                <span class="toggle-desc">慢速連續旋轉 3-D 視角</span>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="toggle-rotate">
+                <span class="slider-round"></span>
+              </label>
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid var(--border);">
+
+          <!-- Collapsible "What am I looking at?" Guide Card -->
+          <div class="guide-card">
+            <h4>💡 我正在看什麼？(What am I looking at?)</h4>
+            <ul id="dataset-guide-list">
+              <li>載入中...</li>
+            </ul>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- 2-D Linked Projections Dock (Bottom Drawer) -->
+    <div class="projections-dock">
+      <div class="projections-head">
+        <span style="display: flex; align-items: center; gap: 8px;">
+          <span>📈 即時聯動二維投影切片 (Live Linked 2-D Projections & Slices)</span>
+          <span class="badge badge-dim" style="font-size: 11px;">點擊任意畫布可直接定位切片</span>
+        </span>
+        <span style="font-size: 11px; color: var(--text-dim);">
+          反應延遲 &lt; 50 ms · 雙向聯動
+        </span>
+      </div>
+
+      <div class="projections-grid">
+        
+        <!-- Projection 1: S(t, fc) -->
+        <div class="projection-card">
+          <div class="projection-title">
+            <span>S(t, f<sub>carrier</sub>) — 希爾伯特時頻譜</span>
+            <span class="badge badge-teal" style="font-size: 10px;">Carrier vs Time</span>
+          </div>
+          <div class="projection-canvas-wrap">
+            <canvas id="canvas-S-tf" width="360" height="160"></canvas>
+          </div>
+          <div class="axis-label-x" id="label-axis-S">時間 Time (X) vs 載波頻率 (Y, 含週期)</div>
+        </div>
+
+        <!-- Projection 2: C(fc, fam) -->
+        <div class="projection-card">
+          <div class="projection-title">
+            <span>C(f<sub>carrier</sub>, f<sub>AM</sub>) — 載波-調幅能量耦合譜</span>
+            <span class="badge badge-purple" style="font-size: 10px;">CFC Coupling Map</span>
+          </div>
+          <div class="projection-canvas-wrap">
+            <canvas id="canvas-C-fw" width="360" height="160"></canvas>
+          </div>
+          <div class="axis-label-x" id="label-axis-C">載波頻率 fc (X) vs 調幅頻率 f_AM (Y)</div>
+        </div>
+
+        <!-- Projection 3: M(t, fam) -->
+        <div class="projection-card">
+          <div class="projection-title">
+            <span>M(t, f<sub>AM</sub>) — 調幅包絡時變譜</span>
+            <span class="badge badge-gold" style="font-size: 10px;">AM Envelope vs Time</span>
+          </div>
+          <div class="projection-canvas-wrap">
+            <canvas id="canvas-M-tw" width="360" height="160"></canvas>
+          </div>
+          <div class="axis-label-x" id="label-axis-M">時間 Time (X) vs 調幅頻率 f_AM (Y)</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Main ES Module Script -->
+  <script type="module">
+    import { ExplorerApp, DATASET_CONFIGS } from './assets/js/explorer.js';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Check URL query param ?dataset=...
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryDataset = urlParams.get('dataset');
+      const initialDataset = DATASET_CONFIGS[queryDataset] ? queryDataset : 'synthetic';
+
+      // Initialize App
+      const app = new ExplorerApp({
+        canvas3D: 'explorer-3d-canvas',
+        initialDataset: initialDataset
+      });
+
+      // Synchronize active dataset pill if specified via URL
+      if (queryDataset && DATASET_CONFIGS[queryDataset]) {
+        document.querySelectorAll('[data-dataset]').forEach(el => {
+          if (el.getAttribute('data-dataset') === queryDataset) {
+            el.classList.add('active');
+          } else {
+            el.classList.remove('active');
+          }
+        });
+      }
+
+      // Mobile Menu Toggle
+      const mobileBtn = document.getElementById('btn-mobile-nav');
+      const nav = document.querySelector('.nav-links');
+      if (mobileBtn && nav) {
+        mobileBtn.addEventListener('click', () => {
+          nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+          nav.style.flexDirection = 'column';
+          nav.style.position = 'absolute';
+          nav.style.top = '64px';
+          nav.style.left = '0';
+          nav.style.right = '0';
+          nav.style.background = 'var(--bg-card)';
+          nav.style.padding = '16px';
+          nav.style.borderBottom = '1px solid var(--border)';
+          nav.style.zIndex = '999';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

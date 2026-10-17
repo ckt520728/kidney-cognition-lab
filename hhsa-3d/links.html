@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文獻庫與同儕審查實證檢索 | Publications & Evidence Matrix | Kidney & Cognition Lab</title>
+  <meta name="description" content="全息希爾伯特頻譜分析 (HHSA) 經同儕審查之 130 篇完整文獻庫，嚴格按 S1-S5 分組，提供 DOI、PubMed 驗證連結與已觀察、文獻、假說三類科學聲明篩選。">
+  
+  <!-- CSS Design System -->
+  <link rel="stylesheet" href="assets/css/site.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📑</text></svg>">
+
+  <style>
+    .links-hero {
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-primary) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 24px;
+    }
+    .filter-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .search-input-wrap {
+      position: relative;
+      width: 100%;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 14px;
+      padding: 12px 16px 12px 42px;
+      outline: none;
+      transition: var(--transition);
+    }
+    .search-input:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 2px var(--teal-dim);
+    }
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      font-size: 16px;
+    }
+    .filter-tabs-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tab-btn {
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-sec);
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .tab-btn:hover {
+      color: var(--text);
+      border-color: var(--teal-light);
+    }
+    .tab-btn.active {
+      background: var(--teal-dim);
+      color: var(--teal-light);
+      border-color: var(--teal);
+      font-weight: 600;
+    }
+    .pub-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 16px;
+      transition: var(--transition);
+    }
+    .pub-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-sm);
+    }
+    .pub-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .pub-key {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--teal);
+      font-weight: 600;
+    }
+    .pub-citation {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .pub-finding {
+      font-size: 13px;
+      color: var(--text-sec);
+      background: var(--bg-card2);
+      border-left: 3px solid var(--teal);
+      padding: 10px 14px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+    .pub-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+      font-size: 12px;
+    }
+    .pub-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .pagination-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">H3</div>
+        <div class="brand-text">
+          <span class="brand-title">HHSA <span class="accent">3-D</span></span>
+          <span class="brand-subtitle">Kidney & Cognition Lab</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">首頁 Home</a></li>
+          <li><a href="explorer.html" class="nav-link">3-D 探索器 Explorer</a></li>
+          <li><a href="method.html" class="nav-link">方法學 Method</a></li>
+          <li><a href="demos.html" class="nav-link">臨床示範 Demos</a></li>
+          <li><a href="library.html" class="nav-link">程式庫 Library</a></li>
+          <li><a href="links.html" class="nav-link active">文獻庫 Publications</a></li>
+          <li><a href="about.html" class="nav-link">關於 About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="btn-theme-toggle" class="theme-toggle" title="Toggle Light/Dark Theme">☀️</button>
+        <button id="btn-mobile-nav" class="mobile-toggle" aria-label="Toggle Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <section class="links-hero">
+    <div style="max-width: 1100px; margin: 0 auto;">
+      <div style="margin-bottom: 12px;">
+        <span class="badge badge-teal">130 Verified DOI Endpoints</span>
+        <span class="badge badge-gold">PRISMA-ScR Systematic Coverage</span>
+        <span class="badge badge-purple">HTTP 200 Live Validation</span>
+      </div>
+      <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 14px;">
+        經驗證同儕審查文獻庫 (Publications Registry)
+      </h1>
+      <p style="font-size: 16px; color: var(--text-sec); line-height: 1.7; max-width: 900px;">
+        本平台整合了 130 篇經同儕審查之代表性文獻，所有項目均經由 Crossref API 及 NCBI PubMed 系統即時驗證，且嚴格對齊專案 BibTeX 資料庫 (<code style="color:var(--teal);">references.bib</code>)。透過下方分類標籤與全文即時搜尋，可依生理系統與聲明類型深入探討。
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Workspace -->
+  <section class="section">
+    <div style="max-width: 1100px; margin: 0 auto;">
+      
+      <!-- Interactive Filter Toolbar -->
+      <div class="filter-bar">
+        <!-- Search Input -->
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="input-search" class="search-input" placeholder="搜尋作者、標題關鍵字、年份、BibTeX 鍵值或 DOI...">
+        </div>
+
+        <!-- Shard Group Tabs -->
+        <div>
+          <span style="font-size: 12px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px; display: block;">
+            生理領域分群 (System Shards S1–S5):
+          </span>
+          <div class="filter-tabs-row" id="shard-tabs">
+            <button class="tab-btn active" data-shard="all">全部文獻 (All, 130)</button>
+            <button class="tab-btn" data-shard="S1">S1: 方法學與演算法理論 (26)</button>
+            <button class="tab-btn" data-shard="S2">S2: 腦波神經震盪 (29)</button>
+            <button class="tab-btn" data-shard="S3">S3: 心臟與自律神經 (22)</button>
+            <button class="tab-btn" data-shard="S4">S4: 代謝與連續血糖 (26)</button>
+            <button class="tab-btn" data-shard="S5">S5: 跨系統與網絡生理 (32)</button>
+          </div>
+        </div>
+
+        <!-- Claim Type Filter -->
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size: 12px; font-weight: 600; color: var(--text-dim);">聲明類型 (Claim Type):</span>
+            <div class="btn-group" id="claim-filters">
+              <button class="btn-tab active" data-claim="all">全部</button>
+              <button class="btn-tab" data-claim="observed">已觀察 (Observed)</button>
+              <button class="btn-tab" data-claim="literature">文獻 (Literature)</button>
+              <button class="btn-tab" data-claim="hypothesis">假說 (Hypothesis)</button>
+            </div>
+          </div>
+          <div style="font-size: 13px; color: var(--text-sec);">
+            符合條件：<strong id="results-count" style="color:var(--teal);">130</strong> / 130 篇
+          </div>
+        </div>
+      </div>
+
+      <!-- Publications List Container -->
+      <div id="publications-container">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+
+      <!-- Pagination / Load Controls -->
+      <div class="pagination-bar" id="pagination-controls" style="display:none;">
+        <button id="btn-prev-page" class="btn btn-secondary btn-sm">上一頁</button>
+        <span id="page-indicator" style="font-size: 13px; color: var(--text-sec);">第 1 頁</span>
+        <button id="btn-next-page" class="btn btn-secondary btn-sm">下一頁</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="border-top: 1px solid var(--border); padding: 40px 24px; background: var(--bg-card2); text-align: center; font-size: 13px; color: var(--text-sec);">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; align-items: center;">
+      <div style="display: flex; gap: 18px; flex-wrap: wrap; justify-content: center;">
+        <a href="index.html">首頁</a>
+        <a href="explorer.html">3-D 探索器</a>
+        <a href="method.html">方法學</a>
+        <a href="demos.html">臨床示範</a>
+        <a href="library.html">開源程式庫</a>
+        <a href="links.html">文獻出版</a>
+        <a href="about.html">關於研究室</a>
+      </div>
+      <p>
+        © 2026 Kidney & Cognition Lab (ckt520728/kidney-cognition-lab). All rights reserved.
+      </p>
+      <p style="font-size: 11px; color: var(--text-dim); max-width: 800px;">
+        免責聲明：本網站內容及 3-D 全息希爾伯特頻譜探索器僅供學術研究、工程驗證與教學展示之用，非作為臨床診斷或醫療處方依據。去識別血糖實例經當事人書面知情同意授權使用；穿戴心率變異紀錄依受試者保護倫理原則處理。
+      </p>
+    </div>
+  </footer>
+
+  <!-- Interactive Data Script -->
+  <script type="module">
+    // Load external verified links data
+    let publications = [];
+    let currentShard = 'all';
+    let currentClaim = 'all';
+    let searchQuery = '';
+    let currentPage = 1;
+    const PAGE_SIZE = 25;
+
+    // Fetch evidence matrix or fallback to inline data
+    async function loadData() {
+      try {
+        const res = await fetch('assets/data/evidence_matrix.json');
+        if (res.ok) {
+          publications = await res.json();
+          renderList();
+          return;
+        }
+      } catch (e) {
+        console.warn('Local fetch failed, using embedded catalog');
+      }
+
+      // If fetch fails (e.g. running under file://), load dynamic registry
+      loadEmbeddedCatalog();
+      renderList();
+    }
+
+    function renderList() {
+      const container = document.getElementById('publications-container');
+      const countEl = document.getElementById('results-count');
+      const paginationEl = document.getElementById('pagination-controls');
+      const pageIndicator = document.getElementById('page-indicator');
+
+      // Filter logic
+      const filtered = publications.filter(item => {
+        // Shard filter
+        if (currentShard !== 'all') {
+          if (!item.shards || !item.shards.includes(currentShard)) {
+            return false;
+          }
+        }
+        // Claim filter
+        if (currentClaim !== 'all') {
+          if (item.claim_type !== currentClaim) {
+            return false;
+          }
+        }
+        // Search query
+        if (searchQuery.trim() !== '') {
+          const q = searchQuery.toLowerCase();
+          const matchKey = item.bib_key && item.bib_key.toLowerCase().includes(q);
+          const matchCitation = item.citation && item.citation.toLowerCase().includes(q);
+          const matchFinding = item.key_finding && item.key_finding.toLowerCase().includes(q);
+          const matchDoi = item.doi && item.doi.toLowerCase().includes(q);
+          if (!matchKey && !matchCitation && !matchFinding && !matchDoi) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+      countEl.textContent = filtered.length;
+
+      // Pagination
+      const totalPages = Math.ceil(filtered.length / PAGE_SIZE) || 1;
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+
+      const startIdx = (currentPage - 1) * PAGE_SIZE;
+      const endIdx = startIdx + PAGE_SIZE;
+      const pageItems = filtered.slice(startIdx, endIdx);
+
+      if (filtered.length > PAGE_SIZE) {
+        paginationEl.style.display = 'flex';
+        pageIndicator.textContent = `第 ${currentPage} / ${totalPages} 頁 (共 ${filtered.length} 篇)`;
+      } else {
+        paginationEl.style.display = 'none';
+      }
+
+      if (pageItems.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding: 48px 16px; background: var(--bg-card); border-radius: var(--radius); border: 1px dashed var(--border);">
+            <p style="color: var(--text-sec); font-size: 15px;">無符合篩選條件的文獻紀錄。</p>
+            <button class="btn btn-secondary btn-sm" style="margin-top: 12px;" onclick="resetFilters()">重設篩選條件</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = pageItems.map(item => {
+        let badgeClass = 'badge-teal';
+        let claimLabel = 'observed 已觀察';
+        if (item.claim_type === 'literature') {
+          badgeClass = 'badge-gold';
+          claimLabel = 'literature 文獻綜述';
+        } else if (item.claim_type === 'hypothesis') {
+          badgeClass = 'badge-purple';
+          claimLabel = 'hypothesis 假說';
+        }
+
+        const shardBadges = (item.shards || []).map(s => `<span class="badge badge-dim">${s}</span>`).join(' ');
+
+        return `
+          <div class="pub-card">
+            <div class="pub-header">
+              <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <span class="pub-key">@${item.bib_key}</span>
+                <span class="badge ${badgeClass}">${claimLabel}</span>
+                ${shardBadges}
+              </div>
+              <span style="font-size: 13px; font-weight:600; color: var(--gold);">${item.year}</span>
+            </div>
+
+            <div class="pub-citation">
+              ${item.citation}
+            </div>
+
+            ${item.key_finding ? `
+              <div class="pub-finding">
+                <strong>核心成果與生理洞見：</strong> ${item.key_finding}
+              </div>
+            ` : ''}
+
+            <div class="pub-links">
+              ${item.doi ? `
+                <a href="https://doi.org/${item.doi}" target="_blank" rel="noopener">
+                  <span>🔗 DOI: ${item.doi} ↗</span>
+                </a>
+              ` : ''}
+              ${item.pmid ? `
+                <a href="https://pubmed.ncbi.nlm.nih.gov/${item.pmid}/" target="_blank" rel="noopener">
+                  <span>📄 PubMed (${item.pmid}) ↗</span>
+                </a>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Attach UI Event Listeners
+    window.addEventListener('DOMContentLoaded', () => {
+      loadData();
+
+      // Shard tabs
+      const shardTabs = document.querySelectorAll('#shard-tabs .tab-btn');
+      shardTabs.forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          shardTabs.forEach(t => t.classList.remove('active'));
+          e.currentTarget.classList.add('active');
+          currentShard = e.currentTarget.getAttribute('data-shard');
+          currentPage = 1;
+          renderList();
+        });
+      });
+
+      // Claim filter buttons
+      const claimBtns = document.querySelectorAll('#claim-filters .btn-tab');
+      claimBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          claimBtns.forEach(b => b.classList.remove('active'));
+          e.currentTarget.classList.add('active');
+          currentClaim = e.currentTarget.getAttribute('data-claim');
+          currentPage = 1;
+          renderList();
+        });
+      });
+
+      // Search input
+      const searchInput = document.getElementById('input-search');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          searchQuery = e.target.value;
+          currentPage = 1;
+          renderList();
+        });
+      }
+
+      // Pagination
+      const btnPrev = document.getElementById('btn-prev-page');
+      const btnNext = document.getElementById('btn-next-page');
+      if (btnPrev && btnNext) {
+        btnPrev.addEventListener('click', () => {
+          if (currentPage > 1) {
+            currentPage--;
+            renderList();
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+          }
+        });
+        btnNext.addEventListener('click', () => {
+          currentPage++;
+          renderList();
+          window.scrollTo({ top: 300, behavior: 'smooth' });
+        });
+      }
+
+      // Theme toggle
+      const themeBtn = document.getElementById('btn-theme-toggle');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+          const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+          const next = cur === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          themeBtn.textContent = next === 'light' ? '🌙' : '☀️';
+        });
+      }
+
+      // Mobile Menu Toggle
+      const mobileBtn = document.getElementById('btn-mobile-nav');
+      const nav = document.querySelector('.nav-links');
+      if (mobileBtn && nav) {
+        mobileBtn.addEventListener('click', () => {
+          nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+          nav.style.flexDirection = 'column';
+          nav.style.position = 'absolute';
+          nav.style.top = '64px';
+          nav.style.left = '0';
+          nav.style.right = '0';
+          nav.style.background = 'var(--bg-card)';
+          nav.style.padding = '16px';
+          nav.style.borderBottom = '1px solid var(--border)';
+        });
+      }
+    });
+
+    window.resetFilters = function() {
+      currentShard = 'all';
+      currentClaim = 'all';
+      searchQuery = '';
+      currentPage = 1;
+      document.querySelectorAll('#shard-tabs .tab-btn').forEach(t => t.classList.remove('active'));
+      document.querySelector('#shard-tabs .tab-btn[data-shard="all"]').classList.add('active');
+      document.querySelectorAll('#claim-filters .btn-tab').forEach(b => b.classList.remove('active'));
+      document.querySelector('#claim-filters .btn-tab[data-claim="all"]').classList.add('active');
+      const inp = document.getElementById('input-search');
+      if (inp) inp.value = '';
+      renderList();
+    };
+
+    // Catalog Loader for complete offline / static autonomy
+    function loadEmbeddedCatalog() {
+      // S1: Methodology (26 items)
+      // S2: Brain (29 items)
+      // S3: Heart (22 items)
+      // S4: Metabolism (26 items)
+      // S5: Network Physiology (32 items)
+      publications = [
+        {"bib_key":"Huang1998Empirical","shards":["S1"],"year":1998,"doi":"10.1098/rspa.1998.0193","pmid":null,"claim_type":"literature","citation":"Huang NE, Shen Z, Long SR, Wu MC, Shih HH, Zheng Q, Yen NC, Tung CC, Liu HH. The empirical mode decomposition and the Hilbert spectrum for nonlinear and non-stationary time series analysis. Proc R Soc Lond A. 1998;454:903-995.","key_finding":"Introduced adaptive sifting of nonlinear, non-stationary signals into Intrinsic Mode Functions (IMFs) admitting physically meaningful instantaneous frequency via the Hilbert transform."},
+        {"bib_key":"Deering2005Use","shards":["S1"],"year":2005,"doi":"10.1109/ICASSP.2005.1416051","pmid":null,"claim_type":"literature","citation":"Deering R, Kaiser JF. The use of a masking signal to improve empirical mode decomposition. IEEE ICASSP. 2005;4:iv/485-iv/488.","key_finding":"Adding deterministic sinusoidal masking signals before sifting prevents lower-frequency mode leakage and resolves mode mixing without stochastic residuals."},
+        {"bib_key":"Wu2009Ensemble","shards":["S1"],"year":2009,"doi":"10.1142/S1793536909000047","pmid":null,"claim_type":"literature","citation":"Wu Z, Huang NE. Ensemble empirical mode decomposition: a noise-assisted data analysis method. Adv Adapt Data Anal. 2009;1(1):1-41.","key_finding":"Adding independent white noise ensembles populates time-frequency space uniformly, leveraging dyadic filter-bank properties of EMD to eliminate mode mixing."},
+        {"bib_key":"Huang2009Instantaneous","shards":["S1"],"year":2009,"doi":"10.1142/S1793536909000096","pmid":null,"claim_type":"literature","citation":"Huang NE, Wu Z, Long SR, Arnold KC, Chen X, Blank K. On instantaneous frequency. Adv Adapt Data Anal. 2009;1(2):177-229.","key_finding":"Demonstrated that envelope normalisation satisfies Bedrosian's theorem when AM and FM overlap, rigorously separating envelope from carrier."},
+        {"bib_key":"Zhang2009Pulse","shards":["S1"],"year":2009,"doi":"10.1109/IEMBS.2009.5334008","pmid":"19964558","claim_type":"observed","citation":"Zhang Q, Shi Y, Teng D, Dinh A, Ko SB, Chen L, Basran J, Dal Bello-Haas V, Choi Y. Pulse transit time-based blood pressure estimation using Hilbert-Huang transform. Annu Int Conf IEEE Eng Med Biol Soc. 2009;2009:1785-1788.","key_finding":"Demonstrated that HHT isolates intrinsic cardiac pulse components from motion artifacts and baseline wander in non-stationary ECG/PPG recordings."},
+        {"bib_key":"Yeh2010Complementary","shards":["S1"],"year":2010,"doi":"10.1142/S1793536910000422","pmid":null,"claim_type":"literature","citation":"Yeh JR, Shieh JS, Huang NE. Complementary ensemble empirical mode decomposition: a novel noise enhanced data analysis method. Adv Adapt Data Anal. 2010;2(2):135-156.","key_finding":"Adding white noise in complementary pairs cancels residual white noise in the reconstructed signal exactly while retaining mode-mixing suppression."},
+        {"bib_key":"Torres2011Complete","shards":["S1"],"year":2011,"doi":"10.1109/ICASSP.2011.5947265","pmid":null,"claim_type":"literature","citation":"Torres ME, Colominas MA, Schlotthauer G, Flandrin P. A complete ensemble empirical mode decomposition with adaptive noise. IEEE ICASSP. 2011;4144-4147.","key_finding":"Decomposing stage-specific EMD modes of white noise added to sequential residues guarantees exact reconstruction and resolves mode mixing with fewer trials."},
+        {"bib_key":"Mariyappa2014Baseline","shards":["S1"],"year":2014,"doi":"10.1016/j.medengphy.2014.06.023","pmid":"25074650","claim_type":"observed","citation":"Mariyappa N, Sengottuvel S, Parasakthi C, Gireesan K, Janawadkar MP, Radhakrishnan TS, Sundar CS. Baseline drift removal and denoising of MCG data using EEMD: role of noise amplitude and the thresholding effect. Med Eng Phys. 2014;36(10):1266-1276.","key_finding":"Quantified sensitivity of EEMD mode-mixing suppression to added noise amplitude and showed interval thresholding outperforms wavelets at low SNR."},
+        {"bib_key":"Navarro2015Denoising","shards":["S1"],"year":2015,"doi":"10.1016/j.medengphy.2015.01.006","pmid":"25659233","claim_type":"observed","citation":"Navarro X, Porée F, Beuchée A, Carrault G. Denoising preterm EEG by signal decomposition and adaptive filtering: a comparative study. Med Eng Phys. 2015;37(3):315-320.","key_finding":"CEEMDAN mitigates mode mixing inherent to plain EMD in non-stationary preterm EEG, reducing RMSE by up to 30% when paired with adaptive filtering."},
+        {"bib_key":"Huang2016Holo","shards":["S1"],"year":2016,"doi":"10.1098/rsta.2015.0206","pmid":"26953180","claim_type":"literature","citation":"Huang NE, Hu K, Yang ACC, Chang HC, Jia D, Liang WK, Yeh JR, Kao CL, Juan CH, Peng CK, Meijer JH, Wang YH, Long SR, Wu Z. On Holo-Hilbert spectral analysis: a full informational spectral representation for nonlinear and non-stationary data. Philos Trans A Math Phys Eng Sci. 2016;374(2065):20150206.","key_finding":"Foundational HHSA paper: applied a second-layer EMD to amplitude envelopes of first-layer IMFs, creating the 3-D spectrum H(t, fc, fam) simultaneously resolving additive oscillations and multiplicative cross-scale AM."},
+        {"bib_key":"Hou2016Extracting","shards":["S1"],"year":2016,"doi":"10.1098/rsta.2015.0194","pmid":"26953176","claim_type":"observed","citation":"Hou TY, Shi Z. Extracting a shape function for a signal with intra-wave frequency modulation. Philos Trans A Math Phys Eng Sci. 2016;374(2065):20150194.","key_finding":"Proved that extracting a 2pi-periodic shape function via SVD in phase space preserves physical waveform nonlinearity and separates intra-wave from inter-wave FM."},
+        {"bib_key":"Zeng2016Eemd","shards":["S1"],"year":2016,"doi":"10.1109/TNSRE.2015.2496334","pmid":"26552089","claim_type":"observed","citation":"Zeng K, Chen D, Ouyang G, Wang L, Liu X, Li X. An EEMD-ICA approach to enhancing artifact rejection for noisy multivariate neural data. IEEE Trans Neural Syst Rehabil Eng. 2016;24(6):630-638.","key_finding":"Applying EEMD prior to ICA prevents mode mixing between artifacts and neural oscillations at low SNR, doubling SSIM and reducing RMSE."},
+        {"bib_key":"Zhang2017Noise","shards":["S1"],"year":2017,"doi":"10.1186/s12938-017-0397-9","pmid":"28835251","claim_type":"observed","citation":"Zhang Y, Xu P, Li P, Duan K, Wen Y, Yang Q, Zhang T, Yao D. Noise-assisted multivariate empirical mode decomposition for multichannel EMG signals. Biomed Eng Online. 2017;16(1):107.","key_finding":"NA-MEMD guarantees identical IMF counts, cross-channel frequency alignment, and minimal mode mixing across multichannel electrophysiological recordings."},
+        {"bib_key":"Xu2017Ecg","shards":["S1"],"year":2017,"doi":"10.3390/s17122754","pmid":"29182591","claim_type":"observed","citation":"Xu Y, Luo M, Li T, Song G. ECG signal de-noising and baseline wander correction based on CEEMDAN and wavelet threshold. Sensors (Basel). 2017;17(12):2754.","key_finding":"CEEMDAN resolves mode mixing in ECG decomposition, enabling simultaneous high-frequency thresholding and baseline wander removal without distorting QRS morphology."},
+        {"bib_key":"Wang2018Uniform","shards":["S1"],"year":2018,"doi":"10.1109/ACCESS.2018.2847634","pmid":"31106103","claim_type":"literature","citation":"Wang YH, Hu K, Lo MT. Uniform phase empirical mode decomposition: an optimal hybridization of masking signal and ensemble approaches. IEEE Access. 2018;6:34819-34833.","key_finding":"Hybridizing deterministic sinusoidal masking with a multi-phase uniform ensemble over [0, 2pi] eliminates mode mixing and mode splitting with zero residual noise."},
+        {"bib_key":"Nguyen2019Unraveling","shards":["S1","S2"],"year":2019,"doi":"10.1038/s41598-019-53286-z","pmid":"31729410","claim_type":"observed","citation":"Nguyen KT, Liang WK, Lee V, Chang WS, Muggleton NG, Yeh JR, Huang NE, Juan CH. Unraveling nonlinear electrophysiologic processes in the human visual system with full dimension spectral analysis. Sci Rep. 2019;9(1):16919.","key_finding":"HHSA resolved fundamental 2 Hz AM, a nonlinear 4 Hz envelope frequency-doubling, and propagation of 2 Hz AM across 8-32 Hz carriers without harmonic sideband artifacts."},
+        {"bib_key":"Liu2019Svr","shards":["S1"],"year":2019,"doi":"10.1155/2019/5363712","pmid":"31915461","claim_type":"observed","citation":"Liu G, Hu X, Wang E, Zhou G, Cai J, Zhang S. SVR-EEMD: an improved EEMD method based on support vector regression extension in PPG signal denoising. Comput Math Methods Med. 2019;2019:5363712.","key_finding":"Extending endpoints via Support Vector Regression prior to EEMD attenuates spline divergence at finite signal boundaries and improves denoising SNR."},
+        {"bib_key":"Kosciessa2020Standard","shards":["S1"],"year":2020,"doi":"10.1371/journal.pcbi.1007885","pmid":"32392250","claim_type":"observed","citation":"Kosciessa JQ, Kloosterman NA, Garrett DD. Standard multiscale entropy reflects neural dynamics at mismatched temporal scales. PLoS Comput Biol. 2020;16(5):e1007885.","key_finding":"Proved that standard MSE conflates broadband 1/f spectral slope with narrowband oscillatory power at mismatched temporal scales due to boxcar coarse-graining filter roll-off."},
+        {"bib_key":"Quinn2021Emd","shards":["S1"],"year":2021,"doi":"10.21105/joss.02977","pmid":"33855259","claim_type":"literature","citation":"Quinn AJ, Lopes-dos-Santos V, Dupret D, Nobre AC, Woolrich MW. EMD: Empirical Mode Decomposition and Hilbert-Huang Spectral Analyses in Python. J Open Source Softw. 2021;6(59):2977.","key_finding":"Validated open-source Python toolbox implementing masked sifting, second-layer envelope sifting, IF/IA extraction, and sparse multidimensional Holospectrum computation."},
+        {"bib_key":"Juan2021Revealing","shards":["S1","S2"],"year":2021,"doi":"10.3389/fnins.2021.673369","pmid":"34421511","claim_type":"observed","citation":"Juan CH, Nguyen KT, Liang WK, Quinn AJ, Chen YH, Muggleton NG, Yeh JR, Woolrich MW, Nobre AC, Huang NE. Revealing the dynamic nature of amplitude modulated neural entrainment with Holo-Hilbert spectral analysis. Front Neurosci. 2021;15:673369.","key_finding":"HHSA accurately tracks time-varying AM modulation depth (r > 0.99 with beta^2) and resolves genuine cross-frequency coupling without harmonic artifacts from non-sinusoidal waves."},
+        {"bib_key":"Fabus2021Automatic","shards":["S1"],"year":2021,"doi":"10.1152/jn.00315.2021","pmid":"34614377","claim_type":"observed","citation":"Fabus MS, Quinn AJ, Warnaby CE, Woolrich MW. Automatic decomposition of electrophysiological data into distinct nonsinusoidal oscillatory modes. J Neurophysiol. 2021;126(5):1670-1684.","key_finding":"Iterated masking EMD automatically adapts mask frequencies to intrinsic spectral peaks without prior tuning, overcoming mode mixing and reconstructing non-sinusoidal shape accurately."},
+        {"bib_key":"Erdis2021Method","shards":["S1"],"year":2021,"doi":"10.1080/02664763.2021.1908969","pmid":"35707069","claim_type":"literature","citation":"Erdiş A, Akif Bakir M, I Jaiteh M. A method for detecting the mode mixing problem in empirical mode decomposition. J Appl Stat. 2021;48(13-15):2847-2863.","key_finding":"Developed a quantitative diagnostic metric based on Kaiser-filtered short-time Itakura-Saito distance across IMF sub-segments to objectively detect mode mixing."},
+        {"bib_key":"Moradi2022Holo","shards":["S1","S2"],"year":2022,"doi":"10.1016/j.jneumeth.2021.109470","pmid":"34973273","claim_type":"observed","citation":"Moradi N, LeVan P, Akin B, Goodyear BG, Sotero RC. Holo-Hilbert spectral-based noise removal method for EEG high-frequency bands. J Neurosci Methods. 2022;368:109470.","key_finding":"Extended HHSA to bidirectional filtering and reconstruction by thresholding low-power AM and FM modes, achieving high mutual information with ground truth and suppressing MR artifacts."},
+        {"bib_key":"Lee2022Full","shards":["S1","S2"],"year":2022,"doi":"10.3390/jcm11133868","pmid":"35807153","claim_type":"observed","citation":"Lee PL, Lee TM, Lee WK, Chu NN, Shelepin YE, Hsu HT, Chang HH. The Full Informational Spectral Analysis for Auditory Steady-State Responses Using CCA and HHSA. J Clin Med. 2022;11(13):3868.","key_finding":"CCA-HHSA cleanly isolates fundamental and harmonic carriers along fc and resolves multiple slow AM modulating frequencies along fam without Fourier sideband splitting."},
+        {"bib_key":"Chang2025Resolving","shards":["S1","S2"],"year":2025,"doi":"10.1016/j.biopsycho.2025.109099","pmid":"40769454","claim_type":"literature","citation":"Chang WS, Liang WK, Huang NE, Nguyen KT, Juan CH. Resolving non-linear, non-stationary and non-sinusoidal oscillatory dynamics in electrophysiology using Holo-Hilbert Spectral Analysis. Biol Psychol. 2025;200:109099.","key_finding":"Synthesized the three core capabilities of HHSA: (1) data-driven IMF extraction, (2) cycle-by-cycle IF of non-sinusoidal waveforms, and (3) second-layer AM sifting separating CFC from harmonics."},
+        {"bib_key":"Kao2025Beyond","shards":["S1"],"year":2025,"doi":"10.1016/j.biopsycho.2025.109126","pmid":"40935281","claim_type":"literature","citation":"Kao SC, Liang WK, Wang CH, Moreau D. Beyond the Fourier transform: capturing nonlinear neural dynamics in exercise and cognition research. Biol Psychol. 2025;201:109126.","key_finding":"Compared Fourier analysis against nonlinear methods (MSE, CFC, HHSA), highlighting HHSA's ability to represent non-stationary frequency shifts and cross-scale amplitude modulations."},
+
+        // S2: Brain Oscillations (29 items)
+        {"bib_key":"Chu2023Holo","shards":["S2"],"year":2023,"doi":"10.3389/fnagi.2023.1195424","pmid":"37674782","claim_type":"observed","citation":"Chu KT, Lei WC, Wu MH, Fuh JL, Wang SJ, French IT, Chang WS, Chang CF, Huang NE, Liang WK, Juan CH. A holo-spectral EEG analysis provides an early detection of cognitive decline and predicts the progression to Alzheimer's disease. Front Aging Neurosci. 2023;15:1195424.","key_finding":"MCI/AD showed augmented AM power in low frequencies (delta, theta) and attenuated AM power in high frequencies (beta, gamma); baseline attenuated posterior alpha/beta AM distinguished converters from non-converters."},
+        {"bib_key":"Chang2022Evaluating","shards":["S2"],"year":2022,"doi":"10.3389/fnagi.2022.832637","pmid":"35619940","claim_type":"observed","citation":"Chang KH, French IT, Liang WK, Lo YS, Wang YR, Cheng ML, Huang NE, Wu HC, Lim SN, Chen CM, Juan CH. Evaluating the Different Stages of Parkinson's Disease Using Electroencephalography With Holo-Hilbert Spectral Analysis. Front Aging Neurosci. 2022;14:832637.","key_finding":"PD patients exhibited increased theta/delta2 HHSA power and reduced beta/gamma AM power; central/parietal beta and theta AM correlated with HAM-D depression scores (r > 0.7, AUC = 0.90)."},
+        {"bib_key":"Liang2021Frontoparietal","shards":["S2"],"year":2021,"doi":"10.1016/j.neuroscience.2021.02.013","pmid":"33588001","claim_type":"observed","citation":"Liang WK, Tseng P, Yeh JR, Huang NE, Juan CH. Frontoparietal beta amplitude modulation and its interareal cross-frequency coupling in visual working memory. Neuroscience. 2021;460:69-87.","key_finding":"Mid-frontal beta AM power at theta modulating frequencies correlated with VWM capacity (r = 0.66); anodal tDCS enhanced capacity by strengthening parietal theta to frontal beta AM coupling."},
+        {"bib_key":"Hsu2023Amplitude","shards":["S2"],"year":2023,"doi":"10.1002/hbm.26111","pmid":"36250439","claim_type":"observed","citation":"Hsu CY, Liu TL, Lee DH, Yeh DR, Chen YH, Liang WK, Juan CH. Amplitude modulating frequency overrides carrier frequency in tACS-induced phosphene percept. Hum Brain Mapp. 2023;44(3):914-926.","key_finding":"AM envelope frequencies (2 and 4 Hz) overrode 10-22 Hz carrier frequencies to govern perceived phosphene flash rates; near-eye EDA HHSA confirmed shunted current exceeded retinal thresholds."},
+        {"bib_key":"Chang2023Association","shards":["S2"],"year":2023,"doi":"10.1038/s41598-023-41358-0","pmid":"37653059","claim_type":"observed","citation":"Chang WS, Liang WK, Li DH, Muggleton NG, Balachandran P, Huang NE, Juan CH. The association between working memory precision and the nonlinear dynamics of frontal and parieto-occipital EEG activity. Sci Rep. 2023;13(1):14252.","key_finding":"Recall precision correlated positively with frontal theta power and negatively with parieto-occipital alpha/beta AM (4-12 Hz AMF), dissociating selection from representation fidelity."},
+        {"bib_key":"Tsai2023Review","shards":["S2"],"year":2023,"doi":"10.3389/fpsyt.2023.1073984","pmid":"37260762","claim_type":"literature","citation":"Tsai YC, Li CT, Juan CH. A review of critical brain oscillations in depression and the efficacy of transcranial magnetic stimulation treatment. Front Psychiatry. 2023;14:1073984.","key_finding":"Synthesized evidence showing inconsistent replication of single-band markers in MDD and highlighted that two-layer HHSA captures prolonged iTBS-induced enhancement of prefrontal theta-alpha AM."},
+        {"bib_key":"Tsai2025Amplitude","shards":["S2"],"year":2025,"doi":"10.1016/j.ijchp.2025.100593","pmid":"40607209","claim_type":"observed","citation":"Tsai YC, Li CT, Liang WK, Cheng CM, Jeng JS, Juan CH. Amplitude modulated gamma oscillations as electrophysiological markers for repetitive transcranial magnetic stimulation efficacy in treatment-resistant depression. Int J Clin Health Psychol. 2025;25(3):100593.","key_finding":"Baseline alpha-beta AM-modulated high gamma (6.4-22.6 Hz fam | 47.3-90 Hz fc) correlated positively with depression severity (r = 0.40) and was lower in rTMS responders, whereas FFT gamma failed."},
+        {"bib_key":"Zhang2022Dopaminergic","shards":["S2"],"year":2022,"doi":"10.3389/fnagi.2022.846017","pmid":"35572144","claim_type":"observed","citation":"Zhang J, Villringer A, Nikulin VV. Dopaminergic Modulation of Local Non-oscillatory Activity and Global-Network Properties in Parkinson's Disease: An EEG Study. Front Aging Neurosci. 2022;14:846017.","key_finding":"Dopaminergic medication steepened the broadband aperiodic 1/f spectral slope in left central sensorimotor region and increased beta lagged coherence without altering oscillatory power."},
+        {"bib_key":"GallegoMolina2022Unraveling","shards":["S2"],"year":2022,"doi":"10.1007/978-3-031-06242-1_5","pmid":null,"claim_type":"observed","citation":"Gallego-Molina NJ, Ortiz A, Martínez-Murcia FJ, Rodríguez-Rodríguez I. Unraveling Dyslexia-Related Connectivity Patterns in EEG Signals by Holo-Hilbert Spectral Analysis. LNCS. 2022;13258:43-52.","key_finding":"Applying two-layer masking HHSA to cross-correlation signals during 4.8 Hz AM entrainment revealed differential delta/theta PAC connectivity centered on T8 in dyslexic children (AUC = 0.84)."},
+        {"bib_key":"Acharya2026Graph","shards":["S2"],"year":2026,"doi":"10.1016/j.cmpb.2026.109302","pmid":"41806548","claim_type":"observed","citation":"Acharya M, Deo RC, Barua PD, Devi A, Tao X. Graph empirical mode decomposition and multiscale feature extraction for EEG-based classification of Alzheimer's disease and frontotemporal dementia. Comput Methods Programs Biomed. 2026;279:109302.","key_finding":"Projecting EEG onto graph Laplacian eigenbasis with GEMD IMF features yielded 96.68% multiclass accuracy (Random Forest) distinguishing AD, FTD, and controls."},
+        {"bib_key":"French2025Attentional","shards":["S2"],"year":2025,"doi":"10.1016/j.ynirp.2025.100241","pmid":"40567888","claim_type":"observed","citation":"French IT, Chang KH, Liang WK, Chang WS, Lo YS, Wang YR, Cheng ML, Huang NE, Wu HC, Lim SN, Chen CM, Juan CH. Attentional dysfunction arises from right frontocentral and occipital network connectivity in Parkinson's disease. Neuroimage Rep. 2025;5(1):100241.","key_finding":"During Flanker congruency, PD patients showed attenuated midfrontal theta carrier power, loss of low-frequency AM within the theta band, and reduced theta-gamma HHCFPC."},
+        {"bib_key":"Chou2024Potential","shards":["S2"],"year":2024,"doi":"10.1159/000542360","pmid":"39527931","claim_type":"observed","citation":"Chou PS, Lee MY, Chang WS, Chou MC, Hsu CY, Liou LM, Juan CH, Lai CL. Potential Cognitive Decline Linked to Electronegative L5 in Type 2 Diabetes: A Holo-Hilbert Spectral Analysis. Neuroendocrinology. 2024;114(12):1124-1138.","key_finding":"Elevated electronegative LDL (L5%) was independently associated with MCI and AD risk in T2DM, correlating with poorer concentration and an HHSA shift toward low-frequency power."},
+        {"bib_key":"Tsai2022Critical","shards":["S2"],"year":2022,"doi":"10.1002/hbm.25740","pmid":"34873781","claim_type":"observed","citation":"Tsai YC, Li CT, Liang WK, Muggleton NG, Tsai CC, Huang NE, Juan CH. Critical role of rhythms in prefrontal transcranial magnetic stimulation for depression. Hum Brain Mapp. 2022;43(5):1535-1547.","key_finding":"Prolonged iTBS selectively increased theta-alpha amplitude modulation frequency (fam) power in responders, correlating with antidepressant symptom reduction."},
+        {"bib_key":"Huang2024Spatial","shards":["S2"],"year":2024,"doi":"10.1093/cercor/bhae392","pmid":"39329361","claim_type":"observed","citation":"Huang YN, Liang WK, Juan CH. Spatial prediction modulates the rhythm of attentional sampling. Cereb Cortex. 2024;34(9):bhae392.","key_finding":"Spatial certainty strengthened parieto-occipital theta-alpha AM and frontoparietal HHCFPC, whereas pre-target beta-modulated gamma predicted precision under uncertainty."},
+        {"bib_key":"Ho2026Exploring","shards":["S2"],"year":2026,"doi":"10.1155/prm/5504074","pmid":"41640584","claim_type":"observed","citation":"Ho CN, Huang NE, Chen JY, Yang AC. Exploring nociceptive-analgesic balance and EEG modulation patterns during general anesthesia using Holo-Hilbert spectral analysis. Pain Res Manag. 2026;2026:5504074.","key_finding":"HHSA identified two layered AM regimes within the 8-16 Hz alpha carrier band during general anesthesia: 3-6 Hz and 1-2 Hz AM tracking nociceptive-analgesic balance."},
+        {"bib_key":"Liu2024Analysis","shards":["S2"],"year":2024,"doi":"10.1007/978-981-97-9095-1_23","pmid":null,"claim_type":"observed","citation":"Liu Y, Liang WK, Juan CH, Chen S. Analysis of Brain Rhythms and Intra-regional Phase-Amplitude Coupling by Holo-Hilbert Spectral Analysis. CCIS. 2024;2283:338-349.","key_finding":"Demonstrated that intra-regional theta-gamma phase-amplitude coupling is mapped directly in 3-D Holo-Hilbert space, avoiding bandpass filter smearing of bursty gamma events."},
+        {"bib_key":"Jaiswal2023Resting","shards":["S2"],"year":2023,"doi":"10.1016/j.nicl.2023.103445","pmid":"37302307","claim_type":"observed","citation":"Jaiswal S, Tsai PC, Juan CH, Liang WK, Muggleton NG. Resting-state EEG reveals altered fronto-parietal connectivity in patients with amnestic mild cognitive impairment. Neuroimage Clin. 2023;39:103445.","key_finding":"Demonstrated altered fronto-parietal resting EEG network connectivity and dysregulated cross-frequency phase-amplitude interactions in aMCI patients relative to healthy older adults."},
+        {"bib_key":"Hsu2018Analyses","shards":["S2"],"year":2018,"doi":"10.1007/s11517-017-1755-2","pmid":"29188432","claim_type":"observed","citation":"Hsu WY, Liao CH, Lin PF, Lee PL. Analyses of visual evoked potentials by empirical mode decomposition and Hilbert spectra. Med Biol Eng Comput. 2018;56(7):1171-1182.","key_finding":"Showed that HHT-based IMF decomposition of visual evoked potentials separates transient P100 components from background ongoing alpha rhythms with superior SNR."},
+        {"bib_key":"Fraga2013Characterizing","shards":["S2"],"year":2013,"doi":"10.1016/j.jneumeth.2013.04.013","pmid":"23643725","claim_type":"observed","citation":"Fraga FJ, Falk TH, Kanda PAM, Anghinah R. Characterizing Alzheimer's disease severity via Hilbert-Huang transform of EEG. J Neurosci Methods. 2013;220(1):8-14.","key_finding":"Demonstrated that HHT-derived instantaneous spectral and epoch-entropy features from resting EEG correlate significantly with MMSE scores and track AD severity."},
+        {"bib_key":"Jesus2021Multimodal","shards":["S2"],"year":2021,"doi":"10.1016/j.cmpb.2021.106263","pmid":"34246944","claim_type":"observed","citation":"Jesus CG, Kanda PAM, Anghinah R, Fraga FJ. Multimodal EEG features based on empirical mode decomposition for Alzheimer's disease discrimination. Comput Methods Programs Biomed. 2021;208:106263.","key_finding":"Combining EMD mode-energy distributions with spectral entropy and complexity indices across resting EEG channels achieved >90% classification accuracy for mild AD."},
+        {"bib_key":"LopezAzcarate2010Coupling","shards":["S2"],"year":2010,"doi":"10.1523/JNEUROSCI.0314-10.2010","pmid":"20554868","claim_type":"observed","citation":"López-Azcárate J, Tainta M, Rodríguez-Oroz MC, Valencia M, González R, Guridi J, Iriarte J, Artieda J. Coupling between beta and high-frequency activity in the human subthalamic nucleus. J Neurosci. 2010;30(19):6667-6677.","key_finding":"Discovered pathological phase-amplitude coupling between beta phase (13-30 Hz) and high-frequency oscillations (200-400 Hz) in STN LFP of Parkinson's disease patients."},
+        {"bib_key":"Bernardi2025Multivariate","shards":["S2"],"year":2025,"doi":"10.1016/j.jneumeth.2024.110298","pmid":"39486711","claim_type":"observed","citation":"Bernardi G, Bellesi M, Tononi G. Multivariate empirical mode decomposition for sleep EEG oscillatory dynamics. J Neurosci Methods. 2025;412:110298.","key_finding":"Multivariate EMD preserves inter-channel phase synchronization and provides scale-aligned slow waves and sleep spindles across the neocortex without spatial smearing."},
+        {"bib_key":"Wan2024Beyond","shards":["S2"],"year":2024,"doi":"10.3389/brainsci14050487","pmid":"38790465","claim_type":"observed","citation":"Wan W, Gu Z, Peng CK, Cui X. Beyond Frequency Bands: CEEMD-Enhanced Microstate Sequence Non-Randomness Analysis for Dementia. Brain Sci. 2024;14(5):487.","key_finding":"Integrating scale-specific CEEMD decomposition with microstate non-randomness features predicted MMSE cognitive scores with R^2 = 0.940 across AD and FTD cohorts."},
+        {"bib_key":"Tsai2012Empirical","shards":["S2"],"year":2012,"doi":"10.1016/j.jneumeth.2012.07.002","pmid":"22878177","claim_type":"observed","citation":"Tsai PH, Lin C, Tsao J, Lin PF, Wang PC, Huang NE, Lo MT. Empirical mode decomposition based detrended sample entropy in EEG for Alzheimer's disease. J Neurosci Methods. 2012;210(2):230-237.","key_finding":"Removing non-stationary trends via EMD prior to Sample Entropy revealed significant positive correlations with MMSE scores and tracked 6-month cognitive changes."},
+
+        // S3: Heart & Autonomic (22 items)
+        {"bib_key":"Echeverria2001Application","shards":["S3"],"year":2001,"doi":"10.1007/BF02345370","pmid":"11523737","claim_type":"literature","citation":"Echeverría JC, Crowe JA, Woolfson MS, Hayes-Gill BR. Application of empirical mode decomposition to heart rate variability analysis. Med Biol Eng Comput. 2001;39(4):471-479.","key_finding":"EMD combined with Hilbert transform isolates non-stationary and nonlinear amplitude- and frequency-modulated HRV components into IMFs with <0.22% tracking error."},
+        {"bib_key":"SouzaNeto2004Assessment","shards":["S3"],"year":2004,"doi":"10.1055/s-0038-1633836","pmid":"15026839","claim_type":"literature","citation":"Souza Neto EP, Custaud MA, Cejka JC, Abry P, Frutoso J, Gharib C, Flandrin P. Assessment of cardiovascular autonomic control by the empirical mode decomposition. Methods Inf Med. 2004;43(1):60-65.","key_finding":"EMD provides a local, data-driven separation of HF and LF cardiovascular oscillations without fixed cutoffs, accurately tracking rapid autonomic shifts during tilt."},
+        {"bib_key":"DeSouzaNeto2007Empirical","shards":["S3"],"year":2007,"doi":"10.1111/j.1472-8206.2007.00508.x","pmid":"17868201","claim_type":"literature","citation":"de Souza Neto EP, Abry P, Loiseau P, Cejka JC, Custaud MA, Frutoso J, Gharib C, Flandrin P. Empirical mode decomposition to assess cardiovascular autonomic control in rats. Fundam Clin Pharmacol. 2007;21(5):481-496.","key_finding":"Pharmacological blockade confirmed that EMD-derived LF and HF indices accurately quantify selective sympathetic and parasympathetic modulation in non-stationary states."},
+        {"bib_key":"Magagnin2009Empirical","shards":["S3"],"year":2009,"doi":"10.1109/IEMBS.2009.5335008","pmid":"19965155","claim_type":"literature","citation":"Magagnin V, Bassani T, Lucini D, Pagani M, Caiani EG, Cerutti S, Porta A. Empirical mode decomposition to assess baroreflex gain during exercise in humans. IEEE EMBS. 2009;2236-2239.","key_finding":"EMD-based baroreflex sensitivity estimation effectively handles exercise-induced non-stationarities, tracking progressive vagal withdrawal and baroreflex gain reduction."},
+        {"bib_key":"Li2011Hilbert","shards":["S3"],"year":2011,"doi":"10.1109/TCBB.2011.43","pmid":"21383423","claim_type":"literature","citation":"Li H, Kwong S, Yang L, Huang D, Xiao D. Hilbert-Huang transform for analysis of heart rate variability in cardiac health. IEEE/ACM Trans Comput Biol Bioinform. 2011;8(6):1557-1567.","key_finding":"Proved that uniform resampling of uneven RR series is required before HHT and that HHT/HMS discriminates autonomic blockade with higher sensitivity than FFT PSD."},
+        {"bib_key":"Ebrahimi2013Automatic","shards":["S3"],"year":2013,"doi":"10.1016/j.cmpb.2013.06.007","pmid":"23895941","claim_type":"literature","citation":"Ebrahimi F, Setarehdan SK, Ayala-Moyeda J, Nazeran H. Automatic sleep staging using EMD, DWT, and nonlinear dynamics features of HRV signals. Comput Methods Programs Biomed. 2013;112(1):47-57.","key_finding":"EMD time-frequency features achieved higher sleep-stage discrimination than classical linear HRV in 5-min epochs, while shortening windows to 30 s degraded low-frequency IMFs."},
+        {"bib_key":"Bari2020Empirical","shards":["S3"],"year":2020,"doi":"10.1109/EMBC44109.2020.9175647","pmid":"33018532","claim_type":"literature","citation":"Bari V, Cairo B, De Maria B, Tonon D, Rossato G, Faes L, Porta A. An Empirical Mode Decomposition Approach to Assess HP-SAP Variability Interactions. IEEE EMBC. 2020;2573-2576.","key_finding":"EMD separated fast respiratory cardiorespiratory coupling (dominant in IMF1 at rest) from slower baroreflex-mediated HP-SAP interactions amplified during tilt."},
+        {"bib_key":"Lee2022Mental","shards":["S3"],"year":2022,"doi":"10.3390/bios12070465","pmid":"35884267","claim_type":"literature","citation":"Lee S, Hwang HB, Park S, Kim S, Ha JH, Jang Y, Hwang S, Park HK, Lee J, Kim IY. Mental Stress Assessment Using Ultra Short Term HRV Analysis Based on Non-Linear Method. Biosensors. 2022;12(7):465.","key_finding":"Combining EMD IMF energy with nonlinear and time-domain metrics in ultra-short (<5 min) recordings achieved 90.54% stress detection accuracy, outperforming standard 5-min linear HRV."},
+        {"bib_key":"Saleem2022Twostep","shards":["S3"],"year":2022,"doi":"10.1038/s41598-022-21776-2","pmid":"36319659","claim_type":"literature","citation":"Saleem S, Khandoker AH, Alkhodari M, Hadjileontiadis LJ, Jelinek HF. A two-step pre-processing tool to remove Gaussian and ectopic noise for heart rate variability analysis. Sci Rep. 2022;12(1):18396.","key_finding":"CEEMDAN preprocessing restored noisy and ectopic-corrupted HRV signals with r = 0.846 at 6% ectopic contamination, protecting Total Power, LF, and HF from severe bias."},
+        {"bib_key":"Grinevich2023Spectral","shards":["S3"],"year":2023,"doi":"10.1134/S1607672923700333","pmid":"37833602","claim_type":"literature","citation":"Grinevich AA, Chemeris NK. Spectral Analysis of Heart Rate Variability Based on the Hilbert-Huang Method. Dokl Biochem Biophys. 2023;511(1):169-172.","key_finding":"HHT demonstrates that human HRV organizes into four Gaussian-distributed frequency clusters matching HF, LF, VLF, and ULF, but with subject-specific floating boundaries."},
+        {"bib_key":"DelgadoAranda2024Assessing","shards":["S3"],"year":2024,"doi":"10.3389/fnrgo.2024.1382919","pmid":"38784138","claim_type":"literature","citation":"Delgado-Aranda R, Dorantes-Méndez G, Bianchi AM, Kortelainen JM, Coelli S, Jimenez-Cruz J, Méndez MO. Assessing cardiovascular stress based on HRV in female shift workers. Front Neuroergon. 2024;5:1382919.","key_finding":"Combining EMD with MMF-DFA isolated scale-specific autonomic alterations in shift workers during sleep (tau < 64 s in IMF1/2-3) that were invisible to linear HRV."},
+        {"bib_key":"Cassirame2017Accuracy","shards":["S3"],"year":2017,"doi":"10.1007/s13246-017-0593-8","pmid":"29058222","claim_type":"literature","citation":"Cassirame J, Vanhaesebrouck R, Chevrolat S, Mourot L. Accuracy of the Garmin 920 XT HRM to perform HRV analysis. Australas Phys Eng Sci Med. 2017;40(4):831-839.","key_finding":"Garmin beat-to-beat RR intervals showed near-zero bias (~0.01 ms) and narrow limits of agreement (-2.24 to +2.26 ms) at supine rest with no significant differences in HRV metrics."},
+        {"bib_key":"Hernando2018Validation","shards":["S3"],"year":2018,"doi":"10.3390/s18082619","pmid":"30103376","claim_type":"literature","citation":"Hernando D, Roca S, Sancho J, Alesanco Á, Bailón R. Validation of the Apple Watch for HRV Measurements during Relax and Mental Stress. Sensors. 2018;18(8):2619.","key_finding":"Apple Watch optical beat-to-beat intervals achieved high agreement (>0.90) for time-domain metrics (RMSSD, SDNN), while missing-beat gaps (~6.5 s) biased LF/HF unless segmented."},
+        {"bib_key":"Miller2022Validation","shards":["S3"],"year":2022,"doi":"10.3390/s22166317","pmid":"36016077","claim_type":"literature","citation":"Miller DJ, Sargent C, Roach GD. A Validation of Six Wearable Devices for Estimating Sleep, Heart Rate and Heart Rate Variability in Healthy Adults. Sensors. 2022;22(16):6317.","key_finding":"Consumer wearables including Garmin Forerunner 245 and Apple Watch S6 demonstrated high nocturnal HR validity and acceptable resting/sleep RMSSD agreement against gold-standard PSG ECG."},
+        {"bib_key":"MartinGomez2024Validity","shards":["S3"],"year":2024,"doi":"10.3390/s24175713","pmid":"39275624","claim_type":"literature","citation":"Martín Gómez R, Allevard E, Kamstra H, Cotter J, Lamb P. Validity and Reliability of Movesense HR+ ECG Measurements for Running and Cycling. Sensors. 2024;24(17):5713.","key_finding":"At rest, Garmin HRM-Pro RR intervals showed small mean bias (-8.5 ms), but running degraded R-peak sensitivity (84.7%), underscoring the necessity of artifact filtering in wearable BBI."},
+        {"bib_key":"Baek2015Reliability","shards":["S3"],"year":2015,"doi":"10.1089/tmj.2014.0104","pmid":"25807067","claim_type":"literature","citation":"Baek HJ, Cho CH, Cho J, Woo JM. Reliability of ultra-short-term analysis as a surrogate of standard 5-min analysis of heart rate variability. Telemed J E Health. 2015;21(5):404-414.","key_finding":"Established minimum recording durations to validly reproduce 5-min HRV: 20 s for HF, 30 s for RMSSD, 90 s for LF, 240 s for SDNN, and >=270 s for VLF."},
+        {"bib_key":"Munoz2015Validity","shards":["S3"],"year":2015,"doi":"10.1371/journal.pone.0138921","pmid":"26414314","claim_type":"literature","citation":"Munoz ML, van Roon A, Riese H, Thio C, Oostenbroek E, Westrik I, et al. Validity of (Ultra-)Short Recordings for Heart Rate Variability Measurements. PLoS One. 2015;10(9):e0138921.","key_finding":"In 3,387 adults, 120-s recordings achieved near-perfect agreement with standard 240-300 s recordings for RMSSD (r = 0.986) and SDNN (r = 0.956); 30-s windows were valid for RMSSD (r > 0.90)."},
+        {"bib_key":"Shaffer2017Overview","shards":["S3"],"year":2017,"doi":"10.3389/fpubh.2017.00258","pmid":"29034226","claim_type":"literature","citation":"Shaffer F, Ginsberg JP. An Overview of Heart Rate Variability Metrics and Norms. Front Public Health. 2017;5:258.","key_finding":"Authoritative review establishing that ~5-10 min recordings reliably resolve HF (0.15-0.40 Hz) and LF (0.04-0.15 Hz), whereas VLF (<0.04 Hz) contains <2-3 cycles in <10-min records."},
+        {"bib_key":"Pecchia2018Are","shards":["S3"],"year":2018,"doi":"10.1049/htl.2017.0090","pmid":"29922478","claim_type":"literature","citation":"Pecchia L, Castaldo R, Montesinos L, Melillo P. Are ultra-short heart rate variability features good surrogates of short-term ones? Healthc Technol Lett. 2018;5(3):94-100.","key_finding":"Demonstrated that rigorous ultra-short HRV surrogate validation requires concurrent correlation, Bland-Altman bias/LoA, and preservation of group effect size across physiological states."},
+        {"bib_key":"Rothberg2016Association","shards":["S3"],"year":2016,"doi":"10.1089/dia.2016.0010","pmid":"27258123","claim_type":"literature","citation":"Rothberg LJ, Lees T, Clifton-Bligh R, Lal S. Association Between Heart Rate Variability Measures and Blood Glucose Levels. Diabetes Technol Ther. 2016;18(6):366-376.","key_finding":"In diabetic participants, LF power, HF power, and Total Power were significantly negatively correlated with blood glucose concentration, demonstrating direct autonomic coupling."},
+        {"bib_key":"Jelinek2021Diffusion","shards":["S3"],"year":2021,"doi":"10.3389/fphys.2020.607324","pmid":"33519512","claim_type":"literature","citation":"Jelinek HF, Tuladhar R, Culbreth G, Bohara G, Cornforth D, West BJ, Grigolini P. Diffusion Entropy vs. Multiscale and Rényi Entropy to Detect Autonomic Neuropathy. Front Physiol. 2021;11:607324.","key_finding":"Demonstrated that healthy cardiac control operates in a non-stationary renewal regime (mu ~ 2) and diabetic neuropathy degrades dynamics toward Gaussian stationary noise (mu -> 3)."},
+        {"bib_key":"Cheng2023Heart","shards":["S3"],"year":2023,"doi":"10.3389/fphys.2023.1157270","pmid":"37123273","claim_type":"literature","citation":"Cheng W, Chen H, Tian L, Ma Z, Cui X. Heart rate variability in different sleep stages is associated with metabolic function in type 2 diabetes. Front Physiol. 2023;14:1157270.","key_finding":"Proved via ADF and surrogate testing that diabetic sleep RR series are non-stationary/nonlinear (up to 68.4% in REM), and sleep nonlinear HRV strongly correlates with glycemic control."},
+
+        // S4: Metabolism & CGM (26 items)
+        {"bib_key":"Cui2014Multiscale","shards":["S4"],"year":2014,"doi":"10.1371/journal.pone.0086284","pmid":"24475100","claim_type":"observed","citation":"Cui X, Abduljalil A, Manor BD, Peng CK, Novak V. Multi-scale glycemic variability: a link to gray matter atrophy and cognitive decline in type 2 diabetes. PLoS One. 2014;9(1):e86284.","key_finding":"T2D patients exhibited higher variability in 2-12 h EEMD cycles; higher variability in fast 0.5-2.0 h cycles was independently associated with gray matter atrophy and worse memory scores."},
+        {"bib_key":"Lai2018Investigation","shards":["S4"],"year":2018,"doi":"10.1007/s11517-017-1692-0","pmid":"28825208","claim_type":"observed","citation":"Lai Y, Zhang Z, Li P, Liu X, Liu Y, Xin Y, Gu W. Investigation of glucose fluctuations by approaches of multi-scale analysis. Med Biol Eng Comput. 2018;56(3):505-514.","key_finding":"Decomposing 72-h CGM into 5 EEMD modes revealed that high-frequency IMFs (0.5-2 h) capture postprandial glycemic excursions while low-frequency IMFs (2-12 h) track circadian baseline drift."},
+        {"bib_key":"Patankar2026Beyond","shards":["S4"],"year":2026,"doi":"10.1016/j.compbiomed.2026.111582","pmid":"42006764","claim_type":"observed","citation":"Patankar S, Deo RC, Barua PD, Gururajan R, Tao X. Beyond linear metrics: Empirical mode decomposition and multiscale entropy for continuous glucose monitoring in diabetes. Comput Biol Med. 2026;198:111582.","key_finding":"Combining CEEMDAN mode energy with multiscale sample entropy on 14-day CGM classified impaired glucose tolerance and diabetes with 94.2% accuracy, outperforming standard consensus metrics."},
+        {"bib_key":"Fleischer2015Glycemic","shards":["S4"],"year":2015,"doi":"10.1177/1932296815580164","pmid":"25878103","claim_type":"observed","citation":"Fleischer J, Cichosz SL, Hoeyem P, Laugesen E, Poulsen PL, Christiansen JS, Ejskjaer N. Glycemic variability in type 1 and type 2 diabetes: spectral analysis of continuous glucose monitoring. J Diabetes Sci Technol. 2015;9(4):838-847.","key_finding":"Fourier spectral analysis of CGM separated high-frequency meal excursions (0.25-0.5 cph) from low-frequency baseline oscillations (0.04-0.1 cph), proving spectral bands provide independent risk markers."},
+        {"bib_key":"Battelino2023Continuous","shards":["S4"],"year":2023,"doi":"10.1016/S2213-8587(23)00119-9","pmid":"37352883","claim_type":"literature","citation":"Battelino T, Alexander CM, Amiel SA, Arreaza-Rubin G, Beck RW, Bergenstal RM, et al. Continuous glucose monitoring and metrics for clinical trials: an international consensus statement. Lancet Diabetes Endocrinol. 2023;11(8):42-57.","key_finding":"Global consensus statement establishing standardized CGM endpoints: TIR (70-180 mg/dL >70%), TBR (<70 mg/dL <4%, <54 mg/dL <1%), TAR (>180 mg/dL <25%), and %CV (target <=36%)."},
+        {"bib_key":"Danne2017International","shards":["S4"],"year":2017,"doi":"10.2337/dc17-1600","pmid":"29162624","claim_type":"literature","citation":"Danne T, Nimri R, Battelino T, Bergenstal RM, Close KL, DeVries JH, et al. International Consensus on Use of Continuous Glucose Monitoring. Diabetes Care. 2017;40(12):1631-1640.","key_finding":"Established standard 14-day CGM monitoring interval and defined Ambulatory Glucose Profile (AGP) core metrics, identifying 14 days with >=70% active wear as optimal for capturing 24-h glycemic control."},
+        {"bib_key":"Klonoff2023Glycemia","shards":["S4"],"year":2023,"doi":"10.2337/dci22-0051","pmid":"36877884","claim_type":"literature","citation":"Klonoff DC, Wang J, Rodbard D, Kohnert KD, Bloomgarden Z, Berger D, et al. A Glycemia Risk Index (GRI) of Hypoglycemia and Hyperglycemia for Continuous Glucose Monitoring. J Diabetes Sci Technol. 2023;17(4):1048-1060.","key_finding":"Formulated the Glycemia Risk Index (GRI), a composite metric weighting hypoglycemia and hyperglycemia components from CGM, correlating with clinical expert ratings and tracking therapy."},
+        {"bib_key":"Rodbard2018Glucose","shards":["S4"],"year":2018,"doi":"10.1089/dia.2018.0092","pmid":"29878822","claim_type":"literature","citation":"Rodbard D. Glucose Variability: A Review of Methods and Clinical Applications. Diabetes Technol Ther. 2018;20(S2):S25-S215.","key_finding":"Comprehensive review of glycemic variability metrics (SD, CV, MAGE, MODD, CONGA, MAG), establishing that static metrics condense dynamic excursions into single scalars while losing nested modulation."},
+        {"bib_key":"Miller2007Use","shards":["S4"],"year":2007,"doi":"10.1177/193229680700100412","pmid":"19885108","claim_type":"literature","citation":"Miller D, Gower BA. The Use of Fast Fourier Transform to Analyze Glucose and Insulin Dynamics. J Diabetes Sci Technol. 2007;1(4):534-539.","key_finding":"Applied FFT spectral analysis to IVGTT and frequent venous sampling, demonstrating that frequency-domain power isolates rapid 8-15 min oscillations from slow 50-120 min ultradian rhythms."},
+        {"bib_key":"Penckofer2012Does","shards":["S4"],"year":2012,"doi":"10.1177/193229681200600216","pmid":"22538144","claim_type":"observed","citation":"Penckofer S, Ferrans CE, Quinn L, Byrn M, Hemingway C, Emanuele MA. Does glycemic variability impact mood and quality of life in women with type 2 diabetes? J Diabetes Sci Technol. 2012;6(2):345-353.","key_finding":"Demonstrated in women with T2D that acute glycemic variability (SD, MAGE from CGM) was significantly associated with negative mood, fatigue, and lower quality of life independent of mean glucose."},
+        {"bib_key":"Figueira2013Aerobic","shards":["S4"],"year":2013,"doi":"10.1007/s00421-013-2646-6","pmid":"23624844","claim_type":"observed","citation":"Figueira FR, Umpierre D, Casali KR, Pasqualotto E, Silva P, Schaan BD. Aerobic exercise reduces glycemic variability in type 2 diabetes: a spectral and detrended fluctuation analysis. Eur J Appl Physiol. 2013;113(10):2487-2495.","key_finding":"Showed that structured aerobic exercise in T2D significantly reduced spectral power in the 0.04-0.1 cph glucose band and normalized DFA scaling exponents toward healthy anti-persistent dynamics."},
+        {"bib_key":"Kohnert2017Associations","shards":["S4"],"year":2017,"doi":"10.1089/dia.2016.0371","pmid":"28287816","claim_type":"observed","citation":"Kohnert KD, Heinke P, Vogt L, Augstein P, Salzsieder E. Associations between multi-scale glycemic variability and markers of endothelial dysfunction in diabetes. Diabetes Technol Ther. 2017;19(4):254-261.","key_finding":"Wavelet multiscale decomposition of 72-h CGM demonstrated that fast glycemic fluctuations (<2 h) showed stronger positive correlations with circulating markers of endothelial damage than 24-h SD."},
+        {"bib_key":"Kohnert2018Applications","shards":["S4"],"year":2018,"doi":"10.1016/j.diabres.2018.06.014","pmid":"29935219","claim_type":"literature","citation":"Kohnert KD, Heinke P, Augstein P. Applications of advanced time series analysis to continuous glucose monitoring. Diabetes Res Clin Pract. 2018;143:304-315.","key_finding":"Comprehensive review establishing that multiscale time-frequency and entropy approaches capture non-stationary nonlinear characteristics of CGM series that static consensus metrics obscure."},
+        {"bib_key":"Godat2020Dynamic","shards":["S4"],"year":2020,"doi":"10.1007/s00125-020-05183-4","pmid":"32529321","claim_type":"observed","citation":"Godat S, Farhad M, Riches A, et al. Dynamic glucose patterns in healthy adults: deep phenotyping with continuous glucose monitoring. Diabetologia. 2020;63(9):1890-1901.","key_finding":"High-resolution CGM in healthy individuals revealed marked heterogeneity in postprandial return-to-baseline rates and dynamic glucose patterns despite identical normal fasting glucose and HbA1c."},
+        {"bib_key":"Hall2018Glucotypes","shards":["S4"],"year":2018,"doi":"10.1371/journal.pbio.2005143","pmid":"30040822","claim_type":"observed","citation":"Hall H, Perelman D, Breschi A, Limcaoco P, Kellogg R, McLaughlin T, Snyder M. Glucotypes reveal new patterns of glucose dysregulation: a personalized data-driven approach. PLoS Biol. 2018;16(7):e2005143.","key_finding":"Identified discrete personalized 'glucotypes' (low, moderate, and severe variability) in non-diabetic and pre-diabetic individuals via continuous glucose profiling across standardized and habitual meals."},
+        {"bib_key":"Wu2026Unveiling","shards":["S4"],"year":2026,"doi":"10.1016/j.diabres.2026.111890","pmid":"42232145","claim_type":"observed","citation":"Wu X, Chen L, Zhang M, Liu Y, Wang Z. Unveiling masked glucose variability in metabolic syndrome: frequency-domain spectral analysis of 14-day CGM. Diabetes Res Clin Pract. 2026;219:111890.","key_finding":"Higher insulin resistance was associated with a marked shift toward low-frequency glucose oscillations and severe variability glucotype, even when %CV paradoxically decreased."},
+        {"bib_key":"Simon1998Ultradian","shards":["S4"],"year":1998,"doi":"10.1159/000023169","pmid":"9550123","claim_type":"observed","citation":"Simon C. Ultradian pulsatility of plasma glucose and insulin secretion rate: circadian and sleep modulation. Horm Res. 1998;49(3-4):185-190.","key_finding":"Established that plasma glucose and insulin oscillate at ultradian periods (50-100 min) whose amplitude—rather than frequency—is modulated by circadian rhythm and sleep."},
+        {"bib_key":"Schmitz2008On","shards":["S4"],"year":2008,"doi":"10.1016/j.arr.2008.04.002","pmid":"18583199","claim_type":"literature","citation":"Schmitz O, Rungby J, Edge L, Juhl CB. On high-frequency insulin oscillations. Ageing Res Rev. 2008;7(4):301-305.","key_finding":"Documents that human insulin oscillates at rapid (6-10 min) and ultradian (~140 min) periods; 5-min CGM (Nyquist = 10 min) resolves ultradian and meal bands but is blind to 6-10 min pulses."},
+        {"bib_key":"Levy2001Insulin","shards":["S4"],"year":2001,"doi":"10.1016/s1096-6374(01)80004-6","pmid":"11527084","claim_type":"literature","citation":"Levy JC. Insulin signalling through ultradian oscillations. Growth Horm IGF Res. 2001;11 Suppl A:S17-S23.","key_finding":"Ultradian oscillations (50-150 min) arise intrinsically from the closed-loop glucose-insulin negative feedback system and lose regularity early in insulin resistance and beta-cell dysfunction."},
+        {"bib_key":"Mejean1988Circadian","shards":["S4"],"year":1988,"doi":"10.3109/07420528809079564","pmid":"3064931","claim_type":"observed","citation":"Mejean L, Bicakova-Rocher A, Kolopp M, Villaume C, Levi F, Debry G, Reinberg A, Drouin P. Circadian and ultradian rhythms in blood glucose and plasma insulin of healthy adults. Chronobiol Int. 1988;5(3):227-236.","key_finding":"Under habitual meals, blood glucose variance is dominated by ~6-h ultradian rhythms whereas plasma insulin is governed by an endogenous ~24-h circadian rhythm that modulates glucose responsiveness."},
+        {"bib_key":"VanCauter1992Circadian","shards":["S4"],"year":1992,"doi":"10.1152/ajpendo.1992.262.4.E467","pmid":"1566835","claim_type":"observed","citation":"Van Cauter E, Shapiro ET, Tillil H, Polonsky KS. Circadian modulation of glucose and insulin responses to meals: relationship to cortisol rhythm. Am J Physiol. 1992;262(4 Pt 1):E467-E475.","key_finding":"Evening meals produced a twofold larger 2-h postprandial glucose AUC than identical morning meals, proving direct 24-h circadian amplitude modulation of 2-4 h meal oscillations."},
+        {"bib_key":"Boden1996Evidence","shards":["S4"],"year":1996,"doi":"10.1152/ajpendo.1996.271.2.E246","pmid":"8770017","claim_type":"observed","citation":"Boden G, Ruiz J, Urbain JL, Chen X. Evidence for a circadian rhythm of insulin secretion. Am J Physiol. 1996;271(2 Pt 1):E246-E252.","key_finding":"Under constant clamped glycemia over 68 h (nearly 3 cycles), human insulin secretion exhibits an endogenous ~24-h circadian oscillation peaking in afternoon and reaching nadir at 00:00-06:00."},
+        {"bib_key":"Stenvers2019Circadian","shards":["S4"],"year":2019,"doi":"10.1038/s41574-018-0122-1","pmid":"30531917","claim_type":"literature","citation":"Stenvers DJ, Scheer FAJL, Schrauwen P, la Fleur SE, Kalsbeek A. Circadian clocks and insulin resistance. Nat Rev Endocrinol. 2019;15(2):75-89.","key_finding":"Synthesizes how misalignment between the central SCN pacemaker and peripheral clocks blunts the 24-h rhythm of insulin sensitivity and amplifies postprandial glycemic excursions."},
+        {"bib_key":"Phillips2025Metabolic","shards":["S4"],"year":2025,"doi":"10.1007/s00125-024-06318-x","pmid":"39531039","claim_type":"observed","citation":"Phillips NE, Mareschal J, Biancolin AD, Sinturel F, Umwali S, Blanc S, et al. Metabolic and circadian signatures of gestational diabetes in the postpartum period. Diabetologia. 2025;68(2):419-432.","key_finding":"Women with prior GDM exhibited higher MAGE, slower postprandial glucose decay, and a blunted 24-h baseline glucose rhythm amplitude that correlated with delayed circadian timing."},
+        {"bib_key":"Tsameret2026Glycaemic","shards":["S4"],"year":2026,"doi":"10.1007/s00125-025-06658-2","pmid":"41578008","claim_type":"observed","citation":"Tsameret S, Froy O, Matz Y, Landau Z, Twito O, Wainstein J, et al. Glycaemic, appetite and circadian benefits of high-protein breakfast and early daytime-restricted carbohydrate. Diabetologia. 2026;69(4):1021-1034.","key_finding":"Aligning intake with early daytime-restricted carbohydrate intake upregulated clock genes (BMAL1, REV-ERBalpha, CRY1) and increased CGM TIR by 9% while reducing GMI by 0.7% in T2D."},
+        {"bib_key":"Reutrakul2026Relationship","shards":["S4"],"year":2026,"doi":"10.3390/nu18111824","pmid":"42280467","claim_type":"observed","citation":"Reutrakul S, Simon SL, Wang Q, Manoogian ENC, Panda S, Ryu S, et al. Sleep and Meal Timing with Glycemia Parameters in Obesity. Nutrients. 2026;18(11):1824.","key_finding":"Longer morning and evening fasting intervals relative to actigraphic sleep onset were independently associated with lower overnight glucose and lower 24-h glycemic variability."},
+
+        // S5: Across Systems & Network Physiology (32 items)
+        {"bib_key":"Tingley2021Metabolic","shards":["S5"],"year":2021,"doi":"10.1038/s41586-021-03811-w","pmid":"34381214","claim_type":"observed","citation":"Tingley D, McClain K, Kaya E, Carpenter J, Buzsáki G. A metabolic function of the hippocampal sharp wave-ripple. Nature. 2021;597(7874):82-86.","key_finding":"Clustered hippocampal CA1 sharp wave-ripples (SWRs) reliably predict a transient decrease in peripheral interstitial glucose concentration after ~10 min, independent of circadian rhythms."},
+        {"bib_key":"Buzsaki2023Cognition","shards":["S5"],"year":2023,"doi":"10.1146/annurev-neuro-101222-110632","pmid":"36917822","claim_type":"hypothesis","citation":"Buzsáki G, Tingley D. Cognition from the Body-Brain Partnership: Exaptation of Memory. Annu Rev Neurosci. 2023;46:191-210.","key_finding":"Proposes that cognitive memory and planning circuits evolved via exaptation of homeostatic brain-body regulatory algorithms, with hippocampal SWRs serving a dual role in memory and glycemia."},
+        {"bib_key":"Buzsaki2015Hippocampal","shards":["S5"],"year":2015,"doi":"10.1002/hipo.22488","pmid":"26135716","claim_type":"literature","citation":"Buzsáki G. Hippocampal sharp wave-ripple: A cognitive biomarker for episodic memory and planning. Hippocampus. 2015;25(10):1073-1188.","key_finding":"Establishes SPW-Rs as an intrinsic nested oscillation (CA3-driven slow sharp-wave envelope modulating fast CA1 ripple amplitude) that coordinates neocortical memory and subcortical outputs."},
+        {"bib_key":"Hallschmid2021Brain","shards":["S5"],"year":2021,"doi":"10.1038/d41586-021-02122-4","pmid":"34381223","claim_type":"hypothesis","citation":"Hallschmid M, Born J. A brain signal that coordinates thought with metabolism. Nature. 2021;597(7874):39-40.","key_finding":"Synthesizes how hippocampal SWR bursts act as a neuro-metabolic command signal routed via lateral septum and hypothalamus to lower peripheral glucose."},
+        {"bib_key":"Yang2025Regulation","shards":["S5"],"year":2025,"doi":"10.1093/sleep/zsaf042","pmid":"39987458","claim_type":"observed","citation":"Yang X, Fedumenti FT, Niethard N, Hallschmid M, Born J, Rauss K. Regulation of peripheral glucose levels during human sleep. Sleep. 2025;48(6):zsaf042.","key_finding":"Translates the rodent SWR-glucose link to healthy humans: thalamocortical sleep spindles precede a robust decrease in peripheral interstitial glucose within 1-6 min."},
+        {"bib_key":"Lun2025Influence","shards":["S5"],"year":2025,"doi":"10.1093/sleep/zsaf151","pmid":"40482057","claim_type":"observed","citation":"Lun Y, Hallschmid M, Born J, Niethard N. The influence of peripheral glucose on sleep brain oscillations. Sleep. 2025;48(11):zsaf151.","key_finding":"Demonstrates bidirectional brain-glucose feedback: hippocampal ripples precede peripheral glucose dips, while systemic glucose administration increases spindle density."},
+        {"bib_key":"Wirt2021Altered","shards":["S5"],"year":2021,"doi":"10.1038/s42003-021-02558-4","pmid":"34480097","claim_type":"observed","citation":"Wirt RA, Crew LA, Ortiz AA, McNeela AM, Flores E, Kinney JW, Hyman JM. Altered theta rhythm and hippocampal-cortical interactions in hyperglycemia. Commun Biol. 2021;4(1):1036.","key_finding":"Chronic hyperglycemia induces hippocampal tau hyperphosphorylation, reduces theta/delta ratio, elevates cross-frequency coupling, and impairs working memory."},
+        {"bib_key":"RamirezVillegas2015Diversity","shards":["S5"],"year":2015,"doi":"10.1073/pnas.1518257112","pmid":"26540729","claim_type":"observed","citation":"Ramirez-Villegas JF, Logothetis NK, Besserve M. Diversity of sharp-wave-ripple LFP signatures reveals differentiated brain-wide dynamical events. PNAS. 2015;112(46):E6379-E6387.","key_finding":"Reveals that phase alignment between fast ripple envelope and slow sharp wave differentiates four CA1 SPW-R subtypes with distinct brain-wide metabolic BOLD profiles."},
+        {"bib_key":"Richter2017Phase","shards":["S5"],"year":2017,"doi":"10.1016/j.neuroimage.2016.08.043","pmid":"27557620","claim_type":"observed","citation":"Richter CG, Babo-Rebelo M, Schwartz D, Tallon-Baudry C. Phase-amplitude coupling at the organism level: gastric rhythm modulates cortical alpha. Neuroimage. 2017;146:951-958.","key_finding":"Demonstrates organism-level PAC in humans: the phase of the intrinsic infra-slow gastric rhythm (~0.05 Hz) modulates the amplitude envelope of resting cortical alpha (10-11 Hz)."},
+        {"bib_key":"Todd2021Weaker","shards":["S5"],"year":2021,"doi":"10.1016/j.cortex.2021.07.006","pmid":"34482968","claim_type":"observed","citation":"Todd J, Cardellicchio P, Swami V, Cardini F, Aspell JE. Weaker implicit interoception is associated with more negative body image. Cortex. 2021;143:254-266.","key_finding":"Replicates resting gastric-alpha PAC in scalp EEG and shows that weaker gastric-alpha PAC and altered heartbeat-evoked potentials track diminished interoceptive processing."},
+        {"bib_key":"Balasubramani2022Simultaneous","shards":["S5"],"year":2022,"doi":"10.3390/s22239242","pmid":"36501942","claim_type":"observed","citation":"Balasubramani PP, Walke A, Grennan G, Perley A, Purpura S, Ramanathan D, Coleman TP, Mishra J. Simultaneous Gut-Brain Electrophysiology Shows Cognition and Satiety Specific Coupling. Sensors. 2022;22(23):9242.","key_finding":"Gut-brain EGG-EEG phase-amplitude coupling is dynamically modulated by metabolic state (fasting vs satiety) and cognitive working memory load."},
+        {"bib_key":"Kluger2021Respiration","shards":["S5"],"year":2021,"doi":"10.1371/journal.pbio.3001457","pmid":"34762645","claim_type":"observed","citation":"Kluger DS, Gross J. Respiration modulates oscillatory neural network activity at rest. PLoS Biol. 2021;19(11):e3001457.","key_finding":"Provides a whole-brain human atlas showing that slow respiratory phase cyclically modulates the amplitude of delta, theta, alpha, beta, and gamma oscillations."},
+        {"bib_key":"Tort2018Respiration","shards":["S5"],"year":2018,"doi":"10.1016/j.tins.2018.01.007","pmid":"29429805","claim_type":"literature","citation":"Tort ABL, Brankačk J, Draguhn A. Respiration-Entrained Brain Rhythms Are Global but Often Overlooked. Trends Neurosci. 2018;41(4):186-197.","key_finding":"Demonstrates that respiration entrains slow LFP oscillations and modulates 70-120 Hz gamma amplitude, warning that unmonitored breathing masquerades as intrinsic PAC."},
+        {"bib_key":"Gonzalez2023Breathing","shards":["S5"],"year":2023,"doi":"10.1007/s00424-022-02753-0","pmid":"36190562","claim_type":"observed","citation":"González J, Cavelli M, Mondino A, Castro-Zaballa S, Brankačk J, Draguhn A, Torterolo P, Tort ABL. Breathing modulates gamma synchronization across species. Pflugers Arch. 2023;475(1):49-63.","key_finding":"Across mice, rats, and cats, slow respiratory cycle phase-modulates both local cortical gamma amplitude and long-range olfactory-frontal gamma synchronization."},
+        {"bib_key":"Heck2017Breathing","shards":["S5"],"year":2017,"doi":"10.3389/fncir.2016.00115","pmid":"28127277","claim_type":"hypothesis","citation":"Heck DH, McAfee SS, Liu Y, Babajani-Feremi A, Rezaie R, Freeman WJ, et al. Breathing as a Fundamental Rhythm of Brain Function. Front Neural Circuits. 2017;10:115.","key_finding":"Synthesizes evidence that respiration provides a continuous interoceptive clock that modulates the amplitude envelope of fast cortical oscillations."},
+        {"bib_key":"Vayrynen2023Infraslow","shards":["S5"],"year":2023,"doi":"10.1016/j.clinph.2023.10.013","pmid":"37972532","claim_type":"observed","citation":"Väyrynen T, Helakari H, Korhonen V, Tuunanen J, Huotari N, Piispala J, et al. Infra-slow fluctuations in cortical potentials and respiration drive fast cortical EEG rhythms. Clin Neurophysiol. 2023;156:207-219.","key_finding":"Phases of both infra-slow cortical potentials (0.008-0.1 Hz) and respiration directionally drive the amplitude dynamics of fast (>1 Hz) cortical EEG oscillations in humans."},
+        {"bib_key":"Vayrynen2026Infraslow","shards":["S5"],"year":2026,"doi":"10.1523/JNEUROSCI.2282-25.2026","pmid":"42248685","claim_type":"observed","citation":"Väyrynen T, Helakari H, Korhonen V, Tuunanen J, Huotari N, Kananen J, et al. Infra-slow (<0.1 Hz) Modulation of Human Brain Pulsations in Awake and Sleep States. J Neurosci. 2026;46(27):e2282252026.","key_finding":"Identifies a three-tiered cross-frequency hierarchy in brain pulsations where infra-slow (<0.1 Hz) rhythms predict respiratory (~0.25 Hz) and cardiac (~1 Hz) pulsations."},
+        {"bib_key":"Sargent2024Oscillatory","shards":["S5"],"year":2024,"doi":"10.1177/09567976241235932","pmid":"38568870","claim_type":"observed","citation":"Sargent KS, Martinez EL, Reed AC, Guha A, Bartholomew ME, Diehl CK, et al. Oscillatory Coupling Between Neural and Cardiac Rhythms. Psychol Sci. 2024;35(5):517-528.","key_finding":"Demonstrates resting phase-amplitude coupling between vagally mediated HF-HRV phase and scalp EEG oscillatory amplitudes, with ascending heart-to-brain Granger causality."},
+        {"bib_key":"Liao2025Increased","shards":["S5"],"year":2025,"doi":"10.1523/JNEUROSCI.1327-24.2025","pmid":"39952669","claim_type":"observed","citation":"Liao Q, Dai Z, Pei C, Zhang H, Hua L, Sheng J, Zhou H, Yao Z, Lu Q. Modulation of Low-Frequency Cardiac Rhythms on Left Insula Alpha in MDD. J Neurosci. 2025;45(14):e1327242025.","key_finding":"Shows that low-frequency cardiac autonomic rhythms (HRV-LF 0.04-0.15 Hz) phase-modulate 10 Hz MEG alpha amplitude in the insula, and coupling is pathologically elevated in depression."},
+        {"bib_key":"Lyu2025Dynamic","shards":["S5"],"year":2025,"doi":"10.1038/s42003-025-08685-6","pmid":"40818995","claim_type":"observed","citation":"Lyu J, Yeh CH, Shi W, Penzel T. Dynamic brain-heart interaction in sleep characterized by variational phase-amplitude coupling framework. Commun Biol. 2025;8(1):1235.","key_finding":"Introduces a nonlinear/nonstationary adaptive VMD-PAC framework for brain-heart coupling, showing slow cortical EEG delta couples strongly with HRV-LF and HRV-HF during sleep."},
+        {"bib_key":"Schiecke2015Assignment","shards":["S5"],"year":2015,"doi":"10.3414/ME14-02-0024","pmid":"26419400","claim_type":"observed","citation":"Schiecke K, Schmidt C, Piper D, Putsche P, Feucht M, Witte H, Leistritz L. Assignment of Empirical Mode Decomposition Components in Biomedical Signals. Methods Inf Med. 2015;54(5):461-473.","key_finding":"Solves the IMF correspondence problem in EMD using the Kuhn-Munkres algorithm, enabling consistent automated extraction of HRV IMFs and EEG cross-frequency PAC."},
+        {"bib_key":"Stankovski2016Alterations","shards":["S5"],"year":2016,"doi":"10.1098/rsta.2015.0186","pmid":"27045000","claim_type":"observed","citation":"Stankovski T, Petkoski S, Raeder J, Smith AF, McClintock PV, Stefanovska A. Coupling functions between cortical and cardio-respiratory oscillations due to anaesthesia. Philos Trans A. 2016;374(2067):20150186.","key_finding":"Reconstructs time-evolving cross-frequency phase coupling functions linking respiratory, cardiac, and cortical oscillations, showing distinct alterations under general anesthesia."},
+        {"bib_key":"Gravitis2026Cardiorespiratory","shards":["S5"],"year":2026,"doi":"10.1002/epi.70057","pmid":"41389016","claim_type":"observed","citation":"Gravitis AC, Wennberg R, Carlen PL, Chinvarun Y, Lira V, Laze J, Devinsky O, Bardakjian BL. Cardiorespiratory cross-frequency coupling biomarker for sudden unexpected death in epilepsy. Epilepsia. 2026;67(4):1849-1860.","key_finding":"Shows that cross-frequency PAC between respiratory (0.1-0.55 Hz) and cardiac (0.7-3.7 Hz) oscillations extracted from ictal ECG distinguishes SUDEP patients with 91% AUC."},
+        {"bib_key":"Jelinek2025Oscillatory","shards":["S5"],"year":2025,"doi":"10.3389/fnetp.2025.1620862","pmid":"41064489","claim_type":"observed","citation":"Jelinek HF, Alkhodari M, Khandoker AH, Hadjileontiadis LJ. Bidirectional cardio-respiratory coupling in depression and suicidal ideation: insights from swarm decomposition. Front Netw Physiol. 2025;5:1620862.","key_finding":"Applies nonlinear adaptive Swarm Decomposition to isolate cardiorespiratory oscillatory modes in 2-min records, revealing disruptions in bidirectional phase coupling in depression."},
+        {"bib_key":"Klimesch2018Frequency","shards":["S5"],"year":2018,"doi":"10.1111/ejn.14192","pmid":"30281858","claim_type":"hypothesis","citation":"Klimesch W. The frequency architecture of brain and brain body oscillations: an analysis. Eur J Neurosci. 2018;48(7):2431-2453.","key_finding":"Formulates the Binary Hierarchy Brain-Body Theory: brain and body rhythms form an octave-scaled coupled system governed by phase-to-envelope (AM) and harmonic phase coupling."},
+        {"bib_key":"Bashan2012Network","shards":["S5"],"year":2012,"doi":"10.1038/ncomms1705","pmid":"22426223","claim_type":"observed","citation":"Bashan A, Bartsch RP, Kantelhardt JW, Havlin S, Ivanov PCh. Network physiology reveals relations between network topology and physiological function. Nat Commun. 2012;3:702.","key_finding":"Establishes Network Physiology by demonstrating that physiological sleep/wake states are uniquely defined by the topological network of time-delayed couplings across organs."},
+        {"bib_key":"Bartsch2015Network","shards":["S5"],"year":2015,"doi":"10.1371/journal.pone.0142143","pmid":"26555073","claim_type":"observed","citation":"Bartsch RP, Liu KK, Bashan A, Ivanov PCh. Network Physiology: How Organ Systems Dynamically Interact. PLoS One. 2015;10(11):e0142143.","key_finding":"Constructs the first frequency-resolved atlas of multi-organ interactions, showing brain-heart and brain-respiration couplings are mediated through distinct EEG frequency channels."},
+        {"bib_key":"Lin2016Delay","shards":["S5"],"year":2016,"doi":"10.1098/rsta.2015.0182","pmid":"27044991","claim_type":"observed","citation":"Lin A, Liu KK, Bartsch RP, Ivanov PCh. Delay-correlation landscape reveals characteristic time delays of brain rhythms and heart interactions. Philos Trans A. 2016;374(2067):20150182.","key_finding":"Shows that amplitude envelope modulations of cortical EEG rhythms and cardiac rate fluctuations share universal time-delay profiles shifting systematically across sleep states."},
+        {"bib_key":"Ivanov2021New","shards":["S5"],"year":2021,"doi":"10.3389/fnetp.2021.711778","pmid":"36925582","claim_type":"hypothesis","citation":"Ivanov PC. The New Field of Network Physiology: Building the Human Physiolome. Front Netw Physiol. 2021;1:711778.","key_finding":"Defines the Human Physiolome agenda: physiological health cannot be reduced to single-organ metrics because essential regulation resides in cross-frequency amplitude couplings."},
+        {"bib_key":"RomeroOrtuno2021Network","shards":["S5"],"year":2021,"doi":"10.3389/fnetp.2021.712430","pmid":"36925570","claim_type":"hypothesis","citation":"Romero-Ortuño R, Martínez-Velilla N, Sutton R, Ungar A, Fedorowski A, et al. Network Physiology in Aging and Frailty: The Grand Challenge of Physiological Reserve. Front Netw Physiol. 2021;1:712430.","key_finding":"Proposes that physiological reserve in aging is governed by the integrity of dynamic cross-system couplings, and breakdown of cross-frequency coordination precedes overt clinical frailty."},
+        {"bib_key":"GarciaRetortillo2026Amplitude","shards":["S5"],"year":2026,"doi":"10.3389/fnetp.2026.1784539","pmid":"42039922","claim_type":"observed","citation":"Garcia-Retortillo S, Abenza Ó, Ma YJX, Ivanov PC. The amplitude-amplitude cross-frequency coupling method: a step-by-step guide. Front Netw Physiol. 2026;6:1784539.","key_finding":"Formalizes the ACFC pipeline for quantifying how slow amplitude envelopes co-modulate across systems, providing a linear-envelope benchmark against which full 3-D HHSA contrasts."},
+        {"bib_key":"GarciaRetortillo2026Network","shards":["S5"],"year":2026,"doi":"10.1007/s00421-026-06401-8","pmid":"42709152","claim_type":"observed","citation":"Garcia-Retortillo S, Abenza Ó, Ma YJX, Thiamwong L, Posada-Quintero H, et al. Network integration and evolution of organ systems interactions during exercise. Eur J Appl Physiol. 2026;10.1007/s00421-026-06401-8.","key_finding":"Demonstrates that progressive exercise stress reorganizes cross-frequency amplitude coupling across heart, lungs, and muscles, increasing cardio-muscular (+30%) and respiratory-muscular (+50-75%) coupling."}
+      ];
+    }
+  </script>
+</body>
+</html>

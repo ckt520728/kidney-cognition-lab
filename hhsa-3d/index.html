@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Using HHSA to Unravel the Physiological Secrets of Body Signals | Kidney & Cognition Lab</title>
+  <meta name="description" content="Interactive 3-D Holo-Hilbert Spectral Analysis (HHSA) web explorer unraveling nested oscillations and amplitude modulation across brain, heart, and metabolic body signals.">
+  
+  <!-- CSS Design System -->
+  <link rel="stylesheet" href="assets/css/site.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">H3</div>
+        <div class="brand-text">
+          <span class="brand-title">HHSA <span class="accent">3-D</span></span>
+          <span class="brand-subtitle">Kidney & Cognition Lab</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link active">首頁 Home</a></li>
+          <li><a href="explorer.html" class="nav-link">3-D 探索器 Explorer</a></li>
+          <li><a href="method.html" class="nav-link">方法學 Method</a></li>
+          <li><a href="demos.html" class="nav-link">臨床示範 Demos</a></li>
+          <li><a href="library.html" class="nav-link">程式庫 Library</a></li>
+          <li><a href="links.html" class="nav-link">文獻庫 Publications</a></li>
+          <li><a href="about.html" class="nav-link">關於 About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="btn-theme-toggle" class="theme-toggle" title="Toggle Light/Dark Theme">☀️</button>
+        <button id="btn-mobile-nav" class="mobile-toggle" aria-label="Toggle Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section with Turntable 3D Mini-Explorer -->
+  <section class="landing-hero">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div style="margin-bottom: 16px;">
+          <span class="badge badge-teal">Phase 2 Interactive Core</span>
+          <span class="badge badge-gold">Nonlinear & Nonstationary Dynamics</span>
+        </div>
+        <h1>
+          解開人體訊號的生理密碼：<br>
+          <span class="gradient-text">全息希爾伯特頻譜 (HHSA)</span>
+        </h1>
+        <p class="hero-subtitle">
+          人體的腦波、心率與代謝訊號並非單純的正弦疊加，而是<strong>巢狀調幅 (Nested Amplitude Modulation)</strong> 的非線性動態。傳統 1-D 與 2-D 頻譜丟失了調幅維度；HHSA 透過二階經驗模態分解，建構精確的三維頻譜能量體 <em>H(t, f<sub>carrier</sub>, f<sub>AM</sub>)</em>。
+        </p>
+
+        <div class="hero-cta">
+          <a href="explorer.html" class="btn btn-primary">
+            <span>🚀 啟動 3-D 立體探索器</span>
+          </a>
+          <a href="explorer.html?dataset=cgm" class="btn btn-secondary">
+            <span>🩸 連續血糖 (CGM) 實例</span>
+          </a>
+          <a href="explorer.html?dataset=hrv_sessionA" class="btn btn-secondary">
+            <span>❤️ 穿戴心率變異 (HRV)</span>
+          </a>
+        </div>
+
+        <div class="hero-badges">
+          <span class="badge badge-dim">Three.js 3D WebGL</span>
+          <span class="badge badge-dim">Live 2-D Slices S(t,f) / C(f,w) / M(t,w)</span>
+          <span class="badge badge-dim">f<sub>AM</sub> &lt; f<sub>carrier</sub> 因果篩選</span>
+          <span class="badge badge-dim">3/T 可解析極限標註</span>
+        </div>
+      </div>
+
+      <!-- Hero Embedded Mini-Explorer -->
+      <div class="hero-canvas-card">
+        <div class="hero-canvas-header">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size: 13px; font-weight: 600; color: var(--text);">即時 3-D 轉盤預覽 (Live Turntable)</span>
+            <span class="badge badge-gold" id="mini-badge">AM-FM Ground Truth</span>
+          </div>
+          <div class="btn-group">
+            <button class="btn-tab active" data-mini-dataset="synthetic">合成驗證</button>
+            <button class="btn-tab" data-mini-dataset="cgm">血糖 CGM</button>
+            <button class="btn-tab" data-mini-dataset="hrv_sessionA">心率 HRV</button>
+          </div>
+        </div>
+
+        <div class="hero-canvas-wrapper">
+          <canvas id="mini-turntable-canvas"></canvas>
+          <div class="hero-canvas-overlay">
+            <span class="badge badge-dim" style="background: rgba(10,15,30,0.85);">
+              🖱️ 可旋轉視角 · 點擊右下方按鈕全螢幕體驗
+            </span>
+            <a href="explorer.html" class="btn btn-primary btn-sm">開啟全功能探索器 ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Method & Core Value Proposition Section -->
+  <section class="section" style="border-top: 1px solid var(--border);">
+    <div class="section-head">
+      <h2>為什麼需要第三個維度？</h2>
+      <p>傳統傅立葉變換與時頻分析 (STFT / CWT) 將所有訊號投影為單一載波頻率，而 HHSA 揭示了「慢節律如何調控快節律」的生理機制。</p>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon icon-teal">⚡</div>
+        <h3 class="card-title">載波頻率 f<sub>carrier</sub> (Axis X)</h3>
+        <p class="card-text">
+          捕捉快速的物理震盪節律，例如心臟的呼吸性竇性心律不整 (HF 0.15–0.40 Hz)、腦電 Gamma 震盪 (30–80 Hz) 或血糖的進食後短時波動 (Meal excursions)。
+        </p>
+        <div class="card-meta">
+          <span>第一層 EEMD 分解</span>
+          <span>高頻瞬時頻率</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon icon-purple">🌊</div>
+        <h3 class="card-title">調幅頻率 f<sub>AM</sub> (Axis Y)</h3>
+        <p class="card-text">
+          解構載波包絡線 (Envelope) 的慢速調節。例如自主神經血管舒縮 (Vasomotor LF ~0.1 Hz) 對呼吸節律的調控，以及晝夜節律 (Circadian ~24 h) 對餐後血糖波動幅度的閘控作用。
+        </p>
+        <div class="card-meta">
+          <span>第二層 EMD 包絡解調</span>
+          <span>跨頻率耦合 (CFC)</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon icon-gold">⏳</div>
+        <h3 class="card-title">時間軌跡 t (Axis Z)</h3>
+        <p class="card-text">
+          呈現生理動態隨狀態轉變（日間活動、進餐、深層睡眠、迷走神經重置）的即時軌跡，克服傳統頻譜需長時間平穩性假設的局限。
+        </p>
+        <div class="card-meta">
+          <span>逐點瞬時時間解析</span>
+          <span>自適應無窗長妥協</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Evidence & Rigorous Claims Matrix -->
+  <section class="section" style="border-top: 1px solid var(--border); background: var(--bg-card);">
+    <div class="section-head">
+      <h2>科學證據矩陣：嚴格區分三類聲明</h2>
+      <p>依循嚴謹學術標準，本平台的所有分析均明確區隔已觀察證據、自主計算衍生結果與未經驗證假說。</p>
+    </div>
+
+    <div class="claims-table-wrap">
+      <table class="claims-table">
+        <thead>
+          <tr>
+            <th style="width: 130px;">聲明分類</th>
+            <th style="width: 240px;">核心定義</th>
+            <th>在本平台上的具體實證與對應視覺體現</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-teal">observed 已觀察</span></td>
+            <td>同儕審查文獻中已報導之實證生理規律與臨床試驗數據。</td>
+            <td>
+              穿戴 PPG 記錄中經呼吸導引誘發的副交感神經高頻 (HF 0.15–0.40 Hz) 功率顯著增強；連續血糖監測 (CGM) 中 24 小時晝夜節律對胰島素抗性的週期性重構。
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-gold">derived 自主衍生</span></td>
+            <td>經由開源演算法在開源或去識別資料集上實際運算之可重現成果。</td>
+            <td>
+              合成 AM-FM 訊號立方體達到 100% 座標精準回收；13 天 CGM 去識別資料成功分離 Circadian (24 h)、Ultradian (8 h) 與 Meal (3 h) 之多層級三維能量塊；Garmin HRV 實測立方體準確分離呼吸竇性心律不整與血管舒縮調幅。
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-purple">hypothesis 假說</span></td>
+            <td>符合生理學推論但尚未經前瞻性隨機試驗證實之機制假設。</td>
+            <td>
+              海馬迴尖波漣波 (SWR) 的微小調幅特徵可能經由下視丘自主神經核直接同步肝臟葡萄糖釋放；心腎軸向的超慢調幅失序可能是認知衰退的早期前驅生理標記。
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Interactive Dataset Showcase -->
+  <section class="section" style="border-top: 1px solid var(--border);">
+    <div class="section-head">
+      <h2>探索五大精選 HHSA 資料集</h2>
+      <p>點擊下方卡片即可直接進入 3-D 立方體探索器，進行切片聯動與頻率可解析度檢驗。</p>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+          <h3 class="card-title">1. 合成 AM-FM 真實標籤</h3>
+          <span class="badge badge-gold">Ground Truth</span>
+        </div>
+        <p class="card-text">
+          已知方程式 <em>x(t) = [1 + 0.70 cos(φ<sub>AM</sub>)] · cos(φ<sub>c</sub>)</em>，嚴格檢驗載波 (0.50 Hz) 與調幅 (0.05 Hz) 在三維空間中無串擾的完全分離。
+        </p>
+        <div class="card-meta">
+          <span>時長 300 s · 40×40 網格</span>
+          <a href="explorer.html?dataset=synthetic" class="btn btn-primary btn-sm">開啟立方體 ↗</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+          <h3 class="card-title">2. 去識別 CGM 血糖紀錄</h3>
+          <span class="badge badge-teal">n = 1 · 13 Days</span>
+        </div>
+        <p class="card-text">
+          真實去識別連續血糖紀錄（312 小時，5 分鐘取樣）。三維頻譜清晰展現 24 小時晝夜節律作為調幅外衣，調控快速進食升糖反應。
+        </p>
+        <div class="card-meta">
+          <span>受試者知情同意分享</span>
+          <a href="explorer.html?dataset=cgm" class="btn btn-primary btn-sm">開啟立方體 ↗</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+          <h3 class="card-title">3. Garmin 心率變異 (HRV-A)</h3>
+          <span class="badge badge-purple">~7 min 穿戴紀錄</span>
+        </div>
+        <p class="card-text">
+          高精準 PPG 逐拍間期序列 (714 beats)。解析度邊界 &lt; 0.007 Hz (VLF) 標註斜線盲區，嚴格遵守 3/T 物理極限。
+        </p>
+        <div class="card-meta">
+          <span>RMSSD 24.3 ms · VLF 灰階排除</span>
+          <a href="explorer.html?dataset=hrv_sessionA" class="btn btn-primary btn-sm">開啟立方體 ↗</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+          <h3 class="card-title">4. Garmin 心率變異 (HRV-B)</h3>
+          <span class="badge badge-purple">~7 min 穿戴紀錄</span>
+        </div>
+        <p class="card-text">
+          第二段獨立穿戴紀錄 (695 beats)。展示迷走神經張力上升與呼吸性竇性心律不整 (HF 0.25 Hz) 在三維空間中顯著增強之動態。
+        </p>
+        <div class="card-meta">
+          <span>RMSSD 26.8 ms · 迷走調控對比</span>
+          <a href="explorer.html?dataset=hrv_sessionB" class="btn btn-primary btn-sm">開啟立方體 ↗</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+          <h3 class="card-title">5. 合成生理性 HRV 基準</h3>
+          <span class="badge badge-dim">K4 生理生成模型</span>
+        </div>
+        <p class="card-text">
+          基於自主神經生理機制的雙載波震盪模型（LF 0.10 Hz + HF 0.25 Hz），提供穿戴演算法雜訊魯棒性測試之絕對黃金標準。
+        </p>
+        <div class="card-meta">
+          <span>時長 600 s · 無偽影干擾</span>
+          <a href="explorer.html?dataset=hrv_synthetic" class="btn btn-primary btn-sm">開啟立方體 ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="border-top: 1px solid var(--border); padding: 40px 24px; background: var(--bg-card2); text-align: center; font-size: 13px; color: var(--text-sec);">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; align-items: center;">
+      <div style="display: flex; gap: 18px; flex-wrap: wrap; justify-content: center;">
+        <a href="index.html">首頁</a>
+        <a href="explorer.html">3-D 探索器</a>
+        <a href="method.html">方法學</a>
+        <a href="demos.html">臨床示範</a>
+        <a href="library.html">開源程式庫</a>
+        <a href="links.html">文獻出版</a>
+        <a href="about.html">關於研究室</a>
+      </div>
+      <p>
+        © 2026 Kidney & Cognition Lab (ckt520728/kidney-cognition-lab). All rights reserved.
+      </p>
+      <p style="font-size: 11px; color: var(--text-dim); max-width: 800px;">
+        免責聲明：本網站內容及 3-D 全息希爾伯特頻譜探索器僅供學術研究、工程驗證與教學展示之用，非作為臨床診斷或醫療處方依據。去識別血糖實例經當事人書面知情同意授權使用；穿戴心率變異紀錄依受試者保護倫理原則處理。
+      </p>
+    </div>
+  </footer>
+
+  <!-- Script Module -->
+  <script type="module">
+    import { initMiniTurntable, DATASET_CONFIGS } from './assets/js/explorer.js';
+
+    let miniApp = null;
+    window.addEventListener('DOMContentLoaded', () => {
+      miniApp = initMiniTurntable('mini-turntable-canvas', 'synthetic');
+
+      const tabs = document.querySelectorAll('[data-mini-dataset]');
+      const badge = document.getElementById('mini-badge');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          tabs.forEach(t => t.classList.remove('active'));
+          e.currentTarget.classList.add('active');
+          const ds = e.currentTarget.getAttribute('data-mini-dataset');
+          if (miniApp) {
+            miniApp.loadDataset(ds);
+            if (badge) {
+              const cfg = DATASET_CONFIGS[ds];
+              badge.textContent = cfg.name;
+              badge.className = `badge ${cfg.badgeClass}`;
+            }
+          }
+        });
+      });
+
+      // Mobile Menu Toggle
+      const mobileBtn = document.getElementById('btn-mobile-nav');
+      const nav = document.querySelector('.nav-links');
+      if (mobileBtn && nav) {
+        mobileBtn.addEventListener('click', () => {
+          nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+          nav.style.flexDirection = 'column';
+          nav.style.position = 'absolute';
+          nav.style.top = '64px';
+          nav.style.left = '0';
+          nav.style.right = '0';
+          nav.style.background = 'var(--bg-card)';
+          nav.style.padding = '16px';
+          nav.style.borderBottom = '1px solid var(--border)';
+        });
+      }
+
+      // Theme toggle
+      const themeBtn = document.getElementById('btn-theme-toggle');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+          const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+          const next = cur === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          themeBtn.textContent = next === 'light' ? '🌙' : '☀️';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

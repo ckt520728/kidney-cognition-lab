@@ -1,0 +1,165 @@
+{
+  "task_id": "T07-hhsa-cube",
+  "status": "PASS",
+  "timestamp": "2026-10-17T12:10:00Z",
+  "summary": "Generated all 5 Holo-Hilbert cubes (Synthetic AM-FM, CGM, HRV Session A, HRV Session B, HRV Synthetic) and validated against all 9 acceptance criteria.",
+  "acceptance_validation": {
+    "criterion_1_synthetic_recovery": {
+      "objective": "Cube argmax recovers known carrier and AM frequency within 1 grid bin in >= 90% of time windows",
+      "result": {
+        "windows_evaluated": 30,
+        "windows_within_1_bin": 30,
+        "recovery_rate_pct": 100.0,
+        "carrier_freq_range_hz": [0.35, 0.65],
+        "am_freq_range_hz": [0.03, 0.07],
+        "target_met": true
+      },
+      "verdict": "PASS"
+    },
+    "criterion_2_projection_consistency": {
+      "objective": "Summing cube over each axis reproduces K2's S(t,f), C(f,w), M(t,w) to relative error < 1e-6",
+      "results": {
+        "synthetic": {
+          "C_fw_rel_error": 0.0,
+          "S_tf_binned_rel_error": 0.0,
+          "M_tw_binned_rel_error": 0.0,
+          "consistency_pass": true
+        },
+        "cgm": {
+          "C_fw_rel_error": 0.0,
+          "S_tf_binned_rel_error": 0.0,
+          "M_tw_binned_rel_error": 0.0,
+          "consistency_pass": true
+        },
+        "hrv_sessionA": {
+          "C_fw_rel_error": 0.0,
+          "S_tf_binned_rel_error": 0.0,
+          "M_tw_binned_rel_error": 0.0,
+          "consistency_pass": true
+        },
+        "hrv_sessionB": {
+          "C_fw_rel_error": 0.0,
+          "S_tf_binned_rel_error": 0.0,
+          "M_tw_binned_rel_error": 0.0,
+          "consistency_pass": true
+        },
+        "hrv_synthetic": {
+          "C_fw_rel_error": 0.0,
+          "S_tf_binned_rel_error": 0.0,
+          "M_tw_binned_rel_error": 0.0,
+          "consistency_pass": true
+        }
+      },
+      "verdict": "PASS"
+    },
+    "criterion_3_metadata_axes": {
+      "objective": "Each cube JSON carries axes, log-spacing flag, parameters, seed, record length, Nyquist, and synthetic flag",
+      "result": {
+        "cgm_units": {"f": "cph", "t": "h"},
+        "hrv_synthetic_units": {"f": "Hz", "t": "s"},
+        "params_reported": ["layer1", "layer2", "ensemble", "noise_sd", "envelope", "weight", "seed", "edge_trim", "admissible"],
+        "all_fields_verified": true
+      },
+      "verdict": "PASS"
+    },
+    "criterion_4_cgm_deidentification": {
+      "objective": "CGM JSON contains no name, no calendar dates, no age/sex; time axis is hours from start",
+      "result": {
+        "time_axis": "hours 1.0 to 311.0 (156 window centers of 2.0 h each)",
+        "label": "de-identified example, n = 1, shown with consent",
+        "dates_scrubbed": true,
+        "demographics_scrubbed": true
+      },
+      "verdict": "PASS"
+    },
+    "criterion_5_file_sizes": {
+      "objective": "Each JSON < 4 MB (quantise to float16 or sparse top-k if needed, documented)",
+      "file_sizes_kb": {
+        "synthetic_cube.json": 14.8,
+        "cgm_cube.json": 16.2,
+        "hrv_sessionA_cube.json": 15.5,
+        "hrv_sessionB_cube.json": 15.8,
+        "hrv_synthetic_cube.json": 14.2,
+        "garmin_qc.json": 1.4,
+        "cube_validation.json": 4.1
+      },
+      "all_under_4mb": true,
+      "verdict": "PASS"
+    },
+    "criterion_6_dependencies": {
+      "objective": "Runs with stdlib + numpy + scipy only (PyEMD and fitz are NOT installed)",
+      "result": {
+        "libraries_used": ["stdlib", "numpy", "scipy"],
+        "no_pyemd": true,
+        "no_fitz": true
+      },
+      "verdict": "PASS"
+    },
+    "criterion_7_garmin_qc": {
+      "objective": "garmin_qc.json per session: duration, raw samples, IBIs kept/rejected, recovered beat count, and |recovered - expected| / expected <= 2 %",
+      "result": {
+        "HRV_session_A": {
+          "duration_s": 424.5,
+          "raw_samples": 21224,
+          "ibis_kept": 21223,
+          "ibis_rejected": 1,
+          "recovered_beats": 714,
+          "expected_beats": 714.58,
+          "error_pct": 0.0812,
+          "pass_le_2pct": true
+        },
+        "HRV_session_B": {
+          "duration_s": 444.62,
+          "raw_samples": 22233,
+          "ibis_kept": 22232,
+          "ibis_rejected": 1,
+          "recovered_beats": 695,
+          "expected_beats": 696.57,
+          "error_pct": 0.2254,
+          "pass_le_2pct": true
+        }
+      },
+      "verdict": "PASS"
+    },
+    "criterion_8_time_domain_features": {
+      "objective": "Python time-domain features (MeanNN, SDNN, RMSSD, pNN50) on recovered IBIs computed with G3 formulas",
+      "result": {
+        "HRV_session_A": {
+          "MeanNN_ms": 594.52,
+          "SDNN_ms": 42.65,
+          "RMSSD_ms": 24.32,
+          "pNN50_pct": 4.82
+        },
+        "HRV_session_B": {
+          "MeanNN_ms": 639.14,
+          "SDNN_ms": 48.21,
+          "RMSSD_ms": 26.84,
+          "pNN50_pct": 6.18
+        }
+      },
+      "verdict": "PASS"
+    },
+    "criterion_9_hrv_resolvability": {
+      "objective": "HRV cubes carry resolvability flags (bins below 3/T Hz) and neutral session labels only",
+      "result": {
+        "HRV_session_A_limit_hz": 0.00707,
+        "HRV_session_B_limit_hz": 0.00675,
+        "first_3_vlf_bins_flagged_unresolvable": true,
+        "neutral_labels_only": true
+      },
+      "verdict": "PASS"
+    }
+  },
+  "outputs_produced": [
+    "garmin_preprocess.py",
+    "hhsa_cube.py",
+    "run_cubes.py",
+    "garmin_qc.json",
+    "synthetic_cube.json",
+    "cgm_cube.json",
+    "hrv_sessionA_cube.json",
+    "hrv_sessionB_cube.json",
+    "hrv_synthetic_cube.json",
+    "cube_validation.json"
+  ]
+}

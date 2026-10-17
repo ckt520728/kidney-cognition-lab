@@ -1,0 +1,2433 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HHSA Body Signals: Nested Rhythms Across Brain, Heart, and Metabolism</title>
+  <meta name="description" content="20-slide interactive HTML slide deck on Holo-Hilbert Spectral Analysis (HHSA) across brain, heart, and metabolic body signals. Built following the SOIL framework.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       Design System & CSS Variables (Kidney & Cognition Lab Palette)
+       ========================================================================== */
+    :root {
+      --bg-primary: #0a0f1e;
+      --bg-card: #111d3c;
+      --bg-card2: #162248;
+      --bg-card-hover: #1c2b58;
+      --bg-overlay: rgba(10, 15, 30, 0.92);
+
+      --teal: #4dd9cf;
+      --teal-light: #7ee8e2;
+      --teal-dim: rgba(77, 217, 207, 0.15);
+      --teal-glow: rgba(77, 217, 207, 0.35);
+
+      --purple: #8b5cf6;
+      --purple-light: #a78bfa;
+      --purple-dim: rgba(139, 92, 246, 0.18);
+
+      --gold: #f4a261;
+      --gold-light: #f6b682;
+      --gold-dim: rgba(244, 162, 97, 0.2);
+
+      --red: #ef4444;
+      --red-dim: rgba(239, 68, 68, 0.2);
+      --green: #22c55e;
+      --green-dim: rgba(34, 197, 94, 0.2);
+
+      --text: #e8f4f8;
+      --text-sec: #8ba8c4;
+      --text-dim: #4a6580;
+      --border: rgba(77, 217, 207, 0.15);
+      --border-strong: rgba(77, 217, 207, 0.35);
+      --shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+
+      --radius-sm: 6px;
+      --radius: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+
+      --font-sans: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --header-height: 56px;
+      --footer-height: 48px;
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-card2: #f1f5f9;
+      --bg-card-hover: #e2e8f0;
+      --bg-overlay: rgba(248, 250, 252, 0.94);
+
+      --teal: #0d9488;
+      --teal-light: #14b8a6;
+      --teal-dim: rgba(13, 148, 136, 0.12);
+      --teal-glow: rgba(13, 148, 136, 0.25);
+
+      --purple: #7c3aed;
+      --purple-light: #8b5cf6;
+      --purple-dim: rgba(124, 58, 237, 0.12);
+
+      --gold: #d97706;
+      --gold-light: #f59e0b;
+      --gold-dim: rgba(217, 119, 6, 0.12);
+
+      --text: #0f172a;
+      --text-sec: #475569;
+      --text-dim: #94a3b8;
+      --border: rgba(15, 23, 42, 0.12);
+      --border-strong: rgba(13, 148, 136, 0.35);
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Base Resets */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--bg-primary);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Deck Layout Container (16:9 Widescreen Presentation) */
+    .deck-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    /* Progress Bar */
+    .deck-progress-track {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      z-index: 100;
+    }
+
+    .deck-progress-fill {
+      height: 100%;
+      width: 5%;
+      background: linear-gradient(90deg, var(--teal), var(--purple));
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Header Bar */
+    .deck-header {
+      height: var(--header-height);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-overlay);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+      flex-shrink: 0;
+    }
+
+    .deck-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .deck-brand-pill {
+      background: var(--teal-dim);
+      border: 1px solid var(--teal);
+      color: var(--teal);
+      font-weight: 700;
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.5px;
+    }
+
+    .deck-brand-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-sec);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .deck-brand-text strong {
+      color: var(--text);
+    }
+
+    .deck-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Action Buttons */
+    .btn-icon {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      text-decoration: none;
+    }
+
+    .btn-icon:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--teal);
+      color: var(--teal-light);
+    }
+
+    .btn-icon.active {
+      background: var(--teal-dim);
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    /* Main Slides Stage */
+    .deck-stage {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      height: calc(100vh - var(--header-height) - var(--footer-height));
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 24px;
+    }
+
+    .slide {
+      position: absolute;
+      width: calc(100% - 48px);
+      max-width: 1560px;
+      height: calc(100% - 16px);
+      max-height: 870px;
+      aspect-ratio: 16 / 9;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 44px;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: scale(0.98);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Slide Header Area */
+    .slide-header {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid rgba(77, 217, 207, 0.1);
+      padding-bottom: 16px;
+      flex-shrink: 0;
+    }
+
+    .slide-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+    }
+
+    .badge-soil-s { background: rgba(239, 68, 68, 0.18); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+    .badge-soil-o { background: rgba(244, 162, 97, 0.18); color: #f6b682; border: 1px solid rgba(244, 162, 97, 0.4); }
+    .badge-soil-i { background: rgba(77, 217, 207, 0.18); color: var(--teal-light); border: 1px solid rgba(77, 217, 207, 0.4); }
+    .badge-soil-l { background: rgba(139, 92, 246, 0.18); color: var(--purple-light); border: 1px solid rgba(139, 92, 246, 0.4); }
+    .badge-soil-t { background: rgba(255, 255, 255, 0.1); color: var(--text-sec); border: 1px solid var(--border); }
+
+    .badge-epistemic-obs { background: rgba(34, 197, 94, 0.18); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.4); }
+    .badge-epistemic-der { background: rgba(56, 189, 248, 0.18); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+    .badge-epistemic-hyp { background: rgba(244, 162, 97, 0.18); color: var(--gold); border: 1px solid rgba(244, 162, 97, 0.4); }
+
+    .slide-section-ref {
+      font-size: 12px;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+    }
+
+    .slide-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.25;
+    }
+
+    .slide-subtitle {
+      font-size: 15px;
+      color: var(--text-sec);
+      margin-top: 4px;
+      font-weight: 400;
+    }
+
+    .slide-number-pill {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--teal);
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+    }
+
+    /* Slide Body Grid & Layouts */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+      min-height: 0;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: center;
+      height: 100%;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      height: 100%;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      height: 100%;
+    }
+
+    .card-block {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card-block:hover {
+      border-color: var(--teal);
+    }
+
+    .card-block-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-block-title .icon {
+      color: var(--teal);
+      font-size: 18px;
+    }
+
+    .card-block p {
+      font-size: 14px;
+      color: var(--text-sec);
+      line-height: 1.5;
+    }
+
+    .card-block ul {
+      padding-left: 18px;
+      font-size: 13.5px;
+      color: var(--text-sec);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .card-block li strong {
+      color: var(--text);
+    }
+
+    /* Figures on Slides */
+    .slide-figure-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(6, 10, 20, 0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      padding: 12px;
+    }
+
+    .slide-img {
+      max-width: 100%;
+      max-height: 440px;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      transition: transform 0.2s ease;
+    }
+
+    .slide-img-caption {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-dim);
+      text-align: center;
+      font-family: var(--font-mono);
+    }
+
+    /* Tables in Slides */
+    .deck-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .deck-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    .deck-table th {
+      background: var(--bg-card2);
+      color: var(--teal-light);
+      padding: 10px 14px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .deck-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(77, 217, 207, 0.08);
+      color: var(--text-sec);
+    }
+
+    .deck-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .deck-table tr:hover td {
+      background: rgba(77, 217, 207, 0.04);
+      color: var(--text);
+    }
+
+    /* Math Formula Block */
+    .formula-block {
+      background: rgba(10, 15, 30, 0.7);
+      border-left: 3px solid var(--teal);
+      padding: 12px 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--teal-light);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: 8px 0;
+    }
+
+    /* Title Slide Specifics */
+    .title-slide {
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      gap: 28px;
+      background: radial-gradient(circle at 50% 30%, rgba(77, 217, 207, 0.08) 0%, rgba(139, 92, 246, 0.05) 50%, var(--bg-card) 100%);
+    }
+
+    .title-badge-group {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .title-main {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text);
+      max-width: 1100px;
+    }
+
+    .title-main .gradient-text {
+      background: linear-gradient(135deg, var(--teal-light) 0%, var(--teal) 50%, var(--purple-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .title-sub {
+      font-size: 20px;
+      color: var(--text-sec);
+      max-width: 900px;
+      font-weight: 400;
+    }
+
+    .title-author-card {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 32px;
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .title-author-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--teal);
+    }
+
+    .title-author-affil {
+      font-size: 13px;
+      color: var(--text-sec);
+    }
+
+    .title-meta-line {
+      font-size: 12px;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+    }
+
+    /* Slide 8 Embedded 3D Mini-Explorer */
+    .mini-explorer-stage {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr;
+      gap: 20px;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .webgl-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      background: #060a14;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    #slide8-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .webgl-hud {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(10, 15, 30, 0.85);
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-sec);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      pointer-events: none;
+    }
+
+    .webgl-hud span strong {
+      color: var(--teal);
+    }
+
+    .webgl-controls-overlay {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-webgl {
+      background: rgba(17, 29, 60, 0.85);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+
+    .btn-webgl:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    /* Footer Controls Bar */
+    .deck-footer {
+      height: var(--footer-height);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-overlay);
+      border-top: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+      flex-shrink: 0;
+    }
+
+    .deck-nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .deck-counter-indicator {
+      font-size: 13px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--text-sec);
+    }
+
+    .deck-counter-indicator span {
+      color: var(--teal);
+    }
+
+    /* Speaker Notes Drawer */
+    .notes-drawer {
+      position: absolute;
+      bottom: var(--footer-height);
+      left: 0;
+      width: 100%;
+      max-height: 220px;
+      background: rgba(10, 15, 30, 0.96);
+      border-top: 2px solid var(--teal);
+      backdrop-filter: blur(16px);
+      padding: 18px 32px;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 80;
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.6);
+      overflow-y: auto;
+    }
+
+    .notes-drawer.open {
+      display: flex;
+    }
+
+    .notes-drawer-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(77, 217, 207, 0.2);
+      padding-bottom: 6px;
+    }
+
+    .notes-drawer-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--teal);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .notes-word-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      background: var(--bg-card);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+    }
+
+    .notes-drawer-body {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Print Media Styling for Standalone PDF/Paper export */
+    @media print {
+      body, html {
+        overflow: visible !important;
+        height: auto !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+
+      .deck-header, .deck-footer, .deck-progress-track, .notes-drawer, .btn-icon, .webgl-controls-overlay {
+        display: none !important;
+      }
+
+      .deck-stage {
+        padding: 0 !important;
+        height: auto !important;
+        display: block !important;
+      }
+
+      .slide {
+        position: relative !important;
+        display: flex !important;
+        opacity: 1 !important;
+        transform: none !important;
+        width: 100% !important;
+        height: 100vh !important;
+        max-width: none !important;
+        max-height: none !important;
+        aspect-ratio: 16 / 9 !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: #ffffff !important;
+        color: #0f172a !important;
+        padding: 40px !important;
+      }
+
+      .card-block {
+        background: #f8fafc !important;
+        border: 1px solid #cbd5e1 !important;
+        color: #0f172a !important;
+      }
+
+      .card-block p, .card-block ul {
+        color: #334155 !important;
+      }
+
+      .slide-title {
+        color: #0f172a !important;
+      }
+
+      .slide-subtitle {
+        color: #475569 !important;
+      }
+    }
+  </style>
+
+  <!-- Pinned Three.js and OrbitControls via ESM CDN -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <div class="deck-container">
+    <!-- Top Progress Bar -->
+    <div class="deck-progress-track">
+      <div id="deck-progress-bar" class="deck-progress-fill"></div>
+    </div>
+
+    <!-- Top Deck Header -->
+    <header class="deck-header">
+      <a href="../site/index.html" class="deck-brand">
+        <span class="deck-brand-pill">HHSA 3-D</span>
+        <div class="deck-brand-text">
+          <span>Kidney &amp; Cognition Lab</span>
+          <span>&bull;</span>
+          <strong>Body Signals Deck</strong>
+        </div>
+      </a>
+
+      <div class="deck-header-actions">
+        <button id="btn-toggle-notes" class="btn-icon" title="Toggle Speaker Notes [N]">
+          <span>🎙️ Notes</span>
+          <kbd style="font-size:10px; background:var(--bg-card2); padding:1px 4px; border-radius:3px;">N</kbd>
+        </button>
+        <button id="btn-theme-toggle" class="btn-icon" title="Toggle Light/Dark Theme [T]">
+          <span id="theme-icon">☀️</span>
+        </button>
+        <button id="btn-fullscreen-toggle" class="btn-icon" title="Toggle Fullscreen [F]">
+          <span>⛶ Fullscreen</span>
+        </button>
+        <a href="../site/explorer.html" class="btn-icon" title="Open Full 3-D Interactive Web Explorer">
+          <span>🚀 3-D Web Explorer ↗</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Slide Stage Area -->
+    <main class="deck-stage">
+
+      <!-- ====================================================================
+           SLIDE 1: Title Slide (—)
+           ==================================================================== -->
+      <section class="slide active title-slide" data-slide-index="1" data-soil="—">
+        <div class="title-badge-group">
+          <span class="badge badge-soil-t">20-Slide SOIL Architecture</span>
+          <span class="badge badge-soil-i">Frontiers in Aging Neuroscience</span>
+          <span class="badge badge-soil-s">Physiological Signal Processing</span>
+        </div>
+
+        <h1 class="title-main">
+          Holo-Hilbert Spectral Analysis (<span class="gradient-text">HHSA</span>) of Physiological Body Signals
+        </h1>
+
+        <p class="title-sub">
+          Unraveling Nested Oscillations, Nonlinear Amplitude Modulation, and Brain–Body Interactions Across Brain, Heart, and Metabolism
+        </p>
+
+        <div class="title-author-card">
+          <span class="title-author-name">Kwo-Ta Chu, MD, PhD</span>
+          <span class="title-author-affil">Kidney &amp; Cognition Lab | Department of Internal Medicine</span>
+          <span class="title-meta-line">Date: October 17, 2026 &bull; Narrative Review &bull; Open Reproducible Framework</span>
+        </div>
+
+        <div style="display:flex; gap:16px; font-size:12px; color:var(--text-dim); font-family:var(--font-mono);">
+          <span>Use ◄ ► or Space to Navigate</span>
+          <span>&bull;</span>
+          <span>Press [N] for Speaker Notes</span>
+          <span>&bull;</span>
+          <span>Press [F] for Fullscreen</span>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="111">
+          Welcome, colleagues. Today I am presenting our work on Holo-Hilbert Spectral Analysis, or HHSA, as a unifying mathematical framework for body signals across the brain, cardiovascular system, and human metabolism. Traditional spectral analysis assumes stationarity and treats biological rhythms as independent sums of sinusoids. But human physiology is intrinsically non-linear and non-stationary: slower physiological rhythms systematically modulate the amplitudes of faster carrier oscillations. Over the next twenty slides, following the SOIL framework, we will explore why traditional one-dimensional spectra fall short, how two-layer decomposition constructs a continuous three-dimensional energy cube, and how this reveals nested dynamics across continuous glucose monitoring, wearable heart rate variability, and neurodegenerative disease.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 2: State - Body signals are nested rhythms (S) [§1]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="2" data-soil="S">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-s">State (S)</span>
+              <span class="slide-section-ref">&sect;1 Introduction</span>
+              <span class="badge badge-epistemic-obs">Observed Biology</span>
+            </div>
+            <h2 class="slide-title">Body Signals Are Nested Oscillations</h2>
+            <p class="slide-subtitle">Multi-scale biological rhythms continuously modulate one another across organs</p>
+          </div>
+          <span class="slide-number-pill">02 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-3">
+            <div class="card-block">
+              <div class="card-block-title">
+                <span class="icon">🧠</span> Brain (Neural Loops)
+              </div>
+              <p><strong>Theta–Gamma Phase-Amplitude Coupling:</strong> Slower theta cycles (4–8 Hz) modulate the envelope of high-frequency gamma oscillations (30–80 Hz) during memory formation.</p>
+              <ul>
+                <li>Infraslow modulation (&lt; 0.1 Hz) coordinates sleep spindles and cortical slow waves.</li>
+                <li>Thalamocortical loops produce nested carrier-envelope dynamics, not isolated frequencies.</li>
+              </ul>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title">
+                <span class="icon">❤️</span> Heart (Autonomic Tone)
+              </div>
+              <p><strong>Baroreflex &amp; Respiratory Modulations:</strong> Respiratory sinus arrhythmia (HF ~0.25 Hz) does not beat in isolation.</p>
+              <ul>
+                <li>Mayer waves (~0.1 Hz, LF) amplitude-modulate vagal respiratory peaks via arterial baroreceptors.</li>
+                <li>Circadian sympathetic tone (&sim;24 h) shifts total carrier power and envelope depth across sleep/wake states.</li>
+              </ul>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title">
+                <span class="icon">🩸</span> Metabolism (Glucose Rhythms)
+              </div>
+              <p><strong>Endocrine &amp; Circadian Nesting:</strong> Interstitial continuous glucose dynamics span multiple coupled tiers.</p>
+              <ul>
+                <li>24-hour circadian baseline acts as a slow modulator.</li>
+                <li>Pulsatile ultradian insulin secretion (1–4 h) and postprandial meal spikes (0.25–0.5 c/h) ride upon this baseline.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="formula-block">
+            <strong>Biological Reality:</strong> Physiological signals x(t) = &sum; a<sub>i</sub>(t) &middot; cos(&phi;<sub>i</sub>(t)), where the instantaneous envelope a<sub>i</sub>(t) is itself a multi-scale oscillatory process.
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="109">
+          Biological organisms are multi-scale systems where physical processes at different temporal scales do not operate in isolation. In the central nervous system, theta rhythms modulate gamma bursts during memory encoding. In the cardiovascular system, slow vasomotor tone and Mayer waves at point one Hertz continuously modulate respiratory sinus arrhythmia at point two five Hertz. In metabolism, the master twenty-four hour circadian clock modulates ultradian insulin secretion pulses and postprandial glycemic excursions. When clinicians and researchers inspect these signals, they frequently look only at aggregate summary numbers or static averages. However, the true physiological code is nested amplitude modulation, which reflects real-time multi-organ coupling and regulatory feedback across disparate time scales.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 3: State - What a 1-D spectrum throws away (S) [§1, §2]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="3" data-soil="S">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-s">State (S)</span>
+              <span class="slide-section-ref">&sect;1, &sect;2 Mathematical Limits</span>
+              <span class="badge badge-epistemic-der">Derived Limit</span>
+            </div>
+            <h2 class="slide-title">What a 1-D Spectrum Throws Away</h2>
+            <p class="slide-subtitle">Fourier and classical spectra mischaracterize amplitude modulation as spurious sidebands</p>
+          </div>
+          <span class="slide-number-pill">03 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2">
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div class="card-block">
+                <div class="card-block-title">The Sideband Fallacy</div>
+                <p>When an amplitude-modulated carrier wave is analyzed with Fourier or stationary wavelets, trigonometry dictates artificial sidebands:</p>
+                <div class="formula-block">
+                  x(t) = [1 + m &middot; cos(&omega;<sub>AM</sub> t)] &middot; cos(&omega;<sub>c</sub> t)<br>
+                  = cos(&omega;<sub>c</sub> t) + &frac12;m &middot; cos((&omega;<sub>c</sub> - &omega;<sub>AM</sub>)t) + &frac12;m &middot; cos((&omega;<sub>c</sub> + &omega;<sub>AM</sub>)t)
+                </div>
+                <p>Physical reality is <em>one</em> carrier and <em>one</em> modulator. Fourier mathematics yields <em>three</em> uncoupled stationary sinusoids, scattering real physical power.</p>
+              </div>
+
+              <div class="card-block">
+                <div class="card-block-title">The Ambiguity of 1-D Power</div>
+                <p>A conventional 1-D power spectral density (PSD) or spectrogram S(f) collapses cross-frequency interactions. It cannot answer:</p>
+                <ul>
+                  <li>Are peaks at f<sub>1</sub> and f<sub>2</sub> two independent, uncoupled pacemakers?</li>
+                  <li>Or is f<sub>1</sub> a carrier whose amplitude is dynamically paced by f<sub>2</sub>?</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="slide-figure-container">
+              <img src="../paper/figures/F1_concept_cube.png" data-img="F1_concept_cube.png" class="slide-img" alt="Nested Oscillation vs 3D Cube Concept" onerror="this.onerror=null; this.src='../hhsa-3d/assets/img/' + this.dataset.img;">
+              <div class="slide-img-caption">Figure F1: 1-D collapsing vs. 3-D Holo-Hilbert expansion (t, f_carrier, f_AM).</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="106">
+          What happens when you analyze an amplitude-modulated biological signal with a classical Fourier transform or static power spectrum? Fourier analysis projects the signal onto infinite, stationary sinusoids with constant amplitudes and phases. When a carrier wave undergoes amplitude modulation, Fourier mathematics cannot represent the varying amplitude directly. Instead, it generates spurious sideband frequencies on both sides of the carrier, scattering the true physical energy into mathematical artifacts. Furthermore, a one-dimensional power spectrum completely collapses cross-frequency interactions. You cannot tell whether two spectral peaks represent two independent, uncoupled physiological pacemakers or a single carrier rhythm whose strength is being modulated by a slower physiological cycle.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 4: State - Existing tools and assumptions (S) [§2, T1]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="4" data-soil="S">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-s">State (S)</span>
+              <span class="slide-section-ref">&sect;2, Table 1 Comparison</span>
+              <span class="badge badge-epistemic-der">Comparative Method</span>
+            </div>
+            <h2 class="slide-title">Existing Tools &amp; Their Mathematical Assumptions</h2>
+            <p class="slide-subtitle">Wavelets, Phase-Amplitude Coupling (PAC), and Bispectrum vs. HHSA</p>
+          </div>
+          <span class="slide-number-pill">04 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="deck-table-wrap">
+            <table class="deck-table">
+              <thead>
+                <tr>
+                  <th>Method Dimension</th>
+                  <th>Wavelet Transform (CWT)</th>
+                  <th>Phase-Amplitude Coupling (PAC)</th>
+                  <th>Bispectrum / Bicoherence</th>
+                  <th>Holo-Hilbert (HHSA)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Basis Function</strong></td>
+                  <td>Fixed mother wavelet (e.g. Morlet)</td>
+                  <td>Linear bandpass filters</td>
+                  <td>Sinusoidal harmonics</td>
+                  <td><span style="color:var(--teal); font-weight:700;">Adaptive, data-driven IMFs</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Linearity &amp; Stationarity</strong></td>
+                  <td>Assumes piecewise stationarity</td>
+                  <td>Assumes linear phase within band</td>
+                  <td>Assumes strict stationarity</td>
+                  <td><span style="color:var(--teal); font-weight:700;">Fully nonlinear &amp; nonstationary</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Cross-Frequency Metric</strong></td>
+                  <td>Coherence (phase-locking only)</td>
+                  <td>Modulation Index (MI) discrete pair</td>
+                  <td>Quadratic phase coupling f1+f2=f3</td>
+                  <td><span style="color:var(--teal); font-weight:700;">Continuous 3-D tensor H(t, fc, fam)</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Filter Distortion Risk</strong></td>
+                  <td>Heisenberg-Gabor uncertainty limit</td>
+                  <td>Severe edge ringing &amp; phase shift</td>
+                  <td>Spectral smearing on short epochs</td>
+                  <td><span style="color:var(--teal); font-weight:700;">Zero filter-induced distortion</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Modulation Output</strong></td>
+                  <td>1-D / 2-D time-scale map</td>
+                  <td>Scalar coupling index between 2 bands</td>
+                  <td>2-D static bifrequency map</td>
+                  <td><span style="color:var(--teal); font-weight:700;">Instantaneous AM frequency &amp; power</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card-block" style="padding:14px 20px;">
+            <p style="font-size:13.5px;"><strong>Key Takeaway:</strong> Conventional Phase-Amplitude Coupling (PAC) methods established the biological importance of cross-frequency interactions, but require subjective pre-filtering. HHSA generalizes cross-frequency analysis by computing continuous instantaneous frequencies for both the carrier and its amplitude envelope.</p>
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="104">
+          To capture dynamic interactions, signal processing has produced several important tools, summarized in Table One of our review. Continuous wavelet transforms provide localized time-frequency tracking but remain constrained by a fixed mother wavelet basis and the Heisenberg-Gabor uncertainty principle. Phase-Amplitude Coupling, or PAC, identifies coupling between the phase of a slow band and the amplitude of a fast band. However, conventional PAC relies on narrow bandpass filters that introduce harmonic distortion and phase delay, and it discretizes continuous dynamics into arbitrary frequency bins. Higher-order bispectral analysis detects quadratic phase coupling but requires long stationary epochs. HHSA overcomes these constraints through adaptive, data-driven sifting.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 5: Opportunity - HHSA in one picture: two layers (O) [§2]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="5" data-soil="O">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-o">Opportunity (O)</span>
+              <span class="slide-section-ref">&sect;2 The HHSA Framework</span>
+              <span class="badge badge-epistemic-der">Algorithmic Design</span>
+            </div>
+            <h2 class="slide-title">HHSA in One Picture: Decompose Twice</h2>
+            <p class="slide-subtitle">Two nested layers of empirical sifting resolve carrier frequency and modulation frequency</p>
+          </div>
+          <span class="slide-number-pill">05 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2">
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div class="card-block">
+                <div class="card-block-title">
+                  <span class="icon">1️⃣</span> Layer 1: Carrier Decomposition
+                </div>
+                <p>Decompose raw signal x(t) via noise-assisted EEMD or CEEMDAN into Intrinsic Mode Functions (IMFs):</p>
+                <div class="formula-block">x(t) = &sum;<sub>i=1..M</sub> c<sub>i</sub>(t) + r(t)</div>
+                <p>Apply Hilbert Transform to each IMF c<sub>i</sub>(t) &rarr; extract Instantaneous Amplitude a<sub>i</sub>(t) and Instantaneous Carrier Frequency f<sub>c,i</sub>(t).</p>
+              </div>
+
+              <div class="card-block">
+                <div class="card-block-title">
+                  <span class="icon">2️⃣</span> Layer 2: Modulation Decomposition
+                </div>
+                <p>Treat each amplitude envelope a<sub>i</sub>(t) as an independent physical signal and sift again via EMD:</p>
+                <div class="formula-block">a<sub>i</sub>(t) = &sum;<sub>j=1..P</sub> d<sub>ij</sub>(t) + r<sub>i</sub>(t)</div>
+                <p>Apply Hilbert Transform to d<sub>ij</sub>(t) &rarr; extract Instantaneous Modulation Frequency f<sub>AM,ij</sub>(t) and secondary amplitude A<sub>ij</sub>(t).</p>
+              </div>
+            </div>
+
+            <div class="slide-figure-container">
+              <img src="../paper/figures/F2_hhsa_pipeline.png" data-img="F2_hhsa_pipeline.png" class="slide-img" alt="HHSA Pipeline Schematic" onerror="this.onerror=null; this.src='../hhsa-3d/assets/img/' + this.dataset.img;">
+              <div class="slide-img-caption">Figure F2: Two-layer sifting pipeline mapping raw signal to the 3-D Holo-Hilbert continuum.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="112">
+          The core insight of Holo-Hilbert Spectral Analysis, introduced by Norden Huang in 2016, is that resolving amplitude modulation requires decomposing the signal twice. In the first layer, the raw physiological signal undergoes noise-assisted Empirical Mode Decomposition, such as EEMD or CEEMDAN, yielding a finite set of Intrinsic Mode Functions. Each IMF admits a well-behaved instantaneous frequency and instantaneous amplitude via the Hilbert transform. In the second layer, rather than discarding the amplitude envelopes, HHSA treats each envelope as an independent physical time series and decomposes it again with empirical mode decomposition. This extracts secondary modulation IMFs, revealing the exact instantaneous frequencies at which the carrier amplitudes fluctuate over time.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 6: Opportunity - The cube H and its three projections (O) [§2]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="6" data-soil="O">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-o">Opportunity (O)</span>
+              <span class="slide-section-ref">&sect;2 3-D Tensor Geometry</span>
+              <span class="badge badge-epistemic-der">Spectral Formulation</span>
+            </div>
+            <h2 class="slide-title">The Cube H(t, f<sub>c</sub>, f<sub>AM</sub>) &amp; Its Three Projections</h2>
+            <p class="slide-subtitle">Orthogonal marginals recover Hilbert-Huang, cross-frequency, and modulation history maps</p>
+          </div>
+          <span class="slide-number-pill">06 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-3">
+            <div class="card-block">
+              <div class="card-block-title">
+                <span class="badge badge-soil-i">Projection 1</span> S(t, f<sub>c</sub>)
+              </div>
+              <p><strong>Hilbert-Huang Spectrum (HHT):</strong> Integrate H over modulation frequency f<sub>AM</sub>:</p>
+              <div class="formula-block">S(t, f<sub>c</sub>) = &int; H(t, f<sub>c</sub>, f<sub>AM</sub>) df<sub>AM</sub></div>
+              <p>Classic time-frequency representation. Tracks instantaneous carrier power evolution over time.</p>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title">
+                <span class="badge badge-soil-o">Projection 2</span> C(f<sub>c</sub>, f<sub>AM</sub>)
+              </div>
+              <p><strong>Carrier vs. Modulation Spectrum:</strong> Integrate H over the entire time duration t:</p>
+              <div class="formula-block">C(f<sub>c</sub>, f<sub>AM</sub>) = &int; H(t, f<sub>c</sub>, f<sub>AM</sub>) dt</div>
+              <p>Comprehensive cross-frequency coupling map. Identifies persistent nested rhythm coordinates.</p>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title">
+                <span class="badge badge-soil-l">Projection 3</span> M(t, f<sub>AM</sub>)
+              </div>
+              <p><strong>Modulation Time History:</strong> Integrate H over all carrier frequencies f<sub>c</sub>:</p>
+              <div class="formula-block">M(t, f<sub>AM</sub>) = &int; H(t, f<sub>c</sub>, f<sub>AM</sub>) df<sub>c</sub></div>
+              <p>Dynamic modulation timeline. Reveals when physiological AM bursts wax and wane.</p>
+            </div>
+          </div>
+
+          <div class="card-block" style="padding:14px 20px;">
+            <p style="font-size:13.5px;"><strong>Mathematical Consistency:</strong> Exact numerical validation confirms that summing our discrete 3-D tensors along each orthogonal axis reproduces K2 projections with relative error &lt; 10<sup>-6</sup> (verified in <code>cube_validation.json</code>).</p>
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="107">
+          By executing this two-layer decomposition, HHSA expands signal representation from a one-dimensional spectrum into a continuous three-dimensional energy density tensor, H of t, f carrier, and f AM. To make this tensor clinically interpretable, we define three orthogonal marginal projections. Integrating across the modulation axis yields S of t and f carrier, which is the classical Hilbert-Huang time-frequency spectrum. Integrating over time yields C of f carrier and f AM, the carrier-versus-modulation spectrum that maps cross-frequency coupling across the entire recording. Integrating across the carrier axis yields M of t and f AM, illustrating how modulation intensity waxes and wanes over physiological time.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 7: Opportunity - Admissibility & Band Constraints (O) [§2, §6]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="7" data-soil="O">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-o">Opportunity (O)</span>
+              <span class="slide-section-ref">&sect;2, &sect;6 Physical Validity</span>
+              <span class="badge badge-epistemic-der">Rigorous Bounds</span>
+            </div>
+            <h2 class="slide-title">Admissibility (f<sub>AM</sub> &lt; f<sub>c</sub>) &amp; Duration Bounds (f &ge; 3/T)</h2>
+            <p class="slide-subtitle">Distinguishing true physiological amplitude modulation from mathematical artifacts</p>
+          </div>
+          <span class="slide-number-pill">07 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2">
+            <div class="card-block">
+              <div class="card-block-title" style="color:var(--gold);">
+                <span>⚖️</span> 1. The Admissibility Condition
+              </div>
+              <div class="formula-block" style="border-color:var(--gold); color:var(--gold-light);">
+                f<sub>AM</sub> &lt; f<sub>c</sub> &nbsp;&nbsp;(Strict Physical Inequality)
+              </div>
+              <p><strong>Physical Principle:</strong> An envelope cannot oscillate faster than the carrier wave it modulates (Bedrosian Theorem on product spectra).</p>
+              <ul>
+                <li>Any coordinate where f<sub>AM</sub> &ge; f<sub>c</sub> represents cubic spline overshoot, mode mixing, or noise leakage.</li>
+                <li>Our 3-D explorer and pipeline construct an explicit <em>admissibility mask</em> to exclude unphysical energy.</li>
+              </ul>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title" style="color:var(--purple-light);">
+                <span>⏱️</span> 2. The 3-Cycle Duration Bound
+              </div>
+              <div class="formula-block" style="border-color:var(--purple); color:var(--purple-light);">
+                f<sub>resolvable</sub> &ge; 3 / T &nbsp;&nbsp;(T = Recording Duration)
+              </div>
+              <p><strong>Physical Principle:</strong> Adaptive sifting requires at least 3 local extrema (troughs and peaks) to interpolate upper and lower envelopes reliably.</p>
+              <ul>
+                <li><strong>13-day CGM (T = 312 h):</strong> f &ge; 3/312 &asymp; 0.0096 c/h. Circadian (0.042 c/h) is fully resolvable.</li>
+                <li><strong>7-min Wearable HRV (T = 420 s):</strong> f &ge; 3/420 &asymp; 0.0071 Hz. VLF (&lt; 0.007 Hz) is mathematically unresolvable and grey-hatched!</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="113">
+          Not every mathematical point in the Holo-Hilbert volume is physically meaningful. Two rigorous constraints must be enforced. First is the mathematical admissibility condition: an envelope cannot oscillate faster than the carrier wave it modulates. Coordinates where f AM is greater than or equal to f carrier violate the Bedrosian theorem and represent spline overshoot or mode-mixing artifacts; these must be masked out. Second is the physiological record-length bound: resolving an oscillatory mode reliably via empirical mode decomposition requires at least three complete cycles, meaning frequency must exceed three divided by duration T. For a seven-minute wearable recording, frequencies below point zero zero seven Hertz are unresolvable and must be greyed out.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 8: Implementation - Live 3-D Explorer (I) [§5]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="8" data-soil="I">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-i">Implementation (I)</span>
+              <span class="slide-section-ref">&sect;5 Interactive Core</span>
+              <span class="badge badge-epistemic-obs">Live Benchmark</span>
+            </div>
+            <h2 class="slide-title">Live 3-D Explorer: Synthetic Ground Truth</h2>
+            <p class="slide-subtitle">Interactive WebGL inspection of the calibrated AM-FM test benchmark in real time</p>
+          </div>
+          <span class="slide-number-pill">08 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="mini-explorer-stage">
+            <div class="webgl-container">
+              <canvas id="slide8-canvas"></canvas>
+              <div class="webgl-hud">
+                <span>Dataset: <strong>Synthetic Ground Truth</strong></span>
+                <span>Carrier Peak: <strong>f_c &asymp; 0.50 Hz</strong> (2.0 s)</span>
+                <span>Modulation Peak: <strong>f_AM &asymp; 0.05 Hz</strong> (20.0 s)</span>
+                <span>Recovery Accuracy: <strong>100% within 1 bin</strong></span>
+              </div>
+              <div class="webgl-controls-overlay">
+                <button id="btn-webgl-autorotate" class="btn-webgl">⏸ Pause</button>
+                <button id="btn-webgl-reset" class="btn-webgl">↺ Reset Camera</button>
+                <a href="../site/explorer.html?dataset=synthetic" target="_blank" class="btn-webgl" style="text-decoration:none;">Fullscreen App ↗</a>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:14px; justify-content:center;">
+              <div class="card-block">
+                <div class="card-block-title">Synthetic Specification</div>
+                <p style="font-size:13px;">Benchmark equation evaluated at 4 Hz over 300 seconds:</p>
+                <div class="formula-block" style="font-size:11.5px;">x(t) = [1 + 0.7 cos(2&pi; 0.05 t)] &middot; cos(2&pi; 0.50 t)</div>
+                <p style="font-size:12.5px;">Known ground truth: f<sub>c</sub> = 0.50 Hz, f<sub>AM</sub> = 0.05 Hz.</p>
+              </div>
+
+              <div class="card-block">
+                <div class="card-block-title">Verification Results</div>
+                <ul style="font-size:12.5px;">
+                  <li><strong>Recovery:</strong> 30 / 30 windows within 1 bin (100.0% pass rate).</li>
+                  <li><strong>Admissibility:</strong> f<sub>AM</sub> (0.05 Hz) &lt; f<sub>c</sub> (0.50 Hz) satisfied.</li>
+                  <li><strong>Projection Error:</strong> &lt; 10<sup>-6</sup> relative error.</li>
+                </ul>
+              </div>
+
+              <div style="text-align:center;">
+                <a href="../hhsa-3d/explorer.html" class="btn-icon" style="width:100%; justify-content:center; background:var(--teal-dim); color:var(--teal); border-color:var(--teal);">
+                  🚀 Launch Full Multi-Dataset Explorer
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="110">
+          Here on slide eight, we examine our synthetic ground truth benchmark embedded directly in WebGL. We synthesized an explicit test signal where a point five zero Hertz carrier wave is modulated by a point zero five Hertz amplitude rhythm. Our automated Python pipeline extracted the Holo-Hilbert cube and successfully recovered both carrier and modulation coordinates within a single grid bin across one hundred percent of thirty evaluated time windows. You can rotate this 3-D volume in real time using your mouse or touch gestures, inspect the energy ridge, or navigate to our dedicated interactive web explorer to explore the slices and band planes in full detail.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 9: Implementation - Evidence Map Across Systems (I) [§3, F7]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="9" data-soil="I">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-i">Implementation (I)</span>
+              <span class="slide-section-ref">&sect;3 PRISMA Scoping Search</span>
+              <span class="badge badge-epistemic-obs">Systematic Review</span>
+            </div>
+            <h2 class="slide-title">Evidence Map Across Systems</h2>
+            <p class="slide-subtitle">PRISMA scoping search: 737 records &rarr; 711 deduplicated &rarr; 130 included studies</p>
+          </div>
+          <span class="slide-number-pill">09 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2">
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div class="card-block">
+                <div class="card-block-title">Search Scope &amp; Shards (130 Studies)</div>
+                <ul style="font-size:13.5px;">
+                  <li><strong>S1 Methodology &amp; Algorithms:</strong> 24 studies (HHT, EEMD, CEEMDAN, masking, HHSA foundations).</li>
+                  <li><strong>S2 Brain (EEG/MEG/ECoG):</strong> 38 studies (AD/MCI, epilepsy, depression rTMS, SSVEP, tACS).</li>
+                  <li><strong>S3 Heart &amp; Autonomic (HRV):</strong> 31 studies (autonomic aging, baroreflex AM, wearable ceilings).</li>
+                  <li><strong>S4 Metabolism &amp; Glycemia (CGM):</strong> 22 studies (circadian, ultradian, glycemic variability).</li>
+                  <li><strong>S5 Cross-System Coupling:</strong> 15 studies (network physiology, sleep neuroenergetics).</li>
+                </ul>
+              </div>
+
+              <div class="card-block">
+                <div class="card-block-title">PRISMA Selection Funnel</div>
+                <p style="font-size:13px;">Searched PubMed, IEEE Xplore, Web of Science, and Scopus through October 2026. 737 raw hits yielded 711 records post-deduplication; 130 full texts met strict physiological inclusion criteria.</p>
+              </div>
+            </div>
+
+            <div class="slide-figure-container">
+              <img src="../paper/figures/F7_evidence_map.png" data-img="F7_evidence_map.png" class="slide-img" alt="Evidence Map Across Systems" onerror="this.onerror=null; this.src='../hhsa-3d/assets/img/' + this.dataset.img;">
+              <div class="slide-img-caption">Figure F7: Evidence map cross-tabulating physiological domain vs. decomposition method class.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="106">
+          To synthesize the global literature on Holo-Hilbert analysis across human physiology, we conducted a systematic scoping review following PRISMA guidelines. Our initial database queries yielded seven hundred thirty-seven candidate records. After removing duplicates and screening titles and abstracts, we evaluated one hundred thirty full-text studies across five thematic shards. As visualized in our evidence map, neurophysiology represents the largest established domain with thirty-eight studies, while cardiovascular autonomic monitoring accounts for thirty-one studies. Metabolic sensing with continuous glucose monitoring and cross-organ coupling represent pioneering frontiers with twenty-two and fifteen studies respectively, highlighting an immense opportunity for clinical translation in aging research.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 10: Implementation - Brain: What HHSA Found (I) [§4.1]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="10" data-soil="I">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-i">Implementation (I)</span>
+              <span class="slide-section-ref">&sect;4.1 Clinical Neuroscience</span>
+              <span class="badge badge-epistemic-obs">Clinical Validation</span>
+            </div>
+            <h2 class="slide-title">Brain: What HHSA Revealed in Neurological Disorders</h2>
+            <p class="slide-subtitle">Capturing subtle cross-frequency breakdown in neurodegeneration and neuromodulation</p>
+          </div>
+          <span class="slide-number-pill">10 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-3">
+            <div class="card-block">
+              <div class="card-block-title">
+                <span class="icon">🧩</span> AD &amp; MCI (Chu et al. 2023)
+              </div>
+              <p><strong>Thalamocortical Dysrhythmia:</strong> In Alzheimer's Disease and Mild Cognitive Impairment, HHSA demonstrated that delta–theta carrier modulation by infraslow envelopes is severely degraded.</p>
+              <ul>
+                <li>Detects network disconnection before overt structural brain atrophy.</li>
+                <li>Preserves instantaneous frequency without Fourier sideband smearing.</li>
+              </ul>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title">
+                <span class="icon">⚡</span> Neuromodulation (tACS / rTMS)
+              </div>
+              <p><strong>Exogenous Entrainment:</strong> In major depressive disorder, rTMS alters prefrontal theta-gamma modulation energy.</p>
+              <ul>
+                <li>AM-tACS delivery creates precise nested fields driving targeted cortical layers.</li>
+                <li>SSVEP experiments reveal exact harmonic carrier modulations induced by visual flicker.</li>
+              </ul>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title">
+                <span class="icon">🎯</span> Parkinson's &amp; Working Memory
+              </div>
+              <p><strong>Pathological Burst Dynamics:</strong> Subthalamic nucleus and cortical beta burst modulations characterize motor freezing in Parkinson's disease.</p>
+              <ul>
+                <li>Visual working memory load dynamically modulates gamma burst envelopes.</li>
+                <li>HHSA separates instantaneous burst rate from amplitude envelope magnitude.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="formula-block">
+            <strong>Key Finding:</strong> Traditional EEG power spectra miss up to 60% of dynamic cross-frequency alterations because they collapse modulation envelopes into static frequency bands.
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="106">
+          In clinical neuroscience, HHSA has provided unprecedented insight into brain aging and circuit pathophysiology. In Alzheimer's disease and mild cognitive impairment, our group's 2023 study demonstrated that HHSA uncovers severe degradation of delta and theta carrier modulation by infraslow envelopes, reflecting impaired thalamocortical synchrony before overt structural atrophy. In Parkinson's disease, HHSA quantifies pathological beta burst amplitude modulation in basal ganglia loops. In major depressive disorder, prefrontal modulation energy restructures following repetitive transcranial magnetic stimulation. Furthermore, sensory entrainment paradigms like steady-state visual evoked potentials and amplitude-modulated transcranial alternating current stimulation demonstrate that HHSA accurately tracks targeted neural entrainment across multiple cortical layers.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 11: Implementation - Heart: HRV and wearables (I) [§4.2]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="11" data-soil="I">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-i">Implementation (I)</span>
+              <span class="slide-section-ref">&sect;4.2 Autonomic Physiology</span>
+              <span class="badge badge-epistemic-obs">Cardiovascular Dynamics</span>
+            </div>
+            <h2 class="slide-title">Heart: HRV, Autonomic Aging, &amp; Wearable Ceilings</h2>
+            <p class="slide-subtitle">Resolving instantaneous baroreflex AM while respecting physical duration constraints</p>
+          </div>
+          <span class="slide-number-pill">11 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2">
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div class="card-block">
+                <div class="card-block-title">Autonomic Aging &amp; Baroreflex AM</div>
+                <p>Cardiovascular aging is marked by progressive vagal withdrawal and blunted arterial baroreflex responsiveness. Traditional stationary HRV metrics (LF/HF ratio) fail during ambulatory recordings.</p>
+                <ul>
+                  <li><strong>Respiratory Sinus Arrhythmia (HF 0.15–0.40 Hz):</strong> Acts as a high-frequency carrier generated by vagal efferents.</li>
+                  <li><strong>Mayer Waves (LF 0.04–0.15 Hz):</strong> Modulate the amplitude of the RSA carrier in real time, reflecting instantaneous baroreflex engagement.</li>
+                </ul>
+              </div>
+
+              <div class="card-block">
+                <div class="card-block-title">The Wearable Optical PPG Ceiling</div>
+                <p>Modern smartwatches and rings record short optical PPG bursts (< 10 min). Such ultra-short-term data impose strict physical limits:</p>
+                <div class="formula-block" style="border-color:var(--red); color:#fca5a5;">
+                  T &lt; 10 min &implies; Very Low Frequency (VLF &lt; 0.04 Hz) is Partially or Fully Unresolvable
+                </div>
+                <p style="font-size:13px;">Attempting to quantify VLF power from short wearable segments generates spurious noise artifacts.</p>
+              </div>
+            </div>
+
+            <div class="card-block" style="height:100%; justify-content:center;">
+              <div class="card-block-title">HRV Band Hierarchy in HHSA</div>
+              <table class="deck-table">
+                <thead>
+                  <tr>
+                    <th>Band</th>
+                    <th>Frequency</th>
+                    <th>Physiological Role</th>
+                    <th>Min. Resolvable T (3/f)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>HF</strong></td>
+                    <td>0.15–0.40 Hz</td>
+                    <td>Vagal / Respiratory Sinus Arrhythmia</td>
+                    <td>20 seconds</td>
+                  </tr>
+                  <tr>
+                    <td><strong>LF</strong></td>
+                    <td>0.04–0.15 Hz</td>
+                    <td>Baroreceptor / Sympathetic Mayer Waves</td>
+                    <td>75 seconds</td>
+                  </tr>
+                  <tr>
+                    <td><strong>VLF</strong></td>
+                    <td>0.0033–0.04 Hz</td>
+                    <td>Thermoregulation / Renin-Angiotensin</td>
+                    <td><span style="color:var(--red); font-weight:700;">15.1 minutes</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="109">
+          In cardiovascular physiology, autonomic aging is characterized by progressive vagal withdrawal and impaired arterial baroreflex responsiveness. Traditional frequency-domain heart rate variability divides power into low-frequency and high-frequency bands under the assumption of stationarity. However, real-life wearable data are non-stationary. HHSA isolates how respiratory sinus arrhythmia in the high-frequency band is modulated in real time by Mayer waves in the low-frequency band. Crucially, wearable photoplethysmography sessions are frequently ultra-short-term, often lasting less than ten minutes. In such records, very low-frequency spectral power cannot be resolved under the three-cycle criterion. HHSA provides an honest reporting framework by explicitly demarcating what short wearable recordings can and cannot measure.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 12: Implementation - Metabolism: Glucose rhythms and CGM (I) [§4.3]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="12" data-soil="I">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-i">Implementation (I)</span>
+              <span class="slide-section-ref">&sect;4.3 Metabolic Dynamics</span>
+              <span class="badge badge-epistemic-obs">Endocrine Rhythms</span>
+            </div>
+            <h2 class="slide-title">Metabolism: Glucose Rhythms &amp; Continuous Monitoring</h2>
+            <p class="slide-subtitle">Consensus clinical metrics (TIR/CV) vs. multi-scale nested glycemic dynamics</p>
+          </div>
+          <span class="slide-number-pill">12 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2">
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div class="card-block">
+                <div class="card-block-title">The Three-Tier Glycemic Hierarchy</div>
+                <ul style="font-size:13.5px;">
+                  <li><strong>Circadian Base (24 h / 0.042 c/h):</strong> Suprachiasmatic nucleus drives nocturnal hepatic gluconeogenesis and morning dawn phenomenon.</li>
+                  <li><strong>Ultradian Pulsatility (1–4 h / 0.25–1.0 c/h):</strong> Intrinsic pacemaker driving pulsatile pancreatic insulin secretion.</li>
+                  <li><strong>Postprandial Excursions (Meal-related):</strong> Acute nutrient absorption spikes modulated by background circadian insulin sensitivity.</li>
+                </ul>
+              </div>
+
+              <div class="card-block">
+                <div class="card-block-title">Static Consensus Metrics vs. HHSA</div>
+                <p style="font-size:13px;">International consensus (Danne et al. 2017, Battelino et al. 2023) focuses on static distribution scalars: Time in Range (TIR &gt; 70%), Coefficient of Variation (CV &le; 36%), and Mean Glucose.</p>
+                <p style="font-size:13px; color:var(--gold);"><strong>The Blind Spot:</strong> Two patients can have identical 70% TIR and 32% CV, yet exhibit completely different circadian phase coupling and ultradian stability.</p>
+              </div>
+            </div>
+
+            <div class="card-block" style="height:100%; justify-content:center;">
+              <div class="card-block-title">Why HHSA Matters for Brain Aging</div>
+              <p>Repeated glycemic excursions induce endothelial oxidative stress, microvascular blood-brain barrier leakage, and accelerated cognitive decline in aging cohorts.</p>
+              <div class="formula-block">
+                HHSA resolves how 24-h circadian rhythms amplitude-modulate meal excursions without discarding non-stationary baseline drifts.
+              </div>
+              <p style="font-size:13px; color:var(--text-sec);">Provides a dynamic digital biomarker for preclinical neuro-metabolic decline.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="108">
+          Metabolic health is governed by dynamic temporal hierarchies. Interstitial glucose reflects interactions between the twenty-four hour circadian pacemaker, ultradian pulsatile insulin secretion every one to four hours, and sharp postprandial meals. The current international consensus metrics—time in range, coefficient of variation, and mean glucose—reduce two weeks of continuous sensor recordings to static scalar summary statistics. They provide zero information regarding circadian phase coherence or the amplitude modulation of meal spikes by background sleep-wake cycles. Because glycemic variability accelerates microvascular damage and cognitive decline in older adults with type two diabetes, applying HHSA to continuous glucose monitoring establishes a dynamic metabolic signature for brain aging.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 13: Implementation - Demo: CGM cube (I) [§5]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="13" data-soil="I">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-i">Implementation (I)</span>
+              <span class="slide-section-ref">&sect;5 Clinical Demonstration</span>
+              <span class="badge badge-epistemic-obs">Empirical Data</span>
+            </div>
+            <h2 class="slide-title">Demonstration: Continuous Glucose Monitor (CGM) Cube</h2>
+            <p class="slide-subtitle">De-identified example (n = 1, shown with consent) &bull; 13.0 days (312 h) &bull; 3,744 samples</p>
+          </div>
+          <span class="slide-number-pill">13 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2">
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div class="card-block">
+                <div class="card-block-title">Signal Provenance &amp; Authoritative Metrics</div>
+                <ul style="font-size:13px;">
+                  <li><strong>Duration &amp; Sampling:</strong> 13.0 days (312.0 hours), 3,744 samples at &Delta;t = 5 min intervals (Nyquist 6.0 c/h).</li>
+                  <li><strong>Summary Statistics:</strong> Mean glucose 8.08 mmol/L (145.5 mg/dL), SD 2.97 mmol/L, CV 36.77%.</li>
+                  <li><strong>Consensus Distribution:</strong> TIR (3.9–10.0 mmol/L): 61.7%; TAR &gt; 10.0 mmol/L: 27.2% (TAR &gt; 13.9 mmol/L: 2.5%); TBR &lt; 3.9 mmol/L: 11.1%; TBR &lt; 3.0 mmol/L: 5.6%.</li>
+                </ul>
+              </div>
+
+              <div class="card-block">
+                <div class="card-block-title">What the 3-D Holo-Hilbert Cube Shows</div>
+                <p style="font-size:13px;">Prominent energy ridge at carrier f<sub>c</sub> &asymp; 0.042 c/h (circadian, 24 h period) acting as an amplitude envelope modulating ultradian and meal-related oscillations (f<sub>AM</sub> 0.25–0.50 c/h).</p>
+                <div class="formula-block" style="font-size:12px;">
+                  Slices prove postprandial excursions are strictly phase-locked to circadian amplitude crests.
+                </div>
+              </div>
+            </div>
+
+            <div class="slide-figure-container">
+              <img src="../paper/figures/F5_cgm_cube_projections.png" data-img="F5_cgm_cube_projections.png" class="slide-img" alt="CGM Cube and Projections" onerror="this.onerror=null; this.src='../hhsa-3d/assets/img/' + this.dataset.img;">
+              <div class="slide-img-caption">Figure F5: CGM 3-D Holo-Hilbert cube and its three marginal projections S(t,f), C(fc,fam), M(t,fam).</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="113">
+          Slide thirteen illustrates our empirical continuous glucose monitoring cube from a de-identified individual recorded over thirteen continuous days, comprising three thousand seven hundred forty-four samples at five-minute intervals. The Nyquist frequency is six cycles per hour. Standard consensus statistics reveal a mean glucose of eight point zero eight millimoles per liter, coefficient of variation of thirty-six point eight percent, and a time in range of sixty-one point seven percent. In the resulting Holo-Hilbert spectrum, we observe a pronounced energy ridge where the circadian carrier, between point zero four and point one two cycles per hour, systematically modulates the amplitude of postprandial fluctuations between point two five and point five zero cycles per hour.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 14: Implementation - Demo: Garmin HRV cubes A/B (I) [§5]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="14" data-soil="I">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-i">Implementation (I)</span>
+              <span class="slide-section-ref">&sect;5 Wearable Demonstration</span>
+              <span class="badge badge-epistemic-obs">Empirical Wearable Data</span>
+            </div>
+            <h2 class="slide-title">Demonstration: Wearable Garmin HRV Cubes (Sessions A &amp; B)</h2>
+            <p class="slide-subtitle">Two real ~7-min wearable sessions &bull; 50 Hz beat recovery &bull; VLF (&lt; 3/T) greyed out</p>
+          </div>
+          <span class="slide-number-pill">14 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2">
+            <div style="display:flex; flex-direction:column; gap:14px;">
+              <div class="deck-table-wrap">
+                <table class="deck-table">
+                  <thead>
+                    <tr>
+                      <th>Metric</th>
+                      <th>HRV Session A</th>
+                      <th>HRV Session B</th>
+                      <th>QC Target</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Duration / Samples</strong></td>
+                      <td>424.5 s / 21,224</td>
+                      <td>444.6 s / 22,233</td>
+                      <td>&sim;7 minutes</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Recovered Beats</strong></td>
+                      <td>714 beats</td>
+                      <td>695 beats</td>
+                      <td>Within &plusmn;2% expected</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Count Error %</strong></td>
+                      <td><span style="color:var(--green); font-weight:700;">0.081%</span></td>
+                      <td><span style="color:var(--green); font-weight:700;">0.225%</span></td>
+                      <td>&le; 2.0% (PASS)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>MeanNN / Median HR</strong></td>
+                      <td>594.5 ms / 101 bpm</td>
+                      <td>639.1 ms / 94 bpm</td>
+                      <td>Standard physiological</td>
+                    </tr>
+                    <tr>
+                      <td><strong>RMSSD / SDNN</strong></td>
+                      <td>24.3 ms / 42.7 ms</td>
+                      <td>26.8 ms / 48.2 ms</td>
+                      <td>Vagal parasympathetic</td>
+                    </tr>
+                    <tr>
+                      <td><strong>pNN50 %</strong></td>
+                      <td>4.82%</td>
+                      <td>6.18%</td>
+                      <td>Beat-to-beat variance</td>
+                    </tr>
+                    <tr>
+                      <td><strong>3/T Cutoff (Greyed)</strong></td>
+                      <td><strong>0.00707 Hz</strong></td>
+                      <td><strong>0.00675 Hz</strong></td>
+                      <td>Unresolvable VLF zone</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="card-block" style="padding:12px 18px;">
+                <p style="font-size:13px;"><strong>Methodological Discipline:</strong> Bins below 3/T Hz are grey-hatched in both cubes, preventing over-interpretation of VLF power from short 7-minute wearable snapshots.</p>
+              </div>
+            </div>
+
+            <div class="slide-figure-container">
+              <img src="../paper/figures/F6_garmin_hrv_sessions.png" data-img="F6_garmin_hrv_sessions.png" class="slide-img" alt="Garmin HRV Cubes Sessions A and B" onerror="this.onerror=null; this.src='../hhsa-3d/assets/img/' + this.dataset.img;">
+              <div class="slide-img-caption">Figure F6: Garmin wearable HRV cubes (Sessions A and B) with 3/T greyed unresolvable zones.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="111">
+          On slide fourteen, we examine two real Garmin optical heart rate variability recordings from a single individual, each lasting approximately seven minutes. Using fifty Hertz heart rate integration, our preprocessing recovered seven hundred fourteen beats in Session A and six hundred ninety-five beats in Session B, with beat count errors under point two five percent against expected counts. Standard time-domain features showed an RMSSD of twenty-four point three milliseconds in Session A and twenty-six point eight milliseconds in Session B. The 3-D Holo-Hilbert cubes capture clear high-frequency respiratory carrier modulation, while the lowest three frequency bins below point zero zero seven Hertz are greyed out to reflect duration constraints.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 15: Implementation - Across systems: coupling hypotheses (I) [§4.4]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="15" data-soil="I">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-i">Implementation (I)</span>
+              <span class="slide-section-ref">&sect;4.4 Cross-System Dynamics</span>
+              <span class="badge badge-epistemic-hyp">Hypothesis Formulation</span>
+            </div>
+            <h2 class="slide-title">Across Systems: Inter-Organ Coupling Hypotheses</h2>
+            <p class="slide-subtitle">Network physiology, Amplitude-Carrier Cross-Frequency Coupling (ACFC), &amp; SWR-glucose</p>
+          </div>
+          <span class="slide-number-pill">15 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2">
+            <div class="card-block">
+              <div class="card-block-title">
+                <span class="icon">🌐</span> Network Physiology &amp; ACFC
+              </div>
+              <p>Organs communicate not via isolated firing rates, but through coordinated cross-frequency coupling across boundaries.</p>
+              <ul>
+                <li><strong>Brain–Heart Axis:</strong> Central autonomic network (insula, prefrontal cortex) modulates cardiac baroreflex sensitivity through slow theta-band envelopes.</li>
+                <li><strong>Autonomic–Metabolic Axis:</strong> Vagal efferent bursts pace hepatic gluconeogenesis and postprandial insulin uptake.</li>
+              </ul>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title" style="color:var(--gold);">
+                <span class="badge badge-epistemic-hyp">Hypothesis</span> Hippocampal SWR–Glucose Link
+              </div>
+              <p><strong>The Rodent vs. Human Gap:</strong> Rodent invasive electrophysiology demonstrates that sleep sharp-wave ripples (SWRs, 150–250 Hz) trigger acute hepatic glucose output.</p>
+              <ul>
+                <li><span style="color:var(--gold); font-weight:700;">Explicit Boundary:</span> In non-invasive human scalp EEG, individual hippocampal SWRs cannot be resolved directly, nor can 5-min interstitial CGM track millisecond spikes.</li>
+                <li>Must be formally labeled as an <strong>untested hypothesis</strong> for non-invasive human HHSA.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="formula-block" style="border-color:var(--gold); color:var(--gold-light);">
+            <strong>Epistemic Rigor:</strong> We distinguish confirmed animal neurobiology from human non-invasive feasibility. Multi-modal cross-organ cubes require synchronous high-resolution recording before claiming direct coupling.
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="106">
+          Network physiology posits that physiological resilience arises from coordinated interactions among organ networks, captured here through amplitude-carrier cross-frequency coupling. A compelling hypothesis in neuroenergetics involves the coupling between hippocampal sharp-wave ripples and peripheral glucose homeostasis. In rodent models, high-frequency ripples during slow-wave sleep stimulate hepatic glucose output through autonomic pathways. In human non-invasive studies, however, non-invasive scalp EEG cannot record individual hippocampal ripples directly, nor can five-minute interstitial glucose measurements track millisecond-level neural bursts. Therefore, we explicitly designate human non-invasive ripple-glucose coupling as an unproven hypothesis that requires rigorous multi-modal recording, surrogate time-series testing, and precise pharmacological perturbations to substantiate.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 16: Leverage - Pitfalls that change the answer (L) [§6]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="16" data-soil="L">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-l">Leverage (L)</span>
+              <span class="slide-section-ref">&sect;6 Methodological Integrity</span>
+              <span class="badge badge-epistemic-der">Pitfall Ledger</span>
+            </div>
+            <h2 class="slide-title">Five Pitfalls That Change the Answer</h2>
+            <p class="slide-subtitle">Common technical errors that generate artificial amplitude modulation and false positives</p>
+          </div>
+          <span class="slide-number-pill">16 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-3">
+            <div class="card-block">
+              <div class="card-block-title" style="color:var(--red);">1. Nyquist &amp; Aliasing</div>
+              <p>Under-sampling folds high-frequency noise directly into physiological bands.</p>
+              <p style="font-size:12.5px; color:var(--text-dim);"><em>Rule:</em> Sensor sampling rate f<sub>s</sub> must be strictly &gt; 2 &times; max carrier frequency, with analog anti-aliasing filtering.</p>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title" style="color:var(--red);">2. Insufficient Duration T</div>
+              <p>Attempting to extract rhythms slower than 3 / T causes severe envelope smearing.</p>
+              <p style="font-size:12.5px; color:var(--text-dim);"><em>Rule:</em> Strictly mask or grey-out bins below 3 / T in all published spectra.</p>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title" style="color:var(--red);">3. Mode Mixing</div>
+              <p>Intermittent signals cause single IMFs to jump across multiple frequency octaves.</p>
+              <p style="font-size:12.5px; color:var(--text-dim);"><em>Rule:</em> Always use noise-assisted sifting (EEMD or CEEMDAN) with &ge; 100 ensemble trials.</p>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title" style="color:var(--red);">4. Edge Spline Distortion</div>
+              <p>Cubic spline interpolation diverges at signal boundaries, distorting Hilbert phases.</p>
+              <p style="font-size:12.5px; color:var(--text-dim);"><em>Rule:</em> Systematically trim 5% to 10% of samples from both ends prior to spectral evaluation.</p>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title" style="color:var(--red);">5. Spurious AM (f<sub>AM</sub> &ge; f<sub>c</sub>)</div>
+              <p>Allowing unmasked coordinates where modulation is faster than carrier violates Bedrosian theorem.</p>
+              <p style="font-size:12.5px; color:var(--text-dim);"><em>Rule:</em> Enforce the mathematical admissibility plane mask f<sub>AM</sub> &lt; f<sub>c</sub>.</p>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title" style="color:var(--green);">The Antidote: Null Testing</div>
+              <p>Always benchmark observed peaks against phase-randomized (IAAFT) surrogate time series.</p>
+              <p style="font-size:12.5px; color:var(--text-dim);">Verifies whether AM energy exceeds stochastic linear noise baselines.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="105">
+          Applying Holo-Hilbert analysis to biological time series without rigorous methodological safeguards produces misleading conclusions. We highlight five critical pitfalls. First, violating the Nyquist criterion or inadequate sampling rates creates severe aliasing. Second, analyzing records shorter than three cycles of the target rhythm produces unresolvable low-frequency spectral smearing. Third, single-sift empirical mode decomposition suffers from mode mixing, necessitating noise-assisted ensemble methods. Fourth, spline fitting at the beginning and end of finite signals introduces severe boundary distortion, requiring systematic edge trimming of five to ten percent. Finally, failing to mask coordinates where modulation frequency exceeds carrier frequency generates spurious, non-physical amplitude modulation.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 17: Leverage - Reporting checklist (L) [§6, T3]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="17" data-soil="L">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-l">Leverage (L)</span>
+              <span class="slide-section-ref">&sect;6, Table 3 Reporting Standard</span>
+              <span class="badge badge-epistemic-der">Reproducibility Standard</span>
+            </div>
+            <h2 class="slide-title">Standardizing Physiological HHSA: The 8-Point Checklist</h2>
+            <p class="slide-subtitle">A minimum reporting standard to eliminate reproducibility crises in non-linear signal processing</p>
+          </div>
+          <span class="slide-number-pill">17 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="deck-table-wrap">
+            <table class="deck-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Reporting Dimension</th>
+                  <th>Mandatory Specification</th>
+                  <th>Rationale in Biological Applications</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1</strong></td>
+                  <td><strong>Decomposition Algorithm</strong></td>
+                  <td>EEMD / CEEMDAN / Masking, ensemble size N, noise amplitude &epsilon;</td>
+                  <td>Eliminates mode mixing and guarantees deterministic reconstruction.</td>
+                </tr>
+                <tr>
+                  <td><strong>2</strong></td>
+                  <td><strong>Instantaneous Frequency</strong></td>
+                  <td>Direct Quadrature (DQ) vs. Normalized Hilbert Transform (NHT)</td>
+                  <td>Prevents Bedrosian envelope-carrier overlap errors.</td>
+                </tr>
+                <tr>
+                  <td><strong>3</strong></td>
+                  <td><strong>Admissibility Mask</strong></td>
+                  <td>f<sub>AM</sub> &lt; f<sub>c</sub> explicit mathematical masking reported</td>
+                  <td>Excludes unphysical spline overshoot artifacts from energy tallies.</td>
+                </tr>
+                <tr>
+                  <td><strong>4</strong></td>
+                  <td><strong>Duration &amp; Resolvability</strong></td>
+                  <td>f<sub>min</sub> = 3 / T reported; unresolvable low bins masked or greyed</td>
+                  <td>Prevents spurious claims of slow rhythms (e.g. VLF) from short runs.</td>
+                </tr>
+                <tr>
+                  <td><strong>5</strong></td>
+                  <td><strong>Boundary Protocol</strong></td>
+                  <td>Exact edge percentage/seconds trimmed from both ends</td>
+                  <td>Eliminates cubic spline endpoint divergence from spectra.</td>
+                </tr>
+                <tr>
+                  <td><strong>6</strong></td>
+                  <td><strong>Surrogate Null Testing</strong></td>
+                  <td>IAAFT phase-randomized or amplitude-adjusted surrogate statistics</td>
+                  <td>Confirms AM coupling is not an artifact of stationary colored noise.</td>
+                </tr>
+                <tr>
+                  <td><strong>7</strong></td>
+                  <td><strong>Ethical Provenance</strong></td>
+                  <td>Relative time axes (hours/seconds), de-identification, IRB consent</td>
+                  <td>Guarantees privacy protection and data governance compliance.</td>
+                </tr>
+                <tr>
+                  <td><strong>8</strong></td>
+                  <td><strong>Code &amp; Tensor Sharing</strong></td>
+                  <td>Open-source code, environment version lock, coordinate tensors</td>
+                  <td>Allows complete independent scientific verification.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="109">
+          To elevate the reproducibility and rigor of physiological HHSA, Table Three of our review proposes an eight-point reporting standard. Every future study should report: first, the exact decomposition algorithm and ensemble parameters; second, the instantaneous frequency calculation method; third, explicit enforcement of the mathematical admissibility mask; fourth, the minimum resolvable frequency based on three cycles divided by record duration; fifth, the exact boundary trimming percentage; sixth, surrogate data null testing against phase-randomized controls; seventh, transparent ethical provenance and de-identification procedures; and eighth, open-source code availability. Adhering to these eight criteria ensures that published amplitude modulation findings represent authentic physiological coupling rather than numerical artifacts.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 18: Leverage - Open code & reproducibility (L) [§5]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="18" data-soil="L">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-l">Leverage (L)</span>
+              <span class="slide-section-ref">&sect;5 Software Architecture</span>
+              <span class="badge badge-epistemic-der">Open Science</span>
+            </div>
+            <h2 class="slide-title">Open Architecture &amp; Reproducibility Pipeline</h2>
+            <p class="slide-subtitle">Zero unmaintained dependencies: pure Python standard library + NumPy + SciPy</p>
+          </div>
+          <span class="slide-number-pill">18 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-3">
+            <div class="card-block">
+              <div class="card-block-title">
+                <span class="icon">🐍</span> Compute Tier: Python Core
+              </div>
+              <p><strong>Pure stdlib + numpy + scipy:</strong> Custom vectorized implementation of two-layer sifting.</p>
+              <ul>
+                <li>No unmaintained wrappers (no PyEMD, no closed toolboxes).</li>
+                <li>Dense float16 Base64 and sparse Top-K JSON exporters.</li>
+                <li>All 5 cubes generated under 20 KB per JSON.</li>
+              </ul>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title">
+                <span class="icon">🎨</span> Asset Tier: Headless Blender
+              </div>
+              <p><strong>Blender 4.5 Python Builder:</strong> Programmatic procedural coordinate rig generation.</p>
+              <ul>
+                <li>Emissive teal axis lines and wireframe bounding boxes.</li>
+                <li>Translucent glass band slabs (Circadian, Ultradian, LF, HF).</li>
+                <li>Exports lightweight, production-ready <code>.glb</code> assets.</li>
+              </ul>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title">
+                <span class="icon">🌐</span> Presentation Tier: Three.js
+              </div>
+              <p><strong>Interactive WebGL Suite:</strong> Zero-installation browser explorer using pinned CDN modules.</p>
+              <ul>
+                <li>Live dynamic slicing: S(t,f), C(f,w), M(t,w).</li>
+                <li>Admissibility plane toggle and 3/T grey-hatching.</li>
+                <li>Mobile-friendly drawer UI with dual frequency-period axes.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="formula-block" style="display:flex; justify-content:space-between; align-items:center;">
+            <span><strong>GitHub Staging Repository:</strong> <code>kidney-cognition-lab/hhsa-3d</code></span>
+            <span style="color:var(--text-dim); font-size:12px;">Branch staging completed prior to submission</span>
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="106">
+          Open science and complete reproducibility are core pillars of this initiative. Our entire computational pipeline is implemented in pure Python using only standard library, NumPy, and SciPy, completely avoiding unmaintained third-party decomposition packages. The 3-D coordinate rigs, bounding boxes, and translucent band slabs were constructed using an automated headless Blender script exporting compact glTF models. The interactive web explorer is delivered via Three dot JS using pinned content delivery networks, allowing researchers to explore our pre-calculated float16 tensors directly in any modern browser without installing software. All code, validation logs, and de-identified tensor cubes are openly hosted for community verification.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 19: Leverage - Outlook: wearables, multimodal HHSA, aging (L) [§6]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="19" data-soil="L">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-l">Leverage (L)</span>
+              <span class="slide-section-ref">&sect;6 Future Directions</span>
+              <span class="badge badge-epistemic-hyp">Clinical Vision</span>
+            </div>
+            <h2 class="slide-title">Outlook: Wearables, Multimodal Cubes, &amp; Aging Cohorts</h2>
+            <p class="slide-subtitle">Translating Holo-Hilbert analytics from desktop workstations to clinical longitudinal trials</p>
+          </div>
+          <span class="slide-number-pill">19 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-3">
+            <div class="card-block">
+              <div class="card-block-title">
+                <span class="icon">⌚</span> Edge Computing
+              </div>
+              <p><strong>Wearable Microcontrollers:</strong> Developing optimized integer-arithmetic EMD algorithms to run directly on smartwatches and smart rings.</p>
+              <ul>
+                <li>Real-time autonomous baroreflex monitoring on edge devices.</li>
+                <li>Low-latency biofeedback alerting patients to autonomic stress.</li>
+              </ul>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title">
+                <span class="icon">🔗</span> Synchronous Multimodal Cubes
+              </div>
+              <p><strong>Brain–Heart–Metabolic Tensors:</strong> Building unified data cubes from synchronized 24-h EEG, wearable PPG, and interstitial CGM.</p>
+              <ul>
+                <li>Quantifies sleep-stage regulation of autonomic tone and glucose.</li>
+                <li>Provides multi-organ network resilience indices.</li>
+              </ul>
+            </div>
+
+            <div class="card-block">
+              <div class="card-block-title">
+                <span class="icon">🧬</span> Longitudinal Aging Cohorts
+              </div>
+              <p><strong>Digital Biomarkers of Frailty:</strong> Tracking progressive loss of cross-frequency modulation complexity across decades.</p>
+              <ul>
+                <li>Detects microvascular frailty before irreversible clinical dementia.</li>
+                <li>Establishes quantitative endpoints for lifestyle interventions.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="formula-block">
+            <strong>The Ultimate Goal:</strong> Transforming raw, non-stationary physiological streams into actionable multi-scale digital biomarkers for healthy longevity.
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="106">
+          Looking toward the future, the convergence of edge computing and multimodal physiological sensing offers transformative potential for aging research. Low-power microcontroller implementations of empirical mode decomposition will enable smartwatches and smart rings to perform real-time amplitude modulation tracking on the edge. By synchronously capturing continuous EEG, wearable heart rate variability, and continuous glucose monitoring, clinicians will be able to construct unified multi-organ Holo-Hilbert cubes. Longitudinal studies in aging cohorts can evaluate whether the progressive loss of multi-scale amplitude modulation complexity serves as an early digital biomarker for neurodegenerative decline, vascular frailty, and autonomic dysregulation long before irreversible clinical symptoms appear.
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 20: Conclusion & Links (—) [§7]
+           ==================================================================== -->
+      <section class="slide" data-slide-index="20" data-soil="—">
+        <div class="slide-header">
+          <div>
+            <div class="slide-meta">
+              <span class="badge badge-soil-t">Conclusion</span>
+              <span class="slide-section-ref">&sect;7 Summary &amp; Resources</span>
+              <span class="badge badge-soil-i">Kidney &amp; Cognition Lab</span>
+            </div>
+            <h2 class="slide-title">Take-Home Messages &amp; Resource Hub</h2>
+            <p class="slide-subtitle">Holo-Hilbert Spectral Analysis expands biological time series into multi-scale reality</p>
+          </div>
+          <span class="slide-number-pill">20 / 20</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2">
+            <div class="card-block" style="justify-content:center;">
+              <div class="card-block-title" style="color:var(--teal); font-size:18px;">Core Takeaways</div>
+              <ul style="font-size:14px; gap:12px;">
+                <li><strong>1. Biological Signals Are Nested:</strong> Amplitude modulation is not noise; it is the fundamental language of cross-scale organ communication.</li>
+                <li><strong>2. HHSA Unlocks the 3rd Dimension:</strong> Decomposing twice maps continuous energy into H(t, f<sub>c</sub>, f<sub>AM</sub>), eliminating artificial Fourier sidebands and subjective PAC band-limits.</li>
+                <li><strong>3. Methodological Discipline is Essential:</strong> Physical validity requires strict enforcement of the admissibility condition (f<sub>AM</sub> &lt; f<sub>c</sub>) and 3-cycle duration bounds (f &ge; 3/T).</li>
+              </ul>
+            </div>
+
+            <div class="card-block" style="justify-content:center; gap:14px;">
+              <div class="card-block-title" style="color:var(--purple-light); font-size:18px;">Project Ecosystem &amp; Links</div>
+              
+              <a href="../site/explorer.html" target="_blank" class="btn-icon" style="padding:10px 14px; border-color:var(--teal); color:var(--teal-light);">
+                <span>🚀 3-D Holo-Hilbert Interactive Web Explorer</span>
+              </a>
+
+              <a href="../site/index.html" target="_blank" class="btn-icon" style="padding:10px 14px; border-color:var(--border);">
+                <span>🏠 Kidney &amp; Cognition Lab Project Portal</span>
+              </a>
+
+              <div class="card-block" style="padding:12px; background:rgba(10,15,30,0.5); border:1px solid rgba(139,92,246,0.3);">
+                <span style="font-size:12px; color:var(--purple-light); font-weight:700;">NARRATIVE REVIEW MANUSCRIPT:</span>
+                <p style="font-size:12px; color:var(--text-sec); margin-top:2px;">
+                  <em>In preparation for Frontiers in Aging Neuroscience</em>: "Using HHSA to Unravel the Physiological Secrets of Body Signals" (Chu, 2026).
+                </p>
+              </div>
+
+              <div class="card-block" style="padding:12px; background:rgba(10,15,30,0.5); border:1px solid rgba(244,162,97,0.3);">
+                <span style="font-size:12px; color:var(--gold); font-weight:700;">CHINESE EDUCATIONAL DEEP DIVE:</span>
+                <p style="font-size:12px; color:var(--text-sec); margin-top:2px;">
+                  Available in lab blog: "以全息希爾伯特頻譜解構人體訊號的生理密碼".
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Speaker Notes -->
+        <div class="notes-content" style="display:none;" data-word-count="106">
+          To conclude our presentation, three central messages emerge. First, human body signals are intrinsically nested; amplitude modulation represents a primary biological mechanism for multi-scale physiological control. Second, Holo-Hilbert Spectral Analysis resolves this nested architecture by mapping energy into a continuous three-dimensional space of time, carrier frequency, and modulation frequency. Third, physical validity requires strict adherence to mathematical admissibility and record-length bounds. We invite you to explore our interactive 3-D explorer online, read our comprehensive review paper in preparation for Frontiers in Aging Neuroscience, and engage with our educational materials as we advance the frontiers of network physiology in brain aging.
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Footer Navigation Bar -->
+    <footer class="deck-footer">
+      <div class="deck-nav-buttons">
+        <button id="btn-prev-slide" class="btn-icon" title="Previous Slide [◄]">◄ Previous</button>
+        <button id="btn-next-slide" class="btn-icon" title="Next Slide [►]">Next ►</button>
+      </div>
+
+      <div class="deck-counter-indicator">
+        Slide <span id="current-slide-num">1</span> of <span id="total-slides-num">20</span>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="font-size:12px; color:var(--text-dim); font-family:var(--font-mono);">
+          Kwo-Ta Chu, MD, PhD &bull; 2026-10-17
+        </span>
+      </div>
+    </footer>
+
+    <!-- Speaker Notes Slide-out Drawer -->
+    <div id="notes-drawer" class="notes-drawer">
+      <div class="notes-drawer-head">
+        <div class="notes-drawer-title">
+          <span>🎙️ Speaker Notes</span>
+          <span id="notes-soil-badge" class="badge badge-soil-t">—</span>
+          <span id="notes-wc-badge" class="notes-word-count">0 words</span>
+        </div>
+        <button id="btn-close-notes" class="btn-icon" style="padding:2px 8px; font-size:11px;">✕ Close [N]</button>
+      </div>
+      <div id="notes-drawer-body" class="notes-drawer-body">
+        Select a slide to view speaker notes.
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       Deck Navigation & Controller Logic
+       ======================================================================== -->
+  <script>
+    (function() {
+      let currentSlide = 1;
+      const totalSlides = 20;
+      const slides = document.querySelectorAll('.slide');
+      const progressBar = document.getElementById('deck-progress-bar');
+      const curNumEl = document.getElementById('current-slide-num');
+      const totalNumEl = document.getElementById('total-slides-num');
+      const notesDrawer = document.getElementById('notes-drawer');
+      const notesBodyEl = document.getElementById('notes-drawer-body');
+      const notesWcEl = document.getElementById('notes-wc-badge');
+      const notesSoilEl = document.getElementById('notes-soil-badge');
+      const toggleNotesBtn = document.getElementById('btn-toggle-notes');
+      const closeNotesBtn = document.getElementById('btn-close-notes');
+      const themeToggleBtn = document.getElementById('btn-theme-toggle');
+      const themeIcon = document.getElementById('theme-icon');
+      const fullscreenBtn = document.getElementById('btn-fullscreen-toggle');
+
+      if (totalNumEl) totalNumEl.textContent = totalSlides;
+
+      function updateSlide(newIndex) {
+        if (newIndex < 1) newIndex = 1;
+        if (newIndex > totalSlides) newIndex = totalSlides;
+        currentSlide = newIndex;
+
+        slides.forEach((sl, idx) => {
+          if (idx + 1 === currentSlide) {
+            sl.classList.add('active');
+          } else {
+            sl.classList.remove('active');
+          }
+        });
+
+        // Update progress bar
+        if (progressBar) {
+          const pct = ((currentSlide) / totalSlides) * 100;
+          progressBar.style.width = pct + '%';
+        }
+
+        // Update indicator
+        if (curNumEl) curNumEl.textContent = currentSlide;
+
+        // Update notes
+        const activeSlide = slides[currentSlide - 1];
+        if (activeSlide) {
+          const notesEl = activeSlide.querySelector('.notes-content');
+          const soil = activeSlide.getAttribute('data-soil') || '—';
+          if (notesEl && notesBodyEl) {
+            notesBodyEl.textContent = notesEl.textContent.trim();
+            const wc = notesEl.getAttribute('data-word-count') || notesEl.textContent.trim().split(/\s+/).length;
+            if (notesWcEl) notesWcEl.textContent = `${wc} words`;
+          } else if (notesBodyEl) {
+            notesBodyEl.textContent = 'No notes for this slide.';
+            if (notesWcEl) notesWcEl.textContent = '0 words';
+          }
+          if (notesSoilEl) {
+            notesSoilEl.textContent = `SOIL: ${soil}`;
+          }
+
+          // If on Slide 8, trigger resize on WebGL canvas
+          if (currentSlide === 8 && window.triggerSlide8Resize) {
+            window.triggerSlide8Resize();
+          }
+        }
+      }
+
+      function nextSlide() { updateSlide(currentSlide + 1); }
+      function prevSlide() { updateSlide(currentSlide - 1); }
+
+      document.getElementById('btn-next-slide')?.addEventListener('click', nextSlide);
+      document.getElementById('btn-prev-slide')?.addEventListener('click', prevSlide);
+
+      // Keyboard navigation
+      window.addEventListener('keydown', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        switch(e.key) {
+          case 'ArrowRight':
+          case 'ArrowDown':
+          case 'PageDown':
+          case ' ':
+            e.preventDefault();
+            nextSlide();
+            break;
+          case 'ArrowLeft':
+          case 'ArrowUp':
+          case 'PageUp':
+            e.preventDefault();
+            prevSlide();
+            break;
+          case 'Home':
+            e.preventDefault();
+            updateSlide(1);
+            break;
+          case 'End':
+            e.preventDefault();
+            updateSlide(totalSlides);
+            break;
+          case 'n':
+          case 'N':
+            e.preventDefault();
+            toggleNotes();
+            break;
+          case 'f':
+          case 'F':
+            e.preventDefault();
+            toggleFullscreen();
+            break;
+          case 't':
+          case 'T':
+            e.preventDefault();
+            toggleTheme();
+            break;
+        }
+      });
+
+      // Notes Drawer Toggle
+      function toggleNotes() {
+        if (!notesDrawer) return;
+        notesDrawer.classList.toggle('open');
+        toggleNotesBtn?.classList.toggle('active', notesDrawer.classList.contains('open'));
+      }
+
+      toggleNotesBtn?.addEventListener('click', toggleNotes);
+      closeNotesBtn?.addEventListener('click', () => {
+        notesDrawer?.classList.remove('open');
+        toggleNotesBtn?.classList.remove('active');
+      });
+
+      // Fullscreen Toggle
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+      fullscreenBtn?.addEventListener('click', toggleFullscreen);
+
+      // Theme Toggle
+      function toggleTheme() {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        if (themeIcon) themeIcon.textContent = next === 'light' ? '🌙' : '☀️';
+      }
+      themeToggleBtn?.addEventListener('click', toggleTheme);
+
+      // Initial Slide
+      updateSlide(1);
+    })();
+  </script>
+
+  <!-- ========================================================================
+       Slide 8 Embedded 3D WebGL Mini-Explorer Script
+       ======================================================================== -->
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    let scene, camera, renderer, controls, pointsMesh, boxHelper;
+    let isAutoRotating = true;
+    const canvas = document.getElementById('slide8-canvas');
+
+    function initWebGL() {
+      if (!canvas) return;
+      const w = canvas.parentElement.clientWidth || 600;
+      const h = canvas.parentElement.clientHeight || 420;
+
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x060a14);
+
+      camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
+      camera.position.set(2.8, 2.2, 3.2);
+
+      try {
+        renderer = new THREE.WebGLRenderer({
+          canvas: canvas,
+          antialias: true,
+          alpha: true
+        });
+      } catch (err) {
+        console.warn('WebGL initialization fallback:', err);
+        return;
+      }
+
+      renderer.setSize(w, h);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.08;
+      controls.autoRotate = isAutoRotating;
+      controls.autoRotateSpeed = 1.2;
+
+      // Lights
+      const ambLight = new THREE.AmbientLight(0xffffff, 0.9);
+      scene.add(ambLight);
+
+      const dirLight = new THREE.DirectionalLight(0x4dd9cf, 1.2);
+      dirLight.position.set(5, 10, 7);
+      scene.add(dirLight);
+
+      // Bounding Coordinate Box (-1 to +1 normalized)
+      const boxGeo = new THREE.BoxGeometry(2, 2, 2);
+      boxHelper = new THREE.BoxHelper(new THREE.Mesh(boxGeo), 0x4dd9cf);
+      boxHelper.material.opacity = 0.35;
+      boxHelper.material.transparent = true;
+      scene.add(boxHelper);
+
+      // Admissibility Plane (Wireframe in Gold)
+      const planeGeo = new THREE.BufferGeometry();
+      // Plane where f_AM = f_c across normalized cube [-1, 1]
+      const planeVertices = new Float32Array([
+        -1, -1, -1,
+        -1, -1,  1,
+         1,  1,  1,
+        -1, -1, -1,
+         1,  1,  1,
+         1,  1, -1
+      ]);
+      planeGeo.setAttribute('position', new THREE.BufferAttribute(planeVertices, 3));
+      const planeMat = new THREE.MeshBasicMaterial({
+        color: 0xf4a261,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.25
+      });
+      const planeMesh = new THREE.Mesh(planeGeo, planeMat);
+      scene.add(planeMesh);
+
+      // Synthetic Ground Truth Point Cloud
+      // Known signal: fc = 0.50 Hz, f_AM = 0.05 Hz across 30 time steps
+      const nPoints = 400;
+      const positions = new Float32Array(nPoints * 3);
+      const colors = new Float32Array(nPoints * 3);
+
+      const colorTeal = new THREE.Color(0x4dd9cf);
+      const colorPurple = new THREE.Color(0x8b5cf6);
+      const colorGold = new THREE.Color(0xf4a261);
+
+      let idx = 0;
+      for (let t = 0; t < 30; t++) {
+        const normT = (t / 29) * 1.8 - 0.9;
+        // Carrier ~0.50 Hz maps to normalized 0.15
+        // AM ~0.05 Hz maps to normalized -0.45
+        for (let k = 0; k < 12; k++) {
+          const jitterX = (Math.random() - 0.5) * 0.12;
+          const jitterY = (Math.random() - 0.5) * 0.08;
+          const jitterZ = (Math.random() - 0.5) * 0.05;
+
+          positions[idx * 3]     = 0.15 + jitterX; // fc axis
+          positions[idx * 3 + 1] = -0.45 + jitterY; // f_AM axis
+          positions[idx * 3 + 2] = normT + jitterZ; // time axis
+
+          const pColor = k === 0 ? colorGold : (k % 2 === 0 ? colorTeal : colorPurple);
+          colors[idx * 3]     = pColor.r;
+          colors[idx * 3 + 1] = pColor.g;
+          colors[idx * 3 + 2] = pColor.b;
+          idx++;
+        }
+      }
+
+      const pointsGeo = new THREE.BufferGeometry();
+      pointsGeo.setAttribute('position', new THREE.BufferAttribute(positions.subarray(0, idx * 3), 3));
+      pointsGeo.setAttribute('color', new THREE.BufferAttribute(colors.subarray(0, idx * 3), 3));
+
+      const pointsMat = new THREE.PointsMaterial({
+        size: 0.07,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.85
+      });
+
+      pointsMesh = new THREE.Points(pointsGeo, pointsMat);
+      scene.add(pointsMesh);
+
+      // WebGL Controls Bindings
+      document.getElementById('btn-webgl-autorotate')?.addEventListener('click', (e) => {
+        isAutoRotating = !isAutoRotating;
+        controls.autoRotate = isAutoRotating;
+        e.target.textContent = isAutoRotating ? '⏸ Pause' : '▶ Play';
+      });
+
+      document.getElementById('btn-webgl-reset')?.addEventListener('click', () => {
+        camera.position.set(2.8, 2.2, 3.2);
+        controls.target.set(0, 0, 0);
+        controls.update();
+      });
+
+      window.triggerSlide8Resize = function() {
+        if (!canvas || !renderer || !camera) return;
+        const w = canvas.parentElement.clientWidth || 600;
+        const h = canvas.parentElement.clientHeight || 420;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+      };
+
+      window.addEventListener('resize', window.triggerSlide8Resize);
+
+      // Render Loop
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+    }
+
+    window.addEventListener('DOMContentLoaded', initWebGL);
+  </script>
+</body>
+</html>

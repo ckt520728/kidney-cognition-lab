@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>關於研究室、作者與倫理免責聲明 | About & Ethics Disclaimer | Kidney & Cognition Lab</title>
+  <meta name="description" content="Kidney & Cognition Lab (朱國大 醫師/博士) 簡介、全息希爾伯特頻譜 (HHSA) 研究願景、資料來源與研究倫理聲明、醫療免責聲明與開放科學授權。">
+  
+  <!-- CSS Design System -->
+  <link rel="stylesheet" href="assets/css/site.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>">
+
+  <style>
+    .about-hero {
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-primary) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 24px;
+    }
+    .about-layout {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+    .bio-card {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 32px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow);
+      align-items: center;
+    }
+    @media (max-width: 640px) {
+      .bio-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+    .bio-avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, var(--teal), var(--purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 54px;
+      box-shadow: 0 0 24px var(--teal-glow);
+      margin: 0 auto;
+    }
+    .statement-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .disclaimer-alert {
+      background: rgba(244, 162, 97, 0.08);
+      border: 1px solid rgba(244, 162, 97, 0.35);
+      border-left: 4px solid var(--gold);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 18px 20px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">H3</div>
+        <div class="brand-text">
+          <span class="brand-title">HHSA <span class="accent">3-D</span></span>
+          <span class="brand-subtitle">Kidney & Cognition Lab</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">首頁 Home</a></li>
+          <li><a href="explorer.html" class="nav-link">3-D 探索器 Explorer</a></li>
+          <li><a href="method.html" class="nav-link">方法學 Method</a></li>
+          <li><a href="demos.html" class="nav-link">臨床示範 Demos</a></li>
+          <li><a href="library.html" class="nav-link">程式庫 Library</a></li>
+          <li><a href="links.html" class="nav-link">文獻庫 Publications</a></li>
+          <li><a href="about.html" class="nav-link active">關於 About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="btn-theme-toggle" class="theme-toggle" title="Toggle Light/Dark Theme">☀️</button>
+        <button id="btn-mobile-nav" class="mobile-toggle" aria-label="Toggle Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <section class="about-hero">
+    <div style="max-width: 1000px; margin: 0 auto;">
+      <div style="margin-bottom: 12px;">
+        <span class="badge badge-teal">Principal Investigator</span>
+        <span class="badge badge-purple">Translational Medicine</span>
+        <span class="badge badge-gold">Research Ethics & Open Science</span>
+      </div>
+      <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 14px;">
+        關於研究室、主持人與科學誠信規範
+      </h1>
+      <p style="font-size: 16px; color: var(--text-sec); line-height: 1.7;">
+        Kidney & Cognition Lab 專注於結合臨床腎臟醫學、代謝生理學與計算認知神經科學，探索心腎腦軸向 (Cardiorenal-Cerebral Axis) 的非線性動力學。本頁提供主持人簡介、醫療免責聲明、研究數據來源與人體試驗倫理說明，以及開源可重現性架構。
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content Layout -->
+  <section class="section">
+    <div class="about-layout">
+
+      <!-- 1. Principal Investigator Bio -->
+      <div class="bio-card">
+        <div class="bio-avatar">👨‍⚕️</div>
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:6px;">
+            <h2 style="font-size: 24px; color: var(--text); font-weight: 700;">朱國大 醫師 / 博士</h2>
+            <span class="badge badge-teal">Kwo-Ta Chu, MD, PhD</span>
+          </div>
+          <p style="color: var(--teal-light); font-size: 14px; font-weight: 500; margin-bottom: 12px;">
+            內科部腎臟科主治醫師 · 認知神經科學博士 · 主持人 (PI)
+          </p>
+          <p style="font-size: 14px; color: var(--text-sec); line-height: 1.7; margin-bottom: 16px;">
+            長期深耕於慢性腎臟病 (CKD)、糖尿病神經血管病變、高齡衰弱與認知功能障礙（失智症、輕度認知障礙 aMCI）之跨領域轉譯研究。率先將黃鍔院士團隊創立之全息希爾伯特頻譜分析 (HHSA) 引入神經衰退性疾病的早期動態電生理標記開發 (<a href="https://doi.org/10.3389/fnagi.2023.1195424" target="_blank" rel="noopener">Chu et al., 2023, <em>Frontiers in Aging Neuroscience</em></a>)，致力於透過穿戴式與非侵入性多模態訊號，解開人體微弱調幅背後隱藏的生理密碼。
+          </p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="https://ckt520728.github.io/kidney-cognition-lab/" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">
+              <span>🏠 實驗室主頁 (Lab Homepage) ↗</span>
+            </a>
+            <a href="library.html" class="btn btn-primary btn-sm">
+              <span>📚 查閱已發表論文與程式庫</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Medical & Educational Disclaimer -->
+      <div class="statement-box">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+          <h3 style="font-size: 20px; color: var(--gold);">⚠️ 醫療與教育用途免責聲明 (Educational Disclaimer)</h3>
+        </div>
+
+        <div class="disclaimer-alert">
+          <p style="margin-bottom: 10px;">
+            <strong>非臨床診斷用途告示：</strong><br>
+            本網站發布之所有內容、數值演算法、互動式 3-D 全息希爾伯特頻譜探索器 (HHSA 3-D Explorer) 以及分析圖表，<strong>僅供工程演算法驗證、學術研究交流與高等醫學生理學教學展示之用</strong>。
+          </p>
+          <p style="margin-bottom: 10px;">
+            本平台所呈現之任何頻譜特徵、振幅調變深度、載波分佈或生理指數，<strong>均不構成、亦不可替代專業醫師的臨床醫療診斷、病情評估、用藥建議或個人化處方依據</strong>。
+          </p>
+          <p>
+            任何患者、醫療人員或研究受試者，切勿因本站所展示之三維頻譜形態而自行增減藥物劑量、停止胰島素治療或變更既定臨床療程。如有任何健康諮詢或醫療需求，請務必尋求合格執業醫師之面診與專業指引。
+          </p>
+        </div>
+      </div>
+
+      <!-- 3. Data Provenance & Ethics Statement -->
+      <div class="statement-box">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+          <h3 style="font-size: 20px; color: var(--teal-light);">📋 數據來源、倫理審查與去識別化規範 (Data Provenance & Ethics)</h3>
+        </div>
+
+        <p style="color: var(--text-sec); font-size: 14px; line-height: 1.7; margin-bottom: 16px;">
+          本平台所展示之各項示範數據集，嚴格遵從赫爾辛基宣言、受試者保護倫理原則及人體研究法規範：
+        </p>
+
+        <div style="display:grid; grid-template-columns: 1fr; gap: 16px;">
+          <!-- CGM Ethics -->
+          <div style="background: var(--bg-card2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <strong style="color: var(--teal); font-size: 15px;">1. 連續血糖監測 (CGM) 資料集</strong>
+              <span class="badge badge-teal">n = 1 · 13 Days · Educational Consent</span>
+            </div>
+            <p style="font-size: 13px; color: var(--text-sec); line-height: 1.6;">
+              源自臨床真實連續血糖感測器記錄（13.0 天，共 3,744 筆等距 5 分鐘取樣點）。本資料已獲得受試當事人簽署<strong>書面知情同意書 (Informed Consent)</strong>，明確授權作為教學案例與非商業演算法驗證。資料已進行嚴格<strong>去識別化 (De-identification)</strong> 處理：所有病患姓名、出生年、日曆日期及絕對時間戳記均已全數剔除，統一重設為相對時間軸（小時 0.0 至 312.0），完全無法回溯至任何個人身份。
+            </p>
+          </div>
+
+          <!-- Garmin HRV Ethics -->
+          <div style="background: var(--bg-card2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <strong style="color: var(--purple-light); font-size: 15px;">2. Garmin 穿戴式心率變異 (HRV) 資料集</strong>
+              <span class="badge badge-purple">Sessions A & B · IRB Protocol Covered</span>
+            </div>
+            <p style="font-size: 13px; color: var(--text-sec); line-height: 1.6;">
+              穿戴式光學體積變化描記 (PPG) 之逐拍間期記錄（Session A 約 424 秒、Session B 約 444 秒），乃於人體試驗委員會 (Institutional Review Board, IRB) 核准之學術研究計畫架構下採集。原始裝置序列號、受試者代號均已轉換為中性學術標籤（<code>HRV session A</code> 與 <code>HRV session B</code>），時間軸以相對秒數表示，確保受試者隱私受到完整保護。
+            </p>
+          </div>
+
+          <!-- Synthetic Ethics -->
+          <div style="background: var(--bg-card2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <strong style="color: var(--gold); font-size: 15px;">3. 合成調幅調頻與自律神經生成基準</strong>
+              <span class="badge badge-gold">Synthetic Mathematical Ground Truth</span>
+            </div>
+            <p style="font-size: 13px; color: var(--text-sec); line-height: 1.6;">
+              合成 AM-FM 訊號立方體及 K4 生理性心率變異模型完全由嚴格數學方程式（非線性雙載波微分方程）生成，不涉及任何人體組織、生物檢體或個人健康資料，提供公開純淨之數值基準。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Open-Source Reproducibility Architecture -->
+      <div class="statement-box">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+          <h3 style="font-size: 20px; color: var(--teal-light);">💻 開源可重現性架構 (Reproducibility Architecture)</h3>
+        </div>
+
+        <p style="color: var(--text-sec); font-size: 14px; line-height: 1.7; margin-bottom: 16px;">
+          本專案嚴格遵循計算可重現性 (Computational Reproducibility) 最高準則：
+        </p>
+
+        <ul style="color: var(--text-sec); font-size: 14px; line-height: 1.8; margin-left: 20px; margin-bottom: 16px;">
+          <li>
+            <strong>無黑盒子、純標準科學計算庫：</strong> 演算法運算僅依賴 Python 標準庫 (stdlib) 與標準矩陣科學計算庫 (NumPy, SciPy)。不依賴未經驗證之封閉原始碼外掛或未安裝之套件。
+          </li>
+          <li>
+            <strong>自包含前端架構：</strong> 互動式 3-D 探索器採用現代標準 ECMAScript 模組 (ESM Three.js 0.160.0) 與 HTML5 Canvas 2D 雙重繪製引擎。資料儲存採用 IEEE 754 float16 Base64 高效壓縮 JSON 格式，單一檔案大小均嚴格控制於數十 KB 以內，完全符合行動裝置極速載入要求。
+          </li>
+          <li>
+            <strong>跨螢幕與無障礙相容：</strong> 界面設計全面相容於桌面大螢幕至最小 375 px 寬度之智慧型手機，提供滑鼠軌道控制、觸控手勢及雙模式色彩主題切換。
+          </li>
+        </ul>
+      </div>
+
+      <!-- 5. Licence & Copyright -->
+      <div class="statement-box">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+          <h3 style="font-size: 20px; color: var(--text);">⚖️ 版權與智慧財產權授權 (Licence & Open Access)</h3>
+        </div>
+
+        <p style="color: var(--text-sec); font-size: 14px; line-height: 1.7; margin-bottom: 12px;">
+          <strong>程式碼授權 (Software Code):</strong><br>
+          本專案之公開 Python 運算腳本與網頁原始碼遵循 <strong>MIT 授權條款 (MIT License)</strong> 開放取用。任何人均可自由使用、修改、合併或發布，唯須保留原作者版權聲明與免責聲明。
+        </p>
+
+        <p style="color: var(--text-sec); font-size: 14px; line-height: 1.7; margin-bottom: 12px;">
+          <strong>文字與視覺圖表授權 (Content & Figures):</strong><br>
+          本網站發表之原創文字解說、圖解示意圖與三維立體呈現方式，遵循 <strong>創用 CC 姓名標示 4.0 國際授權條款 (Creative Commons Attribution 4.0 International, CC BY 4.0)</strong>。在適當標註來源（Kidney & Cognition Lab）之前提下，歡迎學術研究與非營利教學引用。
+        </p>
+
+        <p style="font-size: 12px; color: var(--text-dim); margin-top: 16px;">
+          專案代碼庫：<code>ckt520728/kidney-cognition-lab</code> · 託管於 GitHub Pages & Vercel.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="border-top: 1px solid var(--border); padding: 40px 24px; background: var(--bg-card2); text-align: center; font-size: 13px; color: var(--text-sec);">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; align-items: center;">
+      <div style="display: flex; gap: 18px; flex-wrap: wrap; justify-content: center;">
+        <a href="index.html">首頁</a>
+        <a href="explorer.html">3-D 探索器</a>
+        <a href="method.html">方法學</a>
+        <a href="demos.html">臨床示範</a>
+        <a href="library.html">開源程式庫</a>
+        <a href="links.html">文獻出版</a>
+        <a href="about.html">關於研究室</a>
+      </div>
+      <p>
+        © 2026 Kidney & Cognition Lab (ckt520728/kidney-cognition-lab). All rights reserved.
+      </p>
+      <p style="font-size: 11px; color: var(--text-dim); max-width: 800px;">
+        免責聲明：本網站內容及 3-D 全息希爾伯特頻譜探索器僅供學術研究、工程驗證與教學展示之用，非作為臨床診斷或醫療處方依據。去識別血糖實例經當事人書面知情同意授權使用；穿戴心率變異紀錄依受試者保護倫理原則處理。
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    // Theme toggle
+    const themeBtn = document.getElementById('btn-theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        themeBtn.textContent = next === 'light' ? '🌙' : '☀️';
+      });
+    }
+
+    // Mobile Menu Toggle
+    const mobileBtn = document.getElementById('btn-mobile-nav');
+    const nav = document.querySelector('.nav-links');
+    if (mobileBtn && nav) {
+      mobileBtn.addEventListener('click', () => {
+        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        nav.style.flexDirection = 'column';
+        nav.style.position = 'absolute';
+        nav.style.top = '64px';
+        nav.style.left = '0';
+        nav.style.right = '0';
+        nav.style.background = 'var(--bg-card)';
+        nav.style.padding = '16px';
+        nav.style.borderBottom = '1px solid var(--border)';
+      });
+    }
+  </script>
+</body>
+</html>
