@@ -1,0 +1,76 @@
+{
+  "eeg": {
+    "source": "phase2/cube/eeg_cube.json",
+    "top_n": 2500,
+    "n_voxels_drawn": 2500,
+    "n_nonzero": 18281,
+    "energy_share_drawn_pct": 52.3,
+    "shape": [
+      31,
+      40,
+      40
+    ],
+    "C_peak_fc": 11.1975,
+    "C_peak_fam": 1.5975,
+    "turntable": {
+      "mp4": "eeg_turntable.mp4",
+      "webm": "eeg_turntable.webm",
+      "frames": 240,
+      "fps": 30
+    }
+  },
+  "hrv": {
+    "source": "phase2/cube/hrv_sessionA_cube.json",
+    "top_n": 2500,
+    "n_voxels_drawn": 2500,
+    "n_nonzero": 12728,
+    "energy_share_drawn_pct": 77.6,
+    "shape": [
+      43,
+      40,
+      40
+    ],
+    "C_peak_fc": 0.0488,
+    "C_peak_fam": 0.0048,
+    "turntable": {
+      "mp4": "hrv_turntable.mp4",
+      "webm": "hrv_turntable.webm",
+      "frames": 240,
+      "fps": 30
+    }
+  },
+  "cgm": {
+    "source": "phase2/cube/cgm_cube.json",
+    "top_n": 2500,
+    "n_voxels_drawn": 2500,
+    "n_nonzero": 25209,
+    "energy_share_drawn_pct": 61.6,
+    "shape": [
+      156,
+      40,
+      40
+    ],
+    "C_peak_fc": 0.0512,
+    "C_peak_fam": 0.0446,
+    "turntable": {
+      "mp4": "cgm_turntable.mp4",
+      "webm": "cgm_turntable.webm",
+      "frames": 240,
+      "fps": 30
+    }
+  },
+  "syn": {
+    "source": "phase2/cube/synthetic_cube.json",
+    "top_n": 2500,
+    "n_voxels_drawn": 2500,
+    "n_nonzero": 4868,
+    "energy_share_drawn_pct": 99.1,
+    "shape": [
+      30,
+      40,
+      40
+    ],
+    "C_peak_fc": 0.3345,
+    "C_peak_fam": 0.0459
+  }
+}

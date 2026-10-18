@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3-D HHSA 動態解說：EEG、HRV、CGMS | Kidney & Cognition Lab</title>
+  <meta name="description" content="兩分鐘動態解說與三維立方體圖解：用 3-D 全息希爾伯特頻譜分析 (HHSA) 讀出腦波 (EEG)、心率變異 (HRV) 與連續血糖 (CGMS) 中「誰在調變誰」，附繁體中文判讀與限制說明。">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
+  <style>
+    .mx-hero { background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-primary) 100%); border-bottom: 1px solid var(--border); padding: 40px 24px; }
+    .mx-wrap { max-width: 1100px; margin: 0 auto; }
+    .mx-film { width: 100%; aspect-ratio: 16 / 9; display: block; border-radius: var(--radius-lg); border: 1px solid var(--border-strong); background: #000; box-shadow: var(--shadow); }
+    .mx-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow); margin-bottom: 32px; }
+    .mx-card h2 { font-size: 24px; margin: 6px 0 4px; color: var(--text); }
+    .mx-card h3 { font-size: 17px; margin: 22px 0 8px; color: var(--teal); }
+    .mx-card p, .mx-card li { color: var(--text-sec); line-height: 1.8; font-size: 15px; }
+    .mx-card strong { color: var(--text); }
+    .mx-media { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; margin-top: 16px; }
+    .mx-media video, .mx-media img { width: 100%; display: block; border-radius: var(--radius); border: 1px solid var(--border); background: #0a0f1e; }
+    .mx-cap { font-size: 12px; color: var(--text-dim); margin-top: 6px; line-height: 1.5; }
+    .mx-facts { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 14px; }
+    .mx-facts th, .mx-facts td { border-bottom: 1px solid var(--border); padding: 8px 10px; text-align: left; color: var(--text-sec); }
+    .mx-facts th { color: var(--text); font-weight: 600; white-space: nowrap; }
+    .mx-facts td.num { font-variant-numeric: tabular-nums; color: var(--text); }
+    .mx-guide { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 14px; }
+    .mx-guide div { background: var(--bg-card-hover); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+    .mx-guide b { display: block; color: var(--text); margin-bottom: 6px; }
+    .mx-guide span { color: var(--text-sec); font-size: 14px; line-height: 1.7; }
+    .mx-claims { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; }
+    .mx-can { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.3); border-radius: var(--radius-sm); padding: 14px 16px; }
+    .mx-cannot { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3); border-radius: var(--radius-sm); padding: 14px 16px; }
+    .mx-can ul, .mx-cannot ul { margin: 6px 0 0 18px; padding: 0; }
+    .mx-tag { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: var(--radius-full); border: 1px solid var(--border-strong); color: var(--teal); margin-right: 6px; }
+    .mx-film[hidden], .mx-cap[hidden] { display: none; }
+    .mx-lang { display: flex; gap: 8px; margin-bottom: 12px; }
+    .mx-lang-btn { font: inherit; font-size: 14px; padding: 6px 16px; border-radius: var(--radius-full); border: 1px solid var(--border-strong); background: transparent; color: var(--text-sec); cursor: pointer; }
+    .mx-lang-btn.active { background: var(--teal-dim); color: var(--teal); border-color: var(--teal); }
+    @media (max-width: 820px) { .mx-media, .mx-claims { grid-template-columns: 1fr; } .mx-card { padding: 18px; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">H3</div>
+        <div class="brand-text">
+          <span class="brand-title">HHSA <span class="accent">3-D</span></span>
+          <span class="brand-subtitle">Kidney & Cognition Lab</span>
+        </div>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">首頁 Home</a></li>
+          <li><a href="explorer.html" class="nav-link">3-D 探索器 Explorer</a></li>
+          <li><a href="method.html" class="nav-link">方法學 Method</a></li>
+          <li><a href="demos.html" class="nav-link">臨床示範 Demos</a></li>
+          <li><a href="motion.html" class="nav-link active">動態解說 Motion</a></li>
+          <li><a href="library.html" class="nav-link">程式庫 Library</a></li>
+          <li><a href="links.html" class="nav-link">文獻庫 Publications</a></li>
+          <li><a href="about.html" class="nav-link">關於 About</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button id="btn-theme-toggle" class="theme-toggle" title="Toggle Light/Dark Theme">☀️</button>
+        <button id="btn-mobile-nav" class="mobile-toggle" aria-label="Toggle Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="mx-hero">
+    <div class="mx-wrap">
+      <div style="margin-bottom: 12px;">
+        <span class="badge badge-teal">Motion Explainer</span>
+        <span class="badge badge-purple">EEG · HRV · CGMS</span>
+      </div>
+      <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 14px;">兩分鐘看懂 3-D HHSA：腦波、心跳、血糖裡「誰在調變誰」</h1>
+      <p style="font-size: 16px; color: var(--text-sec); line-height: 1.7; max-width: 900px;">
+        身體訊號不只在振盪，<strong>振盪的強弱本身也在振盪</strong>。全息希爾伯特頻譜分析 (Holo-Hilbert Spectral Analysis, HHSA) 把這一層「調幅」攤開成一個三維立方體 H(t, f<sub>c</sub>, f<sub>AM</sub>)。
+        下面的動態解說片示範同一套方法如何套用在三種時間尺度完全不同的訊號上，接著逐一用繁體中文解讀每一個立方體。
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="mx-wrap">
+
+      <div class="mx-lang" role="tablist" aria-label="影片語言 Film language">
+        <button class="mx-lang-btn active" role="tab" aria-selected="true" data-film="zh">繁體中文版</button>
+        <button class="mx-lang-btn" role="tab" aria-selected="false" data-film="en">English version</button>
+      </div>
+      <video class="mx-film" id="mx-film-zh" controls preload="metadata" playsinline poster="assets/video/hhsa_3d_explainer_poster.jpg">
+        <source src="assets/video/hhsa_3d_explainer.mp4" type="video/mp4">
+        你的瀏覽器不支援影片播放，請<a href="assets/video/hhsa_3d_explainer.mp4">直接下載 MP4</a>。
+      </video>
+      <video class="mx-film" id="mx-film-en" controls preload="none" playsinline poster="assets/video/hhsa_3d_explainer_en_poster.jpg" hidden lang="en">
+        <source src="assets/video/hhsa_3d_explainer_en.mp4" type="video/mp4">
+        Your browser cannot play this video. <a href="assets/video/hhsa_3d_explainer_en.mp4">Download the MP4</a>.
+      </video>
+      <p class="mx-cap" id="mx-cap-zh">動態解說片 · 約 2 分 20 秒 · 繁體中文旁白（edge-tts zh-TW-HsiaoChenNeural）與字幕 · 以 HyperFrames 製作。片中每個數字皆出自 <code>phase2/cube/demo_facts.json</code>。開場的三張照片來自 Wikimedia Commons（作者與授權見頁尾）。</p>
+      <p class="mx-cap" id="mx-cap-en" hidden lang="en">Motion explainer · about 2 min 40 s · English narration (edge-tts en-US-AvaNeural) and captions · made with HyperFrames. Same shots and the same numbers as the Chinese edition, all from <code>phase2/cube/demo_facts.json</code>. Opening photos from Wikimedia Commons (credits at the bottom of the page).</p>
+
+      <!-- Reading guide -->
+      <div class="mx-card" style="margin-top: 32px;">
+        <span class="mx-tag">讀圖前</span>
+        <h2>怎麼讀一個三維 HHSA 立方體</h2>
+        <p>三張立方體圖都用同一種畫法，先掌握這五個元素，就能讀懂任何一張。</p>
+        <div class="mx-guide">
+          <div><b>① 三個軸</b><span>水平是<strong>時間 t</strong>；斜向是<strong>載波頻率 f<sub>c</sub></strong>（訊號本身振盪多快）；垂直是<strong>調幅頻率 f<sub>AM</sub></strong>（振盪的強弱多快起落）。兩個頻率軸都是對數刻度。</span></div>
+          <div><b>② 點的亮度與大小</b><span>每一點是一格 (t, f<sub>c</sub>, f<sub>AM</sub>)。點越亮、越大，代表那個時刻、那組頻率組合的能量越高。只畫能量最高的 2,500 格，避免整個立方體被雜訊塗滿。</span></div>
+          <div><b>③ 地板：S(t, f<sub>c</sub>)</b><span>把立方體沿 f<sub>AM</sub> 壓扁，得到「時間－載波」圖，相當於傳統的 Hilbert–Huang 時頻譜：什麼時候、哪個頻率最強。</span></div>
+          <div><b>④ 後牆：C(f<sub>c</sub>, f<sub>AM</sub>)</b><span>把立方體沿時間壓扁，得到「載波－調幅」圖。這是 HHSA 獨有的一張：<strong>哪個載波被哪個節奏調變</strong>。右側另附的平面圖就是它，圓圈標出最亮的一格。</span></div>
+          <div><b>⑤ 紫色虛線：f<sub>AM</sub> = f<sub>c</sub></b><span>調幅不可能比載波本身還快（Bedrosian 條件）。虛線上方的能量是分解的副產物，<strong>不解讀</strong>。</span></div>
+          <div><b>⑥ 3/T 解析下限</b><span>記錄長度 T 決定最慢可解析的節奏，約 3/T。低於它的格子即使有能量，也只是「看起來有」，不能當成結果。</span></div>
+        </div>
+      </div>
+
+      <!-- EEG -->
+      <div class="mx-card" id="eeg">
+        <span class="mx-tag">示範 A · 秒的尺度</span><span class="mx-tag">公開資料</span>
+        <h2>EEG 腦電圖：閉眼時阿爾法波的「一陣強、一陣弱」</h2>
+        <div class="mx-media">
+          <div>
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/img/3d/eeg_cube3d.png">
+              <source src="assets/img/3d/eeg_turntable.webm" type="video/webm">
+              <source src="assets/img/3d/eeg_turntable.mp4" type="video/mp4">
+            </video>
+            <div class="mx-cap">三維立方體 H(t, f<sub>c</sub>, f<sub>AM</sub>)，360° 旋轉。<a href="assets/img/3d/eeg_cube3d.png">靜態圖</a> · <a href="assets/img/3d/eeg_cube3d_light.png">淺色版</a></div>
+          </div>
+          <div>
+            <img src="assets/img/3d/eeg_C.png" alt="EEG 的載波-調幅投影 C(f_c, f_AM)，最亮格在 11.2 Hz × 1.6 Hz" loading="lazy">
+            <div class="mx-cap">後牆投影 C(f<sub>c</sub>, f<sub>AM</sub>)；圓圈＝最亮格，虛線＝f<sub>AM</sub> = f<sub>c</sub>。</div>
+          </div>
+        </div>
+        <h3>資料</h3>
+        <p>PhysioNet EEG Motor Movement/Imagery Dataset（EEGMMIDB），受試者 S001、第 2 段（閉眼靜息基線），O1 枕葉電極，61 秒。前處理：平均參考、0.5–40 Hz 帶通、160 → 80 Hz 重取樣、標準化。HHSA：EEMD（100 次集成、雜訊 0.2 SD、seed 42）＋第二層 EMD；2 秒時間窗；0.1–40 Hz 對數 40 格。</p>
+        <table class="mx-facts">
+          <tr><th>載波能量（%）</th><td>Sub-delta 11.0 · Delta 18.4 · Theta 14.3 · <strong>Alpha 31.3</strong> · Beta 24.4 · Gamma 0.7</td></tr>
+          <tr><th>最亮格 C 峰值</th><td class="num">f<sub>c</sub> ≈ 11.2 Hz × f<sub>AM</sub> ≈ 1.6 Hz</td></tr>
+          <tr><th>Alpha 的調幅來源</th><td>以頻帶加總，44.6% 落在 &lt; 1 Hz（Sub-delta）</td></tr>
+          <tr><th>界線上方能量</th><td class="num">9.1%（不解讀）</td></tr>
+          <tr><th>3/T 下限</th><td class="num">0.049 Hz；低於下限的能量 0.0%</td></tr>
+        </table>
+        <h3>判讀</h3>
+        <p>地板上最亮的橫帶落在 8–13 Hz，也就是閉眼時枕葉最典型的<strong>阿爾法節律</strong>，佔全部載波能量的 31.3%。關鍵在後牆：最亮的一格在載波 11.2 Hz、調幅 1.6 Hz，表示阿爾法波的振幅本身每秒起落一到兩次；若把調幅頻率按頻帶加總，阿爾法載波有 44.6% 的調幅能量來自 1 Hz 以下更慢的節奏。這正是臨床判讀 EEG 時看到的「阿爾法紡錘」一陣強、一陣弱，HHSA 把它從「肉眼印象」變成可以量化的調幅頻率。</p>
+        <div class="mx-claims">
+          <div class="mx-can"><strong>可以說</strong><ul><li>在這段紀錄中，阿爾法是能量最多的載波帶。</li><li>阿爾法的強弱有明確的調幅節奏，主要在 2 Hz 以下。</li><li>立方體與三個投影彼此一致（投影一致性檢核通過）。</li></ul></div>
+          <div class="mx-cannot"><strong>不能說</strong><ul><li>這是「正常值」或可推論到任何族群：只有一位受試者、一個電極、61 秒。</li><li>Beta 24.4% 全是腦源：頭皮 EEG 的高頻可能混有肌電。</li><li>結果對 EEMD 參數不敏感：本示範尚未做參數敏感度分析。</li></ul></div>
+        </div>
+      </div>
+
+      <!-- HRV -->
+      <div class="mx-card" id="hrv">
+        <span class="mx-tag">示範 B · 分鐘的尺度</span><span class="mx-tag">個案資料</span>
+        <h2>HRV 心率變異：低頻與高頻的強弱，被更慢的節奏牽動</h2>
+        <div class="mx-media">
+          <div>
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/img/3d/hrv_cube3d.png">
+              <source src="assets/img/3d/hrv_turntable.webm" type="video/webm">
+              <source src="assets/img/3d/hrv_turntable.mp4" type="video/mp4">
+            </video>
+            <div class="mx-cap">Session A 的三維立方體，360° 旋轉。<a href="assets/img/3d/hrv_cube3d.png">靜態圖</a> · <a href="assets/img/3d/hrv_cube3d_light.png">淺色版</a></div>
+          </div>
+          <div>
+            <img src="assets/img/3d/hrv_C.png" alt="HRV Session A 的載波-調幅投影 C(f_c, f_AM)" loading="lazy">
+            <div class="mx-cap">後牆投影 C(f<sub>c</sub>, f<sub>AM</sub>)。左下角的亮區有一部分低於 3/T，見下方限制。</div>
+          </div>
+        </div>
+        <h3>資料</h3>
+        <p>Garmin 穿戴裝置原始心搏間期，Session A 424.5 秒（保留 718 拍，中位心率 102 bpm，拍數相對誤差 0.51%）。前處理：IBI 300–2000 ms 篩選、積分觸發重建心搏、4 Hz 三次樣條心搏序列。HHSA 參數同上；10 秒時間窗；頻帶 VLF 0.0033–0.04、LF 0.04–0.15、HF 0.15–0.4、VHF 0.4–2 Hz。</p>
+        <table class="mx-facts">
+          <tr><th>載波能量（%）</th><td>VLF 17.2 · <strong>LF 43.8</strong> · HF 30.4 · VHF 8.6</td></tr>
+          <tr><th>調幅來源</th><td>LF ← VLF 77.0% · HF ← VLF 57.3%</td></tr>
+          <tr><th>第二段 Session B</th><td>LF 47.5% · LF ← VLF 78.1% · HF ← VLF 57.5%（兩段結果相近）</td></tr>
+          <tr><th>3/T 下限</th><td class="num">0.0071 Hz；<strong>21.8%</strong> 能量低於下限（Session B 20.8%）</td></tr>
+          <tr><th>界線上方能量</th><td class="num">10.3%（不解讀）</td></tr>
+        </table>
+        <h3>判讀</h3>
+        <p>地板顯示心搏序列的能量以 <strong>LF（0.04–0.15 Hz）</strong>最多，其次是與呼吸相關的 HF。後牆告訴我們更進一步的事：LF 與 HF 振盪的<strong>強弱</strong>，主要隨 VLF（數十秒到數分鐘一次）的慢節奏起落，兩次獨立紀錄的比例幾乎一樣（77.0% vs 78.1%）。生理上，這可能對應呼吸型態、姿勢或自主神經張力的緩慢變化，但這是假設，不是本資料能證明的結論。</p>
+        <p><strong>最重要的限制</strong>：七分鐘的紀錄，3/T 約 0.007 Hz，而 VLF 調幅本身就落在這附近，有兩成多的能量在解析不到的範圍。因此「VLF 主導調幅」只能算方向性的觀察；要確認，需要更長的紀錄（例如 24 小時 Holter）。</p>
+        <div class="mx-claims">
+          <div class="mx-can"><strong>可以說</strong><ul><li>兩段紀錄的載波與調幅分布可重現。</li><li>LF 與 HF 的振幅並非恆定，而是被更慢的節奏調變。</li></ul></div>
+          <div class="mx-cannot"><strong>不能說</strong><ul><li>精確的 VLF 調幅頻率：受 3/T 限制。</li><li>交感／副交感張力的定量指標：HHSA 不等於自主神經功能檢查。</li><li>任何診斷意義：單一個案、短時紀錄。</li></ul></div>
+        </div>
+      </div>
+
+      <!-- CGM -->
+      <div class="mx-card" id="cgm">
+        <span class="mx-tag">示範 C · 天的尺度</span><span class="mx-tag">個案資料</span>
+        <h2>CGMS 連續血糖：一天之中，波動的大小跟著晝夜起落</h2>
+        <div class="mx-media">
+          <div>
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/img/3d/cgm_cube3d.png">
+              <source src="assets/img/3d/cgm_turntable.webm" type="video/webm">
+              <source src="assets/img/3d/cgm_turntable.mp4" type="video/mp4">
+            </video>
+            <div class="mx-cap">13 天紀錄的三維立方體，360° 旋轉。頻率軸以「週期」標示（24 h、8 h、4 h、2 h、30 min）。<a href="assets/img/3d/cgm_cube3d.png">靜態圖</a> · <a href="assets/img/3d/cgm_cube3d_light.png">淺色版</a></div>
+          </div>
+          <div>
+            <img src="assets/img/3d/cgm_C.png" alt="CGM 的載波-調幅投影 C(f_c, f_AM)，最亮格貼近 f_AM = f_c 界線" loading="lazy">
+            <div class="mx-cap">後牆投影 C(f<sub>c</sub>, f<sub>AM</sub>)。注意最亮格緊貼紫色虛線（在其下方一格）。</div>
+          </div>
+        </div>
+        <h3>資料</h3>
+        <p>去識別化個案（經當事人同意展示），13.0 天、3,744 點、每 5 分鐘一點。2 小時時間窗；頻帶以週期定義：晝夜 24–8 h、超晝夜 8–4 h、餐相關 4–2 h、餐後 2 h–30 min、快速代謝 30–10 min。</p>
+        <table class="mx-facts">
+          <tr><th>載波能量（%）</th><td><strong>晝夜 28.5</strong> · 超晝夜 18.5 · 餐相關 16.3 · 餐後 23.6 · 快速代謝 13.0</td></tr>
+          <tr><th>調幅來源</th><td>超晝夜 ← 晝夜 72.9% · 餐相關 ← 晝夜 49.0% · 餐後 ← 晝夜 33.7% · 快速代謝 ← 餐後 41.4%</td></tr>
+          <tr><th>最亮格 C 峰值</th><td class="num">載波週期 ≈ 19.5 h × 調幅週期 ≈ 22.4 h（貼近界線）</td></tr>
+          <tr><th>界線上方能量</th><td class="num"><strong>19.8%</strong>（不解讀）</td></tr>
+          <tr><th>3/T 下限</th><td class="num">0.0096 cph（週期約 104 h）；低於下限的能量 0.0%</td></tr>
+        </table>
+        <h3>判讀</h3>
+        <p>地板上最亮的是<strong>晝夜節律</strong>（28.5%），其次是餐後 2 小時到 30 分鐘的波動（23.6%）。後牆顯示一個有臨床意義的結構：<strong>超晝夜（4–8 小時）波動的大小，有 72.9% 跟著晝夜節律起落</strong>；餐相關與餐後的波動也有相當比例受晝夜節律調變。白話地說，同一個人的血糖起伏「有多大」並不是整天固定，而是有一天的節奏，例如白天進食時段與夜間的差異。</p>
+        <p>但這張圖也是最好的反例教材：最亮的一格（晝夜 × 晝夜）緊貼紫色界線（僅在其下方一格），而且有將近兩成能量在界線上方。這一角是分解方法本身的副產物，<strong>不能</strong>解讀成「晝夜節律在調變自己」。</p>
+        <div class="mx-claims">
+          <div class="mx-can"><strong>可以說</strong><ul><li>這位個案的血糖變異以晝夜與餐後尺度最多。</li><li>較快波動的振幅隨晝夜節律變化。</li></ul></div>
+          <div class="mx-cannot"><strong>不能說</strong><ul><li>頻帶名稱等於生理事件：本示範未與餐食、用藥、睡眠紀錄對照。</li><li>界線上方或貼近界線的任何結構。</li><li>可推論到糖尿病族群或作為血糖控制指標：n = 1。</li></ul></div>
+        </div>
+      </div>
+
+      <!-- Validation + credits -->
+      <div class="mx-card">
+        <span class="mx-tag">誠實揭露</span>
+        <h2>為什麼要保守：合成資料的驗證只有 83.3%</h2>
+        <p>片中第 4 格用的是答案已知的合成 AM-FM 訊號（載波 0.35–0.65 Hz、調幅 0.03–0.07 Hz，300 秒）。在 30 個時間窗中，目前流程在 25 個（83.3%）找回正確的 (f<sub>c</sub>, f<sub>AM</sub>) 位置，未達預設的 90% 目標；失誤集中在記錄頭尾與調幅頻率方向。這也是為什麼上面三個示範都只陳述「方向性」的觀察。詳見<a href="demos.html">臨床示範</a>與<a href="method.html">方法學</a>。</p>
+        <h3>重現方式</h3>
+        <p>所有數字由研究室分析流程產生：<code>run_eeg_cube.py</code>（EEG 立方體）、<code>run_cubes.py</code>（CGM、HRV、合成）、<code>demo_facts.py</code>（所有引用數字）、<code>render_cubes_3d.py</code>（本頁的三維圖與旋轉影片）。這些程式與個案原始資料目前<strong>尚未收錄於本公開網站</strong>；學術用途的重現需求請聯絡研究室。</p>
+        <h3>素材來源</h3>
+        <ul>
+          <li>EEG：Schalk G. et al. (2004) BCI2000；Goldberger A. et al. (2000) PhysioNet。<a href="https://physionet.org/content/eegmmidb/1.0.0/">EEGMMIDB v1.0.0</a>，<a href="https://opendatacommons.org/licenses/by/1-0/">ODC-By 1.0</a>。</li>
+          <li>開場照片（已裁切、雙色調處理）：<a href="https://commons.wikimedia.org/wiki/File:EEG_Recording_Cap.jpg">"EEG Recording Cap"</a> by Chris Hope, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>；<a href="https://commons.wikimedia.org/wiki/File:Chest_belt_with_heart_beat_registration.jpg">"Chest belt with heart beat registration"</a> by Sönke Kraft aka Arnulf zu Linden, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>；<a href="https://commons.wikimedia.org/wiki/File:FreeStyle_libre_am_Oberarm_und_Ausleseger%C3%A4t-6.jpg">"FreeStyle libre am Oberarm und Auslesegerät-6"</a> by Thirunavukkarasye-Raveendran, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>；皆經由 Wikimedia Commons。</li>
+          <li>旁白：Microsoft Edge 線上語音 zh-TW-HsiaoChenNeural（edge-tts）。字型：源石黑體 GenSeki Gothic（SIL OFL）。</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <footer style="border-top: 1px solid var(--border); padding: 40px 24px; background: var(--bg-card2); text-align: center; font-size: 13px; color: var(--text-sec);">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; align-items: center;">
+      <div style="display: flex; gap: 18px; flex-wrap: wrap; justify-content: center;">
+        <a href="index.html">首頁</a>
+        <a href="explorer.html">3-D 探索器</a>
+        <a href="method.html">方法學</a>
+        <a href="demos.html">臨床示範</a>
+        <a href="motion.html">動態解說</a>
+        <a href="library.html">開源程式庫</a>
+        <a href="links.html">文獻出版</a>
+        <a href="about.html">關於研究室</a>
+      </div>
+      <p>© 2026 Kidney & Cognition Lab (ckt520728/kidney-cognition-lab). All rights reserved.</p>
+      <p style="font-size: 11px; color: var(--text-dim); max-width: 800px;">
+        免責聲明：本網站內容及 3-D 全息希爾伯特頻譜探索器僅供學術研究、工程驗證與教學展示之用，非作為臨床診斷或醫療處方依據。去識別血糖實例經當事人書面知情同意授權使用；穿戴心率變異紀錄依受試者保護倫理原則處理。
+      </p>
+    </div>
+  </footer>
+
+  <script type="module">
+    const themeBtn = document.getElementById('btn-theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        themeBtn.textContent = next === 'light' ? '🌙' : '☀️';
+      });
+    }
+    // Film language switch: pause the hidden edition so only one plays at a time.
+    document.querySelectorAll('.mx-lang-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const pick = btn.dataset.film;
+        document.querySelectorAll('.mx-lang-btn').forEach((b) => {
+          const on = b === btn;
+          b.classList.toggle('active', on);
+          b.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        ['zh', 'en'].forEach((k) => {
+          const v = document.getElementById('mx-film-' + k);
+          const cap = document.getElementById('mx-cap-' + k);
+          const show = k === pick;
+          if (!show) v.pause();
+          v.hidden = !show;
+          cap.hidden = !show;
+        });
+      });
+    });
+
+    const mobileBtn = document.getElementById('btn-mobile-nav');
+    const nav = document.querySelector('.nav-links');
+    if (mobileBtn && nav) {
+      mobileBtn.addEventListener('click', () => {
+        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        nav.style.flexDirection = 'column';
+        nav.style.position = 'absolute';
+        nav.style.top = '64px';
+        nav.style.left = '0';
+        nav.style.right = '0';
+        nav.style.background = 'var(--bg-card)';
+        nav.style.padding = '16px';
+        nav.style.borderBottom = '1px solid var(--border)';
+      });
+    }
+  </script>
+</body>
+</html>
