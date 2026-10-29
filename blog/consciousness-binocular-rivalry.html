@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Doris Tsao 實驗室 2026 年 10 月 bioRxiv 預印本研究：同一群獼猴神經元約每秒 15 次在看見與被抑制的臉孔間高速交替表徵，解密高級視覺皮質三十年微弱調變之謎。">
+<title>大腦如何處理你看不到的世界？——雙眼閃光抑制與意識時間多工的科學評估 | 朱國大 醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg-primary:#0a0f1e;
+  --bg-card:#111d3c;
+  --bg-card2:#162248;
+  --teal:#4dd9cf;
+  --teal-light:#7ee8e2;
+  --purple:#8b5cf6;
+  --purple-light:#a78bfa;
+  --gold:#f4a261;
+  --red:#ef4444;
+  --green:#22c55e;
+  --text:#e8f4f8;
+  --text-sec:#8ba8c4;
+  --text-dim:#4a6580;
+  --border:rgba(77,217,207,0.15);
+  --shadow:0 8px 32px rgba(0,0,0,0.45);
+  --radius:12px;
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family:'Noto Sans TC','Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text);
+  line-height:1.9;
+}
+a { color:var(--teal); text-decoration:none; }
+a:hover { color:var(--teal-light); }
+.top-bar {
+  position:sticky;
+  top:0;
+  z-index:999;
+  background:rgba(10,15,30,0.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:12px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.back-link {
+  font-size:0.9rem;
+  color:var(--text-sec);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.badge-preprint {
+  background:rgba(244,162,97,0.15);
+  border:1px solid var(--gold);
+  color:var(--gold);
+  padding:3px 12px;
+  border-radius:9999px;
+  font-size:0.78rem;
+  font-weight:600;
+}
+.article-container {
+  max-width:920px;
+  margin:0 auto;
+  padding:40px 24px 80px;
+}
+.article-header {
+  margin-bottom:48px;
+  border-bottom:1px solid var(--border);
+  padding-bottom:32px;
+}
+.article-meta {
+  display:flex;
+  gap:16px;
+  font-size:0.85rem;
+  color:var(--teal);
+  margin-bottom:16px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.article-title {
+  font-size:2.3rem;
+  font-weight:800;
+  line-height:1.35;
+  background:linear-gradient(135deg, #ffffff 30%, var(--teal-light) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:16px;
+}
+.article-subtitle {
+  font-size:1.15rem;
+  color:var(--text-sec);
+  line-height:1.7;
+  margin-bottom:24px;
+}
+.author-box {
+  display:flex;
+  align-items:center;
+  gap:16px;
+  font-size:0.9rem;
+  color:var(--text-sec);
+}
+.author-avatar {
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:var(--teal);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#052e2b;
+  font-weight:700;
+}
+.card {
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:28px;
+  margin:32px 0;
+  box-shadow:var(--shadow);
+}
+h2 {
+  font-size:1.55rem;
+  font-weight:700;
+  color:#ffffff;
+  margin:44px 0 20px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+h2 i { color:var(--teal); font-size:1.25rem; }
+h3 {
+  font-size:1.2rem;
+  color:var(--teal-light);
+  margin:28px 0 12px;
+}
+p {
+  margin-bottom:20px;
+  font-size:1.02rem;
+  color:var(--text);
+}
+strong { color:#ffffff; }
+ul, ol {
+  margin:0 0 24px 28px;
+  color:var(--text-sec);
+}
+li { margin-bottom:10px; }
+.callout {
+  background:rgba(77,217,207,0.06);
+  border-left:4px solid var(--teal);
+  padding:20px 24px;
+  border-radius:0 8px 8px 0;
+  margin:28px 0;
+  font-size:0.98rem;
+}
+.callout-warning {
+  background:rgba(239,68,68,0.08);
+  border-left:4px solid var(--red);
+}
+.fact-pill {
+  display:inline-block;
+  background:#162248;
+  border:1px solid rgba(77,217,207,0.3);
+  color:var(--teal);
+  padding:1px 7px;
+  border-radius:4px;
+  font-size:0.75rem;
+  font-family:'JetBrains Mono', monospace;
+  margin:0 2px;
+}
+/* Interactive Canvas Dashboard */
+.canvas-wrap {
+  width:100%;
+  height:240px;
+  background:#050811;
+  border:1px solid var(--border);
+  border-radius:8px;
+  position:relative;
+  overflow:hidden;
+  margin:20px 0;
+}
+#liveMultiplexCanvas {
+  width:100%;
+  height:100%;
+  display:block;
+}
+.controls-bar {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.btn-dash {
+  background:var(--bg-card2);
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:8px 16px;
+  border-radius:6px;
+  font-size:0.85rem;
+  cursor:pointer;
+  transition:all 0.15s ease;
+}
+.btn-dash:hover { border-color:var(--teal); color:var(--teal); }
+.btn-dash.active { background:var(--teal); color:#042f2e; font-weight:600; }
+.takehome-box {
+  background:linear-gradient(180deg, rgba(139,92,246,0.12) 0%, rgba(17,29,60,0.6) 100%);
+  border:1px solid rgba(139,92,246,0.3);
+  border-radius:var(--radius);
+  padding:32px;
+  margin:48px 0;
+}
+.ref-list {
+  font-size:0.85rem;
+  color:var(--text-sec);
+  line-height:1.75;
+}
+.ref-list li { margin-bottom:8px; }
+.article-footer {
+  border-top:1px solid var(--border);
+  padding-top:24px;
+  margin-top:60px;
+  text-align:center;
+  font-size:0.82rem;
+  color:var(--text-dim);
+}
+</style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="../index.html#teaching" class="back-link"><i class="fas fa-arrow-left"></i> 返回 朱國大 醫師個人首頁</a>
+    <span class="badge-preprint">bioRxiv 預印本、尚未經同儕審查</span>
+  </div>
+
+  <article class="article-container">
+    
+    <header class="article-header">
+      <div class="article-meta">
+        <span><i class="far fa-calendar-alt"></i> 2026 / 10 / 29</span>
+        <span>&bull;</span>
+        <span>認知神經科學與視覺意識</span>
+      </div>
+      <h1 class="article-title">大腦如何處理你看不到的世界？——雙眼閃光抑制與意識時間多工的科學評估</h1>
+      <p class="article-subtitle">
+        同一群神經元以每秒 15 次高速交替表徵看見與被抑制的影像：Doris Tsao 實驗室最新預印本如何解開高級視覺皮質三十年微弱調變之謎。
+      </p>
+      <div class="author-box">
+        <div class="author-avatar">KC</div>
+        <div>
+          <div style="font-weight:600; color:var(--text);">朱國大 醫師 (Kwota Chu, MD)</div>
+          <div style="font-size:0.8rem; color:var(--text-dim);">Nephrologist & Cognitive Neuroscience Researcher &bull; 閱讀時間約 12 分鐘</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Section 1 -->
+    <h2><i class="fas fa-eye"></i> 1. 雙眼競爭三十年來的「微弱調變」謎題</h2>
+    <p>
+      當人類或動物的兩隻眼睛同時接收到完全衝突的影像時，視覺系統並不會將兩幅畫面混合成半透明的殘影，而是呈現週期性的交替——在特定時段中，你只會清楚看見其中一張圖，另一張圖則被主觀意識完全「抹除」。這項現象在心理物理學中被稱為<strong>雙眼競爭（Binocular Rivalry）</strong><span class="fact-pill">F09</span>。
+    </p>
+    <p>
+      自 1990 年代 Logothetis 開創性的單神經元記錄以來，雙眼競爭就被視為尋找<strong>意識神經相關物（NCC）</strong>的黃金範式。因為物理輸入是持續固定的，知覺卻不斷翻轉；只要找到神經活動與主觀知覺同步改變的腦區，就是意識的核心所在。然而三十年過去了，科學界在下顳葉皮質（IT）等高級視覺區域看到的調變訊號，卻出乎意料地平淡：<strong>在數百毫秒的時間平均下，意識與抑制狀態的調變斜率僅有約 0.23</strong><span class="fact-pill">F27</span>。難道大腦只對看見的事物給予微弱的偏好，而大部分時候都在被動處理？
+    </p>
+
+    <!-- Section 2 -->
+    <h2><i class="fas fa-bolt"></i> 2. 雙眼閃光抑制（BFS）與「無報告」Neuropixels 突破</h2>
+    <p>
+      2026 年 10 月 16 日，加州大學柏克萊分校 Doris Tsao（曹穎）實驗室在 bioRxiv 發表了最新預印本（Hesse et al., 2026）<span class="fact-pill">F01, F02, F03, F05, F06</span>。研究團隊採取了兩項決定性的技術變革：
+    </p>
+    <ul>
+      <li><strong>雙眼閃光抑制範式（BFS）</strong>：先向一眼呈現前導臉孔刺激 1 或 2 秒，隨後對側眼瞬間閃現新臉孔。閃現圖會以 <strong>82% 的超高機率</strong>瞬間奪得主觀知覺優勢，確定性地將前導臉孔壓入無意識狀態（14 位人類受試者按鍵驗證）<span class="fact-pill">F11, F25</span>。</li>
+      <li><strong>無報告範式（No-report Paradigm）</strong>：受試的兩隻雄性恆河猴完全不需按鍵回報看見什麼，徹底杜絕決策、動作準備等運動混淆（Report confound）<span class="fact-pill">F15, F23</span>。</li>
+      <li><strong>高密度 Neuropixels 探針</strong>：使用 Neuropixels 1.0 NHP 探針，在下顳葉（ML、AM 斑塊）與前額葉皮質（PO、PVL 斑塊）同時穿刺，跨場次記錄了高達 <strong>3501 個</strong>有視覺反應的神經元<span class="fact-pill">F16, F17, F18, F19</span>。</li>
+    </ul>
+
+    <!-- Section 3: Interactive Dashboard -->
+    <h2><i class="fas fa-wave-square"></i> 3. 核心突破：約 15 Hz 時間多工即時互動模擬</h2>
+    <p>
+      研究團隊使用 <strong>10 毫秒滑動時間窗（bin）</strong>進行對數概似比（Poisson LLR）解碼，並套用雙狀態隱馬可夫模型（HMM）<span class="fact-pill">F29</span>。在全部 19 個場次中，雙狀態動態模型皆決定性地勝過單狀態靜態模型（19/19）<span class="fact-pill">F38</span>！
+    </p>
+    <div class="card">
+      <div style="font-weight:700; color:#ffffff; margin-bottom:8px; display:flex; justify-content:space-between;">
+        <span>神經群體放電點陣圖與狀態交替（即時模擬）</span>
+        <span style="color:var(--teal); font-size:0.85rem;" id="stateStatus">State 1 (意識狀態, +21% 增益)</span>
+      </div>
+      <div class="canvas-wrap">
+        <canvas id="liveMultiplexCanvas"></canvas>
+      </div>
+      <div class="controls-bar">
+        <button class="btn-dash" id="btnToggleSim" onclick="toggleSim()">暫停 / 播放</button>
+        <button class="btn-dash" id="btnToggleAvg" onclick="toggleAvgMode()">切換：700 ms 時間平均模式</button>
+        <span style="font-size:0.82rem; color:var(--text-sec); margin-left:auto;">交替頻率：約 15 Hz &bull; 平均停留時間：約 60 ms</span>
+      </div>
+    </div>
+
+    <!-- Section 4 -->
+    <h2><i class="fas fa-puzzle-piece"></i> 4. 破案時刻：為什麼時間平均會「消解」訊號？</h2>
+    <p>
+      這項實驗揭示了神經資訊處理的驚人真相：
+    </p>
+    <div class="callout">
+      <strong>【時間多工發現】</strong>：同一批神經元並不是只表徵受試者看見的臉，而是<strong>約每秒 15 次（約 15 Hz）</strong>在「看見的臉」與「被抑制的臉」之間高速輪替，每個時段平均僅停留<strong>約 60 毫秒（平均 67 ms）</strong><span class="fact-pill">F28, F30, F42, F67</span>。
+    </div>
+    <p>
+      在單次試驗中，看見的臉在意識時段（State 1）擁有 <strong>1.21 的調諧增益比</strong>（效果量比值，相關係數 $r = 0.90$，$p = 3 \times 10^{-40}$）<span class="fact-pill">F39, F40</span>。而在被抑制時段（State 2），同一批神經元則反向表徵未看見的臉孔，且該刺激同樣完整佔據 50 維的臉空間（Face space）<span class="fact-pill">F53</span>！
+    </p>
+    <p>
+      <strong>這完美解釋了過去 30 年的謎團</strong>：如果將數百毫秒的放電進行時間平均，這兩個方向相反、頻率約 15 Hz 的強烈訊號就會在代數上彼此抵消，最終只剩下調變斜率 0.23 的微弱平坦平均值！當演算法將增益進行等化消除後，殘餘相關係數立即歸零（$r = -0.02$）<span class="fact-pill">F43</span>。
+    </p>
+
+    <!-- Section 5 -->
+    <h2><i class="fas fa-shield-alt"></i> 5. 嚴謹科學防線：否定「意識有影格率」</h2>
+    <div class="callout callout-warning">
+      <strong>【評估與防線】</strong>：
+      <ol style="margin-left:20px; margin-bottom:0;">
+        <li><strong>嚴禁宣稱「意識有影格率（Frame rate）」</strong>：神經群體以 15 Hz 交替表徵，並不代表我們的主觀體驗像電影膠捲一樣閃爍。通訊作者 Doris Tsao 本人亦公開澄清：<em>「我們並未證明意識有影格率。」</em><span class="fact-pill">F56, F57</span></li>
+        <li><strong>非 GNWT / IIT 之驗證</strong>：論文聚焦於局部皮質動力學，全文並未引用全域工作空間或整合資訊理論，不可將 15 Hz 擅自歸為點燃或整合指標<span class="fact-pill">F55</span>。</li>
+        <li><strong>頻率區隔</strong>：15 Hz 屬低 Beta 頻段，非注意力取樣之 Theta 節律（4–8 Hz）或知覺門控之 Alpha 節律（8–12 Hz）<span class="fact-pill">F55</span>。</li>
+      </ol>
+    </div>
+
+    <!-- Take-home Box -->
+    <div class="takehome-box">
+      <h3 style="color:#ffffff; margin-top:0; font-size:1.3rem;"><i class="fas fa-bookmark" style="color:var(--purple-light); margin-right:8px;"></i> Take-home Messages（朱醫師總結）</h3>
+      <ul style="margin-bottom:0; font-size:0.98rem; color:var(--text);">
+        <li><strong>無意識刺激並未被大腦丟棄</strong>：大腦皮質並非過濾器，而是高速分時多工處理器，持續保留被抑制現實的完整幾何表徵。</li>
+        <li><strong>約每秒 15 次、每段約 60 毫秒</strong>：神經群體在意識與抑制狀態間極速切換，解釋了傳統時間平均抹平訊號的方法學缺陷。</li>
+        <li><strong>跨區廣泛現象</strong>：前額葉皮質（PFC）亦展現定性相似的高速交替，暗示時間多工可能是靈長類大腦皮質的普適運作機制。</li>
+        <li><strong>預印本審慎態度</strong>：目前為 bioRxiv 預印本，僅在 2 隻獼猴之臉孔斑塊完成驗證，仍待學界同儕審查與跨感官深化。</li>
+      </ul>
+    </div>
+
+    <!-- References -->
+    <h2><i class="fas fa-book-open"></i> 6. 參考文獻與事實出處</h2>
+    <ol class="ref-list">
+      <li>Hesse, J., Lanfranchi, S., McGrory, C., Shi, Y., Engel, T. A., & Tsao, D. Y. (2026). Rapid alternation of conscious and suppressed stimulus representations in the primate brain. <em>bioRxiv preprint</em>, DOI: 10.64898/2026.10.15.759299. [F01, F02, F03, F05, F06]</li>
+      <li>Hesse, J., & Tsao, D. Y. (2020). A new no-report paradigm reveals that face cells encode both consciously perceived and suppressed stimuli. <em>eLife</em>, 9, e58360. [F68]</li>
+      <li>Chang, L., & Tsao, D. Y. (2017). The code for facial identity in the primate brain. <em>Cell</em>, 169(6), 1013-1028.</li>
+      <li>Logothetis, N. K., & Schall, J. D. (1989). Neuronal correlates of subjective visual perception. <em>Science</em>, 245(4919), 761-763.</li>
+    </ol>
+
+    <footer class="article-footer">
+      <p>本站內容旨在分享醫學與認知神經科學新知，非醫療診斷或臨床指引。基於 bioRxiv 預印本（Hesse et al., 2026），尚未經同儕審查。</p>
+      <p style="margin-top:6px;">&copy; 2026 朱國大 醫師 (Kwota Chu, MD) &bull; Kidney-Cognition-Lab</p>
+    </footer>
+
+  </article>
+
+  <script>
+    /* Inline Live Multiplex Simulator Canvas */
+    const canvas = document.getElementById('liveMultiplexCanvas');
+    const ctx = canvas ? canvas.getContext('2d') : null;
+    let simActive = true;
+    let avgMode = false;
+    let curState = 1;
+    let timer = 0;
+    const history = [];
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function toggleSim() {
+      simActive = !simActive;
+      document.getElementById('btnToggleSim').innerText = simActive ? "暫停" : "繼續播放";
+    }
+
+    function toggleAvgMode() {
+      avgMode = !avgMode;
+      const btn = document.getElementById('btnToggleAvg');
+      btn.classList.toggle('active', avgMode);
+      btn.innerText = avgMode ? "恢復單次試驗動態 (15 Hz)" : "切換：700 ms 時間平均模式";
+      document.getElementById('stateStatus').innerText = avgMode ? "700 ms 時間平均（訊號抵消，斜率 0.23）" : (curState === 1 ? "State 1 (意識狀態, +21% 增益)" : "State 2 (被抑制狀態, 特徵平緩)");
+    }
+
+    function loop() {
+      if (simActive) {
+        timer += 16;
+        if (timer >= 66) { // ~15 Hz (66 ms)
+          timer = 0;
+          curState = curState === 1 ? 2 : 1;
+          if (!avgMode) {
+            document.getElementById('stateStatus').innerText = curState === 1 ? "State 1 (意識狀態, +21% 增益)" : "State 2 (被抑制狀態, 特徵平緩)";
+            document.getElementById('stateStatus').style.color = curState === 1 ? "var(--teal)" : "var(--red)";
+          }
+        }
+        const spikes = [];
+        for (let i = 0; i < 18; i++) {
+          let p = avgMode ? 0.16 : (curState === 1 ? (i < 9 ? 0.35 : 0.05) : (i >= 9 ? 0.30 : 0.08));
+          spikes.push(Math.random() < p ? 1 : 0);
+        }
+        history.push({ state: curState, spikes });
+        if (history.length > 140) history.shift();
+      }
+
+      if (ctx && canvas) {
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.fillStyle = "#050811";
+        ctx.fillRect(0, 0, w, h);
+
+        const colW = w / 140;
+        for (let i = 0; i < history.length; i++) {
+          const item = history[i];
+          ctx.fillStyle = avgMode ? "rgba(100,116,139,0.12)" : (item.state === 1 ? "rgba(77,217,207,0.15)" : "rgba(239,68,68,0.15)");
+          ctx.fillRect(i * colW, 0, colW + 0.5, h);
+
+          const rowH = (h - 20) / 18;
+          for (let n = 0; n < 18; n++) {
+            if (item.spikes[n]) {
+              ctx.fillStyle = avgMode ? "#8ba8c4" : (item.state === 1 ? "#7ee8e2" : "#f87171");
+              ctx.fillRect(i * colW, 10 + n * rowH, 2, rowH * 0.7);
+            }
+          }
+        }
+      }
+      requestAnimationFrame(loop);
+    }
+    loop();
+  </script>
+</body>
+</html>
