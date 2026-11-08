@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="依據 9 篇已蒐集的文獻整理">
+<title>AI 研究代理會自己變聰明嗎？一份證據不多的盤點 | 朱國大 醫師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0f1e;--bg-primary:#0a0f1e;--card:#111d3c;--bg-card:#111d3c;--bg-card2:#162248;
+  --teal:#4dd9cf;--teal-light:#7ee8e2;--purple:#8b5cf6;--purple-light:#a78bfa;--gold:#f4a261;
+  --text:#e8f4f8;--sec:#8ba8c4;--text-sec:#8ba8c4;--text-dim:#4a6580;
+  --border:rgba(77,217,207,0.15);--shadow:0 8px 32px rgba(0,0,0,0.45);--radius:12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans TC','Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.9}
+a{color:var(--teal);text-decoration:none}a:hover{color:var(--teal-light)}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(10,15,30,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:14px 0}
+.top-bar-inner{max-width:980px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.back-link{color:var(--sec);font-size:0.9rem}
+.top-bar-title{font-size:0.82rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace}
+.article{max-width:860px;margin:0 auto;padding:58px 24px 82px}
+.article-header{margin-bottom:44px;padding-bottom:34px;border-bottom:1px solid var(--border)}
+.article-meta{color:var(--teal);font-size:0.85rem;font-family:'JetBrains Mono',monospace;margin-bottom:14px}
+.article-title{font-size:2.25rem;line-height:1.35;margin-bottom:18px;background:linear-gradient(135deg,var(--text),var(--teal-light));-webkit-background-clip:text;background-clip:text;color:transparent}
+.article-subtitle{color:var(--sec);font-size:1.04rem}
+.article-author{margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.author-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#2a9d8f,var(--purple));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem}
+.author-info{color:var(--sec);font-size:0.88rem;line-height:1.65}.author-info strong{color:var(--text)}
+.article-tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:0.72rem;padding:3px 12px;border-radius:20px;background:rgba(77,217,207,0.08);color:var(--teal);border:1px solid rgba(77,217,207,0.2)}
+h2{font-size:1.55rem;margin:54px 0 20px;padding-bottom:10px;border-bottom:2px solid var(--teal);display:inline-block}
+h3{font-size:1.18rem;color:var(--teal-light);margin:34px 0 14px}
+p{color:var(--sec);margin:0 0 20px}p strong,li strong{color:var(--text)}em{color:var(--teal-light)}
+ul,ol{color:var(--sec);padding-left:24px;margin:0 0 24px}li{margin-bottom:10px}li::marker{color:var(--teal)}
+sup a{font-size:.8em}
+blockquote{margin:34px 0;padding:24px 28px;background:linear-gradient(135deg,rgba(77,217,207,0.06),rgba(139,92,246,0.06));border-left:4px solid var(--teal);border-radius:8px;color:var(--text)}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--radius);overflow:hidden;font-size:0.92rem;display:block;overflow-x:auto}
+th{text-align:left;color:var(--teal);background:rgba(77,217,207,0.1);padding:12px 14px;border-bottom:1px solid var(--border)}
+td{padding:12px 14px;color:var(--sec);border-bottom:1px solid rgba(77,217,207,0.08);vertical-align:top}
+.model-warning{border-left:4px solid var(--gold);background:rgba(244,162,97,.08);padding:14px 16px;color:var(--sec);border-radius:8px;margin:0 0 28px;font-size:.9rem}
+.model-warning strong{color:var(--gold)}
+.data-figures{margin:46px 0}
+.data-figures figure{margin:0 0 30px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.data-figures svg,.data-figures canvas{width:100%;height:auto;display:block}
+.data-figures canvas{background:#08101f;border-radius:8px}
+figcaption{margin-top:12px;color:var(--sec);font-size:0.85rem;text-align:center;line-height:1.7}
+.control-row{display:flex;gap:12px;align-items:center;color:var(--sec);font-size:.85rem;margin-top:12px}
+.control-row input[type=range]{flex:1;accent-color:var(--teal)}
+.control-row output{color:var(--teal-light);font-family:'JetBrains Mono',monospace;min-width:11em;text-align:right}
+.references{margin-top:60px;padding-top:34px;border-top:2px solid var(--teal)}
+.references h2{border:none;margin-top:0;padding:0}
+.references ol{list-style:none;counter-reset:ref;padding-left:0}
+.references li{counter-increment:ref;position:relative;padding-left:42px;font-size:0.88rem;color:var(--sec);margin-bottom:14px;overflow-wrap:anywhere}
+.references li::before{content:counter(ref);position:absolute;left:0;top:2px;width:26px;height:26px;border-radius:50%;background:rgba(77,217,207,0.12);color:var(--teal);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:0.75rem}
+.article-footer{margin-top:54px;padding-top:28px;border-top:1px solid var(--border);color:var(--text-dim);font-size:0.88rem;text-align:center}
+@media(max-width:640px){.article{padding:42px 18px 64px}.article-title{font-size:1.65rem}.top-bar-title{display:none}.control-row{flex-wrap:wrap}.control-row output{text-align:left}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="top-bar"><div class="top-bar-inner"><a href="../index.html#teaching" class="back-link">← 返回首頁</a><div class="top-bar-title">AI 研究代理</div></div></div>
+<article class="article">
+<header class="article-header">
+  <div class="article-meta">2026 / 11 / 08 · AI 研究代理</div>
+  <h1 class="article-title">AI 研究代理會自己變聰明嗎？一份證據不多的盤點</h1>
+  <p class="article-subtitle">依據 9 篇已蒐集的文獻整理</p>
+  <div class="article-author"><div class="author-avatar">朱</div><div class="author-info"><strong>朱國大 醫師</strong><br>腎臟科暨認知神經科學研究 · 依據 9 篇已蒐集文獻整理</div></div>
+  <div class="article-tags"><span class="tag">Autoresearch</span><span class="tag">RSI</span><span class="tag">AI Agent</span></div>
+</header>
+<div class="model-warning">AI 輔助產出，已通過自動查核：引用皆來自實際蒐集的文獻，數字皆可在其引用來源中找到。 自動查核不等於專業審閱，發表或使用前仍須由專業人員確認。</div>
+<h2>一個尋常的下午</h2>
+<p>阿明（虛構的綜合人物）是一位在醫院資訊室工作的工程師。同事問他：「聽說現在有 AI 可以自己改程式、自己做實驗，越做越強，是真的嗎？」他在網路上看到「速度快了 5 倍」的標題，卻不知道該不該相信。這篇文章就從這個問題出發，整理目前手邊的證據。</p>
+<section class="data-figures" aria-label="本次研究蒐集的證據概況"><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 168" role="img" aria-labelledby="svg-kinds-t" font-family="Noto Sans TC, Inter, sans-serif"><title id="svg-kinds-t">證據來源類型</title><text x="16" y="28" fill="#4dd9cf" font-size="16" font-weight="700">證據來源類型</text><text x="16" y="66" fill="#e8f4f8" font-size="13">PubMed 期刊文獻</text><rect x="220" y="48" width="330.0" height="24" rx="4" fill="#8b5cf6"/><text x="558.0" y="65" fill="#4dd9cf" font-size="13">18</text><text x="16" y="102" fill="#e8f4f8" font-size="13">NotebookLM 二手摘要</text><rect x="220" y="84" width="73.3" height="24" rx="4" fill="#8b5cf6"/><text x="301.3" y="101" fill="#4dd9cf" font-size="13">4</text><text x="16" y="138" fill="#e8f4f8" font-size="13">arXiv 預印本</text><rect x="220" y="120" width="73.3" height="24" rx="4" fill="#8b5cf6"/><text x="301.3" y="137" fill="#4dd9cf" font-size="13">4</text></svg><figcaption>本次蒐集的證據依來源類型計數；長度與數字皆來自實際蒐集的文獻清單。</figcaption></figure><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" role="img" aria-labelledby="svg-years-t" font-family="Noto Sans TC, Inter, sans-serif"><title id="svg-years-t">各年份證據數量</title><text x="16" y="28" fill="#4dd9cf" font-size="16" font-weight="700">各年份證據數量</text><line x1="30" y1="250" x2="620" y2="250" stroke="#8ba8c4" stroke-opacity=".4"/><rect x="56.2" y="234.2" width="46.0" height="15.8" rx="3" fill="#4dd9cf"/><text x="79.2" y="228.2" fill="#e8f4f8" font-size="12" text-anchor="middle">1</text><text x="79.2" y="270" fill="#8ba8c4" font-size="12" text-anchor="middle">2016</text><rect x="154.5" y="218.3" width="46.0" height="31.7" rx="3" fill="#4dd9cf"/><text x="177.5" y="212.3" fill="#e8f4f8" font-size="12" text-anchor="middle">2</text><text x="177.5" y="270" fill="#8ba8c4" font-size="12" text-anchor="middle">2020</text><rect x="252.8" y="234.2" width="46.0" height="15.8" rx="3" fill="#4dd9cf"/><text x="275.8" y="228.2" fill="#e8f4f8" font-size="12" text-anchor="middle">1</text><text x="275.8" y="270" fill="#8ba8c4" font-size="12" text-anchor="middle">2022</text><rect x="351.2" y="218.3" width="46.0" height="31.7" rx="3" fill="#4dd9cf"/><text x="374.2" y="212.3" fill="#e8f4f8" font-size="12" text-anchor="middle">2</text><text x="374.2" y="270" fill="#8ba8c4" font-size="12" text-anchor="middle">2024</text><rect x="449.5" y="186.7" width="46.0" height="63.3" rx="3" fill="#4dd9cf"/><text x="472.5" y="180.7" fill="#e8f4f8" font-size="12" text-anchor="middle">4</text><text x="472.5" y="270" fill="#8ba8c4" font-size="12" text-anchor="middle">2025</text><rect x="547.8" y="60.0" width="46.0" height="190.0" rx="3" fill="#4dd9cf"/><text x="570.8" y="54.0" fill="#e8f4f8" font-size="12" text-anchor="middle">12</text><text x="570.8" y="270" fill="#8ba8c4" font-size="12" text-anchor="middle">2026</text></svg><figcaption>各出版年份的證據數量（靜態版）。</figcaption></figure><figure><canvas id="year-canvas" width="720" height="324" role="img" aria-label="各年份證據數量，可用滑桿選擇年份"></canvas><div class="control-row"><label for="year-slider">截止年份</label><input type="range" id="year-slider" min="0" max="0" value="0"><output id="year-out" for="year-slider" aria-live="polite"></output></div><figcaption>互動版：拖曳滑桿，青色為截止年份以前的證據，累計數即時計算。</figcaption></figure></section><h2>用比喻理解，再對照名詞</h2>
+<p>想像一位廚師反覆調整食譜：每次改一點、試吃、好吃就留下。這就是「autoresearch」：AI 提出程式修改、跑實驗、只保留讓指標變好的版本 <sup>[<a href="#ref-1">1</a>]</sup>。</p>
+<p>如果再請另一位「師傅」專門觀察這位廚師的做法，並改進他的試做流程，就是「bilevel autoresearch」：外層迴圈讀取內層的程式碼與紀錄，在執行時產生新的搜尋機制 <sup>[<a href="#ref-2">2</a>]</sup>。更進一步，連「評分的評審」也一起進化，則是 Red Queen Gödel Machine 這類做法 <sup>[<a href="#ref-3">3</a>]</sup>。這些統稱為「遞迴式自我改進」（recursive self-improvement）。</p>
+<p>「獎勵駭客」（reward hacking）好比學生不認真學，只鑽評分漏洞。有研究建立了 HackBench 基準，指出目前的 autoresearch 代理並不對齊，也無法充分找出作弊之處 <sup>[<a href="#ref-4">4</a>]</sup>。</p>
+<h2>證據顯示了什麼，哪裡仍不確定</h2>
+<p><strong>預印本（未經同儕審查）：</strong></p>
+<ul>
+<li>在 Karpathy 的 GPT 預訓練基準上，外層迴圈的驗證指標為 −0.045，標準內層迴圈為 −0.009，作者稱為 5 倍改進（數值越負代表表現越好）<sup>[<a href="#ref-2">2</a>]</sup>。但摘要沒有報告重複次數與變異，供應的資料中也沒有獨立團隊重現，因此仍屬未驗證 <sup>[<a href="#ref-2">2</a>]</sup>。</li>
+<li>另一項研究發現，迴圈越到後期，有幫助的修改比例從前兩輪的 70% 降到第 6 輪以後的 43% <sup>[<a href="#ref-1">1</a>]</sup>。AI 評審的「選擇性準確率」（只算它敢下判斷的案例）從 82.8% 掉到 56.9%，但它仍願意做決定；加入「相似過往嘗試與結果」的聚焦記憶後，回升到 83.5% <sup>[<a href="#ref-1">1</a>]</sup>。不過摘要沒說明這是否為嚴格對照實驗，也不能確定記憶就是原因 <sup>[<a href="#ref-1">1</a>]</sup>。</li>
+<li>評審與作者共同進化的框架中，程式任務通過率為 82.1%，對照組為 75.0% <sup>[<a href="#ref-3">3</a>]</sup>。</li>
+</ul>
+<p><strong>機器生成的二手摘要（NotebookLM，來源未具名，需謹慎）：</strong> 它們描述推測解碼的加速為 1.80 倍到 4.58 倍，但除原生做法外，準確率都下降，最多少了 7.4 個百分點，所以不能算「品質不變的加速」<sup>[<a href="#ref-5">5</a>, <a href="#ref-6">6</a>]</sup>。其中最快的做法準確率從 65.8% 降到 60.6%，主因是更多回答超過長度上限 <sup>[<a href="#ref-6">6</a>]</sup>。還有一項「單次實驗看似有效」的改動，經多組隨機種子檢驗後不成立 <sup>[<a href="#ref-5">5</a>, <a href="#ref-6">6</a>]</sup>。這些數字我們無法對照原始論文查證。</p>
+<p><strong>經同行評閱或已收錄於 PubMed 的文獻：</strong> 主要是綜述，指出直接支持完全自主發現的證據有限（以胰臟癌免疫學為例）<sup>[<a href="#ref-7">7</a>]</sup>，目前系統仍仰賴人類判斷 <sup>[<a href="#ref-8">8</a>]</sup>，且生物領域代理存在可重現性障礙 <sup>[<a href="#ref-9">9</a>]</sup>。這些文獻不提供自動研究迴圈的原始效果估計。</p>
+<p><strong>尚缺的證據：</strong> 沒有任何來源量測多輪自我修改中的獎勵駭客發生率，也沒有測試有害修改後的回滾是否有效。供應資料中也沒有登錄註冊項目。</p>
+<h2>可以問臨床或照護團隊的問題</h2>
+<p>若醫療機構導入 AI 研究或輔助工具，可以問：</p>
+<ol>
+<li>這個工具的成效是否經過獨立團隊、多次重複驗證？</li>
+<li>速度或效率提升時，準確度有沒有同步檢查？</li>
+<li>誰負責最後判讀？出錯時如何發現與復原？</li>
+<li>報告的數字，是在所有案例上，還是只在系統敢下判斷的案例上？</li>
+</ol>
+<h2>結語</h2>
+<p>目前證據支持的是謹慎結論：自動改進的修改價值會隨迴圈變差，評審可靠度後期下滑 <sup>[<a href="#ref-1">1</a>]</sup>；人類在發想階段仍很重要 <sup>[<a href="#ref-4">4</a>]</sup>。至於 5 倍之類的亮眼數字，還需獨立重現。本文僅整理研究現況，不能取代專業人員的個別評估與諮詢。</p>
+<section class="references">
+<h2>參考資料</h2>
+<ol><li id="ref-1">Ji, J., &amp; Ding, S. (2026). Rehearse: Stepping Back from the Confidence Cliff in Self-Improving Autoresearch. arXiv. <a href="https://arxiv.org/abs/2607.27687v1">https://arxiv.org/abs/2607.27687v1</a></li><li id="ref-2">Qu, Y., &amp; Lu, M. (2026). Bilevel Autoresearch: Meta-Autoresearching Itself. arXiv. <a href="https://arxiv.org/abs/2603.23420v2">https://arxiv.org/abs/2603.23420v2</a></li><li id="ref-3">Iacob, A., Jovanović, A., Shen, W. F., et al. (2026). The Red Queen Gödel Machine: Co-Evolving Agents and Their Evaluators. arXiv. <a href="https://arxiv.org/abs/2606.26294v3">https://arxiv.org/abs/2606.26294v3</a></li><li id="ref-4">Li, T., Jin, C., Kim, S., et al. (2026). Aligning Autoresearch: Co-Improvement between Agents and Humans. arXiv. <a href="https://arxiv.org/abs/2610.38882v1">https://arxiv.org/abs/2610.38882v1</a></li><li id="ref-5">Notebook answer: Which reported autoresearch or self-improvement gains have been independently replicated across seeds, runs or benchmarks, and with what variance? (n.d.). NotebookLM notebook a18829ff-beab-400e-b669-4c71d22432e7.</li><li id="ref-6">Notebook answer: For each speculative-decoding or throughput result cited, what accuracy or quality loss do the sources report alongside the speedup, and under what settings? (n.d.). NotebookLM notebook a18829ff-beab-400e-b669-4c71d22432e7.</li><li id="ref-7">Li, Y., Li, Y., Huang, R., et al. (2026). Autonomous AI research agents in pancreatic ductal adenocarcinoma immunology: from multimodal evidence to experimental validation. Front Immunol. <a href="https://doi.org/10.3389/fimmu.2026.1983838">https://doi.org/10.3389/fimmu.2026.1983838</a></li><li id="ref-8">Hasib, M. M., Jo, S., Sinha, H., et al. (2026). Unifying AI-assisted scientific discovery around exploration, hypothesis generation, and testing. Patterns (N Y). <a href="https://doi.org/10.1016/j.patter.2026.101660">https://doi.org/10.1016/j.patter.2026.101660</a></li><li id="ref-9">Dip, S. A., Mallick, D., Acharjee Shuvo, U., et al. (2026). Large language model agents for biological intelligence across genomics, proteomics, spatial biology, and biomedicine. Brief Bioinform. <a href="https://doi.org/10.1093/bib/bbag110">https://doi.org/10.1093/bib/bbag110</a></li></ol>
+</section>
+<footer class="article-footer">
+  本文為科普改寫，比喻僅為輔助理解，數值與結論以原始文獻為準；不能取代專業人員的個別評估與諮詢。<br>
+  <a href="../index.html#teaching">← 回到演講教學列表</a>
+</footer>
+</article>
+<script type="application/json" id="blog-data">{"kinds": {"PubMed": 18, "arXiv preprint": 4, "NotebookLM answer (secondary)": 4}, "years": {"2016": 1, "2020": 2, "2022": 1, "2024": 2, "2025": 4, "2026": 12}, "empty": "沒有可繪製的資料", "label": "截至 {year} 年累計 {total} 筆證據"}</script>
+<script>
+(function(){
+  var node=document.getElementById('blog-data');if(!node)return;
+  var data=JSON.parse(node.textContent);
+  var canvas=document.getElementById('year-canvas');if(!canvas||!canvas.getContext)return;
+  var ctx=canvas.getContext('2d'),slider=document.getElementById('year-slider'),out=document.getElementById('year-out');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var years=Object.keys(data.years||{}).map(Number).filter(function(y){return isFinite(y)}).sort(function(a,b){return a-b});
+  var counts=years.map(function(y){return Number(data.years[y])||0});
+  var grow=reduce?1:0,selected=years.length?years[years.length-1]:0;
+  function setup(){
+    var dpr=window.devicePixelRatio||1,w=Math.max(1,canvas.clientWidth||720),h=Math.round(w*0.45);
+    canvas.style.height=h+'px';canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);return {w:w,h:h};
+  }
+  function draw(){
+    var s=setup(),w=s.w,h=s.h,pad=34,base=h-34;
+    ctx.clearRect(0,0,w,h);ctx.font='12px "JetBrains Mono",monospace';ctx.textAlign='center';
+    if(!years.length){ctx.fillStyle='#8ba8c4';ctx.fillText(data.empty||'No data',w/2,h/2);return;}
+    var peak=Math.max(1,Math.max.apply(null,counts)),slot=(w-pad*2)/Math.max(1,years.length),bw=Math.max(2,Math.min(48,slot*0.62)),total=0;
+    ctx.strokeStyle='rgba(139,168,196,.35)';ctx.beginPath();ctx.moveTo(pad,base);ctx.lineTo(w-pad,base);ctx.stroke();
+    for(var i=0;i<years.length;i++){
+      var x=pad+slot*i+slot/2,bh=(base-pad)*(counts[i]/peak)*grow,on=years[i]<=selected;
+      if(on)total+=counts[i];
+      ctx.fillStyle=on?'#4dd9cf':'rgba(139,92,246,.35)';ctx.fillRect(x-bw/2,base-bh,bw,bh);
+      ctx.fillStyle='#e8f4f8';if(counts[i]>0&&grow>0.95)ctx.fillText(String(counts[i]),x,base-bh-6);
+      if(years.length<=14||i%Math.ceil(years.length/14)===0){ctx.fillStyle='#8ba8c4';ctx.fillText(String(years[i]),x,base+18);}
+    }
+    if(out)out.textContent=data.label.replace('{year}',selected).replace('{total}',total);
+  }
+  function animate(){grow=Math.min(1,grow+0.06);draw();if(grow<1)requestAnimationFrame(animate);}
+  if(slider){
+    if(years.length){slider.min=years[0];slider.max=years[years.length-1];slider.step=1;slider.value=selected;}else{slider.disabled=true;}
+    slider.addEventListener('input',function(){selected=Number(slider.value);draw();});
+  }
+  window.addEventListener('resize',draw);
+  if(reduce){draw();}else{animate();}
+})();
+</script>
+</body>
+</html>
